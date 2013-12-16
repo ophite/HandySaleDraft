@@ -1,0 +1,1056 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8004B4571850B01500681B11 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8004B4561850B01500681B11 /* Foundation.framework */; };
+		8004B4591850B01500681B11 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8004B4581850B01500681B11 /* CoreGraphics.framework */; };
+		8004B45B1850B01500681B11 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8004B45A1850B01500681B11 /* UIKit.framework */; };
+		8004B4611850B01500681B11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8004B45F1850B01500681B11 /* InfoPlist.strings */; };
+		8004B4631850B01500681B11 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B4621850B01500681B11 /* main.m */; };
+		8004B4671850B01500681B11 /* POSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B4661850B01500681B11 /* POSAppDelegate.m */; };
+		8004B46A1850B01500681B11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8004B4681850B01500681B11 /* Main.storyboard */; };
+		8004B46D1850B01500681B11 /* POSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B46C1850B01500681B11 /* POSViewController.m */; };
+		8004B46F1850B01500681B11 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8004B46E1850B01500681B11 /* Images.xcassets */; };
+		8004B4761850B01500681B11 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8004B4751850B01500681B11 /* XCTest.framework */; };
+		8004B4771850B01500681B11 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8004B4561850B01500681B11 /* Foundation.framework */; };
+		8004B4781850B01500681B11 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8004B45A1850B01500681B11 /* UIKit.framework */; };
+		8004B4801850B01500681B11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8004B47E1850B01500681B11 /* InfoPlist.strings */; };
+		8004B4821850B01500681B11 /* POSStoryboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B4811850B01500681B11 /* POSStoryboardTests.m */; };
+		8004B6AC1850C86300681B11 /* POSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B6A41850C86300681B11 /* POSTest.m */; };
+		8004B6AD1850C86300681B11 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B6A61850C86300681B11 /* FXLabel.m */; };
+		8004B6AE1850C86300681B11 /* CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B6A81850C86300681B11 /* CustomPhotoAlbum.m */; };
+		8004B6AF1850C86300681B11 /* POSDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B6AA1850C86300681B11 /* POSDataSet.m */; };
+		8004B6FB1850D30900681B11 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B6E11850D30900681B11 /* AQGridView.m */; };
+		8004B6FC1850D30900681B11 /* AQGridViewAnimatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B6E31850D30900681B11 /* AQGridViewAnimatorItem.m */; };
+		8004B6FD1850D30900681B11 /* AQGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B6E61850D30900681B11 /* AQGridViewCell.m */; };
+		8004B6FE1850D30900681B11 /* AQGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B6E81850D30900681B11 /* AQGridViewController.m */; };
+		8004B6FF1850D30900681B11 /* AQGridViewData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B6EA1850D30900681B11 /* AQGridViewData.m */; };
+		8004B7001850D30900681B11 /* AQGridViewUpdateInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B6EC1850D30900681B11 /* AQGridViewUpdateInfo.m */; };
+		8004B7011850D30900681B11 /* AQGridViewUpdateItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B6EE1850D30900681B11 /* AQGridViewUpdateItem.m */; };
+		8004B7021850D30900681B11 /* NSIndexSet+AQIndexesOutsideSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B6F01850D30900681B11 /* NSIndexSet+AQIndexesOutsideSet.m */; };
+		8004B7031850D30900681B11 /* NSIndexSet+AQIsSetContiguous.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B6F21850D30900681B11 /* NSIndexSet+AQIsSetContiguous.m */; };
+		8004B7041850D30900681B11 /* UIColor+AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B6F41850D30900681B11 /* UIColor+AQGridView.m */; };
+		8004B7051850D30900681B11 /* AQGridSelection.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B6F61850D30900681B11 /* AQGridSelection.png */; };
+		8004B7061850D30900681B11 /* AQGridSelectionGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B6F71850D30900681B11 /* AQGridSelectionGray.png */; };
+		8004B7071850D30900681B11 /* AQGridSelectionGrayBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B6F81850D30900681B11 /* AQGridSelectionGrayBlue.png */; };
+		8004B7081850D30900681B11 /* AQGridSelectionGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B6F91850D30900681B11 /* AQGridSelectionGreen.png */; };
+		8004B7091850D30900681B11 /* AQGridSelectionRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B6FA1850D30900681B11 /* AQGridSelectionRed.png */; };
+		8004B7131850D33600681B11 /* POSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B70C1850D33600681B11 /* POSCategory.m */; };
+		8004B7141850D33600681B11 /* POSItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B70E1850D33600681B11 /* POSItem.m */; };
+		8004B7151850D33600681B11 /* POSOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B7101850D33600681B11 /* POSOrder.m */; };
+		8004B7161850D33600681B11 /* POSImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B7121850D33600681B11 /* POSImage.m */; };
+		8004B73B1850D38800681B11 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7181850D38800681B11 /* Default-568h@2x.png */; };
+		8004B73C1850D38800681B11 /* car9.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7191850D38800681B11 /* car9.png */; };
+		8004B73D1850D38800681B11 /* car10.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B71A1850D38800681B11 /* car10.png */; };
+		8004B73E1850D38800681B11 /* car11.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B71B1850D38800681B11 /* car11.png */; };
+		8004B73F1850D38800681B11 /* car12.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B71C1850D38800681B11 /* car12.png */; };
+		8004B7401850D38800681B11 /* car03.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B71D1850D38800681B11 /* car03.png */; };
+		8004B7411850D38800681B11 /* car02.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B71E1850D38800681B11 /* car02.png */; };
+		8004B7421850D38800681B11 /* car01.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B71F1850D38800681B11 /* car01.png */; };
+		8004B7431850D38800681B11 /* car2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7201850D38800681B11 /* car2.png */; };
+		8004B7441850D38800681B11 /* car3.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7211850D38800681B11 /* car3.png */; };
+		8004B7451850D38800681B11 /* car4.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7221850D38800681B11 /* car4.png */; };
+		8004B7461850D38800681B11 /* car5.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7231850D38800681B11 /* car5.png */; };
+		8004B7471850D38800681B11 /* car6.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7241850D38800681B11 /* car6.png */; };
+		8004B7481850D38800681B11 /* car7.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7251850D38800681B11 /* car7.png */; };
+		8004B7491850D38800681B11 /* car8.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7261850D38800681B11 /* car8.png */; };
+		8004B74A1850D38800681B11 /* car13.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7271850D38800681B11 /* car13.png */; };
+		8004B74B1850D38800681B11 /* car14.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7281850D38800681B11 /* car14.png */; };
+		8004B74C1850D38800681B11 /* car15.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7291850D38800681B11 /* car15.png */; };
+		8004B74D1850D38800681B11 /* car16.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B72A1850D38800681B11 /* car16.png */; };
+		8004B74E1850D38800681B11 /* car17.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B72B1850D38800681B11 /* car17.png */; };
+		8004B74F1850D38800681B11 /* car18.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B72C1850D38800681B11 /* car18.png */; };
+		8004B7501850D38800681B11 /* car19.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B72D1850D38800681B11 /* car19.png */; };
+		8004B7511850D38800681B11 /* car20.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B72E1850D38800681B11 /* car20.png */; };
+		8004B7521850D38800681B11 /* car0.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B72F1850D38800681B11 /* car0.png */; };
+		8004B7531850D38800681B11 /* car1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7301850D38800681B11 /* car1.png */; };
+		8004B7541850D38800681B11 /* star2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7311850D38800681B11 /* star2.png */; };
+		8004B7551850D38800681B11 /* tab-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7321850D38800681B11 /* tab-mask@2x.png */; };
+		8004B7561850D38800681B11 /* tab-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7331850D38800681B11 /* tab-mask.png */; };
+		8004B7571850D38800681B11 /* bg-app.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7341850D38800681B11 /* bg-app.png */; };
+		8004B7581850D38800681B11 /* menubar.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7351850D38800681B11 /* menubar.png */; };
+		8004B7591850D38800681B11 /* bg-splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7361850D38800681B11 /* bg-splash.png */; };
+		8004B75A1850D38800681B11 /* button-splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7371850D38800681B11 /* button-splash.png */; };
+		8004B75B1850D38800681B11 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7381850D38800681B11 /* back.png */; };
+		8004B75C1850D38800681B11 /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B7391850D38800681B11 /* right.png */; };
+		8004B75D1850D38800681B11 /* right1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8004B73A1850D38800681B11 /* right1.png */; };
+		8004B7601850DACC00681B11 /* POSBasket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B75F1850DACC00681B11 /* POSBasket.m */; };
+		8004B7621850DDCA00681B11 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8004B7611850DDCA00681B11 /* libsqlite3.dylib */; };
+		80206FE8185B7250002FFC35 /* POSGoodsGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FE7185B7250002FFC35 /* POSGoodsGridViewController.m */; };
+		80206FEB185F4C25002FFC35 /* POSEditCatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FEA185F4C25002FFC35 /* POSEditCatViewController.m */; };
+		80206FEE185F4E1A002FFC35 /* POSEditGoodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FED185F4E1A002FFC35 /* POSEditGoodViewController.m */; };
+		8054C3EF1852233E00299E2F /* POSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3EE1852233E00299E2F /* POSLoginViewController.m */; };
+		8054C3F21852235000299E2F /* POSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3F11852235000299E2F /* POSRegisterViewController.m */; };
+		8054C3F51852236500299E2F /* POSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3F41852236500299E2F /* POSMainViewController.m */; };
+		807C43911859F56F00CBAB88 /* POSDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C438E1859F56F00CBAB88 /* POSDBHelper.m */; };
+		807C43921859F56F00CBAB88 /* POSDBWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43901859F56F00CBAB88 /* POSDBWrapper.m */; };
+		807C4398185A16EC00CBAB88 /* POSObjectsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C4397185A16EC00CBAB88 /* POSObjectsHelper.m */; };
+		807C439E185A1B2F00CBAB88 /* POSCatGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C439D185A1B2F00CBAB88 /* POSCatGridViewController.m */; };
+		807C43A0185A21D900CBAB88 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 807C439F185A21D900CBAB88 /* libzbar.a */; };
+		807C43A6185A21E900CBAB88 /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 807C43A2185A21E900CBAB88 /* zbar-back.png */; };
+		807C43A7185A21E900CBAB88 /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = 807C43A3185A21E900CBAB88 /* zbar-help.html */; };
+		807C43A8185A21E900CBAB88 /* zbar-helpicons.png in Resources */ = {isa = PBXBuildFile; fileRef = 807C43A4185A21E900CBAB88 /* zbar-helpicons.png */; };
+		807C43A9185A21E900CBAB88 /* zbar-samples.png in Resources */ = {isa = PBXBuildFile; fileRef = 807C43A5185A21E900CBAB88 /* zbar-samples.png */; };
+		807C43C3185A23F100CBAB88 /* POSGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43C2185A23F100CBAB88 /* POSGridViewCell.m */; };
+		807C43C6185B198800CBAB88 /* POSBasketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43C5185B198800CBAB88 /* POSBasketViewController.m */; };
+		807C43CC185B1B5B00CBAB88 /* POSNewCatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43CB185B1B5B00CBAB88 /* POSNewCatViewController.m */; };
+		807C43D9185B281400CBAB88 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 807C43D1185B267B00CBAB88 /* libiconv.dylib */; };
+		807C43DC185B5A0E00CBAB88 /* POSItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43DB185B5A0E00CBAB88 /* POSItemViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8004B4791850B01500681B11 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8004B44B1850B01500681B11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8004B4521850B01500681B11;
+			remoteInfo = POSStoryboard;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8004B4531850B01500681B11 /* POSStoryboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = POSStoryboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8004B4561850B01500681B11 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8004B4581850B01500681B11 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		8004B45A1850B01500681B11 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		8004B45E1850B01500681B11 /* POSStoryboard-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "POSStoryboard-Info.plist"; sourceTree = "<group>"; };
+		8004B4601850B01500681B11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8004B4621850B01500681B11 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8004B4641850B01500681B11 /* POSStoryboard-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "POSStoryboard-Prefix.pch"; sourceTree = "<group>"; };
+		8004B4651850B01500681B11 /* POSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POSAppDelegate.h; sourceTree = "<group>"; };
+		8004B4661850B01500681B11 /* POSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = POSAppDelegate.m; sourceTree = "<group>"; };
+		8004B4691850B01500681B11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8004B46B1850B01500681B11 /* POSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSViewController.h; sourceTree = "<group>"; };
+		8004B46C1850B01500681B11 /* POSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSViewController.m; sourceTree = "<group>"; };
+		8004B46E1850B01500681B11 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8004B4741850B01500681B11 /* POSStoryboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POSStoryboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8004B4751850B01500681B11 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		8004B47D1850B01500681B11 /* POSStoryboardTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "POSStoryboardTests-Info.plist"; sourceTree = "<group>"; };
+		8004B47F1850B01500681B11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8004B4811850B01500681B11 /* POSStoryboardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = POSStoryboardTests.m; sourceTree = "<group>"; };
+		8004B6A31850C86300681B11 /* POSTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSTest.h; sourceTree = "<group>"; };
+		8004B6A41850C86300681B11 /* POSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSTest.m; sourceTree = "<group>"; };
+		8004B6A51850C86300681B11 /* FXLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXLabel.h; sourceTree = "<group>"; };
+		8004B6A61850C86300681B11 /* FXLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXLabel.m; sourceTree = "<group>"; };
+		8004B6A71850C86300681B11 /* CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPhotoAlbum.h; sourceTree = "<group>"; };
+		8004B6A81850C86300681B11 /* CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPhotoAlbum.m; sourceTree = "<group>"; };
+		8004B6A91850C86300681B11 /* POSDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSDataSet.h; sourceTree = "<group>"; };
+		8004B6AA1850C86300681B11 /* POSDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSDataSet.m; sourceTree = "<group>"; };
+		8004B6DE1850D30900681B11 /* AQGridView+CellLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AQGridView+CellLayout.h"; sourceTree = "<group>"; };
+		8004B6DF1850D30900681B11 /* AQGridView+CellLocationDelegation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AQGridView+CellLocationDelegation.h"; sourceTree = "<group>"; };
+		8004B6E01850D30900681B11 /* AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQGridView.h; sourceTree = "<group>"; };
+		8004B6E11850D30900681B11 /* AQGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQGridView.m; sourceTree = "<group>"; };
+		8004B6E21850D30900681B11 /* AQGridViewAnimatorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQGridViewAnimatorItem.h; sourceTree = "<group>"; };
+		8004B6E31850D30900681B11 /* AQGridViewAnimatorItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQGridViewAnimatorItem.m; sourceTree = "<group>"; };
+		8004B6E41850D30900681B11 /* AQGridViewCell+AQGridViewCellPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AQGridViewCell+AQGridViewCellPrivate.h"; sourceTree = "<group>"; };
+		8004B6E51850D30900681B11 /* AQGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQGridViewCell.h; sourceTree = "<group>"; };
+		8004B6E61850D30900681B11 /* AQGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQGridViewCell.m; sourceTree = "<group>"; };
+		8004B6E71850D30900681B11 /* AQGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQGridViewController.h; sourceTree = "<group>"; };
+		8004B6E81850D30900681B11 /* AQGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQGridViewController.m; sourceTree = "<group>"; };
+		8004B6E91850D30900681B11 /* AQGridViewData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQGridViewData.h; sourceTree = "<group>"; };
+		8004B6EA1850D30900681B11 /* AQGridViewData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQGridViewData.m; sourceTree = "<group>"; };
+		8004B6EB1850D30900681B11 /* AQGridViewUpdateInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQGridViewUpdateInfo.h; sourceTree = "<group>"; };
+		8004B6EC1850D30900681B11 /* AQGridViewUpdateInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQGridViewUpdateInfo.m; sourceTree = "<group>"; };
+		8004B6ED1850D30900681B11 /* AQGridViewUpdateItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQGridViewUpdateItem.h; sourceTree = "<group>"; };
+		8004B6EE1850D30900681B11 /* AQGridViewUpdateItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQGridViewUpdateItem.m; sourceTree = "<group>"; };
+		8004B6EF1850D30900681B11 /* NSIndexSet+AQIndexesOutsideSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+AQIndexesOutsideSet.h"; sourceTree = "<group>"; };
+		8004B6F01850D30900681B11 /* NSIndexSet+AQIndexesOutsideSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+AQIndexesOutsideSet.m"; sourceTree = "<group>"; };
+		8004B6F11850D30900681B11 /* NSIndexSet+AQIsSetContiguous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+AQIsSetContiguous.h"; sourceTree = "<group>"; };
+		8004B6F21850D30900681B11 /* NSIndexSet+AQIsSetContiguous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+AQIsSetContiguous.m"; sourceTree = "<group>"; };
+		8004B6F31850D30900681B11 /* UIColor+AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AQGridView.h"; sourceTree = "<group>"; };
+		8004B6F41850D30900681B11 /* UIColor+AQGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AQGridView.m"; sourceTree = "<group>"; };
+		8004B6F61850D30900681B11 /* AQGridSelection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AQGridSelection.png; sourceTree = "<group>"; };
+		8004B6F71850D30900681B11 /* AQGridSelectionGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AQGridSelectionGray.png; sourceTree = "<group>"; };
+		8004B6F81850D30900681B11 /* AQGridSelectionGrayBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AQGridSelectionGrayBlue.png; sourceTree = "<group>"; };
+		8004B6F91850D30900681B11 /* AQGridSelectionGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AQGridSelectionGreen.png; sourceTree = "<group>"; };
+		8004B6FA1850D30900681B11 /* AQGridSelectionRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AQGridSelectionRed.png; sourceTree = "<group>"; };
+		8004B70B1850D33600681B11 /* POSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSCategory.h; sourceTree = "<group>"; };
+		8004B70C1850D33600681B11 /* POSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSCategory.m; sourceTree = "<group>"; };
+		8004B70D1850D33600681B11 /* POSItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSItem.h; sourceTree = "<group>"; };
+		8004B70E1850D33600681B11 /* POSItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSItem.m; sourceTree = "<group>"; };
+		8004B70F1850D33600681B11 /* POSOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSOrder.h; sourceTree = "<group>"; };
+		8004B7101850D33600681B11 /* POSOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSOrder.m; sourceTree = "<group>"; };
+		8004B7111850D33600681B11 /* POSImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSImage.h; sourceTree = "<group>"; };
+		8004B7121850D33600681B11 /* POSImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSImage.m; sourceTree = "<group>"; };
+		8004B7181850D38800681B11 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		8004B7191850D38800681B11 /* car9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car9.png; sourceTree = "<group>"; };
+		8004B71A1850D38800681B11 /* car10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car10.png; sourceTree = "<group>"; };
+		8004B71B1850D38800681B11 /* car11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car11.png; sourceTree = "<group>"; };
+		8004B71C1850D38800681B11 /* car12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car12.png; sourceTree = "<group>"; };
+		8004B71D1850D38800681B11 /* car03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car03.png; sourceTree = "<group>"; };
+		8004B71E1850D38800681B11 /* car02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car02.png; sourceTree = "<group>"; };
+		8004B71F1850D38800681B11 /* car01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car01.png; sourceTree = "<group>"; };
+		8004B7201850D38800681B11 /* car2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car2.png; sourceTree = "<group>"; };
+		8004B7211850D38800681B11 /* car3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car3.png; sourceTree = "<group>"; };
+		8004B7221850D38800681B11 /* car4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car4.png; sourceTree = "<group>"; };
+		8004B7231850D38800681B11 /* car5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car5.png; sourceTree = "<group>"; };
+		8004B7241850D38800681B11 /* car6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car6.png; sourceTree = "<group>"; };
+		8004B7251850D38800681B11 /* car7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car7.png; sourceTree = "<group>"; };
+		8004B7261850D38800681B11 /* car8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car8.png; sourceTree = "<group>"; };
+		8004B7271850D38800681B11 /* car13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car13.png; sourceTree = "<group>"; };
+		8004B7281850D38800681B11 /* car14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car14.png; sourceTree = "<group>"; };
+		8004B7291850D38800681B11 /* car15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car15.png; sourceTree = "<group>"; };
+		8004B72A1850D38800681B11 /* car16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car16.png; sourceTree = "<group>"; };
+		8004B72B1850D38800681B11 /* car17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car17.png; sourceTree = "<group>"; };
+		8004B72C1850D38800681B11 /* car18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car18.png; sourceTree = "<group>"; };
+		8004B72D1850D38800681B11 /* car19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car19.png; sourceTree = "<group>"; };
+		8004B72E1850D38800681B11 /* car20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car20.png; sourceTree = "<group>"; };
+		8004B72F1850D38800681B11 /* car0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car0.png; sourceTree = "<group>"; };
+		8004B7301850D38800681B11 /* car1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car1.png; sourceTree = "<group>"; };
+		8004B7311850D38800681B11 /* star2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star2.png; sourceTree = "<group>"; };
+		8004B7321850D38800681B11 /* tab-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-mask@2x.png"; sourceTree = "<group>"; };
+		8004B7331850D38800681B11 /* tab-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-mask.png"; sourceTree = "<group>"; };
+		8004B7341850D38800681B11 /* bg-app.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-app.png"; sourceTree = "<group>"; };
+		8004B7351850D38800681B11 /* menubar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menubar.png; sourceTree = "<group>"; };
+		8004B7361850D38800681B11 /* bg-splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-splash.png"; sourceTree = "<group>"; };
+		8004B7371850D38800681B11 /* button-splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-splash.png"; sourceTree = "<group>"; };
+		8004B7381850D38800681B11 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		8004B7391850D38800681B11 /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
+		8004B73A1850D38800681B11 /* right1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right1.png; sourceTree = "<group>"; };
+		8004B75E1850DACC00681B11 /* POSBasket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSBasket.h; sourceTree = "<group>"; };
+		8004B75F1850DACC00681B11 /* POSBasket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSBasket.m; sourceTree = "<group>"; };
+		8004B7611850DDCA00681B11 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		80206FE6185B7250002FFC35 /* POSGoodsGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSGoodsGridViewController.h; sourceTree = "<group>"; };
+		80206FE7185B7250002FFC35 /* POSGoodsGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSGoodsGridViewController.m; sourceTree = "<group>"; };
+		80206FE9185F4C25002FFC35 /* POSEditCatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSEditCatViewController.h; sourceTree = "<group>"; };
+		80206FEA185F4C25002FFC35 /* POSEditCatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSEditCatViewController.m; sourceTree = "<group>"; };
+		80206FEC185F4E1A002FFC35 /* POSEditGoodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSEditGoodViewController.h; sourceTree = "<group>"; };
+		80206FED185F4E1A002FFC35 /* POSEditGoodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSEditGoodViewController.m; sourceTree = "<group>"; };
+		8054C3ED1852233E00299E2F /* POSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSLoginViewController.h; sourceTree = "<group>"; };
+		8054C3EE1852233E00299E2F /* POSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSLoginViewController.m; sourceTree = "<group>"; };
+		8054C3F01852235000299E2F /* POSRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSRegisterViewController.h; sourceTree = "<group>"; };
+		8054C3F11852235000299E2F /* POSRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSRegisterViewController.m; sourceTree = "<group>"; };
+		8054C3F31852236500299E2F /* POSMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSMainViewController.h; sourceTree = "<group>"; };
+		8054C3F41852236500299E2F /* POSMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSMainViewController.m; sourceTree = "<group>"; };
+		807C438D1859F56F00CBAB88 /* POSDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSDBHelper.h; path = Helpers/POSDBHelper.h; sourceTree = "<group>"; };
+		807C438E1859F56F00CBAB88 /* POSDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSDBHelper.m; path = Helpers/POSDBHelper.m; sourceTree = "<group>"; };
+		807C438F1859F56F00CBAB88 /* POSDBWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSDBWrapper.h; path = Helpers/POSDBWrapper.h; sourceTree = "<group>"; };
+		807C43901859F56F00CBAB88 /* POSDBWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSDBWrapper.m; path = Helpers/POSDBWrapper.m; sourceTree = "<group>"; };
+		807C4396185A16EC00CBAB88 /* POSObjectsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSObjectsHelper.h; path = Helpers/POSObjectsHelper.h; sourceTree = "<group>"; };
+		807C4397185A16EC00CBAB88 /* POSObjectsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSObjectsHelper.m; path = Helpers/POSObjectsHelper.m; sourceTree = "<group>"; };
+		807C439C185A1B2F00CBAB88 /* POSCatGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSCatGridViewController.h; sourceTree = "<group>"; };
+		807C439D185A1B2F00CBAB88 /* POSCatGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSCatGridViewController.m; sourceTree = "<group>"; };
+		807C439F185A21D900CBAB88 /* libzbar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzbar.a; sourceTree = "<group>"; };
+		807C43A2185A21E900CBAB88 /* zbar-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-back.png"; sourceTree = "<group>"; };
+		807C43A3185A21E900CBAB88 /* zbar-help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "zbar-help.html"; sourceTree = "<group>"; };
+		807C43A4185A21E900CBAB88 /* zbar-helpicons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-helpicons.png"; sourceTree = "<group>"; };
+		807C43A5185A21E900CBAB88 /* zbar-samples.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-samples.png"; sourceTree = "<group>"; };
+		807C43AC185A220F00CBAB88 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
+		807C43AD185A220F00CBAB88 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
+		807C43AE185A220F00CBAB88 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		807C43AF185A220F00CBAB88 /* ImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScanner.h; sourceTree = "<group>"; };
+		807C43B0185A220F00CBAB88 /* Processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processor.h; sourceTree = "<group>"; };
+		807C43B1185A220F00CBAB88 /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
+		807C43B2185A220F00CBAB88 /* Symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symbol.h; sourceTree = "<group>"; };
+		807C43B3185A220F00CBAB88 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
+		807C43B4185A220F00CBAB88 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
+		807C43B5185A220F00CBAB88 /* zbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zbar.h; sourceTree = "<group>"; };
+		807C43B6185A220F00CBAB88 /* ZBarCameraSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCameraSimulator.h; sourceTree = "<group>"; };
+		807C43B7185A220F00CBAB88 /* ZBarCaptureReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCaptureReader.h; sourceTree = "<group>"; };
+		807C43B8185A220F00CBAB88 /* ZBarHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarHelpController.h; sourceTree = "<group>"; };
+		807C43B9185A220F00CBAB88 /* ZBarImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImage.h; sourceTree = "<group>"; };
+		807C43BA185A220F00CBAB88 /* ZBarImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImageScanner.h; sourceTree = "<group>"; };
+		807C43BB185A220F00CBAB88 /* ZBarReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderController.h; sourceTree = "<group>"; };
+		807C43BC185A220F00CBAB88 /* ZBarReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderView.h; sourceTree = "<group>"; };
+		807C43BD185A220F00CBAB88 /* ZBarReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderViewController.h; sourceTree = "<group>"; };
+		807C43BE185A220F00CBAB88 /* ZBarSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSDK.h; sourceTree = "<group>"; };
+		807C43BF185A220F00CBAB88 /* ZBarSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSymbol.h; sourceTree = "<group>"; };
+		807C43C1185A23F100CBAB88 /* POSGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSGridViewCell.h; path = Controls/POSGridViewCell.h; sourceTree = "<group>"; };
+		807C43C2185A23F100CBAB88 /* POSGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSGridViewCell.m; path = Controls/POSGridViewCell.m; sourceTree = "<group>"; };
+		807C43C4185B198800CBAB88 /* POSBasketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSBasketViewController.h; sourceTree = "<group>"; };
+		807C43C5185B198800CBAB88 /* POSBasketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSBasketViewController.m; sourceTree = "<group>"; };
+		807C43CA185B1B5B00CBAB88 /* POSNewCatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSNewCatViewController.h; sourceTree = "<group>"; };
+		807C43CB185B1B5B00CBAB88 /* POSNewCatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSNewCatViewController.m; sourceTree = "<group>"; };
+		807C43CD185B265F00CBAB88 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		807C43CF185B266800CBAB88 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		807C43D1185B267B00CBAB88 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		807C43D3185B268C00CBAB88 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		807C43D5185B269A00CBAB88 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		807C43D7185B26B100CBAB88 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		807C43DA185B5A0E00CBAB88 /* POSItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSItemViewController.h; sourceTree = "<group>"; };
+		807C43DB185B5A0E00CBAB88 /* POSItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSItemViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8004B4501850B01500681B11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				807C43D9185B281400CBAB88 /* libiconv.dylib in Frameworks */,
+				8004B7621850DDCA00681B11 /* libsqlite3.dylib in Frameworks */,
+				8004B4591850B01500681B11 /* CoreGraphics.framework in Frameworks */,
+				807C43A0185A21D900CBAB88 /* libzbar.a in Frameworks */,
+				8004B45B1850B01500681B11 /* UIKit.framework in Frameworks */,
+				8004B4571850B01500681B11 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8004B4711850B01500681B11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8004B4761850B01500681B11 /* XCTest.framework in Frameworks */,
+				8004B4781850B01500681B11 /* UIKit.framework in Frameworks */,
+				8004B4771850B01500681B11 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8004B44A1850B01500681B11 = {
+			isa = PBXGroup;
+			children = (
+				8004B4551850B01500681B11 /* Frameworks */,
+				8004B45C1850B01500681B11 /* POSStoryboard */,
+				8004B47B1850B01500681B11 /* POSStoryboardTests */,
+				8004B4541850B01500681B11 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8004B4541850B01500681B11 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8004B4531850B01500681B11 /* POSStoryboard.app */,
+				8004B4741850B01500681B11 /* POSStoryboardTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8004B4551850B01500681B11 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				807C43D7185B26B100CBAB88 /* AssetsLibrary.framework */,
+				807C43D5185B269A00CBAB88 /* QuartzCore.framework */,
+				807C43D3185B268C00CBAB88 /* AVFoundation.framework */,
+				807C43D1185B267B00CBAB88 /* libiconv.dylib */,
+				807C43CF185B266800CBAB88 /* CoreVideo.framework */,
+				807C43CD185B265F00CBAB88 /* CoreMedia.framework */,
+				8004B7611850DDCA00681B11 /* libsqlite3.dylib */,
+				8004B4561850B01500681B11 /* Foundation.framework */,
+				8004B4581850B01500681B11 /* CoreGraphics.framework */,
+				8004B45A1850B01500681B11 /* UIKit.framework */,
+				8004B4751850B01500681B11 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8004B45C1850B01500681B11 /* POSStoryboard */ = {
+			isa = PBXGroup;
+			children = (
+				807C43C0185A239600CBAB88 /* Controls */,
+				8054C3EC1852220900299E2F /* AppDelegate */,
+				8054C3EB185221E900299E2F /* Helpers */,
+				8054C3EA185221E400299E2F /* Models */,
+				8054C3E9185221D500299E2F /* Controllers */,
+				8004B6DC1850D30900681B11 /* AQGridView */,
+				8004B6A01850C85200681B11 /* CustomClasses */,
+				8004B46E1850B01500681B11 /* Images.xcassets */,
+				8004B4681850B01500681B11 /* Main.storyboard */,
+				8004B7171850D36500681B11 /* Resources */,
+				8004B45D1850B01500681B11 /* Supporting Files */,
+				8004B6D71850D2E900681B11 /* ZBarSDK */,
+			);
+			path = POSStoryboard;
+			sourceTree = "<group>";
+		};
+		8004B45D1850B01500681B11 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8004B45E1850B01500681B11 /* POSStoryboard-Info.plist */,
+				8004B45F1850B01500681B11 /* InfoPlist.strings */,
+				8004B4621850B01500681B11 /* main.m */,
+				8004B4641850B01500681B11 /* POSStoryboard-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8004B47B1850B01500681B11 /* POSStoryboardTests */ = {
+			isa = PBXGroup;
+			children = (
+				8004B4811850B01500681B11 /* POSStoryboardTests.m */,
+				8004B47C1850B01500681B11 /* Supporting Files */,
+			);
+			path = POSStoryboardTests;
+			sourceTree = "<group>";
+		};
+		8004B47C1850B01500681B11 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8004B47D1850B01500681B11 /* POSStoryboardTests-Info.plist */,
+				8004B47E1850B01500681B11 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8004B6A01850C85200681B11 /* CustomClasses */ = {
+			isa = PBXGroup;
+			children = (
+				8004B6A31850C86300681B11 /* POSTest.h */,
+				8004B6A41850C86300681B11 /* POSTest.m */,
+				8004B6A51850C86300681B11 /* FXLabel.h */,
+				8004B6A61850C86300681B11 /* FXLabel.m */,
+				8004B6A71850C86300681B11 /* CustomPhotoAlbum.h */,
+				8004B6A81850C86300681B11 /* CustomPhotoAlbum.m */,
+				8004B6A91850C86300681B11 /* POSDataSet.h */,
+				8004B6AA1850C86300681B11 /* POSDataSet.m */,
+			);
+			name = CustomClasses;
+			sourceTree = "<group>";
+		};
+		8004B6D71850D2E900681B11 /* ZBarSDK */ = {
+			isa = PBXGroup;
+			children = (
+				807C439F185A21D900CBAB88 /* libzbar.a */,
+				807C43A1185A21E900CBAB88 /* Resources */,
+				8004B6D81850D2E900681B11 /* Headers */,
+			);
+			path = ZBarSDK;
+			sourceTree = "<group>";
+		};
+		8004B6D81850D2E900681B11 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				807C43AA185A220F00CBAB88 /* ZBarSDK */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		8004B6DC1850D30900681B11 /* AQGridView */ = {
+			isa = PBXGroup;
+			children = (
+				8004B6DD1850D30900681B11 /* Classes */,
+				8004B6F51850D30900681B11 /* Resources */,
+			);
+			path = AQGridView;
+			sourceTree = "<group>";
+		};
+		8004B6DD1850D30900681B11 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8004B6DE1850D30900681B11 /* AQGridView+CellLayout.h */,
+				8004B6DF1850D30900681B11 /* AQGridView+CellLocationDelegation.h */,
+				8004B6E01850D30900681B11 /* AQGridView.h */,
+				8004B6E11850D30900681B11 /* AQGridView.m */,
+				8004B6E21850D30900681B11 /* AQGridViewAnimatorItem.h */,
+				8004B6E31850D30900681B11 /* AQGridViewAnimatorItem.m */,
+				8004B6E41850D30900681B11 /* AQGridViewCell+AQGridViewCellPrivate.h */,
+				8004B6E51850D30900681B11 /* AQGridViewCell.h */,
+				8004B6E61850D30900681B11 /* AQGridViewCell.m */,
+				8004B6E71850D30900681B11 /* AQGridViewController.h */,
+				8004B6E81850D30900681B11 /* AQGridViewController.m */,
+				8004B6E91850D30900681B11 /* AQGridViewData.h */,
+				8004B6EA1850D30900681B11 /* AQGridViewData.m */,
+				8004B6EB1850D30900681B11 /* AQGridViewUpdateInfo.h */,
+				8004B6EC1850D30900681B11 /* AQGridViewUpdateInfo.m */,
+				8004B6ED1850D30900681B11 /* AQGridViewUpdateItem.h */,
+				8004B6EE1850D30900681B11 /* AQGridViewUpdateItem.m */,
+				8004B6EF1850D30900681B11 /* NSIndexSet+AQIndexesOutsideSet.h */,
+				8004B6F01850D30900681B11 /* NSIndexSet+AQIndexesOutsideSet.m */,
+				8004B6F11850D30900681B11 /* NSIndexSet+AQIsSetContiguous.h */,
+				8004B6F21850D30900681B11 /* NSIndexSet+AQIsSetContiguous.m */,
+				8004B6F31850D30900681B11 /* UIColor+AQGridView.h */,
+				8004B6F41850D30900681B11 /* UIColor+AQGridView.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		8004B6F51850D30900681B11 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8004B6F61850D30900681B11 /* AQGridSelection.png */,
+				8004B6F71850D30900681B11 /* AQGridSelectionGray.png */,
+				8004B6F81850D30900681B11 /* AQGridSelectionGrayBlue.png */,
+				8004B6F91850D30900681B11 /* AQGridSelectionGreen.png */,
+				8004B6FA1850D30900681B11 /* AQGridSelectionRed.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8004B7171850D36500681B11 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8004B7181850D38800681B11 /* Default-568h@2x.png */,
+				8004B7191850D38800681B11 /* car9.png */,
+				8004B71A1850D38800681B11 /* car10.png */,
+				8004B71B1850D38800681B11 /* car11.png */,
+				8004B71C1850D38800681B11 /* car12.png */,
+				8004B71D1850D38800681B11 /* car03.png */,
+				8004B71E1850D38800681B11 /* car02.png */,
+				8004B71F1850D38800681B11 /* car01.png */,
+				8004B7201850D38800681B11 /* car2.png */,
+				8004B7211850D38800681B11 /* car3.png */,
+				8004B7221850D38800681B11 /* car4.png */,
+				8004B7231850D38800681B11 /* car5.png */,
+				8004B7241850D38800681B11 /* car6.png */,
+				8004B7251850D38800681B11 /* car7.png */,
+				8004B7261850D38800681B11 /* car8.png */,
+				8004B7271850D38800681B11 /* car13.png */,
+				8004B7281850D38800681B11 /* car14.png */,
+				8004B7291850D38800681B11 /* car15.png */,
+				8004B72A1850D38800681B11 /* car16.png */,
+				8004B72B1850D38800681B11 /* car17.png */,
+				8004B72C1850D38800681B11 /* car18.png */,
+				8004B72D1850D38800681B11 /* car19.png */,
+				8004B72E1850D38800681B11 /* car20.png */,
+				8004B72F1850D38800681B11 /* car0.png */,
+				8004B7301850D38800681B11 /* car1.png */,
+				8004B7311850D38800681B11 /* star2.png */,
+				8004B7321850D38800681B11 /* tab-mask@2x.png */,
+				8004B7331850D38800681B11 /* tab-mask.png */,
+				8004B7341850D38800681B11 /* bg-app.png */,
+				8004B7351850D38800681B11 /* menubar.png */,
+				8004B7361850D38800681B11 /* bg-splash.png */,
+				8004B7371850D38800681B11 /* button-splash.png */,
+				8004B7381850D38800681B11 /* back.png */,
+				8004B7391850D38800681B11 /* right.png */,
+				8004B73A1850D38800681B11 /* right1.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		8054C3E9185221D500299E2F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8004B46B1850B01500681B11 /* POSViewController.h */,
+				8004B46C1850B01500681B11 /* POSViewController.m */,
+				8054C3ED1852233E00299E2F /* POSLoginViewController.h */,
+				8054C3EE1852233E00299E2F /* POSLoginViewController.m */,
+				8054C3F01852235000299E2F /* POSRegisterViewController.h */,
+				8054C3F11852235000299E2F /* POSRegisterViewController.m */,
+				8054C3F31852236500299E2F /* POSMainViewController.h */,
+				8054C3F41852236500299E2F /* POSMainViewController.m */,
+				807C439C185A1B2F00CBAB88 /* POSCatGridViewController.h */,
+				807C439D185A1B2F00CBAB88 /* POSCatGridViewController.m */,
+				807C43C4185B198800CBAB88 /* POSBasketViewController.h */,
+				807C43C5185B198800CBAB88 /* POSBasketViewController.m */,
+				807C43CA185B1B5B00CBAB88 /* POSNewCatViewController.h */,
+				807C43CB185B1B5B00CBAB88 /* POSNewCatViewController.m */,
+				807C43DA185B5A0E00CBAB88 /* POSItemViewController.h */,
+				807C43DB185B5A0E00CBAB88 /* POSItemViewController.m */,
+				80206FE6185B7250002FFC35 /* POSGoodsGridViewController.h */,
+				80206FE7185B7250002FFC35 /* POSGoodsGridViewController.m */,
+				80206FE9185F4C25002FFC35 /* POSEditCatViewController.h */,
+				80206FEA185F4C25002FFC35 /* POSEditCatViewController.m */,
+				80206FEC185F4E1A002FFC35 /* POSEditGoodViewController.h */,
+				80206FED185F4E1A002FFC35 /* POSEditGoodViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		8054C3EA185221E400299E2F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8004B75E1850DACC00681B11 /* POSBasket.h */,
+				8004B75F1850DACC00681B11 /* POSBasket.m */,
+				8004B70B1850D33600681B11 /* POSCategory.h */,
+				8004B70C1850D33600681B11 /* POSCategory.m */,
+				8004B70D1850D33600681B11 /* POSItem.h */,
+				8004B70E1850D33600681B11 /* POSItem.m */,
+				8004B70F1850D33600681B11 /* POSOrder.h */,
+				8004B7101850D33600681B11 /* POSOrder.m */,
+				8004B7111850D33600681B11 /* POSImage.h */,
+				8004B7121850D33600681B11 /* POSImage.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		8054C3EB185221E900299E2F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				807C438D1859F56F00CBAB88 /* POSDBHelper.h */,
+				807C438E1859F56F00CBAB88 /* POSDBHelper.m */,
+				807C438F1859F56F00CBAB88 /* POSDBWrapper.h */,
+				807C43901859F56F00CBAB88 /* POSDBWrapper.m */,
+				807C4396185A16EC00CBAB88 /* POSObjectsHelper.h */,
+				807C4397185A16EC00CBAB88 /* POSObjectsHelper.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		8054C3EC1852220900299E2F /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				8004B4651850B01500681B11 /* POSAppDelegate.h */,
+				8004B4661850B01500681B11 /* POSAppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		807C43A1185A21E900CBAB88 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				807C43A2185A21E900CBAB88 /* zbar-back.png */,
+				807C43A3185A21E900CBAB88 /* zbar-help.html */,
+				807C43A4185A21E900CBAB88 /* zbar-helpicons.png */,
+				807C43A5185A21E900CBAB88 /* zbar-samples.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		807C43AA185A220F00CBAB88 /* ZBarSDK */ = {
+			isa = PBXGroup;
+			children = (
+				807C43AB185A220F00CBAB88 /* zbar */,
+				807C43B5185A220F00CBAB88 /* zbar.h */,
+				807C43B6185A220F00CBAB88 /* ZBarCameraSimulator.h */,
+				807C43B7185A220F00CBAB88 /* ZBarCaptureReader.h */,
+				807C43B8185A220F00CBAB88 /* ZBarHelpController.h */,
+				807C43B9185A220F00CBAB88 /* ZBarImage.h */,
+				807C43BA185A220F00CBAB88 /* ZBarImageScanner.h */,
+				807C43BB185A220F00CBAB88 /* ZBarReaderController.h */,
+				807C43BC185A220F00CBAB88 /* ZBarReaderView.h */,
+				807C43BD185A220F00CBAB88 /* ZBarReaderViewController.h */,
+				807C43BE185A220F00CBAB88 /* ZBarSDK.h */,
+				807C43BF185A220F00CBAB88 /* ZBarSymbol.h */,
+			);
+			path = ZBarSDK;
+			sourceTree = "<group>";
+		};
+		807C43AB185A220F00CBAB88 /* zbar */ = {
+			isa = PBXGroup;
+			children = (
+				807C43AC185A220F00CBAB88 /* Decoder.h */,
+				807C43AD185A220F00CBAB88 /* Exception.h */,
+				807C43AE185A220F00CBAB88 /* Image.h */,
+				807C43AF185A220F00CBAB88 /* ImageScanner.h */,
+				807C43B0185A220F00CBAB88 /* Processor.h */,
+				807C43B1185A220F00CBAB88 /* Scanner.h */,
+				807C43B2185A220F00CBAB88 /* Symbol.h */,
+				807C43B3185A220F00CBAB88 /* Video.h */,
+				807C43B4185A220F00CBAB88 /* Window.h */,
+			);
+			path = zbar;
+			sourceTree = "<group>";
+		};
+		807C43C0185A239600CBAB88 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				807C43C1185A23F100CBAB88 /* POSGridViewCell.h */,
+				807C43C2185A23F100CBAB88 /* POSGridViewCell.m */,
+			);
+			name = Controls;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8004B4521850B01500681B11 /* POSStoryboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8004B4851850B01500681B11 /* Build configuration list for PBXNativeTarget "POSStoryboard" */;
+			buildPhases = (
+				8004B44F1850B01500681B11 /* Sources */,
+				8004B4501850B01500681B11 /* Frameworks */,
+				8004B4511850B01500681B11 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = POSStoryboard;
+			productName = POSStoryboard;
+			productReference = 8004B4531850B01500681B11 /* POSStoryboard.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8004B4731850B01500681B11 /* POSStoryboardTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8004B4881850B01500681B11 /* Build configuration list for PBXNativeTarget "POSStoryboardTests" */;
+			buildPhases = (
+				8004B4701850B01500681B11 /* Sources */,
+				8004B4711850B01500681B11 /* Frameworks */,
+				8004B4721850B01500681B11 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8004B47A1850B01500681B11 /* PBXTargetDependency */,
+			);
+			name = POSStoryboardTests;
+			productName = POSStoryboardTests;
+			productReference = 8004B4741850B01500681B11 /* POSStoryboardTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8004B44B1850B01500681B11 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = POS_SB;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = kobernik.u;
+				TargetAttributes = {
+					8004B4731850B01500681B11 = {
+						TestTargetID = 8004B4521850B01500681B11;
+					};
+				};
+			};
+			buildConfigurationList = 8004B44E1850B01500681B11 /* Build configuration list for PBXProject "POSStoryboard" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8004B44A1850B01500681B11;
+			productRefGroup = 8004B4541850B01500681B11 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8004B4521850B01500681B11 /* POSStoryboard */,
+				8004B4731850B01500681B11 /* POSStoryboardTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8004B4511850B01500681B11 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8004B7051850D30900681B11 /* AQGridSelection.png in Resources */,
+				8004B7521850D38800681B11 /* car0.png in Resources */,
+				8004B7411850D38800681B11 /* car02.png in Resources */,
+				8004B7441850D38800681B11 /* car3.png in Resources */,
+				8004B46F1850B01500681B11 /* Images.xcassets in Resources */,
+				8004B7421850D38800681B11 /* car01.png in Resources */,
+				8004B75C1850D38800681B11 /* right.png in Resources */,
+				807C43A9185A21E900CBAB88 /* zbar-samples.png in Resources */,
+				8004B73D1850D38800681B11 /* car10.png in Resources */,
+				8004B7461850D38800681B11 /* car5.png in Resources */,
+				8004B7571850D38800681B11 /* bg-app.png in Resources */,
+				807C43A8185A21E900CBAB88 /* zbar-helpicons.png in Resources */,
+				8004B73B1850D38800681B11 /* Default-568h@2x.png in Resources */,
+				8004B7551850D38800681B11 /* tab-mask@2x.png in Resources */,
+				8004B73E1850D38800681B11 /* car11.png in Resources */,
+				8004B7091850D30900681B11 /* AQGridSelectionRed.png in Resources */,
+				8004B7591850D38800681B11 /* bg-splash.png in Resources */,
+				8004B74C1850D38800681B11 /* car15.png in Resources */,
+				8004B75B1850D38800681B11 /* back.png in Resources */,
+				8004B7541850D38800681B11 /* star2.png in Resources */,
+				8004B7491850D38800681B11 /* car8.png in Resources */,
+				8004B4611850B01500681B11 /* InfoPlist.strings in Resources */,
+				8004B7471850D38800681B11 /* car6.png in Resources */,
+				8004B74E1850D38800681B11 /* car17.png in Resources */,
+				8004B7061850D30900681B11 /* AQGridSelectionGray.png in Resources */,
+				8004B7431850D38800681B11 /* car2.png in Resources */,
+				8004B7451850D38800681B11 /* car4.png in Resources */,
+				8004B75D1850D38800681B11 /* right1.png in Resources */,
+				8004B73F1850D38800681B11 /* car12.png in Resources */,
+				8004B7481850D38800681B11 /* car7.png in Resources */,
+				8004B7561850D38800681B11 /* tab-mask.png in Resources */,
+				8004B73C1850D38800681B11 /* car9.png in Resources */,
+				8004B7511850D38800681B11 /* car20.png in Resources */,
+				807C43A7185A21E900CBAB88 /* zbar-help.html in Resources */,
+				8004B74F1850D38800681B11 /* car18.png in Resources */,
+				8004B7501850D38800681B11 /* car19.png in Resources */,
+				807C43A6185A21E900CBAB88 /* zbar-back.png in Resources */,
+				8004B46A1850B01500681B11 /* Main.storyboard in Resources */,
+				8004B7401850D38800681B11 /* car03.png in Resources */,
+				8004B75A1850D38800681B11 /* button-splash.png in Resources */,
+				8004B7071850D30900681B11 /* AQGridSelectionGrayBlue.png in Resources */,
+				8004B7581850D38800681B11 /* menubar.png in Resources */,
+				8004B74B1850D38800681B11 /* car14.png in Resources */,
+				8004B7531850D38800681B11 /* car1.png in Resources */,
+				8004B74A1850D38800681B11 /* car13.png in Resources */,
+				8004B74D1850D38800681B11 /* car16.png in Resources */,
+				8004B7081850D30900681B11 /* AQGridSelectionGreen.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8004B4721850B01500681B11 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8004B4801850B01500681B11 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8004B44F1850B01500681B11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8054C3EF1852233E00299E2F /* POSLoginViewController.m in Sources */,
+				8004B7141850D33600681B11 /* POSItem.m in Sources */,
+				8004B7131850D33600681B11 /* POSCategory.m in Sources */,
+				807C439E185A1B2F00CBAB88 /* POSCatGridViewController.m in Sources */,
+				8004B46D1850B01500681B11 /* POSViewController.m in Sources */,
+				807C43DC185B5A0E00CBAB88 /* POSItemViewController.m in Sources */,
+				8004B7161850D33600681B11 /* POSImage.m in Sources */,
+				8004B4671850B01500681B11 /* POSAppDelegate.m in Sources */,
+				807C43CC185B1B5B00CBAB88 /* POSNewCatViewController.m in Sources */,
+				80206FEB185F4C25002FFC35 /* POSEditCatViewController.m in Sources */,
+				807C43C6185B198800CBAB88 /* POSBasketViewController.m in Sources */,
+				8004B6FB1850D30900681B11 /* AQGridView.m in Sources */,
+				807C43911859F56F00CBAB88 /* POSDBHelper.m in Sources */,
+				8004B7031850D30900681B11 /* NSIndexSet+AQIsSetContiguous.m in Sources */,
+				80206FEE185F4E1A002FFC35 /* POSEditGoodViewController.m in Sources */,
+				8004B6AE1850C86300681B11 /* CustomPhotoAlbum.m in Sources */,
+				80206FE8185B7250002FFC35 /* POSGoodsGridViewController.m in Sources */,
+				807C43C3185A23F100CBAB88 /* POSGridViewCell.m in Sources */,
+				807C43921859F56F00CBAB88 /* POSDBWrapper.m in Sources */,
+				8004B7601850DACC00681B11 /* POSBasket.m in Sources */,
+				8004B6FE1850D30900681B11 /* AQGridViewController.m in Sources */,
+				8004B6AC1850C86300681B11 /* POSTest.m in Sources */,
+				8004B7041850D30900681B11 /* UIColor+AQGridView.m in Sources */,
+				8004B6AD1850C86300681B11 /* FXLabel.m in Sources */,
+				8004B4631850B01500681B11 /* main.m in Sources */,
+				807C4398185A16EC00CBAB88 /* POSObjectsHelper.m in Sources */,
+				8004B6FF1850D30900681B11 /* AQGridViewData.m in Sources */,
+				8004B7021850D30900681B11 /* NSIndexSet+AQIndexesOutsideSet.m in Sources */,
+				8004B6FC1850D30900681B11 /* AQGridViewAnimatorItem.m in Sources */,
+				8004B7151850D33600681B11 /* POSOrder.m in Sources */,
+				8054C3F21852235000299E2F /* POSRegisterViewController.m in Sources */,
+				8004B7011850D30900681B11 /* AQGridViewUpdateItem.m in Sources */,
+				8004B7001850D30900681B11 /* AQGridViewUpdateInfo.m in Sources */,
+				8004B6FD1850D30900681B11 /* AQGridViewCell.m in Sources */,
+				8054C3F51852236500299E2F /* POSMainViewController.m in Sources */,
+				8004B6AF1850C86300681B11 /* POSDataSet.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8004B4701850B01500681B11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8004B4821850B01500681B11 /* POSStoryboardTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8004B47A1850B01500681B11 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8004B4521850B01500681B11 /* POSStoryboard */;
+			targetProxy = 8004B4791850B01500681B11 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8004B45F1850B01500681B11 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8004B4601850B01500681B11 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		8004B4681850B01500681B11 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8004B4691850B01500681B11 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8004B47E1850B01500681B11 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8004B47F1850B01500681B11 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8004B4831850B01500681B11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		8004B4841850B01500681B11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8004B4861850B01500681B11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "POSStoryboard/POSStoryboard-Prefix.pch";
+				INFOPLIST_FILE = "POSStoryboard/POSStoryboard-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/koberniku/trunk/pos/POS/POS/ZBarSDK,
+					/Users/koberniku/trunk/POSStoryboard/POSStoryboard,
+					/Users/koberniku/trunk/POSStoryboard/POSStoryboard/ZBarSDK,
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		8004B4871850B01500681B11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "POSStoryboard/POSStoryboard-Prefix.pch";
+				INFOPLIST_FILE = "POSStoryboard/POSStoryboard-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/koberniku/trunk/pos/POS/POS/ZBarSDK,
+					/Users/koberniku/trunk/POSStoryboard/POSStoryboard,
+					/Users/koberniku/trunk/POSStoryboard/POSStoryboard/ZBarSDK,
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		8004B4891850B01500681B11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/POSStoryboard.app/POSStoryboard";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "POSStoryboard/POSStoryboard-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "POSStoryboardTests/POSStoryboardTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		8004B48A1850B01500681B11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/POSStoryboard.app/POSStoryboard";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "POSStoryboard/POSStoryboard-Prefix.pch";
+				INFOPLIST_FILE = "POSStoryboardTests/POSStoryboardTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8004B44E1850B01500681B11 /* Build configuration list for PBXProject "POSStoryboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8004B4831850B01500681B11 /* Debug */,
+				8004B4841850B01500681B11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8004B4851850B01500681B11 /* Build configuration list for PBXNativeTarget "POSStoryboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8004B4861850B01500681B11 /* Debug */,
+				8004B4871850B01500681B11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8004B4881850B01500681B11 /* Build configuration list for PBXNativeTarget "POSStoryboardTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8004B4891850B01500681B11 /* Debug */,
+				8004B48A1850B01500681B11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8004B44B1850B01500681B11 /* Project object */;
+}
