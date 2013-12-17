@@ -87,7 +87,6 @@
 		80206FF1185F7476002FFC35 /* POSNewGoodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FF0185F7476002FFC35 /* POSNewGoodViewController.m */; };
 		8054C3EF1852233E00299E2F /* POSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3EE1852233E00299E2F /* POSLoginViewController.m */; };
 		8054C3F21852235000299E2F /* POSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3F11852235000299E2F /* POSRegisterViewController.m */; };
-		8054C3F51852236500299E2F /* POSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3F41852236500299E2F /* POSMainViewController.m */; };
 		807C43911859F56F00CBAB88 /* POSDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C438E1859F56F00CBAB88 /* POSDBHelper.m */; };
 		807C43921859F56F00CBAB88 /* POSDBWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43901859F56F00CBAB88 /* POSDBWrapper.m */; };
 		807C4398185A16EC00CBAB88 /* POSObjectsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C4397185A16EC00CBAB88 /* POSObjectsHelper.m */; };
@@ -228,8 +227,6 @@
 		8054C3EE1852233E00299E2F /* POSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSLoginViewController.m; sourceTree = "<group>"; };
 		8054C3F01852235000299E2F /* POSRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSRegisterViewController.h; sourceTree = "<group>"; };
 		8054C3F11852235000299E2F /* POSRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSRegisterViewController.m; sourceTree = "<group>"; };
-		8054C3F31852236500299E2F /* POSMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSMainViewController.h; sourceTree = "<group>"; };
-		8054C3F41852236500299E2F /* POSMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSMainViewController.m; sourceTree = "<group>"; };
 		807C438D1859F56F00CBAB88 /* POSDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSDBHelper.h; path = Helpers/POSDBHelper.h; sourceTree = "<group>"; };
 		807C438E1859F56F00CBAB88 /* POSDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSDBHelper.m; path = Helpers/POSDBHelper.m; sourceTree = "<group>"; };
 		807C438F1859F56F00CBAB88 /* POSDBWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSDBWrapper.h; path = Helpers/POSDBWrapper.h; sourceTree = "<group>"; };
@@ -526,8 +523,6 @@
 				8054C3EE1852233E00299E2F /* POSLoginViewController.m */,
 				8054C3F01852235000299E2F /* POSRegisterViewController.h */,
 				8054C3F11852235000299E2F /* POSRegisterViewController.m */,
-				8054C3F31852236500299E2F /* POSMainViewController.h */,
-				8054C3F41852236500299E2F /* POSMainViewController.m */,
 				807C439C185A1B2F00CBAB88 /* POSCatGridViewController.h */,
 				807C439D185A1B2F00CBAB88 /* POSCatGridViewController.m */,
 				807C43C4185B198800CBAB88 /* POSBasketViewController.h */,
@@ -819,7 +814,6 @@
 				8004B7011850D30900681B11 /* AQGridViewUpdateItem.m in Sources */,
 				8004B7001850D30900681B11 /* AQGridViewUpdateInfo.m in Sources */,
 				8004B6FD1850D30900681B11 /* AQGridViewCell.m in Sources */,
-				8054C3F51852236500299E2F /* POSMainViewController.m in Sources */,
 				8004B6AF1850C86300681B11 /* POSDataSet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
