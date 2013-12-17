@@ -45,5 +45,6 @@
 -(double) getCellDouble:(int)index;
 
 -(void) fetchRows:query foreachCallback:(void (^)( id rows ) )callback p_rows:(id) rows;
+-(void) extractMultipleValues:query foreachCallback:(void (^)() )callback;
 
 @end

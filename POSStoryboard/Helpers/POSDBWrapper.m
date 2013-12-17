@@ -171,4 +171,13 @@
 }
 
 
+-(void) extractMultipleValues:query foreachCallback:(void (^)())callback
+{
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
+    sqlite3_step(statement);
+    callback();
+    sqlite3_finalize(statement);
+}
+
+
 @end

@@ -20,7 +20,6 @@
 @synthesize btnChangeMode   = _btnChangeMode;
 @synthesize btnScan         = _btnScan;
 
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

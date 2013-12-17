@@ -20,6 +20,7 @@
 //Current position data
 @property int currentCatIndex;
 @property int currentItemsIndex;
+@property int currentBasketID;
 
 +(POSObjectsHelper *)getInstance;
 

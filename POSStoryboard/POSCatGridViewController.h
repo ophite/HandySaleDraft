@@ -20,7 +20,6 @@
     NSString*               catName;
 }
 
-//@property (nonatomic, retain) NSArray*              services;
 @property (weak, nonatomic) IBOutlet AQGridView     *gridView;
 @property (weak, nonatomic) IBOutlet UIButton       *btnScan;
 @property (weak, nonatomic) IBOutlet UIButton       *btnChangeMode;

@@ -78,13 +78,126 @@
                     <view key="view" contentMode="scaleToFill" id="w7W-cw-cVy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D2P-fs-pmx">
+                                <rect key="frame" x="51" y="518" width="57" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onCancel:" destination="m2k-tR-kAf" eventType="touchUpInside" id="pWk-aL-z2W"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o0r-3O-42j">
+                                <rect key="frame" x="116" y="518" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Clear">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onClear:" destination="m2k-tR-kAf" eventType="touchUpInside" id="weS-rs-5aP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="woT-3b-hN9">
+                                <rect key="frame" x="170" y="518" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onSave:" destination="m2k-tR-kAf" eventType="touchUpInside" id="Gf3-1T-AQY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IVe-SH-aef">
+                                <rect key="frame" x="224" y="518" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Open">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onOpen:" destination="m2k-tR-kAf" eventType="touchUpInside" id="deT-1T-SRx"/>
+                                    <segue destination="yqw-Hq-fQc" kind="push" id="VQi-0V-G7Z"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Am2-ZB-uua">
+                                <rect key="frame" x="0.0" y="66" width="320" height="444"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="HJz-ob-ng9"/>
+                    <navigationItem key="navigationItem" id="HJz-ob-ng9">
+                        <barButtonItem key="rightBarButtonItem" title="Send E-mail" id="xI2-jW-tpj">
+                            <connections>
+                                <action selector="onSendEmail:" destination="m2k-tR-kAf" id="lI9-7l-KQQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="btnBarSendEmail" destination="xI2-jW-tpj" id="VMK-2z-4jI"/>
+                        <outlet property="btnCancel" destination="D2P-fs-pmx" id="qjm-ui-UOH"/>
+                        <outlet property="btnClear" destination="o0r-3O-42j" id="zMp-dP-12S"/>
+                        <outlet property="btnOpen" destination="IVe-SH-aef" id="KMb-M8-6KC"/>
+                        <outlet property="btnSave" destination="woT-3b-hN9" id="FPd-JE-LGB"/>
+                        <outlet property="tableBasket" destination="Am2-ZB-uua" id="2SV-hU-krZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPN-iP-7Ht" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1624" y="-1347"/>
+        </scene>
+        <!--Basket Open View Controller-->
+        <scene sceneID="7R4-iN-cKD">
+            <objects>
+                <viewController id="yqw-Hq-fQc" customClass="POSBasketOpenViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XPu-pN-5c3"/>
+                        <viewControllerLayoutGuide type="bottom" id="5x2-v1-Oot"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xEW-K3-gDi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qjn-Se-h0W">
+                                <rect key="frame" x="105" y="524" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onSave:" destination="yqw-Hq-fQc" eventType="touchUpInside" id="pBh-Fh-dxf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dab-iB-xWj">
+                                <rect key="frame" x="175" y="524" width="61" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onCancel:" destination="yqw-Hq-fQc" eventType="touchUpInside" id="FBc-LN-f63"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="QrG-q9-SGX">
+                                <rect key="frame" x="1" y="65" width="319" height="451"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="lhU-3Y-9QA"/>
+                    <connections>
+                        <outlet property="btnCancel" destination="Dab-iB-xWj" id="bEx-Yo-y0P"/>
+                        <outlet property="btnSave" destination="qjn-Se-h0W" id="opN-dy-Ove"/>
+                        <outlet property="tableBasket" destination="QrG-q9-SGX" id="doA-4c-voU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Iax-xI-MET" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2082" y="-1347"/>
         </scene>
         <!--Goods Grid View Controller-->
         <scene sceneID="pxd-72-Ji5">

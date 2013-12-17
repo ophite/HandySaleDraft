@@ -15,6 +15,7 @@
 @implementation POSItemViewController
 
 @synthesize item = _item;
+@synthesize currentQuantity = _currentQuantity;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

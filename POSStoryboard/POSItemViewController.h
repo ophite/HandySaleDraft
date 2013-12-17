@@ -12,10 +12,12 @@
 @interface POSItemViewController : UIViewController
 {
     POSItem*            item;
+    NSString*           currentQuantity;
 
 }
 
 @property POSItem* item;
+@property NSString* currentQuantity;
 
 
 @end
