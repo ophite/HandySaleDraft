@@ -84,7 +84,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPN-iP-7Ht" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1960" y="1059"/>
+            <point key="canvasLocation" x="1624" y="-1347"/>
         </scene>
         <!--Goods Grid View Controller-->
         <scene sceneID="pxd-72-Ji5">
@@ -127,6 +127,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="isl-Fk-NKB">
+                        <barButtonItem key="backBarButtonItem" title="Categories" id="Jpm-uG-z5a"/>
                         <barButtonItem key="rightBarButtonItem" title="Basket" id="YdU-hP-dN6">
                             <connections>
                                 <segue destination="m2k-tR-kAf" kind="push" id="BqE-aY-ofo"/>
@@ -143,7 +144,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i95-Nd-p2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2078" y="-615"/>
+            <point key="canvasLocation" x="2082" y="-601"/>
         </scene>
         <!--New Cat View Controller-->
         <scene sceneID="YaH-wc-1SJ">
@@ -158,11 +159,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="crS-mI-sYg"/>
+                    <navigationItem key="navigationItem" id="crS-mI-sYg">
+                        <barButtonItem key="backBarButtonItem" title="Categories" id="mc3-5X-UEp"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I0m-oi-nDL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1642" y="-1122"/>
+            <point key="canvasLocation" x="999" y="166"/>
         </scene>
         <!--Edit Cat View Controller-->
         <scene sceneID="pkP-l4-Sn0">
@@ -177,11 +180,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="tHv-eK-m5J"/>
+                    <navigationItem key="navigationItem" id="tHv-eK-m5J">
+                        <barButtonItem key="backBarButtonItem" title="Categories" id="aQZ-b3-myp"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uaH-9i-4aT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1642" y="-202"/>
+            <point key="canvasLocation" x="1458" y="166"/>
         </scene>
         <!--New Good View Controller-->
         <scene sceneID="hKc-Sg-wXb">
@@ -196,11 +201,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ec3-UC-FzS"/>
+                    <navigationItem key="navigationItem" id="ec3-UC-FzS">
+                        <barButtonItem key="backBarButtonItem" title="Goods" id="RJ4-b0-xtl"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EkN-Xy-Vpn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2704" y="-1122"/>
+            <point key="canvasLocation" x="2082" y="172"/>
         </scene>
         <!--Item View Controller-->
         <scene sceneID="fKk-uO-DAY">
@@ -215,11 +222,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="9Tc-UO-Gp6"/>
+                    <navigationItem key="navigationItem" id="9Tc-UO-Gp6">
+                        <barButtonItem key="backBarButtonItem" title="Goods" id="94D-lK-fJr"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7B-wX-VLW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3196" y="-615"/>
+            <point key="canvasLocation" x="3194" y="-601"/>
         </scene>
         <!--Edit Good View Controller-->
         <scene sceneID="eGE-RI-xzb">
@@ -234,11 +243,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="7W3-J8-fL0"/>
+                    <navigationItem key="navigationItem" id="7W3-J8-fL0">
+                        <barButtonItem key="backBarButtonItem" title="Goods" id="TrP-xs-APM"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ang-EF-CJR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2704" y="-202"/>
+            <point key="canvasLocation" x="2530" y="172"/>
         </scene>
         <!--Cat Grid View Controller-->
         <scene sceneID="TvI-xD-Shc">
@@ -290,6 +301,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="dqh-dg-eVe">
+                        <barButtonItem key="backBarButtonItem" title="Login" id="9gD-sT-NN7"/>
                         <barButtonItem key="rightBarButtonItem" title="Basket" id="eLn-48-Njq">
                             <connections>
                                 <segue destination="m2k-tR-kAf" kind="push" id="Uwv-co-TKF"/>
@@ -339,7 +351,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="moC-TS-6z8">
-                                <rect key="frame" x="44" y="78" width="232" height="30"/>
+                                <rect key="frame" x="44" y="84" width="232" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -359,7 +371,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="vGJ-GF-a6l"/>
+                    <navigationItem key="navigationItem" id="vGJ-GF-a6l">
+                        <barButtonItem key="backBarButtonItem" title="Login" id="0cY-n2-d2p"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="textEmail" destination="moC-TS-6z8" id="KjK-JB-1Yo"/>
                         <outlet property="textPassword" destination="pUP-HB-7EL" id="EpJ-RV-PJv"/>
