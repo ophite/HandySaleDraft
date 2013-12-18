@@ -67,7 +67,7 @@
             </objects>
             <point key="canvasLocation" x="451" y="-983"/>
         </scene>
-        <!--Basket View Controller-->
+        <!--Basket View Controller - Basket-->
         <scene sceneID="yZ7-nV-yZ9">
             <objects>
                 <viewController id="m2k-tR-kAf" customClass="POSBasketViewController" sceneMemberID="viewController">
@@ -128,7 +128,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="HJz-ob-ng9">
+                    <navigationItem key="navigationItem" title="Basket" id="HJz-ob-ng9">
                         <barButtonItem key="rightBarButtonItem" title="Send E-mail" id="xI2-jW-tpj">
                             <connections>
                                 <action selector="onSendEmail:" destination="m2k-tR-kAf" id="lI9-7l-KQQ"/>
@@ -148,7 +148,7 @@
             </objects>
             <point key="canvasLocation" x="3596" y="-1546"/>
         </scene>
-        <!--Basket Open View Controller-->
+        <!--Basket Open View Controller - Open basket-->
         <scene sceneID="7R4-iN-cKD">
             <objects>
                 <viewController id="yqw-Hq-fQc" customClass="POSBasketOpenViewController" sceneMemberID="viewController">
@@ -188,7 +188,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="lhU-3Y-9QA"/>
+                    <navigationItem key="navigationItem" title="Open basket" id="lhU-3Y-9QA"/>
                     <connections>
                         <outlet property="btnCancel" destination="Dab-iB-xWj" id="bEx-Yo-y0P"/>
                         <outlet property="btnSave" destination="qjn-Se-h0W" id="opN-dy-Ove"/>
@@ -197,9 +197,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iax-xI-MET" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3984" y="-1546"/>
+            <point key="canvasLocation" x="4085" y="-1546"/>
         </scene>
-        <!--Goods Grid View Controller-->
+        <!--Goods Grid View Controller - Items list-->
         <scene sceneID="pxd-72-Ji5">
             <objects>
                 <viewController id="YGa-fU-0eh" customClass="POSGoodsGridViewController" sceneMemberID="viewController">
@@ -239,7 +239,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="isl-Fk-NKB">
+                    <navigationItem key="navigationItem" title="Items list" id="isl-Fk-NKB">
                         <barButtonItem key="backBarButtonItem" title="Categories" id="Jpm-uG-z5a"/>
                         <barButtonItem key="rightBarButtonItem" title="Basket" id="YdU-hP-dN6">
                             <connections>
@@ -259,7 +259,7 @@
             </objects>
             <point key="canvasLocation" x="2100" y="-585"/>
         </scene>
-        <!--New Cat View Controller-->
+        <!--New Cat View Controller - New category-->
         <scene sceneID="YaH-wc-1SJ">
             <objects>
                 <viewController id="X6u-iw-6OP" customClass="POSNewCatViewController" sceneMemberID="viewController">
@@ -271,13 +271,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4C5-Nc-n1Y">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4C5-Nc-n1Y">
                                 <rect key="frame" x="57" y="101" width="215" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mKw-PZ-nFN">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Image name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mKw-PZ-nFN">
                                 <rect key="frame" x="57" y="145" width="215" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -296,7 +296,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="crS-mI-sYg">
+                    <navigationItem key="navigationItem" title="New category" id="crS-mI-sYg">
                         <barButtonItem key="backBarButtonItem" title="Categories" id="mc3-5X-UEp"/>
                     </navigationItem>
                     <connections>
@@ -309,7 +309,7 @@
             </objects>
             <point key="canvasLocation" x="1535" y="140"/>
         </scene>
-        <!--Edit Cat View Controller-->
+        <!--Edit Cat View Controller - Edit category-->
         <scene sceneID="pkP-l4-Sn0">
             <objects>
                 <viewController id="V1w-TQ-FPD" customClass="POSEditCatViewController" sceneMemberID="viewController">
@@ -361,7 +361,7 @@
                                     <action selector="onDelete:" destination="V1w-TQ-FPD" eventType="touchUpInside" id="IBT-cS-DWN"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vrQ-hc-3W8">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vrQ-hc-3W8">
                                 <rect key="frame" x="26" y="70" width="274" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -374,7 +374,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="tHv-eK-m5J">
+                    <navigationItem key="navigationItem" title="Edit category" id="tHv-eK-m5J">
                         <barButtonItem key="backBarButtonItem" title="Categories" id="aQZ-b3-myp"/>
                     </navigationItem>
                     <connections>
@@ -386,7 +386,7 @@
             </objects>
             <point key="canvasLocation" x="1922" y="148"/>
         </scene>
-        <!--New Good View Controller-->
+        <!--New Good View Controller - New item-->
         <scene sceneID="hKc-Sg-wXb">
             <objects>
                 <viewController id="vik-aQ-IBd" customClass="POSNewGoodViewController" sceneMemberID="viewController">
@@ -408,13 +408,13 @@
                                     <action selector="onCreate:" destination="vik-aQ-IBd" eventType="touchUpInside" id="7aB-AX-Ul0"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="soR-Bf-4se">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="soR-Bf-4se">
                                 <rect key="frame" x="56" y="89" width="226" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vJ0-OJ-EOa">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Image name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vJ0-OJ-EOa">
                                 <rect key="frame" x="56" y="127" width="226" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -423,7 +423,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ec3-UC-FzS">
+                    <navigationItem key="navigationItem" title="New item" id="ec3-UC-FzS">
                         <barButtonItem key="backBarButtonItem" title="Goods" id="RJ4-b0-xtl"/>
                     </navigationItem>
                     <connections>
@@ -435,7 +435,7 @@
             </objects>
             <point key="canvasLocation" x="2658" y="148"/>
         </scene>
-        <!--Item View Controller-->
+        <!--Item View Controller - View item-->
         <scene sceneID="fKk-uO-DAY">
             <objects>
                 <viewController id="DQO-Bv-bvm" customClass="POSItemViewController" sceneMemberID="viewController">
@@ -531,7 +531,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="9Tc-UO-Gp6">
+                    <navigationItem key="navigationItem" title="View item" id="9Tc-UO-Gp6">
                         <barButtonItem key="backBarButtonItem" title="Goods" id="94D-lK-fJr"/>
                         <barButtonItem key="rightBarButtonItem" title="Basket" id="Wev-95-gAM">
                             <connections>
@@ -553,7 +553,7 @@
             </objects>
             <point key="canvasLocation" x="3046" y="-601"/>
         </scene>
-        <!--Edit Good View Controller-->
+        <!--Edit Good View Controller - Edit item-->
         <scene sceneID="eGE-RI-xzb">
             <objects>
                 <viewController id="LIr-tL-X9x" customClass="POSEditGoodViewController" sceneMemberID="viewController">
@@ -719,7 +719,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="7W3-J8-fL0">
+                    <navigationItem key="navigationItem" title="Edit item" id="7W3-J8-fL0">
                         <barButtonItem key="backBarButtonItem" title="Goods" id="TrP-xs-APM"/>
                     </navigationItem>
                     <connections>
@@ -737,7 +737,7 @@
             </objects>
             <point key="canvasLocation" x="3046" y="148"/>
         </scene>
-        <!--Set Cat View Controller-->
+        <!--Set Cat View Controller - Select category-->
         <scene sceneID="AYW-a6-Ctv">
             <objects>
                 <viewController id="Bst-JA-gve" customClass="POSSetCatViewController" sceneMemberID="viewController">
@@ -766,7 +766,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="UyY-Sx-dU6"/>
+                    <navigationItem key="navigationItem" title="Select category" id="UyY-Sx-dU6"/>
                     <connections>
                         <outlet property="picker" destination="xjl-g1-KEy" id="xkL-NJ-CK6"/>
                     </connections>
@@ -775,7 +775,7 @@
             </objects>
             <point key="canvasLocation" x="3534" y="148"/>
         </scene>
-        <!--Cat Grid View Controller-->
+        <!--Cat Grid View Controller - Categories list-->
         <scene sceneID="TvI-xD-Shc">
             <objects>
                 <viewController id="jk4-EB-Nhq" customClass="POSCatGridViewController" sceneMemberID="viewController">
@@ -824,7 +824,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="dqh-dg-eVe">
+                    <navigationItem key="navigationItem" title="Categories list" id="dqh-dg-eVe">
                         <barButtonItem key="backBarButtonItem" title="Login" id="9gD-sT-NN7"/>
                         <barButtonItem key="rightBarButtonItem" title="Basket" id="eLn-48-Njq">
                             <connections>
@@ -846,7 +846,7 @@
             </objects>
             <point key="canvasLocation" x="999" y="-585"/>
         </scene>
-        <!--Register View Controller-->
+        <!--Register View Controller - Register user-->
         <scene sceneID="Zvu-SH-Wu8">
             <objects>
                 <viewController id="TQm-XP-FGT" customClass="POSRegisterViewController" sceneMemberID="viewController">
@@ -895,7 +895,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="vGJ-GF-a6l">
+                    <navigationItem key="navigationItem" title="Register user" id="vGJ-GF-a6l">
                         <barButtonItem key="backBarButtonItem" title="Login" id="0cY-n2-d2p"/>
                     </navigationItem>
                     <connections>
