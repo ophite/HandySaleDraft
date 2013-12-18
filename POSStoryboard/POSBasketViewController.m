@@ -185,8 +185,7 @@
  */
 - (void) saveToDB
 {
-    POSDBWrapper * dbWrapper = [POSDBWrapper getInstance];
-    if (![dbWrapper openDB])
+    if (![dbWrapperInstance openDB])
         return;
     
     float totalPrice = 0.;
@@ -202,12 +201,12 @@
         NSString * query = [NSString stringWithFormat:@"UPDATE  document \
                             SET     date = datetime('now'), paid_price = %f \
                             WHERE   id = %d",totalPrice, objectsHelperInstance.currentBasketID];
-        [dbWrapper tryExecQuery:query];
+        [dbWrapperInstance tryExecQuery:query];
         
         query = [NSString stringWithFormat:@"DELETE \
                  FROM   document_line \
                  WHERE  document_id = %d", objectsHelperInstance.currentBasketID];
-        [dbWrapper tryExecQuery:query];
+        [dbWrapperInstance tryExecQuery:query];
         
         for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++)
         {
@@ -217,19 +216,19 @@
             
             query = [NSString stringWithFormat:@"INSERT INTO document_line (price, quantity, item_id, document_id) \
                      VALUES (%f, %d, %d, %d)", price, quantity, order.item_ID, objectsHelperInstance.currentBasketID];
-            [dbWrapper tryExecQuery:query];
+            [dbWrapperInstance tryExecQuery:query];
         }
     }
     else
     {
         NSString * query = [NSString stringWithFormat:@"INSERT INTO document (date, paid_price, document_type_id, user_id) \
                             VALUES (datetime('now'), %f, %d, %d)", totalPrice, 1, 1];
-        [dbWrapper tryExecQuery:query];
+        [dbWrapperInstance tryExecQuery:query];
         
         query = @"SELECT    id \
         FROM      document \
         ORDER BY id DESC limit 1";
-        int doc_ID = [dbWrapper execQueryResultInt:query p_index:0];
+        int doc_ID = [dbWrapperInstance execQueryResultInt:query p_index:0];
         
         for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++)
         {
@@ -239,11 +238,11 @@
             
             query = [NSString stringWithFormat:@"INSERT INTO document_line (price, quantity, item_id, document_id) \
                      VALUES (%f, %d, %d, %d)", price, quantity, order.item_ID, doc_ID];
-            [dbWrapper tryExecQuery:query];
+            [dbWrapperInstance tryExecQuery:query];
         }
     }
     
-    [dbWrapper closeDB];
+    [dbWrapperInstance closeDB];
 }
 
 

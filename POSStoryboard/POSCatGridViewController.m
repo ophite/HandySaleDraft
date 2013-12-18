@@ -40,9 +40,8 @@
 {
     [super viewDidLoad];
     
-    POSObjectsHelper * objectsHelper = [POSObjectsHelper getInstance];
-    [objectsHelper.dataSet getCategories];
-    [objectsHelper.dataSet getAllItems];
+    [objectsHelperInstance.dataSet getCategories];
+    [objectsHelperInstance.dataSet getAllItems];
     
     self.gridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.gridView.autoresizesSubviews = YES;
@@ -97,9 +96,8 @@
         cell = [[POSGridViewCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 160, 160) reuseIdentifier: PlainCellIdentifier];
     }
     
-    POSObjectsHelper * objectsHelper = [POSObjectsHelper getInstance];
-    NSString* name = [[objectsHelper.dataSet.categories objectAtIndex:index] name];
-    UIImage* image = [[objectsHelper.dataSet.categories objectAtIndex:index] image];
+    NSString* name = [[objectsHelperInstance.dataSet.categories objectAtIndex:index] name];
+    UIImage* image = [[objectsHelperInstance.dataSet.categories objectAtIndex:index] image];
     
     [cell.imageView setImage:image];
     [cell.captionLabel setText: name];
@@ -117,18 +115,17 @@
 
 -(void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index
 {
-    POSObjectsHelper * objectsHelper = [POSObjectsHelper getInstance];
-    if(!objectsHelper.catsMode) //View goods
+    if(!objectsHelperInstance.catsMode) //View goods
     {
         POSGoodsGridViewController * viewGoods = [POSGoodsGridViewController new];
-        viewGoods.cat = [objectsHelper.dataSet.categories objectAtIndex:index];
+        viewGoods.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
         viewGoods.title = viewGoods.cat.name;
         [self.navigationController pushViewController:viewGoods animated:YES];
     }
     else //Edit
     {
         POSEditCatViewController * viewEditCat = [[POSEditCatViewController alloc] initWithNibName:@"POSEditCatViewController" bundle:nil];
-        viewEditCat.cat = [objectsHelper.dataSet.categories objectAtIndex:index];
+        viewEditCat.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
         [self.navigationController pushViewController:viewEditCat animated:YES];
     }
 }
@@ -170,18 +167,16 @@
     
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-    POSDBWrapper * dbWrapper = [POSDBWrapper getInstance];
-    if([dbWrapper openDB])
+    if([dbWrapperInstance openDB])
         return;
     
     NSString* query = [NSString stringWithFormat:@"select id from Product WHERE code = \"%@\"; ", result];
-    int product_id = [dbWrapper execQueryResultInt:query p_index:0];
-    [dbWrapper closeDB];
+    int product_id = [dbWrapperInstance execQueryResultInt:query p_index:0];
+    [dbWrapperInstance closeDB];
     
     POSItem* resultItem = nil;
-    POSObjectsHelper * objectsHelper = [POSObjectsHelper getInstance];
-    
-    for (POSItem* item_ in objectsHelper.dataSet.items)
+
+    for (POSItem* item_ in objectsHelperInstance.dataSet.items)
     {
         if (item_.ID == product_id)
         {
@@ -208,25 +203,21 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    
-    POSObjectsHelper * objectsHelper = [POSObjectsHelper getInstance];
-    POSDBWrapper * dbWrapper = [POSDBWrapper getInstance];
-    
     if([title isEqualToString:@"No"])
     {
         
     }
     else
     {
-        [objectsHelper.dataSet.categories removeObjectAtIndex:objectsHelper.currentCatIndex];
+        [objectsHelperInstance.dataSet.categories removeObjectAtIndex:objectsHelperInstance.currentCatIndex];
         [self.gridView reloadData];
         
-        if ([dbWrapper openDB])
+        if ([dbWrapperInstance openDB])
             return;
 
         NSString * query = [NSString stringWithFormat:@"DELETE FROM collection WHERE name = \"%@\" AND user_id = %d", catName, 1];
-        [dbWrapper tryExecQuery:query];
-        [dbWrapper closeDB];
+        [dbWrapperInstance tryExecQuery:query];
+        [dbWrapperInstance closeDB];
     }
 }
 
@@ -265,9 +256,8 @@
 
 - (IBAction)onChangeMode:(id)sender
 {
-    POSObjectsHelper * objectsHelper = [POSObjectsHelper getInstance];
-    objectsHelper.catsMode = !objectsHelper.catsMode;
-    [self.btnChangeMode setTitle: (objectsHelper.catsMode ? @"View mode" : @"Edit mode") forState: UIControlStateNormal];
+    objectsHelperInstance.catsMode = !objectsHelperInstance.catsMode;
+    [self.btnChangeMode setTitle: (objectsHelperInstance.catsMode ? @"View mode" : @"Edit mode") forState: UIControlStateNormal];
 }
 
 

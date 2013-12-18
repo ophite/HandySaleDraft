@@ -110,8 +110,7 @@
 
 - (void) readBasketData: (int) doc_ID
 {
-    POSDBWrapper * dbWrapper = [POSDBWrapper getInstance];
-    if (![dbWrapper openDB])
+    if (![dbWrapperInstance openDB])
         return;
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -122,12 +121,12 @@
     void (^blockGetOrder)(id rows) = ^(id rows)
     {
         POSOrder* order = [[POSOrder alloc] init];
-        order.item_ID = [dbWrapper getCellInt:0];
-        order.quantity = [[NSString alloc] initWithFormat:@"%d", [dbWrapper getCellInt:1]];
+        order.item_ID = [dbWrapperInstance getCellInt:0];
+        order.quantity = [[NSString alloc] initWithFormat:@"%d", [dbWrapperInstance getCellInt:1]];
         [((NSMutableArray *)rows) addObject:order];
     };
     
-    [dbWrapper fetchRows:query foreachCallback:blockGetOrder p_rows:objectsHelperInstance.dataSet.orderArray];
+    [dbWrapperInstance fetchRows:query foreachCallback:blockGetOrder p_rows:objectsHelperInstance.dataSet.orderArray];
     
     
     for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++)
@@ -140,12 +139,12 @@
         
         void (^blockExtractOrderValues)() = ^()
         {
-            order.name = [dbWrapper getCellText:0];
-            order.category  = [dbWrapper getCellText:1];
-            order.price     = [dbWrapper getCellText:2];
+            order.name = [dbWrapperInstance getCellText:0];
+            order.category  = [dbWrapperInstance getCellText:1];
+            order.price     = [dbWrapperInstance getCellText:2];
             order.codeItem  = @"001";
             
-            const unsigned char* asset = [dbWrapper getCellChar:3];
+            const unsigned char* asset = [dbWrapperInstance getCellChar:3];
             if (asset != nil)
             {
                 NSURL* assetUrl = [[NSURL alloc] initWithString:[[NSString alloc] initWithUTF8String:(const char *) asset]];
@@ -163,38 +162,37 @@
             
         };
         
-        [dbWrapper extractMultipleValues:query foreachCallback:blockExtractOrderValues];
+        [dbWrapperInstance extractMultipleValues:query foreachCallback:blockExtractOrderValues];
     }
     
-    [dbWrapper closeDB];
+    [dbWrapperInstance closeDB];
 }
 
 
 -(void)readBasketsList
 {
-    POSDBWrapper * dbWrapper = [POSDBWrapper getInstance];
-    if (![dbWrapper openDB])
+    if (![dbWrapperInstance openDB])
         return;
     
     NSString * query = @"SELECT id, date, paid_price, user_id FROM document WHERE user_id = 1 ORDER BY id DESC";
     
     void (^blockGetBasket)(id rows) = ^(id rows)
     {
-        int user_ID = [dbWrapper getCellInt:3];
+        int user_ID = [dbWrapperInstance getCellInt:3];
         if(user_ID == 1)
         {
             POSBasket* basketObject = [[POSBasket alloc] init];
-            basketObject.ID = [dbWrapper getCellInt:0];
-            basketObject.tst = [dbWrapper getCellText:1];
+            basketObject.ID = [dbWrapperInstance getCellInt:0];
+            basketObject.tst = [dbWrapperInstance getCellText:1];
             basketObject.name = [[NSString alloc] initWithFormat: @"No:%d %@", basketObject.ID, basketObject.tst];
-            basketObject.price = [dbWrapper getCellText:2];
+            basketObject.price = [dbWrapperInstance getCellText:2];
             
             [((NSMutableArray *)rows) addObject:basketObject];
         }
     };
     
-    [dbWrapper fetchRows:query foreachCallback:blockGetBasket p_rows:self.basketArray];
-    [dbWrapper closeDB];
+    [dbWrapperInstance fetchRows:query foreachCallback:blockGetBasket p_rows:self.basketArray];
+    [dbWrapperInstance closeDB];
 }
 
 

@@ -83,14 +83,13 @@
 -(BOOL) registerNewUser
 {
     BOOL isRegistered = NO;
-    POSDBWrapper * dbWrapper = [POSDBWrapper getInstance];
     
-    if ([dbWrapper openDB])
+    if ([dbWrapperInstance openDB])
     {
         NSString * query = [NSString stringWithFormat:@"INSERT INTO USER (email, password) VALUES (\"%@\", \"%@\")", self.textEmail.text, self.textPassword.text];
-        isRegistered = [dbWrapper tryExecQuery:query];
+        isRegistered = [dbWrapperInstance tryExecQuery:query];
         
-        [dbWrapper closeDB];
+        [dbWrapperInstance closeDB];
     }
     
     return isRegistered;

@@ -92,8 +92,7 @@
     requestSuccess      = [[responseDictionary objectForKey:@"success"] boolValue];
     timeStamp           = (NSString*) [responseDictionary objectForKey:@"tst"];
     */
-    POSDBWrapper* dbWrapper = [POSDBWrapper getInstance];
-    if ([dbWrapper openDB]) {
+    if ([dbWrapperInstance openDB]) {
        NSString * query = [NSString stringWithFormat: @"SELECT    c.id, c.name, i.asset \
                                                        FROM      collection c \
                                                                  LEFT JOIN image i \
@@ -102,14 +101,14 @@
         void (^blockGetCategory)( id rows) = ^(id rows)
         {
             POSCategory* catObject = [[POSCategory alloc] init];
-            catObject.ID = [dbWrapper getCellInt:0];
-            catObject.name = [dbWrapper getCellText:1];
-            catObject.asset = [dbWrapper getCellText:2];
+            catObject.ID = [dbWrapperInstance getCellInt:0];
+            catObject.name = [dbWrapperInstance getCellText:1];
+            catObject.asset = [dbWrapperInstance getCellText:2];
             
             [((NSMutableArray *)rows) addObject:catObject];
         };
         
-        [dbWrapper fetchRows:query foreachCallback:blockGetCategory p_rows:categories];
+        [dbWrapperInstance fetchRows:query foreachCallback:blockGetCategory p_rows:categories];
         
         // Prepare image
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -132,7 +131,7 @@
             }
         }
         
-        [dbWrapper closeDB];
+        [dbWrapperInstance closeDB];
     }
 }
 
@@ -227,8 +226,7 @@
 
 -(void) getAllItems
 {
-    POSDBWrapper* dbWrapper = [POSDBWrapper getInstance];
-    if(![dbWrapper openDB])
+    if(![dbWrapperInstance openDB])
         return;
 
     NSString* query = [NSString stringWithFormat: @"SELECT    p.id, p.name, p.price_buy, p.price_sale, p.comment, i.asset, c.id, c.name \
@@ -239,17 +237,17 @@
     {
         POSItem* goodObject = [[POSItem alloc] init];
         goodObject.gallery = [[NSMutableArray alloc] init];
-        goodObject.ID = [dbWrapper getCellInt:0];
-        goodObject.name = [dbWrapper getCellText:1];
+        goodObject.ID = [dbWrapperInstance getCellInt:0];
+        goodObject.name = [dbWrapperInstance getCellText:1];
         goodObject.codeItem = @"001";
-        goodObject.price1 = [[NSString alloc] initWithFormat:@"%f", [dbWrapper getCellFloat:2]];
-        goodObject.price2 = [[NSString alloc] initWithFormat:@"%f", [dbWrapper getCellFloat:3]];
-        goodObject.description = [dbWrapper getCellText:4];
-        goodObject.category =  [dbWrapper getCellText:7];
+        goodObject.price1 = [[NSString alloc] initWithFormat:@"%f", [dbWrapperInstance getCellFloat:2]];
+        goodObject.price2 = [[NSString alloc] initWithFormat:@"%f", [dbWrapperInstance getCellFloat:3]];
+        goodObject.description = [dbWrapperInstance getCellText:4];
+        goodObject.category =  [dbWrapperInstance getCellText:7];
         goodObject.quantityAvailable = @"10";
         goodObject.quantityOrdered = @"0";
-        goodObject.catID = goodObject.ID = [dbWrapper getCellInt:6];
-        goodObject.asset = [dbWrapper getCellText:5];
+        goodObject.catID = goodObject.ID = [dbWrapperInstance getCellInt:6];
+        goodObject.asset = [dbWrapperInstance getCellText:5];
         
         [goodObject.gallery addObject:[UIImage imageNamed:@"car9.png"]];
         [goodObject.gallery addObject:[UIImage imageNamed:@"car10.png"]];
@@ -260,7 +258,7 @@
         [((NSMutableArray* )rows) addObject:goodObject];
     };
     
-    [dbWrapper fetchRows:query foreachCallback:blockGetItems p_rows:allItems];
+    [dbWrapperInstance fetchRows:query foreachCallback:blockGetItems p_rows:allItems];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
 
     for (int i = 0; i < [allItems count]; i++)
@@ -281,7 +279,7 @@
         }
     }
     
-    [dbWrapper closeDB];
+    [dbWrapperInstance closeDB];
 }
 
 -(void) getOrderArray
@@ -315,12 +313,11 @@
         {
             posImage.assetUrl = url;
             
-            POSDBWrapper* dbWrapper = [POSDBWrapper getInstance];
-            if ([dbWrapper openDB])
+            if ([dbWrapperInstance openDB])
             {
                 query = [NSString stringWithFormat:@"UPDATE image SET asset = \"%@\" where path = \"%@\"", url, posImage.path];
-                [dbWrapper tryExecQuery:query];
-                [dbWrapper closeDB];
+                [dbWrapperInstance tryExecQuery:query];
+                [dbWrapperInstance closeDB];
             }
 
             [self saveGallery:index + 1 withLibrary:library];

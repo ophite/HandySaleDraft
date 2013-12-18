@@ -42,7 +42,7 @@
 
     POSTest* test = [[POSTest alloc] init];
     [test initDBStructure];
-    [test initDBData:[POSObjectsHelper getInstance].dataSet];
+    [test initDBData:objectsHelperInstance.dataSet];
 	// Do any additional setup after loading the view.
 }
 
@@ -89,20 +89,19 @@
 -(BOOL) isUserHasCorrectPassword
 {
     BOOL isLogged = NO;
-    POSDBWrapper* dbWrapper = [POSDBWrapper getInstance];
     
-    if ([dbWrapper openDB])
+    if ([dbWrapperInstance openDB])
     {
         NSString* passStr;
         NSString* query = [NSString stringWithFormat: @"SELECT password FROM user WHERE email=\"%@\"", self.textEmail.text];
         
-        if ([dbWrapper tryExecQueryResultText:query p_index:0 p_result:&passStr] == YES)
+        if ([dbWrapperInstance tryExecQueryResultText:query p_index:0 p_result:&passStr] == YES)
         {
             if([passStr isEqualToString:self.textPassword.text])
                 isLogged = YES;
         }
         
-        [dbWrapper closeDB];
+        [dbWrapperInstance closeDB];
     }
     
     return isLogged;

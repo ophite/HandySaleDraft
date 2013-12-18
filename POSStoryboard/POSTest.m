@@ -12,8 +12,7 @@
 
 -(void) initDBStructure
 {
-    POSDBWrapper* dbHelber = [POSDBWrapper getInstance];
-    if ([dbHelber openDB] == NO)
+    if ([dbWrapperInstance openDB] == NO)
         return;
     
     /*
@@ -186,15 +185,14 @@
         CHECK (is_deleted IN (0, 1))\
     );";
     
-    [dbHelber tryExecQuery:query];
-    [dbHelber closeDB];
+    [dbWrapperInstance tryExecQuery:query];
+    [dbWrapperInstance closeDB];
 }
 
 
 -(void) testForeach
 {
-    POSDBWrapper* dbWrapper = [POSDBWrapper getInstance];
-    if (![dbWrapper openDB])
+    if (![dbWrapperInstance openDB])
         return;
 
     NSMutableArray * categories  = [[NSMutableArray alloc] init];
@@ -206,14 +204,14 @@
     void (^blockGetCategory)( id rows) = ^(id rows)
     {
         POSCategory* catObject = [[POSCategory alloc] init];
-        catObject.ID = [dbWrapper getCellInt:0];
-        catObject.name = [dbWrapper getCellText:1];
-        catObject.asset = [dbWrapper getCellText:2];
+        catObject.ID = [dbWrapperInstance getCellInt:0];
+        catObject.name = [dbWrapperInstance getCellText:1];
+        catObject.asset = [dbWrapperInstance getCellText:2];
         
         [((NSMutableArray *)rows) addObject:catObject];
     };
     
-    [dbWrapper fetchRows:query foreachCallback:blockGetCategory p_rows:categories];
+    [dbWrapperInstance fetchRows:query foreachCallback:blockGetCategory p_rows:categories];
     
     // Prepare image
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -236,18 +234,17 @@
         }
     }
     
-    [dbWrapper closeDB];
+    [dbWrapperInstance closeDB];
 }
 
 
 -(void) initDBData:(POSDataSet*) dataSet
 {
-    POSDBWrapper* dbWrapper = [POSDBWrapper getInstance];
-    if ([dbWrapper openDB] == NO)
+    if ([dbWrapperInstance openDB] == NO)
         return;
 
     NSString* query = @"SELECT count(*) FROM collection";
-    int count = [dbWrapper execQueryResultInt:query p_index:0];
+    int count = [dbWrapperInstance execQueryResultInt:query p_index:0];
 
     if(count == 0)
     {
@@ -262,16 +259,16 @@
         INSERT INTO collection (name, user_id) VALUES (\"Mercedes\", 1); \
         INSERT INTO collection (name, user_id) VALUES (\"BMW\", 1);";
         
-        [dbWrapper tryExecQuery:query];
+        [dbWrapperInstance tryExecQuery:query];
     }
     
     query = @"SELECT count(*) FROM product";
-    count = [dbWrapper execQueryResultInt:query p_index:0];
+    count = [dbWrapperInstance execQueryResultInt:query p_index:0];
     
     if(count == 0)
     {
         query = [NSString stringWithFormat:@"SELECT id FROM collection WHERE name= \"%@\" AND user_id = %d", @"Nissan", 1];
-        int catID = [dbWrapper execQueryResultInt:query p_index:0];
+        int catID = [dbWrapperInstance execQueryResultInt:query p_index:0];
 
         query = [NSString stringWithFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"X-Trail\", 1, %d, 1000.0, 2000.0, \"Crossover\"); ", catID];
         query = [query stringByAppendingFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Pathfinder\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
@@ -284,14 +281,14 @@
         query = [query stringByAppendingFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Micra\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
         query = [query stringByAppendingFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Tiida\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
         
-        [dbWrapper tryExecQuery:query];
+        [dbWrapperInstance tryExecQuery:query];
     }
 
 //    query = @"SELECT count(*) FROM product";
 //    count = [dbWrapper execQueryResultInt:query p_index:0];
     
     query = @"SELECT count(*) FROM image";
-    count = [dbWrapper execQueryResultInt:query p_index:0];
+    count = [dbWrapperInstance execQueryResultInt:query p_index:0];
 
     if(count == 0)
     {
@@ -316,7 +313,7 @@
         INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car10.png\", \"car10.png\", 9, \"product\", 1);\
         INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car10.png\", \"car10.png\", 10, \"product\", 1);";
         
-        [dbWrapper tryExecQuery:query];
+        [dbWrapperInstance tryExecQuery:query];
        
         [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car01.png"] withAsset:nil withPath:@"car01.png" withObject_id:1 withObject_name:@"collection"]];
         [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car02.png"] withAsset:nil withPath:@"car02.png" withObject_id:2 withObject_name:@"collection"]];
@@ -343,7 +340,7 @@
         [dataSet saveGallery:0 withLibrary:library];
     }
     
-    [dbWrapper closeDB];
+    [dbWrapperInstance closeDB];
 }
 
 @end

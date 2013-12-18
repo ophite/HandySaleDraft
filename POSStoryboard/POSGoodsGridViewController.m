@@ -65,10 +65,8 @@
 
 - (IBAction)onChangeMode:(id)sender
 {
-    POSObjectsHelper * objectsHelper = [POSObjectsHelper getInstance];
-    objectsHelper.goodsMode = !objectsHelper.goodsMode;
-    
-    [self.btnChangeMode setTitle: (objectsHelper.goodsMode? @"View mode" : @"Edit mode") forState: UIControlStateNormal];
+    objectsHelperInstance.goodsMode = !objectsHelperInstance.goodsMode;
+    [self.btnChangeMode setTitle: (objectsHelperInstance.goodsMode? @"View mode" : @"Edit mode") forState: UIControlStateNormal];
 }
 
 
