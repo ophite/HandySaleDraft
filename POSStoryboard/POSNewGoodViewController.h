@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "POSDBWrapper.h"
+#import "POSObjectsHelper.h"
 
 @interface POSNewGoodViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UITextField *textName;
+@property (weak, nonatomic) IBOutlet UITextField *textImageName;
+
+-(IBAction)onCreate:(id)sender;
+-(BOOL)createdNewGood;
 
 @end

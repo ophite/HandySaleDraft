@@ -12,8 +12,8 @@
 @interface POSDBHelper : NSObject
 
 +(POSDBHelper *)getInstance;
--(BOOL) isUserHasCorrectPassword:(NSString* )email p_password:(NSString* )password;
--(BOOL) registerNewUser:(NSString* )email p_password:(NSString* )password;
+//-(BOOL) isUserHasCorrectPassword:(NSString* )email p_password:(NSString* )password;
+//-(BOOL) registerNewUser:(NSString* )email p_password:(NSString* )password;
 -(POSDBWrapper* ) getWrapper;
 
 @end

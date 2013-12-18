@@ -15,7 +15,10 @@
 #import "POSGoodsGridViewController.h"
 #import "POSEditCatViewController.h"
 
-@interface POSCatGridViewController : UIViewController<UIAlertViewDelegate, AQGridViewDelegate, AQGridViewDataSource, ZBarReaderDelegate>
+/*
+ *UIScrollViewDelegate может надо для viewForZoomingInScrollView
+ */
+@interface POSCatGridViewController : UIViewController<UIAlertViewDelegate, AQGridViewDelegate, AQGridViewDataSource, ZBarReaderDelegate,UIScrollViewDelegate>
 {
     NSString*               catName;
 }

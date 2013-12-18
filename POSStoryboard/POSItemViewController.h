@@ -8,16 +8,31 @@
 
 #import <UIKit/UIKit.h>
 #import "POSItem.h"
+#import "POSOrder.h"
 
-@interface POSItemViewController : UIViewController
+@interface POSItemViewController : UIViewController<UIScrollViewDelegate>
 {
     POSItem*            item;
-    NSString*           currentQuantity;
+    POSOrder*           order;
 
+    NSString*           previousQuantity;
+    NSString*           currentQuantity;
 }
 
 @property POSItem* item;
-@property NSString* currentQuantity;
+@property POSOrder* order;
 
+@property NSString* currentQuantity;
+@property NSString* previousQuantity;
+
+@property (weak, nonatomic) IBOutlet UITextField *textQuantity;
+@property (weak, nonatomic) IBOutlet UILabel *labelCode;
+@property (weak, nonatomic) IBOutlet UILabel *labelPrice;
+@property (weak, nonatomic) IBOutlet UILabel *labelDescription;
+@property (weak, nonatomic) IBOutlet UILabel *labelAvailable;
+@property (weak, nonatomic) IBOutlet UIView *viewContent;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+- (IBAction)onOrder:(id)sender;
 
 @end

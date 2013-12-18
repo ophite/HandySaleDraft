@@ -14,7 +14,6 @@
 		8004B4631850B01500681B11 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B4621850B01500681B11 /* main.m */; };
 		8004B4671850B01500681B11 /* POSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B4661850B01500681B11 /* POSAppDelegate.m */; };
 		8004B46A1850B01500681B11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8004B4681850B01500681B11 /* Main.storyboard */; };
-		8004B46D1850B01500681B11 /* POSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8004B46C1850B01500681B11 /* POSViewController.m */; };
 		8004B46F1850B01500681B11 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8004B46E1850B01500681B11 /* Images.xcassets */; };
 		8004B4761850B01500681B11 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8004B4751850B01500681B11 /* XCTest.framework */; };
 		8004B4771850B01500681B11 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8004B4561850B01500681B11 /* Foundation.framework */; };
@@ -103,6 +102,7 @@
 		807C43D9185B281400CBAB88 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 807C43D1185B267B00CBAB88 /* libiconv.dylib */; };
 		807C43DC185B5A0E00CBAB88 /* POSItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43DB185B5A0E00CBAB88 /* POSItemViewController.m */; };
 		80BEBBC3186087FB003228B1 /* POSBasketOpenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80BEBBC2186087FB003228B1 /* POSBasketOpenViewController.m */; };
+		80BEBBC61861D9E4003228B1 /* POSSetCatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80BEBBC51861D9E4003228B1 /* POSSetCatViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,8 +127,6 @@
 		8004B4651850B01500681B11 /* POSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POSAppDelegate.h; sourceTree = "<group>"; };
 		8004B4661850B01500681B11 /* POSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = POSAppDelegate.m; sourceTree = "<group>"; };
 		8004B4691850B01500681B11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8004B46B1850B01500681B11 /* POSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSViewController.h; sourceTree = "<group>"; };
-		8004B46C1850B01500681B11 /* POSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSViewController.m; sourceTree = "<group>"; };
 		8004B46E1850B01500681B11 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8004B4741850B01500681B11 /* POSStoryboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POSStoryboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8004B4751850B01500681B11 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -280,6 +278,8 @@
 		807C43DB185B5A0E00CBAB88 /* POSItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSItemViewController.m; sourceTree = "<group>"; };
 		80BEBBC1186087FB003228B1 /* POSBasketOpenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSBasketOpenViewController.h; sourceTree = "<group>"; };
 		80BEBBC2186087FB003228B1 /* POSBasketOpenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSBasketOpenViewController.m; sourceTree = "<group>"; };
+		80BEBBC41861D9E4003228B1 /* POSSetCatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSSetCatViewController.h; sourceTree = "<group>"; };
+		80BEBBC51861D9E4003228B1 /* POSSetCatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSSetCatViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -525,8 +525,6 @@
 		8054C3E9185221D500299E2F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8004B46B1850B01500681B11 /* POSViewController.h */,
-				8004B46C1850B01500681B11 /* POSViewController.m */,
 				8054C3ED1852233E00299E2F /* POSLoginViewController.h */,
 				8054C3EE1852233E00299E2F /* POSLoginViewController.m */,
 				8054C3F01852235000299E2F /* POSRegisterViewController.h */,
@@ -549,6 +547,8 @@
 				80206FF0185F7476002FFC35 /* POSNewGoodViewController.m */,
 				80BEBBC1186087FB003228B1 /* POSBasketOpenViewController.h */,
 				80BEBBC2186087FB003228B1 /* POSBasketOpenViewController.m */,
+				80BEBBC41861D9E4003228B1 /* POSSetCatViewController.h */,
+				80BEBBC51861D9E4003228B1 /* POSSetCatViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -793,7 +793,6 @@
 				8004B7141850D33600681B11 /* POSItem.m in Sources */,
 				8004B7131850D33600681B11 /* POSCategory.m in Sources */,
 				807C439E185A1B2F00CBAB88 /* POSCatGridViewController.m in Sources */,
-				8004B46D1850B01500681B11 /* POSViewController.m in Sources */,
 				807C43DC185B5A0E00CBAB88 /* POSItemViewController.m in Sources */,
 				8004B7161850D33600681B11 /* POSImage.m in Sources */,
 				80BEBBC3186087FB003228B1 /* POSBasketOpenViewController.m in Sources */,
@@ -827,6 +826,7 @@
 				8004B7001850D30900681B11 /* AQGridViewUpdateInfo.m in Sources */,
 				8004B6FD1850D30900681B11 /* AQGridViewCell.m in Sources */,
 				8004B6AF1850C86300681B11 /* POSDataSet.m in Sources */,
+				80BEBBC61861D9E4003228B1 /* POSSetCatViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

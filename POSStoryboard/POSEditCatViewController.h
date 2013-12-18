@@ -9,11 +9,22 @@
 #import <UIKit/UIKit.h>
 #import "POSCategory.h"
 
-@interface POSEditCatViewController : UIViewController
+@interface POSEditCatViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     POSCategory*            cat;
+    NSString*               oldName;
+
 }
 
 @property POSCategory* cat;
+@property NSString * oldName;
+
+@property (weak, nonatomic) IBOutlet UITextField *textName;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
+- (IBAction)onSave:(id)sender;
+- (IBAction)onCancel:(id)sender;
+- (IBAction)onSelectImage:(id)sender;
+- (IBAction)onDelete:(id)sender;
 
 @end

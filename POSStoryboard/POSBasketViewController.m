@@ -21,6 +21,9 @@
 @synthesize tableBasket         = _tableBasket;
 
 
+/*
+ * ViewController
+ */
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -53,6 +56,9 @@
 }
 
 
+/*
+ * GridView
+ */
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -91,6 +97,16 @@
 }
 
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableBasket reloadData];
+}
+
+
+/*
+ * Email
+ */
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
     [controller dismissViewControllerAnimated:YES completion:nil];
@@ -156,7 +172,7 @@
     viewItem.item = [objectsHelperInstance.dataSet.allItems objectAtIndex:itemIndex];
     viewItem.title = viewItem.item.name;
     
-    NSString*     quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row] quantity];
+    NSString * quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row] quantity];
 //    quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row] quantity];
     viewItem.item.quantityOrdered = quan;
     viewItem.currentQuantity = quan;
@@ -164,13 +180,9 @@
 }
 
 
-- (void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.tableBasket reloadData];
-}
-
-
+/*
+ * Methods
+ */
 - (void) saveToDB
 {
     POSDBWrapper * dbWrapper = [POSDBWrapper getInstance];
@@ -235,6 +247,9 @@
 }
 
 
+/*
+ * Actions
+ */
 - (IBAction)onSendEmail:(id)sender
 {
     [self saveToDB];
@@ -301,11 +316,11 @@
 
 - (IBAction)onOpen:(id)sender
 {
-    POSBasketOpenViewController* viewBasketList = [POSBasketOpenViewController new];
-    viewBasketList.title = @"Basket DB";
-    viewBasketList.basketArray = [[NSMutableArray alloc] init];
-    [viewBasketList readBasketsList];
-    [self.navigationController pushViewController:viewBasketList animated:YES];
+//    POSBasketOpenViewController* viewBasketList = [POSBasketOpenViewController new];
+//    viewBasketList.title = @"Basket DB";
+//    viewBasketList.basketArray = [[NSMutableArray alloc] init];
+//    [viewBasketList readBasketsList];
+//    [self.navigationController pushViewController:viewBasketList animated:YES];
 }
 
 

@@ -10,6 +10,7 @@
 #import <sqlite3.h>
 
 #define dataFile @"data.sqlite3"
+#define dbWrapperInstance [POSDBWrapper getInstance]
 
 @interface POSDBWrapper : NSObject
 {

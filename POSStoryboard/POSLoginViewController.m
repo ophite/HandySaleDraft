@@ -18,6 +18,9 @@
 @synthesize textPassword = _textPassword;
 
 
+/*
+ * ViewController
+ */
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -58,37 +61,8 @@
 }
 
 
-//-(BOOL) login
-//{
-//    /*
-//     url            = [NSURL URLWithString:@"http://goods.itvik.com/api/login/"];
-//     requestString  = [NSString stringWithFormat:@"email=%@&password=%@", name, pass];
-//     requestData    = [requestString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-//     requestLength  = [NSString stringWithFormat:@"%d", [requestData length]];
-//     request        = [[NSMutableURLRequest alloc] init];
-//     
-//     [request setURL:url];
-//     [request setHTTPMethod:@"POST"];
-//     [request setValue:requestLength forHTTPHeaderField:@"Content-Length"];
-//     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-//     [request setHTTPBody:requestData];
-//     
-//     //connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-//     //[connection start];
-//     
-//     responseData        = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-//     //responseString    = [[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding];
-//     responseDictionary  = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:nil];
-//     
-//     isLoggedIn          = [[responseDictionary objectForKey:@"success"] boolValue];
-//     token               = (NSString *) [responseDictionary objectForKey:@"token"];
-//     */
-//}
-
-
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    //LOGIN
     if ([identifier isEqualToString:@"goToLoginSegue"])
     {
         BOOL isLogged = NO;
@@ -133,6 +107,35 @@
     
     return isLogged;
 }
+
+
+
+//-(BOOL) login
+//{
+//    /*
+//     url            = [NSURL URLWithString:@"http://goods.itvik.com/api/login/"];
+//     requestString  = [NSString stringWithFormat:@"email=%@&password=%@", name, pass];
+//     requestData    = [requestString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+//     requestLength  = [NSString stringWithFormat:@"%d", [requestData length]];
+//     request        = [[NSMutableURLRequest alloc] init];
+//
+//     [request setURL:url];
+//     [request setHTTPMethod:@"POST"];
+//     [request setValue:requestLength forHTTPHeaderField:@"Content-Length"];
+//     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+//     [request setHTTPBody:requestData];
+//
+//     //connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+//     //[connection start];
+//
+//     responseData        = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+//     //responseString    = [[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding];
+//     responseDictionary  = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:nil];
+//
+//     isLoggedIn          = [[responseDictionary objectForKey:@"success"] boolValue];
+//     token               = (NSString *) [responseDictionary objectForKey:@"token"];
+//     */
+//}
 
 
 @end

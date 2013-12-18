@@ -18,6 +18,10 @@
 @synthesize textPassword = _textPassword;
 @synthesize textPassword2 = _textPassword2;
 
+
+/*
+ * ViewController
+ */
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -56,10 +60,13 @@
 }
 
 
+/*
+ * Action
+ */
 - (IBAction)onCreate:(id)sender
 {
     if(![self.textPassword.text isEqualToString:@""] && [self.textPassword.text isEqualToString:self.textPassword2.text] &&
-       [[POSDBHelper getInstance] registerNewUser:self.textEmail.text p_password:self.textPassword.text])
+       [self registerNewUser])
         [self.navigationController popViewControllerAnimated:YES];
     else
     {

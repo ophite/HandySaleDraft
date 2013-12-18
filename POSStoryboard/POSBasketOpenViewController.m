@@ -37,6 +37,9 @@
 {
     [super viewDidLoad];
     
+    self.basketArray = [[NSMutableArray alloc] init];
+    [self readBasketsList];
+
     self.tableBasket.dataSource = self;
     self.tableBasket.delegate = self;
 

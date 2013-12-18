@@ -20,6 +20,10 @@
 @synthesize btnChangeMode   = _btnChangeMode;
 @synthesize btnScan         = _btnScan;
 
+
+/*
+ * ViewController
+ */
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -55,55 +59,35 @@
 }
 
 
-- (IBAction)onScan:(id)sender
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    ZBarReaderViewController* reader = [ZBarReaderViewController new];
-    reader.readerDelegate = self;
+    BOOL result = YES;
     
-    [reader.scanner setSymbology: 0
-                          config: ZBAR_CFG_ENABLE
-                              to: 0];
+    if ([identifier isEqualToString:@"goToGoodsFake"])
+    {
+        result = NO;
+    }
     
-    [reader.scanner setSymbology: ZBAR_EAN13
-                          config: ZBAR_CFG_ENABLE
-                              to: 1];
-    
-    [reader.scanner setSymbology: ZBAR_EAN8
-                          config: ZBAR_CFG_ENABLE
-                              to: 1];
-    
-    // Enable UPC-A
-    [reader.scanner setSymbology: ZBAR_UPCA
-                          config: ZBAR_CFG_ENABLE
-                              to: 1];
-    
-    reader.readerView.zoom = 1.0;
-    reader.showsZBarControls = NO;
-    
-    [self presentViewController: reader animated: YES completion:nil];
+    return result;
 }
 
 
-- (IBAction)onChangeMode:(id)sender
+- (void)viewDidUnload
 {
-    POSObjectsHelper * objectsHelper = [POSObjectsHelper getInstance];
-    objectsHelper.catsMode = !objectsHelper.catsMode;
-    [self.btnChangeMode setTitle: (objectsHelper.catsMode ? @"View mode" : @"Edit mode") forState: UIControlStateNormal];
+    [super viewDidUnload];
 }
 
 
 /*
  * GridView methods
  */
-- (NSUInteger) numberOfItemsInGridView: (AQGridView *) aGridView
+- (NSUInteger)numberOfItemsInGridView: (AQGridView *) aGridView
 {
-    POSObjectsHelper * objectsHelper = [POSObjectsHelper getInstance];
-    
-    return [objectsHelper.dataSet.categories count];
+    return [objectsHelperInstance.dataSet.categories count];
 }
 
 
-- (AQGridViewCell*) gridView: (AQGridView *) aGridView cellForItemAtIndex: (NSUInteger) index
+- (AQGridViewCell*)gridView: (AQGridView *) aGridView cellForItemAtIndex: (NSUInteger) index
 {
     static NSString* PlainCellIdentifier = @"PlainCellIdentifier";
     
@@ -124,32 +108,11 @@
 }
 
 
--(UIView*) viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-    return self.gridView;
-}
-
-
-- (void) viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.gridView reloadData];
 }
-
-
-
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
-    BOOL result = YES;
-    
-    if ([identifier isEqualToString:@"goToGoodsFake"])
-    {
-        result = NO;
-    }
-    
-    return result;
-}
-
 
 
 -(void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index
@@ -171,21 +134,24 @@
 }
 
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
-
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 
-- (CGSize) portraitGridCellSizeForGridView: (AQGridView *) aGridView
+- (CGSize)portraitGridCellSizeForGridView: (AQGridView *) aGridView
 {
     return ( CGSizeMake(160.0, 160) );
+}
+
+
+/*
+ * Other
+ */
+-(UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.gridView;
 }
 
 
@@ -231,9 +197,9 @@
     }
     else
     {
-//        POSItemViewController* viewItem = [POSItemViewController new];
-//        viewItem.item = resultItem;
-//        [self.navigationController pushViewController:viewItem animated:YES];
+        POSItemViewController* viewItem = [POSItemViewController new];
+        viewItem.item = resultItem;
+        [self.navigationController pushViewController:viewItem animated:YES];
     }
 }
 
@@ -262,6 +228,46 @@
         [dbWrapper tryExecQuery:query];
         [dbWrapper closeDB];
     }
+}
+
+
+/*
+ * Actions
+ */
+- (IBAction)onScan:(id)sender
+{
+    ZBarReaderViewController* reader = [ZBarReaderViewController new];
+    reader.readerDelegate = self;
+    
+    [reader.scanner setSymbology: 0
+                          config: ZBAR_CFG_ENABLE
+                              to: 0];
+    
+    [reader.scanner setSymbology: ZBAR_EAN13
+                          config: ZBAR_CFG_ENABLE
+                              to: 1];
+    
+    [reader.scanner setSymbology: ZBAR_EAN8
+                          config: ZBAR_CFG_ENABLE
+                              to: 1];
+    
+    // Enable UPC-A
+    [reader.scanner setSymbology: ZBAR_UPCA
+                          config: ZBAR_CFG_ENABLE
+                              to: 1];
+    
+    reader.readerView.zoom = 1.0;
+    reader.showsZBarControls = NO;
+    
+    [self presentViewController: reader animated: YES completion:nil];
+}
+
+
+- (IBAction)onChangeMode:(id)sender
+{
+    POSObjectsHelper * objectsHelper = [POSObjectsHelper getInstance];
+    objectsHelper.catsMode = !objectsHelper.catsMode;
+    [self.btnChangeMode setTitle: (objectsHelper.catsMode ? @"View mode" : @"Edit mode") forState: UIControlStateNormal];
 }
 
 
