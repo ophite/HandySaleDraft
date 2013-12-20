@@ -22,6 +22,6 @@
 @property int currentItemsIndex;
 @property int currentBasketID;
 
-+(POSObjectsHelper *)getInstance;
++ (POSObjectsHelper *)getInstance;
 
 @end

@@ -14,6 +14,7 @@
 
 @implementation POSLoginViewController
 
+
 @synthesize textEmail = _textEmail;
 @synthesize textPassword = _textPassword;
 
@@ -21,11 +22,11 @@
 /*
  * ViewController
  */
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
-    {
+    if (self) {
+        
         // Custom initialization
     }
     
@@ -33,8 +34,8 @@
 }
 
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+
     [super viewDidLoad];
     
     self.textEmail.delegate = self;
@@ -47,31 +48,31 @@
 }
 
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 
--(BOOL) textFieldShouldReturn:(UITextField *)textField
-{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
     [textField resignFirstResponder];
     return YES;
 }
 
 
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
-    if ([identifier isEqualToString:@"goToLoginSegue"])
-    {
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    
+    if ([identifier isEqualToString:@"goToLoginSegue"]) {
+        
         BOOL isLogged = NO;
         
         if (![self.textEmail.text isEqualToString:@""] && ![self.textPassword.text isEqualToString:@""])
             isLogged =[self isUserHasCorrectPassword];
         
-        if (!isLogged)
-        {
+        if (!isLogged) {
+            
             [self.textEmail setText:@""];
             [self.textPassword setText:@""];
         }
@@ -86,17 +87,17 @@
 /*
  * Check if user has correct pass
  */
--(BOOL) isUserHasCorrectPassword
-{
+- (BOOL)isUserHasCorrectPassword {
+    
     BOOL isLogged = NO;
     
-    if ([dbWrapperInstance openDB])
-    {
+    if ([dbWrapperInstance openDB]) {
+        
         NSString* passStr;
         NSString* query = [NSString stringWithFormat: @"SELECT password FROM user WHERE email=\"%@\"", self.textEmail.text];
         
-        if ([dbWrapperInstance tryExecQueryResultText:query p_index:0 p_result:&passStr] == YES)
-        {
+        if ([dbWrapperInstance tryExecQueryResultText:query p_index:0 p_result:&passStr] == YES) {
+            
             if([passStr isEqualToString:self.textPassword.text])
                 isLogged = YES;
         }

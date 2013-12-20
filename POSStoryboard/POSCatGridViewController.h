@@ -21,9 +21,12 @@
 @interface POSCatGridViewController : UIViewController<UIAlertViewDelegate, AQGridViewDelegate, AQGridViewDataSource, ZBarReaderDelegate,UIScrollViewDelegate>
 {
     NSString*               catName;
+    NSMutableArray *assets;
 }
 
+@property (weak, nonatomic) IBOutlet UIScrollView   *scrollView;
 @property (weak, nonatomic) IBOutlet AQGridView     *gridView;
+
 @property (weak, nonatomic) IBOutlet UIButton       *btnScan;
 @property (weak, nonatomic) IBOutlet UIButton       *btnChangeMode;
 @property (weak, nonatomic) IBOutlet UIButton       *btnAdd;
@@ -31,5 +34,6 @@
 
 - (IBAction)onScan:(id)sender;
 - (IBAction)onChangeMode:(id)sender;
+
 
 @end

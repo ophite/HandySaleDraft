@@ -19,6 +19,7 @@
     NSString*           currentQuantity;
 }
 
+
 @property POSItem* item;
 @property POSOrder* order;
 
@@ -33,6 +34,8 @@
 @property (weak, nonatomic) IBOutlet UIView *viewContent;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
+
 - (IBAction)onOrder:(id)sender;
+
 
 @end

@@ -10,5 +10,19 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "__27-[POSDataSet getCategories]_block_invoke_2:POSDataSet.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[POSCatGridViewController gridView:cellForItemAtIndex:]:POSCatGridViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "objectsHelperInstance.dataSet">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[POSDataSet getCategories]:POSDataSet.m">
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

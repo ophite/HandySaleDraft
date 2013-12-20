@@ -13,6 +13,7 @@
 
 @implementation POSBasketViewController
 
+
 @synthesize btnBarSendEmail     = _btnBarSendEmail;
 @synthesize btnCancel           = _btnCancel;
 @synthesize btnClear            = _btnClear;
@@ -24,11 +25,11 @@
 /*
  * ViewController
  */
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
-    {
+    if (self) {
+        
         // Custom initialization
     }
     
@@ -36,22 +37,22 @@
 }
 
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
 
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
@@ -59,26 +60,25 @@
 /*
  * GridView
  */
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return 1;
 }
 
 
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     return [objectsHelperInstance.dataSet.orderArray count];
 }
 
 
--(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     static NSString* CellIdentifier = @"Cell";
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     if(cell == nil)
-    {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-    }
     
     NSString* good = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]] name];
     NSString* quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]] quantity];
@@ -97,8 +97,8 @@
 }
 
 
-- (void) viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
     [self.tableBasket reloadData];
 }
@@ -107,14 +107,14 @@
 /*
  * Email
  */
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
-{
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    
     NSString* name;
     NSString* cat;
     
@@ -124,12 +124,11 @@
     name = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:index] name];
     cat = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:index] category];
     
-    for(int i = 0; i<n; i++)
-    {
+    for(int i = 0; i<n; i++) {
+        
         if  ([[[objectsHelperInstance.dataSet.allItems objectAtIndex:i] name] isEqualToString:name]&&
-             [[[objectsHelperInstance.dataSet.allItems objectAtIndex:i] category] isEqualToString:cat])
+             [[[objectsHelperInstance.dataSet.allItems objectAtIndex:i] category] isEqualToString:cat]){
             
-        {
             itemIndex = i;
             break;
         }
@@ -147,8 +146,8 @@
 }
 
 
--(void) tableView: (UITableView*) tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     NSString* name;
     NSString* cat;
     
@@ -158,11 +157,11 @@
     name = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:index] name];
     cat = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:index] category];
     
-    for(int i = 0; i<n; i++)
-    {
+    for(int i = 0; i<n; i++) {
+        
         if  ([[[objectsHelperInstance.dataSet.allItems objectAtIndex:i] name] isEqualToString:name]&&
-             [[[objectsHelperInstance.dataSet.allItems objectAtIndex:i] category] isEqualToString:cat])
-        {
+             [[[objectsHelperInstance.dataSet.allItems objectAtIndex:i] category] isEqualToString:cat]) {
+            
             itemIndex = i;
             break;
         }
@@ -183,21 +182,21 @@
 /*
  * Methods
  */
-- (void) saveToDB
-{
+- (void)saveToDB {
+    
     if (![dbWrapperInstance openDB])
         return;
     
     float totalPrice = 0.;
     
-    for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++)
-    {
+    for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
+        
         POSOrder* order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
         totalPrice += [order.price floatValue];
     }
     
-    if(objectsHelperInstance.currentBasketID)
-    {
+    if(objectsHelperInstance.currentBasketID) {
+        
         NSString * query = [NSString stringWithFormat:@"UPDATE  document \
                             SET     date = datetime('now'), paid_price = %f \
                             WHERE   id = %d",totalPrice, objectsHelperInstance.currentBasketID];
@@ -208,8 +207,8 @@
                  WHERE  document_id = %d", objectsHelperInstance.currentBasketID];
         [dbWrapperInstance tryExecQuery:query];
         
-        for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++)
-        {
+        for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
+            
             POSOrder* order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
             float price = [order.price floatValue];
             int quantity = [order.quantity intValue];
@@ -219,8 +218,8 @@
             [dbWrapperInstance tryExecQuery:query];
         }
     }
-    else
-    {
+    else {
+        
         NSString * query = [NSString stringWithFormat:@"INSERT INTO document (date, paid_price, document_type_id, user_id) \
                             VALUES (datetime('now'), %f, %d, %d)", totalPrice, 1, 1];
         [dbWrapperInstance tryExecQuery:query];
@@ -230,8 +229,8 @@
         ORDER BY id DESC limit 1";
         int doc_ID = [dbWrapperInstance execQueryResultInt:query p_index:0];
         
-        for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++)
-        {
+        for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
+            
             POSOrder* order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
             float price = [order.price floatValue];
             int quantity = [order.quantity intValue];
@@ -249,8 +248,8 @@
 /*
  * Actions
  */
-- (IBAction)onSendEmail:(id)sender
-{
+- (IBAction)onSendEmail:(id)sender {
+    
     [self saveToDB];
     
     if(![MFMailComposeViewController canSendMail])
@@ -264,8 +263,8 @@
     NSMutableString *messageBody = [[NSMutableString alloc] initWithString:@"<html><body>"];
     [messageBody appendFormat:@"<table>"];
     
-    for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++)
-    {
+    for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
+        
         NSData *imageData = [NSData dataWithData:UIImagePNGRepresentation([[objectsHelperInstance.dataSet.orderArray objectAtIndex:i] image])];
         NSString *base64String = [imageData base64EncodedString];
         
@@ -290,22 +289,22 @@
 }
 
 
-- (IBAction)onCancel:(id)sender
-{
+- (IBAction)onCancel:(id)sender {
+    
     [objectsHelperInstance.dataSet.orderArray removeAllObjects];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 
-- (IBAction)onClear:(id)sender
-{
+- (IBAction)onClear:(id)sender {
+    
     [objectsHelperInstance.dataSet.orderArray removeAllObjects];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 
-- (IBAction)onSave:(id)sender
-{
+- (IBAction)onSave:(id)sender {
+    
     [self saveToDB];
     [objectsHelperInstance.dataSet.orderArray removeAllObjects];
     objectsHelperInstance.currentBasketID = 0;
@@ -313,8 +312,8 @@
 }
 
 
-- (IBAction)onOpen:(id)sender
-{
+- (IBAction)onOpen:(id)sender {
+    
 //    POSBasketOpenViewController* viewBasketList = [POSBasketOpenViewController new];
 //    viewBasketList.title = @"Basket DB";
 //    viewBasketList.basketArray = [[NSMutableArray alloc] init];

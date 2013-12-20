@@ -10,29 +10,29 @@
 
 @implementation POSTest
 
--(void) initDBStructure
-{
-    if ([dbWrapperInstance openDB] == NO)
+- (void)initDBStructure {
+    
+    if (![dbWrapperInstance openDB])
         return;
     
-    /*
-    query = @"DROP TABLE IF EXISTS image";
-    sqlite3_exec(database, [query UTF8String], NULL, NULL, &errorMsg);
+    NSString * query = [[NSString alloc] init];
     
-    query = @"DROP TABLE IF EXISTS collection";
-    sqlite3_exec(database, [query UTF8String], NULL, NULL, &errorMsg);
-
-    query = @"DROP TABLE IF EXISTS product";
-    sqlite3_exec(database, [query UTF8String], NULL, NULL, &errorMsg);
+//    query = @"DROP TABLE IF EXISTS image";
+//    [dbWrapperInstance tryExecQuery:query];
+//    
+//    query = @"DROP TABLE IF EXISTS collection";
+//    [dbWrapperInstance tryExecQuery:query];
+//
+//    query = @"DROP TABLE IF EXISTS product";
+//    [dbWrapperInstance tryExecQuery:query];
+//    
+//    query = @"DROP TABLE IF EXISTS document";
+//    [dbWrapperInstance tryExecQuery:query];
+//    
+//    query = @"DROP TABLE IF EXISTS document_line";
+//    [dbWrapperInstance tryExecQuery:query];
     
-    query = @"DROP TABLE IF EXISTS document";
-    sqlite3_exec(database, [query UTF8String], NULL, NULL, &errorMsg);
-    
-    query = @"DROP TABLE IF EXISTS document_line";
-    sqlite3_exec(database, [query UTF8String], NULL, NULL, &errorMsg);
-    */
-    
-    NSString* query =
+    query =
     @"CREATE TABLE IF NOT EXISTS attribute ( \
         id INTEGER NOT NULL, \
         name VARCHAR(255) NOT NULL, \
@@ -190,64 +190,16 @@
 }
 
 
--(void) testForeach
-{
-    if (![dbWrapperInstance openDB])
-        return;
-
-    NSMutableArray * categories  = [[NSMutableArray alloc] init];
-    NSString* query = [NSString stringWithFormat: @"SELECT    c.id, c.name, i.asset \
-                                                      FROM      collection c \
-                                                                LEFT JOIN image i \
-                                                      WHERE     i.object_id = c.id AND i.object_name = \"collection\" AND i.is_default = 1"];
+- (void)initDBData:(POSDataSet*) dataSet {
     
-    void (^blockGetCategory)( id rows) = ^(id rows)
-    {
-        POSCategory* catObject = [[POSCategory alloc] init];
-        catObject.ID = [dbWrapperInstance getCellInt:0];
-        catObject.name = [dbWrapperInstance getCellText:1];
-        catObject.asset = [dbWrapperInstance getCellText:2];
-        
-        [((NSMutableArray *)rows) addObject:catObject];
-    };
-    
-    [dbWrapperInstance fetchRows:query foreachCallback:blockGetCategory p_rows:categories];
-    
-    // Prepare image
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-
-    for (int i = 0; i < [categories count]; i++)
-    {
-        POSCategory * catObject = [categories objectAtIndex:i];
-
-        if ( catObject.asset != Nil && ![catObject.asset isEqualToString:@""])
-        {
-            NSURL* assetUrl = [[NSURL alloc] initWithString:catObject.asset];
-            [library assetForURL: assetUrl resultBlock:^(ALAsset *asset)
-             {
-                 catObject.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
-             }
-             failureBlock: ^(NSError* error)
-             {
-                 NSLog(@"%@", error.description);
-             }];
-        }
-    }
-    
-    [dbWrapperInstance closeDB];
-}
-
-
--(void) initDBData:(POSDataSet*) dataSet
-{
     if ([dbWrapperInstance openDB] == NO)
         return;
 
     NSString* query = @"SELECT count(*) FROM collection";
     int count = [dbWrapperInstance execQueryResultInt:query p_index:0];
 
-    if(count == 0)
-    {
+    if(count == 0) {
+        
         query = @"INSERT INTO collection (name, user_id) VALUES (\"Nissan\", 1);\
         INSERT INTO collection (name, user_id) VALUES (\"Toyota\", 1); \
         INSERT INTO collection (name, user_id) VALUES (\"Suzuki\", 1); \
@@ -265,8 +217,8 @@
     query = @"SELECT count(*) FROM product";
     count = [dbWrapperInstance execQueryResultInt:query p_index:0];
     
-    if(count == 0)
-    {
+    if(count == 0) {
+        
         query = [NSString stringWithFormat:@"SELECT id FROM collection WHERE name= \"%@\" AND user_id = %d", @"Nissan", 1];
         int catID = [dbWrapperInstance execQueryResultInt:query p_index:0];
 
@@ -290,8 +242,8 @@
     query = @"SELECT count(*) FROM image";
     count = [dbWrapperInstance execQueryResultInt:query p_index:0];
 
-    if(count == 0)
-    {
+    if(count == 0) {
+        
         query = @"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car01.png\", \"car01.png\", 1, \"collection\", 1);\
         INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car02.png\", \"car02.png\", 2, \"collection\", 1);\
         INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car03.png\", \"car03.png\", 3, \"collection\", 1);\

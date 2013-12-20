@@ -14,6 +14,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *textEmail;
 @property (weak, nonatomic) IBOutlet UITextField *textPassword;
--(BOOL) isUserHasCorrectPassword;
+
+- (BOOL)isUserHasCorrectPassword;
+
 
 @end

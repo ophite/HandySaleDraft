@@ -13,11 +13,10 @@
 
 @property int initRow;
 @property int exitRow;
-@property POSItem* item;
-@property (strong, nonatomic) NSMutableArray* pickerData;
-
-
+@property POSItem *item;
+@property (strong, nonatomic) NSMutableArray *pickerData;
 @property (weak, nonatomic) IBOutlet UIPickerView *picker;
+
 - (IBAction)onOk:(id)sender;
 
 @end

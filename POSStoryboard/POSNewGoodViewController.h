@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *textName;
 @property (weak, nonatomic) IBOutlet UITextField *textImageName;
 
--(IBAction)onCreate:(id)sender;
--(BOOL)createdNewGood;
+- (IBAction)onCreate:(id)sender;
+- (BOOL)createdNewGood;
 
 @end

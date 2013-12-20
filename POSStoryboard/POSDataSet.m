@@ -7,13 +7,15 @@
 //
 
 #import "POSDataSet.h"
+#import <dispatch/dispatch.h>
 
 @implementation POSDataSet
 
 @synthesize images, categories, items, orderArray, allItems;
 
--(id) init
-{
+
+- (id)init {
+    
     self = [super init];
     
     images          = [[NSMutableArray alloc] init];
@@ -26,6 +28,7 @@
        
     return self;
 }
+
 
 /*
 -(void) getImages
@@ -75,8 +78,9 @@
 
 */
 
--(void) getCategories
-{
+
+- (void)getCategories {
+    
     /*
     url            = [NSURL URLWithString:[NSString stringWithFormat:@"http://goods.itvik.com/api/collection/?token=%@", token]];
     request        = [[NSMutableURLRequest alloc] init];
@@ -92,52 +96,45 @@
     requestSuccess      = [[responseDictionary objectForKey:@"success"] boolValue];
     timeStamp           = (NSString*) [responseDictionary objectForKey:@"tst"];
     */
-    if ([dbWrapperInstance openDB]) {
-       NSString * query = [NSString stringWithFormat: @"SELECT    c.id, c.name, i.asset \
-                                                       FROM      collection c \
-                                                                 LEFT JOIN image i \
-                                                       WHERE     i.object_id = c.id AND i.object_name = \"collection\" AND i.is_default = 1"];
+    if (![dbWrapperInstance openDB])
+        return;
+    
+    NSString * query = [NSString stringWithFormat: @"SELECT    c.id, c.name, i.asset \
+                                                     FROM      collection c \
+                                                     LEFT JOIN image i \
+                                                     WHERE     i.object_id = c.id AND i.object_name = \"collection\" AND i.is_default = 1"];
+    ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
+  
+    void(^blockGetCategory)( id rows, ALAssetsLibrary * lib) = ^(id rows, id lib) {
+        POSCategory* catObject = [[POSCategory alloc] init];
+        catObject.ID = [dbWrapperInstance getCellInt:0];
+        catObject.name = [dbWrapperInstance getCellText:1];
+        catObject.asset = [dbWrapperInstance getCellText:2];
         
-        void (^blockGetCategory)( id rows) = ^(id rows)
+        if (catObject.asset != Nil && ![catObject.asset isEqualToString:@""])
         {
-            POSCategory* catObject = [[POSCategory alloc] init];
-            catObject.ID = [dbWrapperInstance getCellInt:0];
-            catObject.name = [dbWrapperInstance getCellText:1];
-            catObject.asset = [dbWrapperInstance getCellText:2];
+            NSURL * assetUrl = [[NSURL alloc] initWithString:catObject.asset];
             
-            [((NSMutableArray *)rows) addObject:catObject];
-        };
-        
-        [dbWrapperInstance fetchRows:query foreachCallback:blockGetCategory p_rows:categories];
-        
-        // Prepare image
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        
-        for (int i = 0; i < [categories count]; i++)
-        {
-            POSCategory * catObject = [categories objectAtIndex:i];
-            
-            if ( catObject.asset != Nil && ![catObject.asset isEqualToString:@""])
-            {
-                NSURL* assetUrl = [[NSURL alloc] initWithString:catObject.asset];
-                [library assetForURL: assetUrl resultBlock:^(ALAsset *asset)
-                 {
-                     catObject.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
-                 }
-                        failureBlock: ^(NSError* error)
-                 {
-                     NSLog(@"%@", error.description);
-                 }];
-            }
+            [((ALAssetsLibrary *)lib) assetForURL: assetUrl resultBlock:^(ALAsset *asset)
+             {
+                 catObject.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+             }
+             failureBlock: ^(NSError* error)
+             {
+                 NSLog(@"%@", error.description);
+             }];
         }
         
-        [dbWrapperInstance closeDB];
-    }
+        [((NSMutableArray *)rows) addObject:catObject];
+    };
+    
+    [dbWrapperInstance fetchRows:query foreachCallback:blockGetCategory p_rows:self.categories p_library:library];
+    [dbWrapperInstance closeDB];
 }
 
 
--(void) getItems: (NSString*) selectedCatName
-{
+- (void)getItems:(NSString*)selectedCatName {
+    
     /*
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     
@@ -214,27 +211,29 @@
     }
     */
     
-    [items removeAllObjects];
+    [self.items removeAllObjects];
     //[allItems filterUsingPredicate:@"I"]
     POSItem* item;
-    for(int i = 0; i<[allItems count]; i++)
-    {
+    
+    for(int i = 0; i<[allItems count]; i++) {
         item = [allItems objectAtIndex:i];
-        if([item.category isEqualToString:selectedCatName]) [items addObject:item];
+        
+        if([item.category isEqualToString:selectedCatName])
+            [self.items addObject:item];
     }
 }
 
--(void) getAllItems
-{
+
+- (void)getAllItems {
+    
     if(![dbWrapperInstance openDB])
         return;
 
     NSString* query = [NSString stringWithFormat: @"SELECT    p.id, p.name, p.price_buy, p.price_sale, p.comment, i.asset, c.id, c.name \
-                                        FROM      product p, image i, collection c \
-                                        WHERE     i.object_id = p.id AND i.object_name = \"product\" AND i.is_default = 1 and c.id = p.collection_id"];
+                                                    FROM      product p, image i, collection c \
+                                                    WHERE     i.object_id = p.id AND i.object_name = \"product\" AND i.is_default = 1 and c.id = p.collection_id"];
     
-    void (^blockGetItems)(id rows) = ^(id rows)
-    {
+    void(^blockGetItems)(id rows) = ^(id rows) {
         POSItem* goodObject = [[POSItem alloc] init];
         goodObject.gallery = [[NSMutableArray alloc] init];
         goodObject.ID = [dbWrapperInstance getCellInt:0];
@@ -258,22 +257,19 @@
         [((NSMutableArray* )rows) addObject:goodObject];
     };
     
-    [dbWrapperInstance fetchRows:query foreachCallback:blockGetItems p_rows:allItems];
+    [dbWrapperInstance fetchRows:query foreachCallback:blockGetItems p_rows:self.allItems];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
 
-    for (int i = 0; i < [allItems count]; i++)
-    {
-        POSItem* item= [allItems objectAtIndex:i];
+    for (int i = 0; i < [self.allItems count]; i++) {
         
-        if (item.asset != Nil && ![item.asset isEqualToString:@""])
-        {
+        POSItem* item= [self.allItems objectAtIndex:i];
+        
+        if (item.asset != Nil && ![item.asset isEqualToString:@""]) {
             NSURL* assetUrl = [[NSURL alloc] initWithString:item.asset];
-            [library assetForURL: assetUrl resultBlock:^(ALAsset *asset)
-             {
+            [library assetForURL: assetUrl resultBlock:^(ALAsset *asset) {
                  item.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
              }
-            failureBlock: ^(NSError* error)
-             {
+             failureBlock: ^(NSError* error) {
                  NSLog(@"%@", error.description);
              }];
         }
@@ -282,39 +278,40 @@
     [dbWrapperInstance closeDB];
 }
 
--(void) getOrderArray
-{
+
+- (void)getOrderArray {
 
 }
 
--(void)saveGallery:(int)index withLibrary:(ALAssetsLibrary*)library
-{
+
+- (void)saveGallery:(int)index withLibrary:(ALAssetsLibrary*)library {
+    
     if(index >= images.count)
         return;
 
     POSImage* posImage = [images objectAtIndex:index];
 
-    if (posImage.assetUrl != nil)
-    {
+    if (posImage.assetUrl != nil) {
+        
         [self saveGallery:index + 1 withLibrary:library];
         return;
     }
 
-    [library saveImage:posImage.image toAlbum:@"POS" withCompletionBlock:^(NSURL* url, NSError *error)
-    {
+    [library saveImage:posImage.image toAlbum:@"POS" withCompletionBlock:^(NSURL* url, NSError *error) {
+        
         NSString* query = [[NSString alloc] init];
 
-        if (error != nil)
-        {
+        if (error != nil) {
+
             [self saveGallery:index withLibrary:library];
             return;
         }
-        else
-        {
+        else {
+            
             posImage.assetUrl = url;
             
-            if ([dbWrapperInstance openDB])
-            {
+            if ([dbWrapperInstance openDB]) {
+                
                 query = [NSString stringWithFormat:@"UPDATE image SET asset = \"%@\" where path = \"%@\"", url, posImage.path];
                 [dbWrapperInstance tryExecQuery:query];
                 [dbWrapperInstance closeDB];
@@ -324,5 +321,6 @@
         }
     }];
 }
+
 
 @end

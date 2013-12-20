@@ -12,13 +12,13 @@
 @interface POSBasketOpenViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
 
-@property NSMutableArray*                           basketArray;
-@property (weak, nonatomic) IBOutlet UIButton       *btnSave;
-@property (weak, nonatomic) IBOutlet UIButton       *btnCancel;
-@property (weak, nonatomic) IBOutlet UITableView    *tableBasket;
+@property NSMutableArray *basketArray;
+@property (weak, nonatomic) IBOutlet UIButton *btnSave;
+@property (weak, nonatomic) IBOutlet UIButton *btnCancel;
+@property (weak, nonatomic) IBOutlet UITableView *tableBasket;
 
--(void)readBasketsList;
--(void) readBasketData: (int) doc_ID;
+- (void)readBasketsList;
+- (void)readBasketData:(int)doc_ID;
 
 - (IBAction)onSave:(id)sender;
 - (IBAction)onCancel:(id)sender;

@@ -14,6 +14,7 @@
 
 @implementation POSRegisterViewController
 
+
 @synthesize textEmail = _textEmail;
 @synthesize textPassword = _textPassword;
 @synthesize textPassword2 = _textPassword2;
@@ -22,19 +23,19 @@
 /*
  * ViewController
  */
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
-    {
+    if (self) {
+        
         // Custom initialization
     }
     
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     self.textEmail.delegate = self;
@@ -45,16 +46,16 @@
 }
 
 
--(BOOL) textFieldShouldReturn:(UITextField *)textField
-{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
     [textField resignFirstResponder];
     
     return YES;
 }
 
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -63,13 +64,13 @@
 /*
  * Action
  */
-- (IBAction)onCreate:(id)sender
-{
+- (IBAction)onCreate:(id)sender {
+    
     if(![self.textPassword.text isEqualToString:@""] && [self.textPassword.text isEqualToString:self.textPassword2.text] &&
        [self registerNewUser])
         [self.navigationController popViewControllerAnimated:YES];
-    else
-    {
+    else {
+        
         [self.textEmail setText:@""];
         [self.textPassword setText:@""];
         [self.textPassword2 setText:@""];
@@ -80,12 +81,12 @@
 /*
  * Create new user
  */
--(BOOL) registerNewUser
-{
+- (BOOL)registerNewUser {
+    
     BOOL isRegistered = NO;
     
-    if ([dbWrapperInstance openDB])
-    {
+    if ([dbWrapperInstance openDB]) {
+        
         NSString * query = [NSString stringWithFormat:@"INSERT INTO USER (email, password) VALUES (\"%@\", \"%@\")", self.textEmail.text, self.textPassword.text];
         isRegistered = [dbWrapperInstance tryExecQuery:query];
         

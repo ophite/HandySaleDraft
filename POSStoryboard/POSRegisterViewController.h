@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *textPassword;
 @property (weak, nonatomic) IBOutlet UITextField *textPassword2;
 
--(IBAction)onCreate:(id)sender;
--(BOOL) registerNewUser;
+- (IBAction)onCreate:(id)sender;
+- (BOOL)registerNewUser;
 
 @end

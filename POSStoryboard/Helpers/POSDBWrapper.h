@@ -12,40 +12,44 @@
 #define dataFile @"data.sqlite3"
 #define dbWrapperInstance [POSDBWrapper getInstance]
 
-@interface POSDBWrapper : NSObject
-{
+@interface POSDBWrapper : NSObject {
+    
     NSString*               dataPath;
     sqlite3*                database;
     sqlite3_stmt*           statement;
     char*                   errorMsg;
 }
 
+
 @property NSString*         dataPath;
 @property sqlite3*          database;
 @property sqlite3_stmt*     statement;
 @property char*             errorMsg;
 
--(NSString*) getDBFilePath;
-+(POSDBWrapper *)getInstance;
 
--(BOOL) openDB;
--(void) closeDB;
+- (NSString *)getDBFilePath;
++ (POSDBWrapper *)getInstance;
 
--(int) execQueryResultInt:(NSString *)query p_index:(int)index;
--(BOOL) tryExecQuery:(NSString *)query;
--(BOOL) tryExecQueryResultText:(NSString *)query p_index:(int)index p_result:(NSString**)text;
+- (BOOL)openDB;
+- (void)closeDB;
 
--(BOOL) tryGetNextRow;
--(void) prepareRows:(NSString *) query;
--(void) closeForeach;
+- (int)execQueryResultInt:(NSString *)query p_index:(int)index;
+- (BOOL)tryExecQuery:(NSString *)query;
+- (BOOL)tryExecQueryResultText:(NSString *)query p_index:(int)index p_result:(NSString**)text;
 
--(int) getCellInt:(int)index;
--(NSString *) getCellText:(int)index;
--(const unsigned char *) getCellChar:(int)index;
--(float) getCellFloat:(int)index;
--(double) getCellDouble:(int)index;
+- (BOOL)tryGetNextRow;
+- (void)prepareRows:(NSString *) query;
+- (void)closeForeach;
 
--(void) fetchRows:query foreachCallback:(void (^)( id rows ) )callback p_rows:(id) rows;
--(void) extractMultipleValues:query foreachCallback:(void (^)() )callback;
+- (int)getCellInt:(int)index;
+- (NSString *)getCellText:(int)index;
+- (const unsigned char *)getCellChar:(int)index;
+- (float)getCellFloat:(int)index;
+- (double)getCellDouble:(int)index;
+
+- (void)fetchRows:query foreachCallback:(void (^)( id rows ) )callback p_rows:(id) rows;
+- (void)fetchRows:query foreachCallback:(void (^)( id rows, id library ) )callback p_rows:(id) rows p_library:(id)library;
+
+- (void)extractMultipleValues:query foreachCallback:(void (^)() )callback;
 
 @end

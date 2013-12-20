@@ -13,8 +13,8 @@
 #import "POSImage.h"
 #import "POSCategory.h"
 
-@interface POSDataSet : NSObject
-{
+@interface POSDataSet : NSObject {
+    
     NSMutableArray*         images;
     NSMutableArray*         categories;
     NSMutableArray*         items;
@@ -28,10 +28,13 @@
 @property NSMutableArray*       allItems;
 @property NSMutableArray*       orderArray;
 
-- (id) init;
-- (void) getCategories;
-- (void) getItems: (NSString*) selectedCatName;
-- (void) getAllItems;
-- (void) saveGallery:(int)index withLibrary:(ALAssetsLibrary*)library;
+
+- (id)init;
+- (void)getCategories;
+- (void)getItems:(NSString*)selectedCatName;
+- (void)getAllItems;
+- (void)saveGallery:(int)index withLibrary:(ALAssetsLibrary*)library;
+
 
 @end
+

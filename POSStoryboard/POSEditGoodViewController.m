@@ -17,6 +17,7 @@
 
 @implementation POSEditGoodViewController
 
+
 @synthesize item = _item;
 @synthesize category = _category;
 @synthesize oldName = _oldName;
@@ -28,14 +29,14 @@
 @synthesize textViewDescription = _textViewDescription;
 @synthesize viewContent = _viewContent;
 @synthesize scrollView = _scrollView;
-
 @synthesize imageView = _imageView;
+
 
 /*
  * ViewController
  */
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -44,8 +45,8 @@
 }
 
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     oldName = item.name;
@@ -56,8 +57,8 @@
     self.textPrice2.text = item.price2;
     self.textViewDescription.text = item.description;
     
-    for(int i = 0; i<item.gallery.count; i++)
-    {
+    for(int i = 0; i<item.gallery.count; i++) {
+        
         UIImageView* localImageView = [[UIImageView alloc] initWithImage:[item.gallery objectAtIndex:i]];
         localImageView.frame = CGRectMake(i*180, 0, 177, 180);
         localImageView.backgroundColor = [UIColor whiteColor];
@@ -68,75 +69,75 @@
 }
 
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
     [textField resignFirstResponder];
     return YES;
 }
 
 
-- (void) viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
     self.textCategory.text = self.item.category;
 }
 
 
 //TODO
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
     // Code here to work with media
     self.imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
     UIImagePickerController* controller = [[UIImagePickerController alloc] init];
     controller.delegate = self;
     
-    if ([alertView.title isEqual: @"Delete image"] && buttonIndex == 0)
-    {
+    if ([alertView.title isEqual: @"Delete image"] && buttonIndex == 0) {
+        
         
     }
-    else
-    {
-        if ([alertView.title isEqual: @"Delete image"] && buttonIndex == 1)
-        {
+    else {
+        
+        if ([alertView.title isEqual: @"Delete image"] && buttonIndex == 1) {
+            
             int page = self.scrollView.contentOffset.x/self.scrollView.frame.size.width;
             [item.gallery removeObjectAtIndex:page];
             [self.navigationController popViewControllerAnimated:YES];
         }
-        else if ([alertView.title isEqual: @"Delete"])
-            {
+        else if ([alertView.title isEqual: @"Delete"]) {
+            
                 NSString* title = [alertView buttonTitleAtIndex:buttonIndex];
                 
-                if([title isEqualToString:@"No"])
-                {
+                if([title isEqualToString:@"No"]) {
+                    
                     
                 }
-                else if ([dbWrapperInstance openDB])
-                {
+                else if ([dbWrapperInstance openDB]) {
+                    
                     NSString * query = [NSString stringWithFormat:@"DELETE FROM product WHERE name = \"%@\" AND user_id = %d", self.item.name, 1];
                     
                     [dbWrapperInstance tryExecQuery:query];
@@ -153,13 +154,13 @@
 /*
  * Actions
  */
-- (IBAction)onSave:(id)sender
-{
+- (IBAction)onSave:(id)sender {
+    
     int n;
     n = 0;
     
-    if([dbWrapperInstance openDB])
-    {
+    if([dbWrapperInstance openDB]) {
+        
         NSString * query = [NSString stringWithFormat:@"SELECT id FROM collection WHERE name = \"%@\" AND user_id = %d", self.textCategory.text, 1];
         
         int cat_ID = [dbWrapperInstance execQueryResultInt:query p_index:0];
@@ -171,8 +172,8 @@
     }
     
     
-    if(n != 0 && ![self.textName.text isEqualToString:oldName])
-    {
+    if(n != 0 && ![self.textName.text isEqualToString:oldName]) {
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement" message: @"The good already exists" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
@@ -220,21 +221,21 @@
 }
 
 
-- (IBAction)onCancel:(id)sender
-{
+- (IBAction)onCancel:(id)sender {
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 
-- (IBAction)onSetCategory:(id)sender
-{
+- (IBAction)onSetCategory:(id)sender {
+    
     POSSetCatViewController* viewSetCat = [POSSetCatViewController new];
     viewSetCat.title = @"Set category";
     viewSetCat.item = item;
     NSMutableArray* array = [[NSMutableArray alloc] init];
     
-    for(int i = 0; i<[objectsHelperInstance.dataSet.categories count]; i++)
-    {
+    for(int i = 0; i<[objectsHelperInstance.dataSet.categories count]; i++) {
+        
         NSString* name = [[objectsHelperInstance.dataSet.categories objectAtIndex:i] name];
         [array addObject:name];
         
@@ -247,23 +248,23 @@
 }
 
 
-- (IBAction)onDeleteItem:(id)sender
-{
+- (IBAction)onDeleteItem:(id)sender {
+    
     NSString* question = [NSString stringWithFormat:@"Delete the %@ good?", self.textName.text];
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:question delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     [alert show];
 }
 
 
-- (IBAction)onSetImage:(id)sender
-{
+- (IBAction)onSetImage:(id)sender {
+    
     UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Select source" message:@"Please select image source" delegate: self cancelButtonTitle:@"Library" otherButtonTitles:@"Camera", nil];
 	[alertView show];
 }
 
 
-- (IBAction)onDeleteImage:(id)sender
-{
+- (IBAction)onDeleteImage:(id)sender {
+    
     UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Delete image" message:@"Delete the image?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
 	[alertView show];
 }

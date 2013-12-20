@@ -14,20 +14,21 @@
 
 @implementation POSGoodsGridViewController
 
-@synthesize btnAdd          = _btnAdd;
-@synthesize btnChangeMode   = _btnChangeMode;
-@synthesize gridView        = _gridView;
 
-@synthesize cat             = _cat;
-@synthesize catName         = _catName;
-@synthesize item            = _item;
+@synthesize btnAdd = _btnAdd;
+@synthesize btnChangeMode = _btnChangeMode;
+@synthesize gridView = _gridView;
+
+@synthesize cat = _cat;
+@synthesize catName = _catName;
+@synthesize item = _item;
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
-    {
+    if (self) {
+        
         // Custom initialization
     }
     
@@ -35,8 +36,8 @@
 }
 
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     self.catName = self.cat.name;
@@ -56,15 +57,15 @@
 }
 
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 
-- (IBAction)onChangeMode:(id)sender
-{
+- (IBAction)onChangeMode:(id)sender {
+    
     objectsHelperInstance.goodsMode = !objectsHelperInstance.goodsMode;
     [self.btnChangeMode setTitle: (objectsHelperInstance.goodsMode? @"View mode" : @"Edit mode") forState: UIControlStateNormal];
 }
@@ -74,24 +75,25 @@
 /*
  * GridView
  */
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 
-- (NSUInteger) numberOfItemsInGridView: (AQGridView *) aGridView
-{
+- (NSUInteger)numberOfItemsInGridView:(AQGridView *)aGridView {
+    
     return [objectsHelperInstance.dataSet.items count];
 }
 
 
-- (AQGridViewCell*) gridView: (AQGridView *) aGridView cellForItemAtIndex: (NSUInteger) index
-{
+- (AQGridViewCell *)gridView:(AQGridView *)aGridView cellForItemAtIndex:(NSUInteger)index {
+    
     static NSString* PlainCellIdentifier = @"PlainCellIdentifier";
     POSGridViewCell* cell = (POSGridViewCell*)[aGridView dequeueReusableCellWithIdentifier:@"PlainCellIdentifier"];
-    if (cell == nil)
-    {
+    
+    if (cell == nil) {
+        
         cell = [[POSGridViewCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 160, 160) reuseIdentifier: PlainCellIdentifier];
     }
     
@@ -103,24 +105,23 @@
 }
 
 
-- (CGSize) portraitGridCellSizeForGridView: (AQGridView *) aGridView
-{
+- (CGSize)portraitGridCellSizeForGridView:(AQGridView *)aGridView {
+    
     return ( CGSizeMake(160.0, 160.0) );
 }
 
 
--(void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index
-{
-    if(!objectsHelperInstance.goodsMode) //View
-    {
+- (void) gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index {
+    
+    if(!objectsHelperInstance.goodsMode) {
+        //View
         POSItemViewController* viewItem = [POSItemViewController new];
         viewItem.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
         viewItem.title = viewItem.item.name;
         [self.navigationController pushViewController:viewItem animated:YES];
     }
-    
-    else //Edit
-    {
+    else {
+        //Edit
         POSEditGoodViewController* viewEditGood = [[POSEditGoodViewController alloc] initWithNibName:@"POSEditGoodViewController" bundle:nil];
         viewEditGood.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
         viewEditGood.title = viewEditGood.item.name;
@@ -130,15 +131,15 @@
 }
 
 
-- (void) viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
     [self.gridView reloadData];
 }
 
 
--(UIView*) viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
+- (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    
     //int page = self.scrollView.contentOffset.x / self.scrollView.frame.size.width;
     //UIImageView* currentImageView = [imageViews objectAtIndex:page];
     //return currentImageView;

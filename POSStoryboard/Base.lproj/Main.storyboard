@@ -817,9 +817,22 @@
                                     <action selector="onScan:" destination="jk4-EB-Nhq" eventType="touchUpInside" id="Fey-89-qNa"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PBm-i6-0UT" customClass="AQGridView">
-                                <rect key="frame" x="0.0" y="66" width="320" height="454"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5M6-GA-u7O">
+                                <rect key="frame" x="0.0" y="65" width="320" height="455"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LZh-iJ-pe2" customClass="AQGridView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="jk4-EB-Nhq" id="afQ-Dk-anl"/>
+                                            <outlet property="delegate" destination="jk4-EB-Nhq" id="MZH-xY-UlH"/>
+                                        </connections>
+                                    </scrollView>
+                                </subviews>
+                                <connections>
+                                    <outlet property="delegate" destination="jk4-EB-Nhq" id="KbZ-2j-OnJ"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -837,7 +850,8 @@
                         <outlet property="btnBasket" destination="eLn-48-Njq" id="6kR-5z-RKl"/>
                         <outlet property="btnChangeMode" destination="6g5-Fr-nda" id="sRl-A0-bNb"/>
                         <outlet property="btnScan" destination="VhL-WR-76F" id="2Il-fG-xYz"/>
-                        <outlet property="gridView" destination="PBm-i6-0UT" id="JGf-x9-JDi"/>
+                        <outlet property="gridView" destination="LZh-iJ-pe2" id="BOH-Wm-eal"/>
+                        <outlet property="scrollView" destination="5M6-GA-u7O" id="MX1-kY-Jga"/>
                         <segue destination="YGa-fU-0eh" kind="push" identifier="goToGoodsFake" id="h5q-Zb-XKw"/>
                         <segue destination="V1w-TQ-FPD" kind="push" identifier="goToEditCategoryFake" id="ytA-Ku-bgx"/>
                     </connections>
@@ -933,6 +947,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Jqe-ZV-lAM"/>
+        <segue reference="Uwv-co-TKF"/>
     </inferredMetricsTieBreakers>
 </document>

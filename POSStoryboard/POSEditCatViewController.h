@@ -11,13 +11,12 @@
 
 @interface POSEditCatViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
-    POSCategory*            cat;
-    NSString*               oldName;
-
+    POSCategory *cat;
+    NSString *oldName;
 }
 
-@property POSCategory* cat;
-@property NSString * oldName;
+@property POSCategory *cat;
+@property NSString *oldName;
 
 @property (weak, nonatomic) IBOutlet UITextField *textName;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;

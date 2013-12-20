@@ -10,11 +10,14 @@
 
 @interface POSNewCatViewController : UIViewController
 
+
 @property (weak, nonatomic) IBOutlet UITextField *textName;
 @property (weak, nonatomic) IBOutlet UITextField *textImageName;
 @property (weak, nonatomic) IBOutlet UIButton *btnCreate;
 
+
 - (IBAction)onCreate:(id)sender;
 - (BOOL)createdNewCategory;
+
 
 @end

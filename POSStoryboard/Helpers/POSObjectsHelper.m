@@ -16,8 +16,9 @@
 @synthesize currentCatIndex = _currentCatIndex;
 @synthesize currentItemsIndex = _currentItemsIndex;
 
-+(POSObjectsHelper *)getInstance
-{
+
++ (POSObjectsHelper *)getInstance {
+    
     static POSObjectsHelper* sharedInstance = nil;
     static dispatch_once_t once;
     

@@ -7,6 +7,8 @@
 //
 
 #import "POSCatGridViewController.h"
+#import "POSCategory.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface POSCatGridViewController ()
 
@@ -15,6 +17,7 @@
 @implementation POSCatGridViewController
 
 @synthesize gridView        = _gridView;
+@synthesize scrollView      = _scrollView;
 @synthesize btnAdd          = _btnAdd;
 @synthesize btnBasket       = _btnBasket;
 @synthesize btnChangeMode   = _btnChangeMode;
@@ -24,46 +27,117 @@
 /*
  * ViewController
  */
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
-    {
+    if (self) {
+        
         // Custom initialization
     }
     
     return self;
 }
 
+typedef void (^ALAssetsGroupEnumerationResultsBlock)(ALAsset *result, NSUInteger index, BOOL *stop);
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
+
+    
+//    void (^assetEnumerator)(struct ALAsset *, NSUInteger, BOOL *) = ^(ALAsset *result, NSUInteger index, BOOL *stop) {
+//        if(result != NULL) {
+//                NSLog(@"See Asset: %@", result);
+//                [assets addObject:result];
+//        }
+//    };
+    
+    
+    //    void (^assetGroupEnumerator)(struct ALAssetsGroup *, BOOL *) =  ^(ALAssetsGroup *group, BOOL *stop) {
+    //        if(group != nil) {
+    //            [group enumerateAssetsUsingBlock:assetEnumerator];
+    //        }
+    //
+    //        [self.gridView reloadData];
+    //    };
+    
+    
+//    void (^assetGroupEnumerator)(struct ALAssetsGroup *, BOOL *) =  ^(ALAssetsGroup *group, BOOL *stop) {
+//        if(group != nil) {
+//            [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+//                if(result != NULL) {
+//                    NSLog(@"See Asset: %@", result);
+//                    [assets addObject:result];
+//                }
+//            }];
+//        }
+//        
+//        [self.gridView reloadData];
+//    };
+    
+    
+ //
+//    assets = [[NSMutableArray alloc] init];
+//    ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
+//    [library enumerateGroupsWithTypes:ALAssetsGroupAlbum
+//                           usingBlock:assetGroupEnumerator
+//                         failureBlock: ^(NSError *error) {
+//                                 NSLog(@"Failure");
+//                          }];
+    
+    assets = [[NSMutableArray alloc] init];
+    ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
+    [library enumerateGroupsWithTypes:ALAssetsGroupAlbum
+                           usingBlock:^(ALAssetsGroup *group, BOOL *stop)
+                            {
+//                               if(group != nil) {
+//                                   [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+//                                       if(result != NULL) {
+//                                           NSLog(@"See Asset: %@", result);
+//                                           [assets addObject:result];
+//                                       }
+//                                   }];
+//                               }
+                               
+                               [self.gridView reloadData];
+                            }
+                         failureBlock: ^(NSError *error) {
+                             NSLog(@"Failure");
+                         }];
     
     [objectsHelperInstance.dataSet getCategories];
     [objectsHelperInstance.dataSet getAllItems];
+//    
+//    self.gridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//    self.gridView.autoresizesSubviews = YES;
+//    self.gridView.delegate = self;
+//    self.gridView.dataSource = self;
+//    
+//    self.scrollView.delegate = self;
+//    [self.scrollView setScrollEnabled:YES];
+//    self.scrollView.pagingEnabled = YES;
+//    [self.scrollView setMinimumZoomScale:1.0];
+//    [self.scrollView setMaximumZoomScale:2.0];
+//    
     
-    self.gridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    self.gridView.autoresizesSubviews = YES;
-    self.gridView.delegate = self;
-    self.gridView.dataSource = self;
+    [self.btnChangeMode setTitle: (objectsHelperInstance.catsMode ? @"View mode" : @"Edit mode") forState: UIControlStateNormal];
 	// Do any additional setup after loading the view.
 }
 
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    
     BOOL result = YES;
     
-    if ([identifier isEqualToString:@"goToGoodsFake"])
-    {
+    if ([identifier isEqualToString:@"goToGoodsFake"]) {
+        
         result = NO;
     }
     
@@ -71,8 +145,8 @@
 }
 
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
+    
     [super viewDidUnload];
 }
 
@@ -80,50 +154,49 @@
 /*
  * GridView methods
  */
-- (NSUInteger)numberOfItemsInGridView: (AQGridView *) aGridView
+- (NSUInteger)numberOfItemsInGridView:(AQGridView *)aGridView
 {
     return [objectsHelperInstance.dataSet.categories count];
 }
 
 
-- (AQGridViewCell*)gridView: (AQGridView *) aGridView cellForItemAtIndex: (NSUInteger) index
-{
+- (AQGridViewCell*)gridView:(AQGridView *) aGridView cellForItemAtIndex:(NSUInteger)index {
+    
     static NSString* PlainCellIdentifier = @"PlainCellIdentifier";
     
     POSGridViewCell* cell = (POSGridViewCell*)[aGridView dequeueReusableCellWithIdentifier:@"PlainCellIdentifier"];
-    if (cell == nil)
-    {
+    if (cell == nil) {
+        
         cell = [[POSGridViewCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 160, 160) reuseIdentifier: PlainCellIdentifier];
     }
     
-    NSString* name = [[objectsHelperInstance.dataSet.categories objectAtIndex:index] name];
-    UIImage* image = [[objectsHelperInstance.dataSet.categories objectAtIndex:index] image];
+    POSCategory * category = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
     
-    [cell.imageView setImage:image];
-    [cell.captionLabel setText: name];
+    [cell.imageView setImage:category.image];
+    [cell.captionLabel setText:category.name];
     
     return cell;
 }
 
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
     [self.gridView reloadData];
 }
 
 
--(void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index
-{
-    if(!objectsHelperInstance.catsMode) //View goods
-    {
+- (void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index {
+    
+    if(!objectsHelperInstance.catsMode) {
+        //View goods
         POSGoodsGridViewController * viewGoods = [POSGoodsGridViewController new];
         viewGoods.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
         viewGoods.title = viewGoods.cat.name;
         [self.navigationController pushViewController:viewGoods animated:YES];
     }
-    else //Edit
-    {
+    else {
+        //Edit
         POSEditCatViewController * viewEditCat = [[POSEditCatViewController alloc] initWithNibName:@"POSEditCatViewController" bundle:nil];
         viewEditCat.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
         [self.navigationController pushViewController:viewEditCat animated:YES];
@@ -131,14 +204,14 @@
 }
 
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 
-- (CGSize)portraitGridCellSizeForGridView: (AQGridView *) aGridView
-{
+- (CGSize)portraitGridCellSizeForGridView:(AQGridView *)aGridView {
+
     return ( CGSizeMake(160.0, 160) );
 }
 
@@ -146,21 +219,21 @@
 /*
  * Other
  */
--(UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
+- (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    
     return self.gridView;
 }
 
 
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
     id<NSFastEnumeration> results = [info objectForKey: ZBarReaderControllerResults];
     
     ZBarSymbol* symbol = nil;
     NSString* result = nil;
     
-    for(symbol in results)
-    {
+    for(symbol in results) {
+        
         result = symbol.data;
         break;
     }
@@ -176,22 +249,22 @@
     
     POSItem* resultItem = nil;
 
-    for (POSItem* item_ in objectsHelperInstance.dataSet.items)
-    {
-        if (item_.ID == product_id)
-        {
+    for (POSItem* item_ in objectsHelperInstance.dataSet.items) {
+        
+        if (item_.ID == product_id) {
+            
             resultItem = item_;
             break;
         }
     }
     
-    if (resultItem == nil)
-    {
+    if (resultItem == nil) {
+        
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Not found" message:@"Item not found" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
-    else
-    {
+    else {
+        
         POSItemViewController* viewItem = [POSItemViewController new];
         viewItem.item = resultItem;
         [self.navigationController pushViewController:viewItem animated:YES];
@@ -200,15 +273,14 @@
 
 
 //TODO что это
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    if([title isEqualToString:@"No"])
-    {
+    if([title isEqualToString:@"No"]) {
         
     }
-    else
-    {
+    else {
+        
         [objectsHelperInstance.dataSet.categories removeObjectAtIndex:objectsHelperInstance.currentCatIndex];
         [self.gridView reloadData];
         
@@ -225,8 +297,8 @@
 /*
  * Actions
  */
-- (IBAction)onScan:(id)sender
-{
+- (IBAction)onScan:(id)sender {
+    
     ZBarReaderViewController* reader = [ZBarReaderViewController new];
     reader.readerDelegate = self;
     
@@ -254,8 +326,8 @@
 }
 
 
-- (IBAction)onChangeMode:(id)sender
-{
+- (IBAction)onChangeMode:(id)sender {
+    
     objectsHelperInstance.catsMode = !objectsHelperInstance.catsMode;
     [self.btnChangeMode setTitle: (objectsHelperInstance.catsMode ? @"View mode" : @"Edit mode") forState: UIControlStateNormal];
 }

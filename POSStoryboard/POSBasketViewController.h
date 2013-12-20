@@ -27,11 +27,13 @@
 @property (weak, nonatomic) IBOutlet UITableView        *tableBasket;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem    *btnBarSendEmail;
 
--(IBAction)onSendEmail:    (id)sender;
--(IBAction)onCancel:       (id)sender;
--(IBAction)onClear:        (id)sender;
--(IBAction)onSave:         (id)sender;
--(IBAction)onOpen:         (id)sender;
--(void)saveToDB;
+
+- (IBAction)onSendEmail:(id)sender;
+- (IBAction)onCancel:(id)sender;
+- (IBAction)onClear:(id)sender;
+- (IBAction)onSave:(id)sender;
+- (IBAction)onOpen:(id)sender;
+- (void)saveToDB;
+
 
 @end

@@ -15,26 +15,26 @@
 
 @implementation POSItemViewController
 
+
 @synthesize item = _item;
 @synthesize order = _order;
+@synthesize currentQuantity = _currentQuantity;
+@synthesize previousQuantity = _previousQuantity;
 
-@synthesize currentQuantity     = _currentQuantity;
-@synthesize previousQuantity    = _previousQuantity;
-
-@synthesize textQuantity        = _textQuantity;
-@synthesize labelAvailable      = _labelAvailable;
-@synthesize labelCode           = _labelCode;
-@synthesize labelDescription    = _labelDescription;
-@synthesize labelPrice          = _labelPrice;
-@synthesize scrollView          = _scrollView;
-@synthesize viewContent         = _viewContent;
+@synthesize textQuantity = _textQuantity;
+@synthesize labelAvailable = _labelAvailable;
+@synthesize labelCode = _labelCode;
+@synthesize labelDescription = _labelDescription;
+@synthesize labelPrice = _labelPrice;
+@synthesize scrollView = _scrollView;
+@synthesize viewContent = _viewContent;
 
 
 /*
  * ViewController
  */
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -43,8 +43,8 @@
 }
 
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
 
     self.scrollView.delegate = self;
@@ -53,8 +53,8 @@
     [self.scrollView setMinimumZoomScale:1.0];
     [self.scrollView setMaximumZoomScale:2.0];
 
-    for(int i = 0; i<self.item.gallery.count; i++)
-    {
+    for(int i = 0; i<self.item.gallery.count; i++) {
+        
         UIImageView* imageView = [[UIImageView alloc] initWithImage:[self.item.gallery objectAtIndex:i]];
         imageView.frame = CGRectMake(i*300, 0, 295, 285);
         imageView.backgroundColor = [UIColor whiteColor];
@@ -70,28 +70,27 @@
 }
 
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 
--(BOOL) textFieldShouldReturn: (UITextField*) theTextField
-{
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     [theTextField resignFirstResponder];
     return YES;
 }
 
 
--(UIView*) viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
+- (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    
     //int page = self.scrollView.contentOffset.x / self.scrollView.frame.size.width;
     //UIImageView* currentImageView = [imageViews objectAtIndex:page];
     //return currentImageView;
@@ -99,15 +98,15 @@
 }
 
 
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
     if( [self.textQuantity isFirstResponder])
         [self.textQuantity resignFirstResponder];
 }
 
 
--(void) viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
     [self.textQuantity setText:currentQuantity];
 }
@@ -116,20 +115,20 @@
 /*
  * Actions
  */
-- (IBAction)onOrder:(id)sender
-{
+- (IBAction)onOrder:(id)sender {
+    
     self.currentQuantity = [self.textQuantity text];
     self.previousQuantity = self.item.quantityOrdered;
     self.item.quantityOrdered = self.currentQuantity;
     
-    if([currentQuantity intValue] == [previousQuantity integerValue])
-    {
+    if([currentQuantity intValue] == [previousQuantity integerValue]) {
+        
         [self.textQuantity resignFirstResponder];
         return;
     }
     
-    if([previousQuantity intValue] == 0 && [currentQuantity intValue] > 0)
-    {
+    if([previousQuantity intValue] == 0 && [currentQuantity intValue] > 0) {
+        
         order = [[POSOrder alloc] init];
         
         order.category  = item.category;
@@ -146,18 +145,18 @@
         return;
     }
     
-    if([objectsHelperInstance.dataSet.orderArray count] > 0)
-    {
+    if([objectsHelperInstance.dataSet.orderArray count] > 0) {
+        
         NSString* orderName;
 
-        for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++)
-        {
+        for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
+            
             orderName = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:i] name];
             
-            if([orderName isEqualToString:item.name])
-            {
-                if([currentQuantity intValue] > 0)
-                {
+            if([orderName isEqualToString:item.name]) {
+                
+                if([currentQuantity intValue] > 0) {
+                    
                     POSOrder* o;
                     o = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
                     o.quantity = currentQuantity;
