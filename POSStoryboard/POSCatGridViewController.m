@@ -16,20 +16,20 @@
 
 @implementation POSCatGridViewController
 
-@synthesize gridView        = _gridView;
-@synthesize scrollView      = _scrollView;
-@synthesize btnAdd          = _btnAdd;
-@synthesize btnBasket       = _btnBasket;
-@synthesize btnChangeMode   = _btnChangeMode;
-@synthesize btnScan         = _btnScan;
+@synthesize gridView = _gridView;
+@synthesize scrollView = _scrollView;
+@synthesize btnAdd = _btnAdd;
+@synthesize btnBasket = _btnBasket;
+@synthesize btnChangeMode = _btnChangeMode;
+@synthesize btnScan = _btnScan;
 
 
 #pragma mark - ViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName:nibNameOrNil
-                           bundle:nibBundleOrNil];
+    self = [super initWithNibName: nibNameOrNil
+                           bundle: nibBundleOrNil];
     if (self) {
         
         // Custom initialization
@@ -45,84 +45,34 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
-    
-//    void (^assetEnumerator)(struct ALAsset *, NSUInteger, BOOL *) = ^(ALAsset *result, NSUInteger index, BOOL *stop) {
-//        if(result != NULL) {
-//                NSLog(@"See Asset: %@", result);
-//                [assets addObject:result];
-//        }
-//    };
-    
-    
-    //    void (^assetGroupEnumerator)(struct ALAssetsGroup *, BOOL *) =  ^(ALAssetsGroup *group, BOOL *stop) {
-    //        if(group != nil) {
-    //            [group enumerateAssetsUsingBlock:assetEnumerator];
-    //        }
-    //
-    //        [self.gridView reloadData];
-    //    };
-    
-    
-//    void (^assetGroupEnumerator)(struct ALAssetsGroup *, BOOL *) =  ^(ALAssetsGroup *group, BOOL *stop) {
-//        if(group != nil) {
-//            [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-//                if(result != NULL) {
-//                    NSLog(@"See Asset: %@", result);
-//                    [assets addObject:result];
-//                }
-//            }];
-//        }
-//        
-//        [self.gridView reloadData];
-//    };
-    
-    
- //
-//    assets = [[NSMutableArray alloc] init];
-//    ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
-//    [library enumerateGroupsWithTypes:ALAssetsGroupAlbum
-//                           usingBlock:assetGroupEnumerator
-//                         failureBlock: ^(NSError *error) {
-//                                 NSLog(@"Failure");
-//                          }];
-    
-    assets = [[NSMutableArray alloc] init];
-    ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
-    [library enumerateGroupsWithTypes:ALAssetsGroupAlbum
-                           usingBlock:^(ALAssetsGroup *group, BOOL *stop)
-                            {
-//                               if(group != nil) {
-//                                   [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-//                                       if(result != NULL) {
-//                                           NSLog(@"See Asset: %@", result);
-//                                           [assets addObject:result];
-//                                       }
-//                                   }];
-//                               }
-                               
-                               [self.gridView reloadData];
-                            }
-                         failureBlock: ^(NSError *error) {
-                             NSLog(@"Failure");
-                         }];
-    
     [objectsHelperInstance.dataSet getCategories];
     [objectsHelperInstance.dataSet getAllItems];
-//    
-//    self.gridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//    self.gridView.autoresizesSubviews = YES;
-//    self.gridView.delegate = self;
-//    self.gridView.dataSource = self;
-//    
-//    self.scrollView.delegate = self;
-//    [self.scrollView setScrollEnabled:YES];
-//    self.scrollView.pagingEnabled = YES;
-//    [self.scrollView setMinimumZoomScale:1.0];
-//    [self.scrollView setMaximumZoomScale:2.0];
-//    
+
+    ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
     
-    [self.btnChangeMode setTitle: (objectsHelperInstance.catsMode ? @"View mode" : @"Edit mode") forState: UIControlStateNormal];
+    [library enumerateGroupsWithTypes: ALAssetsGroupAlbum
+                           usingBlock: ^(ALAssetsGroup *group, BOOL *stop) {
+                               // Срабатывает дважды, можно будет добавить проверку что только один раз было
+                               [self.gridView reloadData];
+                           }
+                         failureBlock: ^(NSError *error) {
+                             
+                             NSLog(@"Failure load images");
+                         }];
+    
+    self.gridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    self.gridView.autoresizesSubviews = YES;
+    self.gridView.delegate = self;
+    self.gridView.dataSource = self;
+    
+    self.scrollView.delegate = self;
+    [self.scrollView setScrollEnabled:YES];
+    self.scrollView.pagingEnabled = YES;
+    [self.scrollView setMinimumZoomScale:1.0];
+    [self.scrollView setMaximumZoomScale:2.0];
+
+    [self.btnChangeMode setTitle: (objectsHelperInstance.catsMode ? @"View mode" : @"Edit mode")
+                        forState: UIControlStateNormal];
 	// Do any additional setup after loading the view.
 }
 
@@ -261,10 +211,10 @@
     
     if (resultItem == nil) {
         
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Not found" message:@"Item not found"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil, nil];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Not found" message:@"Item not found"
+                                                       delegate: self
+                                              cancelButtonTitle: @"OK"
+                                              otherButtonTitles: nil, nil];
         [alert show];
     }
     else {
@@ -291,7 +241,9 @@
         if ([dbWrapperInstance openDB])
             return;
 
-        NSString * query = [NSString stringWithFormat:@"DELETE FROM collection WHERE name = \"%@\" AND user_id = %d", catName, 1];
+        NSString * query = [NSString stringWithFormat:@"DELETE \
+                                                        FROM    collection \
+                                                        WHERE   name = \"%@\" AND user_id = %d", catName, 1];
         [dbWrapperInstance tryExecQuery:query];
         [dbWrapperInstance closeDB];
     }
@@ -325,15 +277,17 @@
     reader.readerView.zoom = 1.0;
     reader.showsZBarControls = NO;
     
-    [self presentViewController: reader animated: YES completion:nil];
+    [self presentViewController: reader
+                       animated: YES
+                     completion: nil];
 }
 
 
 - (IBAction)onChangeMode:(id)sender {
     
     objectsHelperInstance.catsMode = !objectsHelperInstance.catsMode;
-    [self.btnChangeMode setTitle:(objectsHelperInstance.catsMode ? @"View mode": @"Edit mode")
-                        forState:UIControlStateNormal];
+    [self.btnChangeMode setTitle: (objectsHelperInstance.catsMode ? @"View mode": @"Edit mode")
+                        forState: UIControlStateNormal];
 }
 
 
