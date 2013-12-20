@@ -39,9 +39,6 @@
 }
 
 
-//typedef void (^ALAssetsGroupEnumerationResultsBlock)(ALAsset *result, NSUInteger index, BOOL *stop);
-
-
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -189,13 +186,17 @@
         break;
     }
     
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    [picker dismissViewControllerAnimated: YES
+                               completion: nil];
     
     if([dbWrapperInstance openDB])
         return;
     
-    NSString* query = [NSString stringWithFormat:@"select id from Product WHERE code = \"%@\"; ", result];
-    int product_id = [dbWrapperInstance execQueryResultInt:query p_index:0];
+    NSString* query = [NSString stringWithFormat:@"select   id \
+                                                   from     Product \
+                                                   where    code = \"%@\"; ", result];
+    int product_id = [dbWrapperInstance execQueryResultInt: query
+                                                   p_index: 0];
     [dbWrapperInstance closeDB];
     
     POSItem* resultItem = nil;
@@ -219,9 +220,10 @@
     }
     else {
         
-        POSItemViewController* viewItem = [POSItemViewController new];
+        POSItemViewController *viewItem = [POSItemViewController new];
         viewItem.item = resultItem;
-        [self.navigationController pushViewController:viewItem animated:YES];
+        [self.navigationController pushViewController: viewItem
+                                             animated: YES];
     }
 }
 
