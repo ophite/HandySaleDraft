@@ -139,16 +139,21 @@
     
     if(!objectsHelperInstance.catsMode) {
         //View goods
-        POSGoodsGridViewController * viewGoods = [POSGoodsGridViewController new];
-        viewGoods.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
-        viewGoods.title = viewGoods.cat.name;
-        [self.navigationController pushViewController:viewGoods animated:YES];
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"
+                                                                 bundle: nil];
+        POSGoodsGridViewController *controller = (POSGoodsGridViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"POSGoodsGridViewController"];
+        controller.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
+        controller.title = controller.cat.name;
+        [self.navigationController pushViewController: controller
+                                             animated: YES];
     }
     else {
         //Edit
-        POSEditCatViewController * viewEditCat = [[POSEditCatViewController alloc] initWithNibName:@"POSEditCatViewController" bundle:nil];
+        POSEditCatViewController * viewEditCat = [[POSEditCatViewController alloc] initWithNibName: @"POSEditCatViewController"
+                                                                                            bundle: nil];
         viewEditCat.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
-        [self.navigationController pushViewController:viewEditCat animated:YES];
+            [self.navigationController pushViewController: viewEditCat
+                                                 animated: YES];
     }
 }
 

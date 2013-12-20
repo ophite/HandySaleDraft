@@ -16,16 +16,18 @@
 
 @interface POSBasketViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate>
 {
-    int                 itemIndex;
-    POSBasket*          basket;
+//    int                 itemIndex;
+//    POSBasket*          basket;
 }
 
-@property (weak, nonatomic) IBOutlet UIButton           *btnCancel;
-@property (weak, nonatomic) IBOutlet UIButton           *btnClear;
-@property (weak, nonatomic) IBOutlet UIButton           *btnSave;
-@property (weak, nonatomic) IBOutlet UIButton           *btnOpen;
-@property (weak, nonatomic) IBOutlet UITableView        *tableBasket;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem    *btnBarSendEmail;
+@property int itemIndex;
+@property POSBasket *basket;
+@property (weak, nonatomic) IBOutlet UIButton *btnCancel;
+@property (weak, nonatomic) IBOutlet UIButton *btnClear;
+@property (weak, nonatomic) IBOutlet UIButton *btnSave;
+@property (weak, nonatomic) IBOutlet UIButton *btnOpen;
+@property (weak, nonatomic) IBOutlet UITableView *tableBasket;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *btnBarSendEmail;
 
 
 - (IBAction)onSendEmail:(id)sender;

@@ -7,7 +7,7 @@
         <!--Login View Controller - Product Oriented System-->
         <scene sceneID="P69-FN-ruc">
             <objects>
-                <viewController id="VcN-I6-SZA" customClass="POSLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSLoginViewController" id="VcN-I6-SZA" customClass="POSLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="O4D-B5-5GQ"/>
                         <viewControllerLayoutGuide type="bottom" id="Yx0-0N-9Bh"/>
@@ -70,7 +70,7 @@
         <!--Basket View Controller - Basket-->
         <scene sceneID="yZ7-nV-yZ9">
             <objects>
-                <viewController id="m2k-tR-kAf" customClass="POSBasketViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSBasketViewController" id="m2k-tR-kAf" customClass="POSBasketViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UxH-Hv-yfw"/>
                         <viewControllerLayoutGuide type="bottom" id="kap-zh-YfF"/>
@@ -151,7 +151,7 @@
         <!--Basket Open View Controller - Open basket-->
         <scene sceneID="7R4-iN-cKD">
             <objects>
-                <viewController id="yqw-Hq-fQc" customClass="POSBasketOpenViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSBasketOpenViewController" id="yqw-Hq-fQc" customClass="POSBasketOpenViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XPu-pN-5c3"/>
                         <viewControllerLayoutGuide type="bottom" id="5x2-v1-Oot"/>
@@ -202,7 +202,7 @@
         <!--Goods Grid View Controller - Items list-->
         <scene sceneID="pxd-72-Ji5">
             <objects>
-                <viewController id="YGa-fU-0eh" customClass="POSGoodsGridViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSGoodsGridViewController" id="YGa-fU-0eh" customClass="POSGoodsGridViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QsN-CI-Q9h"/>
                         <viewControllerLayoutGuide type="bottom" id="d7n-Au-eFj"/>
@@ -232,16 +232,22 @@
                                     <action selector="onChangeMode:" destination="jk4-EB-Nhq" eventType="touchUpInside" id="pXo-Ho-fE1"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="owo-R0-hGk" customClass="AQGridView">
-                                <rect key="frame" x="0.0" y="57" width="320" height="454"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w9q-fx-7Ur">
+                                <rect key="frame" x="0.0" y="65" width="320" height="446"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fV3-rp-vOQ" customClass="AQGridView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="446"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </scrollView>
+                                </subviews>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Items list" id="isl-Fk-NKB">
-                        <barButtonItem key="backBarButtonItem" title="Categories" id="Jpm-uG-z5a"/>
                         <barButtonItem key="rightBarButtonItem" title="Basket" id="YdU-hP-dN6">
+                            <color key="tintColor" red="0.70588237047195435" green="0.70588237047195435" blue="0.70588237047195435" alpha="1" colorSpace="deviceRGB"/>
                             <connections>
                                 <segue destination="m2k-tR-kAf" kind="push" id="BqE-aY-ofo"/>
                             </connections>
@@ -250,7 +256,8 @@
                     <connections>
                         <outlet property="btnAdd" destination="ioE-wJ-Jat" id="VuF-yS-FE4"/>
                         <outlet property="btnChangeMode" destination="aT0-C6-q2f" id="nhF-3U-nPj"/>
-                        <outlet property="gridView" destination="owo-R0-hGk" id="JIu-qF-jsa"/>
+                        <outlet property="gridView" destination="fV3-rp-vOQ" id="6Lg-XN-VDB"/>
+                        <outlet property="scrollView" destination="w9q-fx-7Ur" id="6Zz-Ri-cE5"/>
                         <segue destination="LIr-tL-X9x" kind="push" identifier="goToEditGoodFake" id="o5S-xP-5A3"/>
                         <segue destination="DQO-Bv-bvm" kind="push" identifier="goToItemViewFake" id="o0y-TH-Pya"/>
                     </connections>
@@ -262,7 +269,7 @@
         <!--New Cat View Controller - New category-->
         <scene sceneID="YaH-wc-1SJ">
             <objects>
-                <viewController id="X6u-iw-6OP" customClass="POSNewCatViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSNewCatViewController" id="X6u-iw-6OP" customClass="POSNewCatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SbN-SY-Myr"/>
                         <viewControllerLayoutGuide type="bottom" id="mnp-Bl-nLC"/>
@@ -296,9 +303,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="New category" id="crS-mI-sYg">
-                        <barButtonItem key="backBarButtonItem" title="Categories" id="mc3-5X-UEp"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="New category" id="crS-mI-sYg"/>
                     <connections>
                         <outlet property="btnCreate" destination="4Xy-Bn-2vm" id="546-mZ-6dy"/>
                         <outlet property="textImageName" destination="mKw-PZ-nFN" id="ZDn-oa-y5h"/>
@@ -312,7 +317,7 @@
         <!--Edit Cat View Controller - Edit category-->
         <scene sceneID="pkP-l4-Sn0">
             <objects>
-                <viewController id="V1w-TQ-FPD" customClass="POSEditCatViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSEditCatViewController" id="V1w-TQ-FPD" customClass="POSEditCatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HgK-Dd-kId"/>
                         <viewControllerLayoutGuide type="bottom" id="D2w-mf-D3m"/>
@@ -374,9 +379,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Edit category" id="tHv-eK-m5J">
-                        <barButtonItem key="backBarButtonItem" title="Categories" id="aQZ-b3-myp"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Edit category" id="tHv-eK-m5J"/>
                     <connections>
                         <outlet property="imageView" destination="z0O-x2-RJc" id="JVs-0Q-oPn"/>
                         <outlet property="textName" destination="vrQ-hc-3W8" id="8aO-Dk-y7h"/>
@@ -384,12 +387,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uaH-9i-4aT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1922" y="148"/>
+            <point key="canvasLocation" x="1924" y="140"/>
         </scene>
         <!--New Good View Controller - New item-->
         <scene sceneID="hKc-Sg-wXb">
             <objects>
-                <viewController id="vik-aQ-IBd" customClass="POSNewGoodViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSNewGoodViewController" id="vik-aQ-IBd" customClass="POSNewGoodViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Rzy-ZA-Bzd"/>
                         <viewControllerLayoutGuide type="bottom" id="7wr-w7-Wvh"/>
@@ -423,9 +426,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="New item" id="ec3-UC-FzS">
-                        <barButtonItem key="backBarButtonItem" title="Goods" id="RJ4-b0-xtl"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="New item" id="ec3-UC-FzS"/>
                     <connections>
                         <outlet property="textImageName" destination="vJ0-OJ-EOa" id="ECW-fz-2fQ"/>
                         <outlet property="textName" destination="soR-Bf-4se" id="C7w-xd-ul6"/>
@@ -433,12 +434,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EkN-Xy-Vpn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2658" y="148"/>
+            <point key="canvasLocation" x="2658" y="140"/>
         </scene>
         <!--Item View Controller - View item-->
         <scene sceneID="fKk-uO-DAY">
             <objects>
-                <viewController id="DQO-Bv-bvm" customClass="POSItemViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSItemViewController" id="DQO-Bv-bvm" customClass="POSItemViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ULF-9h-arX"/>
                         <viewControllerLayoutGuide type="bottom" id="byq-Sa-Hsd"/>
@@ -494,25 +495,25 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tZ7-Gn-JzB">
-                                <rect key="frame" x="181" y="439" width="42" height="21"/>
+                                <rect key="frame" x="181" y="439" width="128" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsz-By-vPn">
-                                <rect key="frame" x="181" y="471" width="42" height="21"/>
+                                <rect key="frame" x="181" y="471" width="128" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ku-Uk-3m1">
-                                <rect key="frame" x="181" y="503" width="42" height="21"/>
+                                <rect key="frame" x="181" y="503" width="139" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00d-Q7-rUb">
-                                <rect key="frame" x="181" y="535" width="42" height="21"/>
+                                <rect key="frame" x="181" y="535" width="139" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -532,7 +533,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="View item" id="9Tc-UO-Gp6">
-                        <barButtonItem key="backBarButtonItem" title="Goods" id="94D-lK-fJr"/>
                         <barButtonItem key="rightBarButtonItem" title="Basket" id="Wev-95-gAM">
                             <connections>
                                 <segue destination="m2k-tR-kAf" kind="push" id="Jqe-ZV-lAM"/>
@@ -551,12 +551,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7B-wX-VLW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3046" y="-601"/>
+            <point key="canvasLocation" x="3054" y="-585"/>
         </scene>
         <!--Edit Good View Controller - Edit item-->
         <scene sceneID="eGE-RI-xzb">
             <objects>
-                <viewController id="LIr-tL-X9x" customClass="POSEditGoodViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSEditGoodViewController" id="LIr-tL-X9x" customClass="POSEditGoodViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bu1-9q-gfO"/>
                         <viewControllerLayoutGuide type="bottom" id="Drd-dn-4xQ"/>
@@ -719,9 +719,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Edit item" id="7W3-J8-fL0">
-                        <barButtonItem key="backBarButtonItem" title="Goods" id="TrP-xs-APM"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Edit item" id="7W3-J8-fL0"/>
                     <connections>
                         <outlet property="scrollView" destination="1rc-W3-F4v" id="U8Z-cL-buO"/>
                         <outlet property="textCategory" destination="MUP-7N-6t7" id="xEB-XF-90Q"/>
@@ -735,12 +733,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ang-EF-CJR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3046" y="148"/>
+            <point key="canvasLocation" x="3046" y="140"/>
         </scene>
         <!--Set Cat View Controller - Select category-->
         <scene sceneID="AYW-a6-Ctv">
             <objects>
-                <viewController id="Bst-JA-gve" customClass="POSSetCatViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSSetCatViewController" id="Bst-JA-gve" customClass="POSSetCatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SWo-L9-7iI"/>
                         <viewControllerLayoutGuide type="bottom" id="1CS-v8-7VY"/>
@@ -773,12 +771,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AQP-cU-5gZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3534" y="148"/>
+            <point key="canvasLocation" x="3596" y="140"/>
         </scene>
         <!--Cat Grid View Controller - Categories list-->
         <scene sceneID="TvI-xD-Shc">
             <objects>
-                <viewController id="jk4-EB-Nhq" customClass="POSCatGridViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSCatGridViewController" id="jk4-EB-Nhq" customClass="POSCatGridViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="C2t-wx-T89"/>
                         <viewControllerLayoutGuide type="bottom" id="C1W-7H-Yj7"/>
@@ -838,7 +836,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Categories list" id="dqh-dg-eVe">
-                        <barButtonItem key="backBarButtonItem" title="Login" id="9gD-sT-NN7"/>
                         <barButtonItem key="rightBarButtonItem" title="Basket" id="eLn-48-Njq">
                             <connections>
                                 <segue destination="m2k-tR-kAf" kind="push" id="Uwv-co-TKF"/>
@@ -863,7 +860,7 @@
         <!--Register View Controller - Register user-->
         <scene sceneID="Zvu-SH-Wu8">
             <objects>
-                <viewController id="TQm-XP-FGT" customClass="POSRegisterViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSRegisterViewController" id="TQm-XP-FGT" customClass="POSRegisterViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sbp-LU-6bb"/>
                         <viewControllerLayoutGuide type="bottom" id="tbT-aQ-CTx"/>
@@ -909,9 +906,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Register user" id="vGJ-GF-a6l">
-                        <barButtonItem key="backBarButtonItem" title="Login" id="0cY-n2-d2p"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Register user" id="vGJ-GF-a6l"/>
                     <connections>
                         <outlet property="textEmail" destination="moC-TS-6z8" id="KjK-JB-1Yo"/>
                         <outlet property="textPassword" destination="pUP-HB-7EL" id="EpJ-RV-PJv"/>
@@ -947,6 +942,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="BqE-aY-ofo"/>
+        <segue reference="Jqe-ZV-lAM"/>
     </inferredMetricsTieBreakers>
 </document>

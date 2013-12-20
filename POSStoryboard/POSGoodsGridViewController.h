@@ -17,14 +17,14 @@
 
 @interface POSGoodsGridViewController : UIViewController <AQGridViewDelegate, AQGridViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UIButton *btnChangeMode;
-@property (weak, nonatomic) IBOutlet UIButton *btnAdd;
-@property (weak, nonatomic) IBOutlet AQGridView *gridView;
-
 @property NSString *catName;
 @property (nonatomic, strong)POSCategory *cat;
 @property (nonatomic, strong)POSItem *item;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnChangeMode;
+@property (weak, nonatomic) IBOutlet UIButton *btnAdd;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet AQGridView *gridView;
 
 - (IBAction)onChangeMode:(id)sender;
 

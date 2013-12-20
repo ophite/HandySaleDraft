@@ -96,8 +96,12 @@
     requestSuccess      = [[responseDictionary objectForKey:@"success"] boolValue];
     timeStamp           = (NSString*) [responseDictionary objectForKey:@"tst"];
     */
+    
     if (![dbWrapperInstance openDB])
         return;
+    
+    // TODO подумать может в будущем не удалять, а проверять что уже есть и ничего не делать
+    [self.categories removeAllObjects];
     
     NSString * query = [NSString stringWithFormat: @"SELECT    c.id, c.name, i.asset \
                                                      FROM      collection c \
@@ -106,6 +110,7 @@
     ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
   
     void(^blockGetCategory)( id rows, ALAssetsLibrary * lib) = ^(id rows, id lib) {
+        
         POSCategory* catObject = [[POSCategory alloc] init];
         catObject.ID = [dbWrapperInstance getCellInt:0];
         catObject.name = [dbWrapperInstance getCellText:1];
@@ -115,20 +120,24 @@
         {
             NSURL * assetUrl = [[NSURL alloc] initWithString:catObject.asset];
             
-            [((ALAssetsLibrary *)lib) assetForURL: assetUrl resultBlock:^(ALAsset *asset)
-             {
-                 catObject.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
-             }
-             failureBlock: ^(NSError* error)
-             {
-                 NSLog(@"%@", error.description);
-             }];
+            [((ALAssetsLibrary *)lib) assetForURL: assetUrl
+                                      resultBlock:^(ALAsset *asset) {
+                                          
+                                          catObject.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+                                      }
+                                     failureBlock: ^(NSError* error) {
+                                         
+                                         NSLog(@"%@", error.description);
+                                     }];
         }
         
         [((NSMutableArray *)rows) addObject:catObject];
     };
     
-    [dbWrapperInstance fetchRows:query foreachCallback:blockGetCategory p_rows:self.categories p_library:library];
+    [dbWrapperInstance fetchRows: query
+                 foreachCallback: blockGetCategory
+                          p_rows: self.categories
+                       p_library: library];
     [dbWrapperInstance closeDB];
 }
 
@@ -228,6 +237,9 @@
     
     if(![dbWrapperInstance openDB])
         return;
+    
+    // TODO подумать может в будущем не удалять, а проверять что уже есть и ничего не делать
+    [self.allItems removeAllObjects];
 
     NSString* query = [NSString stringWithFormat: @"SELECT    p.id, p.name, p.price_buy, p.price_sale, p.comment, i.asset, c.id, c.name \
                                                     FROM      product p, image i, collection c \

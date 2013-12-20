@@ -24,5 +24,13 @@
       <ContextState
          contextName = "-[POSDataSet getCategories]:POSDataSet.m">
       </ContextState>
+      <ContextState
+         contextName = "-[POSGoodsGridViewController gridView:didSelectItemAtIndex:]:POSGoodsGridViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[objectsHelperInstance.dataSet.items objectAtIndex:0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

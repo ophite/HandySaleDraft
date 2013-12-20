@@ -48,12 +48,18 @@
     [objectsHelperInstance.dataSet.items removeAllObjects];
     [objectsHelperInstance.dataSet getItems: self.catName];
     
-//    self.gridView = [[AQGridView alloc] initWithFrame:CGRectMake(0, 0, 320, 373)];
     self.gridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.gridView.autoresizesSubviews = YES;
     self.gridView.delegate = self;
     self.gridView.dataSource = self;
-
+    
+    self.scrollView.delegate = self;
+    [self.scrollView setScrollEnabled:YES];
+    self.scrollView.contentSize = CGSizeMake(320, 1000);
+    self.scrollView.pagingEnabled = YES;
+    [self.scrollView setMinimumZoomScale:1.0];
+    [self.scrollView setMaximumZoomScale:2.0];
+    
     [self.btnChangeMode setTitle: (objectsHelperInstance.goodsMode? @"View mode" : @"Edit mode")
                         forState: UIControlStateNormal];
 
@@ -66,15 +72,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-- (IBAction)onChangeMode:(id)sender {
-    
-    objectsHelperInstance.goodsMode = !objectsHelperInstance.goodsMode;
-    [self.btnChangeMode setTitle: (objectsHelperInstance.goodsMode? @"View mode" : @"Edit mode")
-                        forState: UIControlStateNormal];
-}
-
 
 
 #pragma mark - GridView
@@ -120,10 +117,15 @@
     
     if(!objectsHelperInstance.goodsMode) {
         //View
-        POSItemViewController* viewItem = [POSItemViewController new];
-        viewItem.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
-        viewItem.title = viewItem.item.name;
-        [self.navigationController pushViewController:viewItem animated:YES];
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"
+                                                                 bundle: nil];
+        POSItemViewController *controller = (POSItemViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"POSItemViewController"];
+          
+        controller.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
+        controller.title = controller.item.name;
+        [self.navigationController pushViewController: controller
+                                             animated: YES];
+
     }
     else {
         //Edit
@@ -132,7 +134,8 @@
         viewEditGood.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
         viewEditGood.title = viewEditGood.item.name;
         objectsHelperInstance.currentItemsIndex = index;
-        [self.navigationController pushViewController:viewEditGood animated:YES];
+        [self.navigationController pushViewController: viewEditGood
+                                             animated: YES];
     }
 }
 
@@ -150,6 +153,16 @@
     //UIImageView* currentImageView = [imageViews objectAtIndex:page];
     //return currentImageView;
     return self.gridView;
+}
+
+
+#pragma mark - Actions
+
+- (IBAction)onChangeMode:(id)sender {
+    
+    objectsHelperInstance.goodsMode = !objectsHelperInstance.goodsMode;
+    [self.btnChangeMode setTitle: (objectsHelperInstance.goodsMode? @"View mode" : @"Edit mode")
+                        forState: UIControlStateNormal];
 }
 
 

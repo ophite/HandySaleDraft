@@ -21,13 +21,16 @@
 @synthesize btnSave = _btnSave;
 @synthesize tableBasket = _tableBasket;
 
+@synthesize basket = _basket;
+@synthesize itemIndex = _itemIndex;
+
 
 #pragma mark - ViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName:nibNameOrNil
-                           bundle:nibBundleOrNil];
+    self = [super initWithNibName: nibNameOrNil
+                           bundle: nibBundleOrNil];
     if (self) {
         
         // Custom initialization
@@ -40,7 +43,17 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    self.tableBasket.dataSource = self;
+    self.tableBasket.delegate = self;
+
 	// Do any additional setup after loading the view.
+}
+
+
+- (void)viewDidUnload {
+    
+    [super viewDidUnload];
 }
 
 
@@ -129,13 +142,13 @@
         if  ([[[objectsHelperInstance.dataSet.allItems objectAtIndex:i] name] isEqualToString:name]&&
              [[[objectsHelperInstance.dataSet.allItems objectAtIndex:i] category] isEqualToString:cat]){
             
-            itemIndex = i;
+            self.itemIndex = i;
             break;
         }
     }
     
     POSItemViewController* viewItem = [POSItemViewController new];
-    viewItem.item = [objectsHelperInstance.dataSet.allItems objectAtIndex:itemIndex];
+    viewItem.item = [objectsHelperInstance.dataSet.allItems objectAtIndex:self.itemIndex];
     viewItem.title = viewItem.item.name;
     NSString* quan;
     quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row] quantity];
@@ -162,20 +175,23 @@
         if  ([[[objectsHelperInstance.dataSet.allItems objectAtIndex:i] name] isEqualToString:name]&&
              [[[objectsHelperInstance.dataSet.allItems objectAtIndex:i] category] isEqualToString:cat]) {
             
-            itemIndex = i;
+            self.itemIndex = i;
             break;
         }
     }
     
-    POSItemViewController* viewItem = [POSItemViewController new];
-    viewItem.item = [objectsHelperInstance.dataSet.allItems objectAtIndex:itemIndex];
-    viewItem.title = viewItem.item.name;
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"
+                                                             bundle: nil];
+    POSItemViewController *controller = (POSItemViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"POSItemViewController"];
+    controller.item = [objectsHelperInstance.dataSet.allItems objectAtIndex:self.itemIndex];
+    controller.title = controller.item.name;
     
     NSString * quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row] quantity];
 //    quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row] quantity];
-    viewItem.item.quantityOrdered = quan;
-    viewItem.currentQuantity = quan;
-    [self.navigationController pushViewController:viewItem animated:YES];
+    controller.item.quantityOrdered = quan;
+    controller.currentQuantity = quan;
+    [self.navigationController pushViewController: controller
+                                         animated: YES];
 }
 
 

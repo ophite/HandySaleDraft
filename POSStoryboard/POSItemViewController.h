@@ -10,21 +10,21 @@
 #import "POSItem.h"
 #import "POSOrder.h"
 
-@interface POSItemViewController : UIViewController<UIScrollViewDelegate>
+@interface POSItemViewController : UIViewController<UIScrollViewDelegate,UITextFieldDelegate>
 {
-    POSItem*            item;
-    POSOrder*           order;
-
-    NSString*           previousQuantity;
-    NSString*           currentQuantity;
+//    POSItem *item;
+//    POSOrder *order;
+//
+//    NSString *previousQuantity;
+//    NSString *currentQuantity;
 }
 
 
-@property POSItem* item;
-@property POSOrder* order;
+@property POSItem *item;
+@property POSOrder *order;
 
-@property NSString* currentQuantity;
-@property NSString* previousQuantity;
+@property NSString *currentQuantity;
+@property NSString *previousQuantity;
 
 @property (weak, nonatomic) IBOutlet UITextField *textQuantity;
 @property (weak, nonatomic) IBOutlet UILabel *labelCode;

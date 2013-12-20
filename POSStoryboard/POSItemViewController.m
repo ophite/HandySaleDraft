@@ -47,13 +47,20 @@
     
     [super viewDidLoad];
 
+    self.textQuantity.delegate = self;
+
     self.scrollView.delegate = self;
+    self.scrollView.delegate = self;
+    self.scrollView.backgroundColor = [UIColor whiteColor];
     [self.scrollView setScrollEnabled:YES];
+    self.scrollView.contentSize = CGSizeMake(self.item.gallery.count*300, 285);
     self.scrollView.pagingEnabled = YES;
+    self.scrollView.backgroundColor = [UIColor lightGrayColor];
+    
     [self.scrollView setMinimumZoomScale:1.0];
     [self.scrollView setMaximumZoomScale:2.0];
-
-    for(int i = 0; i<self.item.gallery.count; i++) {
+    
+    for(int i = 0; i < self.item.gallery.count; i++) {
         
         UIImageView* imageView = [[UIImageView alloc] initWithImage:[self.item.gallery objectAtIndex:i]];
         imageView.frame = CGRectMake(i*300, 0, 295, 285);
@@ -61,10 +68,10 @@
         [self.viewContent addSubview:imageView];
     }
     
-    [self.labelCode setText:item.codeItem];
-    [self.labelAvailable setText:item.quantityAvailable];
-    [self.labelDescription setText:item.description];
-    [self.labelPrice setText:item.price1];
+    [self.labelCode setText:self.item.codeItem];
+    [self.labelAvailable setText:self.item.quantityAvailable];
+    [self.labelDescription setText:self.item.description];
+    [self.labelPrice setText:self.item.price1];
 
     // Do any additional setup after loading the view.
 }
@@ -108,7 +115,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
-    [self.textQuantity setText:currentQuantity];
+    [self.textQuantity setText:self.currentQuantity];
 }
 
 
@@ -120,25 +127,25 @@
     self.previousQuantity = self.item.quantityOrdered;
     self.item.quantityOrdered = self.currentQuantity;
     
-    if([currentQuantity intValue] == [previousQuantity integerValue]) {
+    if([self.currentQuantity intValue] == [self.previousQuantity integerValue]) {
         
         [self.textQuantity resignFirstResponder];
         return;
     }
     
-    if([previousQuantity intValue] == 0 && [currentQuantity intValue] > 0) {
+    if([self.previousQuantity intValue] == 0 && [self.currentQuantity intValue] > 0) {
         
-        order = [[POSOrder alloc] init];
+        self.order = [[POSOrder alloc] init];
         
-        order.category  = item.category;
-        order.name      = item.name;
-        order.quantity  = item.quantityOrdered;
-        order.price     = item.price1;
-        order.codeItem  = item.codeItem;
-        order.image     = item.image;
-        order.item_ID   = item.ID;
+        self.order.category  = self.item.category;
+        self.order.name      = self.item.name;
+        self.order.quantity  = self.item.quantityOrdered;
+        self.order.price     = self.item.price1;
+        self.order.codeItem  = self.item.codeItem;
+        self.order.image     = self.item.image;
+        self.order.item_ID   = self.item.ID;
         
-        [objectsHelperInstance.dataSet.orderArray addObject:order];
+        [objectsHelperInstance.dataSet.orderArray addObject:self.order];
         [self.navigationController popViewControllerAnimated:YES];
 
         return;
@@ -146,19 +153,19 @@
     
     if([objectsHelperInstance.dataSet.orderArray count] > 0) {
         
-        NSString* orderName;
+        NSString *orderName;
 
         for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
             
             orderName = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:i] name];
             
-            if([orderName isEqualToString:item.name]) {
+            if([orderName isEqualToString:self.item.name]) {
                 
-                if([currentQuantity intValue] > 0) {
+                if([self.currentQuantity intValue] > 0) {
                     
                     POSOrder* o;
                     o = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
-                    o.quantity = currentQuantity;
+                    o.quantity = self.currentQuantity;
                 }
                 else
                     [objectsHelperInstance.dataSet.orderArray removeObjectAtIndex:i];
