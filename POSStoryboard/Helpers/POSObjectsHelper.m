@@ -10,9 +10,9 @@
 
 @implementation POSObjectsHelper
 
-@synthesize dataSet         = _dataSet;
-@synthesize catsMode        = _catsMode;
-@synthesize goodsMode       = _goodsMode;
+@synthesize dataSet = _dataSet;
+@synthesize catsMode = _catsMode;
+@synthesize goodsMode = _goodsMode;
 @synthesize currentCatIndex = _currentCatIndex;
 @synthesize currentItemsIndex = _currentItemsIndex;
 

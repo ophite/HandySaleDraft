@@ -14,20 +14,20 @@
 @implementation POSBasketViewController
 
 
-@synthesize btnBarSendEmail     = _btnBarSendEmail;
-@synthesize btnCancel           = _btnCancel;
-@synthesize btnClear            = _btnClear;
-@synthesize btnOpen             = _btnOpen;
-@synthesize btnSave             = _btnSave;
-@synthesize tableBasket         = _tableBasket;
+@synthesize btnBarSendEmail = _btnBarSendEmail;
+@synthesize btnCancel = _btnCancel;
+@synthesize btnClear = _btnClear;
+@synthesize btnOpen = _btnOpen;
+@synthesize btnSave = _btnSave;
+@synthesize tableBasket = _tableBasket;
 
 
-/*
- * ViewController
- */
+#pragma mark - ViewController
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil
+                           bundle:nibBundleOrNil];
     if (self) {
         
         // Custom initialization
@@ -57,9 +57,8 @@
 }
 
 
-/*
- * GridView
- */
+#pragma mark - GridView
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return 1;
@@ -78,7 +77,8 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if(cell == nil)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                      reuseIdentifier:CellIdentifier];
     
     NSString* good = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]] name];
     NSString* quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]] quantity];
@@ -104,12 +104,12 @@
 }
 
 
-/*
- * Email
- */
+#pragma mark - Email
+
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     
-    [controller dismissViewControllerAnimated:YES completion:nil];
+    [controller dismissViewControllerAnimated:YES
+                                   completion:nil];
 }
 
 
@@ -179,9 +179,8 @@
 }
 
 
-/*
- * Methods
- */
+#pragma mark - Methods
+
 - (void)saveToDB {
     
     if (![dbWrapperInstance openDB])
@@ -198,13 +197,13 @@
     if(objectsHelperInstance.currentBasketID) {
         
         NSString * query = [NSString stringWithFormat:@"UPDATE  document \
-                            SET     date = datetime('now'), paid_price = %f \
-                            WHERE   id = %d",totalPrice, objectsHelperInstance.currentBasketID];
+                                                        SET     date = datetime('now'), paid_price = %f \
+                                                        WHERE   id = %d",totalPrice, objectsHelperInstance.currentBasketID];
         [dbWrapperInstance tryExecQuery:query];
         
         query = [NSString stringWithFormat:@"DELETE \
-                 FROM   document_line \
-                 WHERE  document_id = %d", objectsHelperInstance.currentBasketID];
+                                             FROM   document_line \
+                                             WHERE  document_id = %d", objectsHelperInstance.currentBasketID];
         [dbWrapperInstance tryExecQuery:query];
         
         for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
@@ -214,19 +213,19 @@
             int quantity = [order.quantity intValue];
             
             query = [NSString stringWithFormat:@"INSERT INTO document_line (price, quantity, item_id, document_id) \
-                     VALUES (%f, %d, %d, %d)", price, quantity, order.item_ID, objectsHelperInstance.currentBasketID];
+                                                 VALUES (%f, %d, %d, %d)", price, quantity, order.item_ID, objectsHelperInstance.currentBasketID];
             [dbWrapperInstance tryExecQuery:query];
         }
     }
     else {
         
         NSString * query = [NSString stringWithFormat:@"INSERT INTO document (date, paid_price, document_type_id, user_id) \
-                            VALUES (datetime('now'), %f, %d, %d)", totalPrice, 1, 1];
+                                                        VALUES (datetime('now'), %f, %d, %d)", totalPrice, 1, 1];
         [dbWrapperInstance tryExecQuery:query];
         
         query = @"SELECT    id \
-        FROM      document \
-        ORDER BY id DESC limit 1";
+                  FROM      document \
+                  ORDER BY id DESC limit 1";
         int doc_ID = [dbWrapperInstance execQueryResultInt:query p_index:0];
         
         for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
@@ -236,7 +235,7 @@
             int quantity = [order.quantity intValue];
             
             query = [NSString stringWithFormat:@"INSERT INTO document_line (price, quantity, item_id, document_id) \
-                     VALUES (%f, %d, %d, %d)", price, quantity, order.item_ID, doc_ID];
+                                                 VALUES (%f, %d, %d, %d)", price, quantity, order.item_ID, doc_ID];
             [dbWrapperInstance tryExecQuery:query];
         }
     }
@@ -245,9 +244,8 @@
 }
 
 
-/*
- * Actions
- */
+#pragma mark - Actions
+
 - (IBAction)onSendEmail:(id)sender {
     
     [self saveToDB];

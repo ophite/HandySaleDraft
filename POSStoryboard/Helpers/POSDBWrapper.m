@@ -32,6 +32,7 @@
   
     NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* documentsDirectory = [paths objectAtIndex:0];
+    
     return [documentsDirectory stringByAppendingPathComponent:dataFile];
 }
 
@@ -69,7 +70,7 @@
 
 
 - (int)execQueryResultInt:(NSString *)query p_index:(int)index {
-    
+
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
     sqlite3_step(statement);    
     int result = sqlite3_column_int(statement, index);
@@ -84,7 +85,7 @@
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
     
     if (sqlite3_step(statement) == SQLITE_ROW)
-        *text = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 0)];
+        *text = [[NSString alloc] initWithUTF8String:(const char *)sqlite3_column_text(statement, 0)];
     else
         result = NO;
     
@@ -96,7 +97,7 @@
 
 - (NSString *)getCellText:(int)index {
     
-   return [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, index)];
+   return [[NSString alloc] initWithUTF8String:(const char *)sqlite3_column_text(statement, index)];
 }
 
 

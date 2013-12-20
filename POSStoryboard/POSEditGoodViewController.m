@@ -32,12 +32,12 @@
 @synthesize imageView = _imageView;
 
 
-/*
- * ViewController
- */
+#pragma mark - ViewController
+ 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName: nibNameOrNil
+                           bundle: nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -101,13 +101,15 @@
     
     // Code here to work with media
     self.imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated: YES
+                             completion: nil];
 }
 
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated: YES
+                             completion: nil];
 }
 
 
@@ -151,9 +153,8 @@
 }
 
 
-/*
- * Actions
- */
+#pragma mark - Actions
+
 - (IBAction)onSave:(id)sender {
     
     int n;
@@ -161,20 +162,27 @@
     
     if([dbWrapperInstance openDB]) {
         
-        NSString * query = [NSString stringWithFormat:@"SELECT id FROM collection WHERE name = \"%@\" AND user_id = %d", self.textCategory.text, 1];
+        NSString * query = [NSString stringWithFormat:@"SELECT  id \
+                                                        FROM    collection \
+                                                        WHERE   name = \"%@\" AND user_id = %d", self.textCategory.text, 1];
         
         int cat_ID = [dbWrapperInstance execQueryResultInt:query p_index:0];
         query = [NSString stringWithFormat:@"SELECT count(*) \
                                              FROM   product \
                                              WHERE  name = \"%@\" AND collection_id = %d AND user_id = %d", self.textName.text, cat_ID, 1];
-        n = [dbWrapperInstance execQueryResultInt:query p_index:0];
+        n = [dbWrapperInstance execQueryResultInt: query
+                                          p_index: 0];
         [dbWrapperInstance closeDB];
     }
     
     
     if(n != 0 && ![self.textName.text isEqualToString:oldName]) {
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement" message: @"The good already exists" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement"
+                                                        message: @"The good already exists"
+                                                       delegate: nil
+                                              cancelButtonTitle: @"OK"
+                                              otherButtonTitles: nil];
         [alert show];
     }
     
@@ -210,12 +218,16 @@
     [dbWrapperInstance tryExecQuery:query];
     [dbWrapperInstance closeDB];
     
-    POSImage * image = [[POSImage alloc] initWithImage:item.image withAsset:nil withPath:random_name withObject_id:item.ID
-                                       withObject_name:@"product"];
+    POSImage * image = [[POSImage alloc] initWithImage: item.image
+                                             withAsset: nil
+                                              withPath: random_name
+                                         withObject_id: item.ID
+                                       withObject_name: @"product"];
     [objectsHelperInstance.dataSet.images addObject:image];
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [objectsHelperInstance.dataSet saveGallery: (objectsHelperInstance.dataSet.images.count - 1) withLibrary:library];
+    [objectsHelperInstance.dataSet saveGallery: (objectsHelperInstance.dataSet.images.count - 1)
+                                   withLibrary: library];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -244,28 +256,41 @@
     }
     
     viewSetCat.pickerData = array;
-    [self.navigationController pushViewController:viewSetCat animated:YES];
+    [self.navigationController pushViewController: viewSetCat
+                                         animated: YES];
 }
 
 
 - (IBAction)onDeleteItem:(id)sender {
     
     NSString* question = [NSString stringWithFormat:@"Delete the %@ good?", self.textName.text];
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:question delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Delete"
+                                                    message: question
+                                                   delegate: self
+                                          cancelButtonTitle: @"No"
+                                          otherButtonTitles: @"Yes", nil];
     [alert show];
 }
 
 
 - (IBAction)onSetImage:(id)sender {
     
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Select source" message:@"Please select image source" delegate: self cancelButtonTitle:@"Library" otherButtonTitles:@"Camera", nil];
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: @"Select source"
+                                                        message: @"Please select image source"
+                                                       delegate: self
+                                              cancelButtonTitle: @"Library"
+                                              otherButtonTitles: @"Camera", nil];
 	[alertView show];
 }
 
 
 - (IBAction)onDeleteImage:(id)sender {
     
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Delete image" message:@"Delete the image?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: @"Delete image"
+                                                        message: @"Delete the image?"
+                                                       delegate: self
+                                              cancelButtonTitle: @"No"
+                                              otherButtonTitles: @"Yes", nil];
 	[alertView show];
 }
 

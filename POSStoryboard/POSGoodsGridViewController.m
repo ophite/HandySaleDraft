@@ -24,9 +24,12 @@
 @synthesize item = _item;
 
 
+#pragma mark - ViewController
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil
+                           bundle:nibBundleOrNil];
     if (self) {
         
         // Custom initialization
@@ -51,7 +54,8 @@
     self.gridView.delegate = self;
     self.gridView.dataSource = self;
 
-    [self.btnChangeMode setTitle: (objectsHelperInstance.goodsMode? @"View mode" : @"Edit mode") forState: UIControlStateNormal];
+    [self.btnChangeMode setTitle: (objectsHelperInstance.goodsMode? @"View mode" : @"Edit mode")
+                        forState: UIControlStateNormal];
 
 	// Do any additional setup after loading the view.
 }
@@ -67,14 +71,14 @@
 - (IBAction)onChangeMode:(id)sender {
     
     objectsHelperInstance.goodsMode = !objectsHelperInstance.goodsMode;
-    [self.btnChangeMode setTitle: (objectsHelperInstance.goodsMode? @"View mode" : @"Edit mode") forState: UIControlStateNormal];
+    [self.btnChangeMode setTitle: (objectsHelperInstance.goodsMode? @"View mode" : @"Edit mode")
+                        forState: UIControlStateNormal];
 }
 
 
 
-/*
- * GridView
- */
+#pragma mark - GridView
+ 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -94,7 +98,8 @@
     
     if (cell == nil) {
         
-        cell = [[POSGridViewCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 160, 160) reuseIdentifier: PlainCellIdentifier];
+        cell = [[POSGridViewCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 160, 160)
+                                      reuseIdentifier: PlainCellIdentifier];
     }
     
     self.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
@@ -122,7 +127,8 @@
     }
     else {
         //Edit
-        POSEditGoodViewController* viewEditGood = [[POSEditGoodViewController alloc] initWithNibName:@"POSEditGoodViewController" bundle:nil];
+        POSEditGoodViewController* viewEditGood = [[POSEditGoodViewController alloc] initWithNibName: @"POSEditGoodViewController"
+                                                                                              bundle: nil];
         viewEditGood.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
         viewEditGood.title = viewEditGood.item.name;
         objectsHelperInstance.currentItemsIndex = index;

@@ -19,12 +19,12 @@
 @synthesize textPassword = _textPassword;
 
 
-/*
- * ViewController
- */
+#pragma mark - ViewController
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil
+                           bundle:nibBundleOrNil];
     if (self) {
         
         // Custom initialization
@@ -68,8 +68,11 @@
         
         BOOL isLogged = NO;
         
-        if (![self.textEmail.text isEqualToString:@""] && ![self.textPassword.text isEqualToString:@""])
+        if (![self.textEmail.text isEqualToString:@""] &&
+            ![self.textPassword.text isEqualToString:@""]) {
+            
             isLogged =[self isUserHasCorrectPassword];
+        }
         
         if (!isLogged) {
             
@@ -84,6 +87,8 @@
 }
 
 
+#pragma mark - Methods
+
 /*
  * Check if user has correct pass
  */
@@ -96,7 +101,8 @@
         NSString* passStr;
         NSString* query = [NSString stringWithFormat: @"SELECT password FROM user WHERE email=\"%@\"", self.textEmail.text];
         
-        if ([dbWrapperInstance tryExecQueryResultText:query p_index:0 p_result:&passStr] == YES) {
+        if ([dbWrapperInstance tryExecQueryResultText:query p_index:0
+                                             p_result:&passStr] == YES) {
             
             if([passStr isEqualToString:self.textPassword.text])
                 isLogged = YES;

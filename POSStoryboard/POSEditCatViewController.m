@@ -22,12 +22,12 @@
 @synthesize oldName = _oldName;
 
 
-/*
- * ViewController
- */
+#pragma mark - ViewController
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName: nibNameOrNil
+                           bundle: nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -77,7 +77,8 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated: YES
+                             completion: nil];
 }
 
 
@@ -89,14 +90,18 @@
     if ([alertView.title isEqual: @"Select source"] && buttonIndex == 0) {
         
         controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:controller animated:YES completion:nil];
+        [self presentViewController: controller
+                           animated: YES
+                         completion: nil];
     }
     else {
         
         if ([alertView.title isEqual: @"Select source"] && buttonIndex == 1) {
             
             controller.sourceType = UIImagePickerControllerSourceTypeCamera;
-            [self presentViewController:controller animated:YES completion:nil];
+            [self presentViewController: controller
+                               animated: YES
+                             completion: nil];
         }
         else if ([alertView.title isEqual: @"Delete"]) {
             
@@ -121,9 +126,8 @@
 }
 
 
-/*
- * Actions
- */
+#pragma mark -  Actions
+
 - (IBAction)onSave:(id)sender {
     
     self.cat.name = self.textName.text;
@@ -140,7 +144,11 @@
     
     if(count != 0 && ![self.cat.name isEqualToString:oldName]) {
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement" message: @"The category already exists. Select another name" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement"
+                                                        message: @"The category already exists. Select another name"
+                                                       delegate: nil
+                                              cancelButtonTitle: @"OK"
+                                              otherButtonTitles: nil];
         [alert show];
     }
     
@@ -149,12 +157,16 @@
     query = [NSString stringWithFormat:@"UPDATE collection SET name = \"%@\" WHERE id = %d; ", self.cat.name, self.cat.ID];
     query = [query stringByAppendingFormat:@"DELETE FROM image WHERE object_id = %d AND object_name = \"collection\"; ", self.cat.ID];
     query = [query stringByAppendingFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) \
-             VALUES (\"%@\", \"%@\", %d, \"collection\", 1);", random_name, random_name, self.cat.ID];
+                                             VALUES (\"%@\", \"%@\", %d, \"collection\", 1);", random_name, random_name, self.cat.ID];
 
     [dbWrapperInstance tryExecQuery:query];
     [dbWrapperInstance closeDB];
     
-    POSImage * image = [[POSImage alloc] initWithImage:cat.image withAsset:nil withPath:random_name withObject_id:self.cat.ID withObject_name:@"collection"];
+    POSImage * image = [[POSImage alloc] initWithImage: cat.image
+                                             withAsset: nil
+                                              withPath: random_name
+                                         withObject_id: self.cat.ID
+                                       withObject_name: @"collection"];
     [objectsHelperInstance.dataSet.images addObject:image];
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -172,7 +184,11 @@
 
 - (IBAction)onSelectImage:(id)sender {
     
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Select source" message:@"Please select image source" delegate:self cancelButtonTitle:@"Library" otherButtonTitles:@"Camera", nil];
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: @"Select source"
+                                                        message: @"Please select image source"
+                                                       delegate: self
+                                              cancelButtonTitle: @"Library"
+                                              otherButtonTitles: @"Camera", nil];
 	[alertView show];
 }
 
@@ -180,7 +196,11 @@
 - (IBAction)onDelete:(id)sender {
     
     NSString* question = [NSString stringWithFormat:@"Delete the %@ category?", self.textName.text];
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:question delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Delete"
+                                                    message: question
+                                                   delegate: self
+                                          cancelButtonTitle: @"Yes"
+                                          otherButtonTitles: @"No", nil];
     [alert show];
 }
 

@@ -30,12 +30,12 @@
 @synthesize viewContent = _viewContent;
 
 
-/*
- * ViewController
- */
+#pragma mark - ViewController
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil
+                           bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -112,9 +112,8 @@
 }
 
 
-/*
- * Actions
- */
+#pragma mark - Actions
+
 - (IBAction)onOrder:(id)sender {
     
     self.currentQuantity = [self.textQuantity text];

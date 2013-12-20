@@ -12,6 +12,7 @@
 
 @end
 
+
 @implementation POSNewGoodViewController
 
 
@@ -19,12 +20,12 @@
 @synthesize textImageName = _textImageName;
 
 
-/*
- * ViewController
- */
+#pragma mark - ViewController
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName: nibNameOrNil
+                           bundle: nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -52,9 +53,8 @@
 }
 
 
-/*
- * Methods
- */
+#pragma mark - Methods
+ 
 - (BOOL)createdNewGood {
     
     BOOL result = NO;
@@ -63,17 +63,25 @@
         
         int cat_ID = [[objectsHelperInstance.dataSet.categories objectAtIndex:objectsHelperInstance.currentCatIndex] ID];
         NSString* catName = [[objectsHelperInstance.dataSet.categories objectAtIndex:objectsHelperInstance.currentCatIndex] name];
-        NSString * query = [NSString stringWithFormat:@"SELECT count(*) FROM product WHERE name = \"%@\" AND collection_id = \"%d\" AND user_id = \"%d\"", self.textName.text, cat_ID, 1];
-        int count = [dbWrapperInstance execQueryResultInt:query p_index:0];
+        NSString * query = [NSString stringWithFormat:@"SELECT  count(*) \
+                                                        FROM    product \
+                                                        WHERE   name = \"%@\" AND collection_id = \"%d\" AND user_id = \"%d\"", self.textName.text, cat_ID, 1];
+        int count = [dbWrapperInstance execQueryResultInt: query
+                                                  p_index: 0];
         
         if(count != 0) {
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement" message: @"The good already exists. Select another name" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement"
+                                                            message: @"The good already exists. Select another name"
+                                                           delegate: nil
+                                                  cancelButtonTitle: @"OK"
+                                                  otherButtonTitles: nil];
             [alert show];
             return NO;
         }
         
-        query = [NSString stringWithFormat:@"INSERT INTO product (name, user_id, collection_id) VALUES (\"%@\", %d, %d)", self.textName.text, 1, cat_ID];
+        query = [NSString stringWithFormat:@"INSERT INTO product (name, user_id, collection_id) \
+                                             VALUES (\"%@\", %d, %d)", self.textName.text, 1, cat_ID];
         
         [dbWrapperInstance tryExecQuery:query];
         [dbWrapperInstance closeDB];
@@ -91,9 +99,8 @@
 }
 
 
-/*
- * Actions
- */
+#pragma mark - Actions
+
 - (IBAction)onCreate:(id)sender {
     
     BOOL nameExists = NO;

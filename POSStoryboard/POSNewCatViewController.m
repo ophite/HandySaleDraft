@@ -24,12 +24,12 @@
 @synthesize textImageName = _textImageName;
 
 
-/*
- * ViewController
- */
+#pragma mark - ViewController
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil
+                           bundle:nibBundleOrNil];
     if (self) {
         
         // Custom initialization
@@ -73,7 +73,9 @@
         int count = [dbWrapperInstance execQueryResultInt:query p_index:0];
         if(count != 0) {
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement" message: @"The category already exists. Select another name" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement" message: @"The category already exists. Select another name"
+                                                           delegate: nil
+                                                  cancelButtonTitle: @"OK" otherButtonTitles:nil];
             [alert show];
         }
         else {
@@ -93,10 +95,10 @@
 }
 
 
-/*
- * Actions
- */
+#pragma mark - Actions
+
 - (IBAction)onCreate:(id)sender {
+    
     if ([self createdNewCategory])
         [self.navigationController popToRootViewControllerAnimated:YES];
     else {

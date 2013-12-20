@@ -23,12 +23,12 @@
 @synthesize pickerData = _pickerData;
 
 
-/*
- * ViewController
- */
+#pragma mark - ViewController
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName: nibNameOrNil
+                           bundle: nibBundleOrNil];
     if (self) {
         
         // Custom initialization
@@ -40,7 +40,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self.picker selectRow:self.initRow inComponent:0 animated:YES];
+    [self.picker selectRow: self.initRow
+               inComponent: 0
+                  animated: YES];
 	// Do any additional setup after loading the view.
 }
 
@@ -52,9 +54,8 @@
 }
 
 
-/*
- * Picker
- */
+#pragma mark - Picker
+ 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     
     return  1;
@@ -71,9 +72,8 @@
 }
 
 
-/*
- * Actions
- */
+#pragma mark - Actions
+ 
 - (IBAction)onOk:(id)sender {
     
     self.exitRow = [self.picker selectedRowInComponent:0];

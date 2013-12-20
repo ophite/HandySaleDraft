@@ -24,12 +24,12 @@
 @synthesize btnScan         = _btnScan;
 
 
-/*
- * ViewController
- */
+#pragma mark - ViewController
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil
+                           bundle:nibBundleOrNil];
     if (self) {
         
         // Custom initialization
@@ -38,7 +38,9 @@
     return self;
 }
 
-typedef void (^ALAssetsGroupEnumerationResultsBlock)(ALAsset *result, NSUInteger index, BOOL *stop);
+
+//typedef void (^ALAssetsGroupEnumerationResultsBlock)(ALAsset *result, NSUInteger index, BOOL *stop);
+
 
 - (void)viewDidLoad {
     
@@ -151,9 +153,8 @@ typedef void (^ALAssetsGroupEnumerationResultsBlock)(ALAsset *result, NSUInteger
 }
 
 
-/*
- * GridView methods
- */
+#pragma mark - GridView methods
+ 
 - (NSUInteger)numberOfItemsInGridView:(AQGridView *)aGridView
 {
     return [objectsHelperInstance.dataSet.categories count];
@@ -167,7 +168,8 @@ typedef void (^ALAssetsGroupEnumerationResultsBlock)(ALAsset *result, NSUInteger
     POSGridViewCell* cell = (POSGridViewCell*)[aGridView dequeueReusableCellWithIdentifier:@"PlainCellIdentifier"];
     if (cell == nil) {
         
-        cell = [[POSGridViewCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 160, 160) reuseIdentifier: PlainCellIdentifier];
+        cell = [[POSGridViewCell alloc] initWithFrame:CGRectMake(0.0, 0.0, 160, 160)
+                                      reuseIdentifier:PlainCellIdentifier];
     }
     
     POSCategory * category = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
@@ -216,14 +218,13 @@ typedef void (^ALAssetsGroupEnumerationResultsBlock)(ALAsset *result, NSUInteger
 }
 
 
-/*
- * Other
- */
 - (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     
     return self.gridView;
 }
 
+
+#pragma mark - Other
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
@@ -260,7 +261,10 @@ typedef void (^ALAssetsGroupEnumerationResultsBlock)(ALAsset *result, NSUInteger
     
     if (resultItem == nil) {
         
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Not found" message:@"Item not found" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Not found" message:@"Item not found"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
         [alert show];
     }
     else {
@@ -294,9 +298,8 @@ typedef void (^ALAssetsGroupEnumerationResultsBlock)(ALAsset *result, NSUInteger
 }
 
 
-/*
- * Actions
- */
+#pragma mark -Actions
+ 
 - (IBAction)onScan:(id)sender {
     
     ZBarReaderViewController* reader = [ZBarReaderViewController new];
@@ -329,7 +332,8 @@ typedef void (^ALAssetsGroupEnumerationResultsBlock)(ALAsset *result, NSUInteger
 - (IBAction)onChangeMode:(id)sender {
     
     objectsHelperInstance.catsMode = !objectsHelperInstance.catsMode;
-    [self.btnChangeMode setTitle: (objectsHelperInstance.catsMode ? @"View mode" : @"Edit mode") forState: UIControlStateNormal];
+    [self.btnChangeMode setTitle:(objectsHelperInstance.catsMode ? @"View mode": @"Edit mode")
+                        forState:UIControlStateNormal];
 }
 
 

@@ -20,12 +20,12 @@
 @synthesize textPassword2 = _textPassword2;
 
 
-/*
- * ViewController
- */
+#pragma mark - ViewController
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil
+                           bundle:nibBundleOrNil];
     if (self) {
         
         // Custom initialization
@@ -33,6 +33,7 @@
     
     return self;
 }
+
 
 - (void)viewDidLoad {
     
@@ -61,14 +62,16 @@
 }
 
 
-/*
- * Action
- */
+#pragma mark - Action
+
 - (IBAction)onCreate:(id)sender {
     
-    if(![self.textPassword.text isEqualToString:@""] && [self.textPassword.text isEqualToString:self.textPassword2.text] &&
-       [self registerNewUser])
+    if(![self.textPassword.text isEqualToString:@""] &&
+       [self.textPassword.text isEqualToString:self.textPassword2.text] &&
+       [self registerNewUser]) {
+    
         [self.navigationController popViewControllerAnimated:YES];
+    }
     else {
         
         [self.textEmail setText:@""];
@@ -78,9 +81,6 @@
 }
 
 
-/*
- * Create new user
- */
 - (BOOL)registerNewUser {
     
     BOOL isRegistered = NO;

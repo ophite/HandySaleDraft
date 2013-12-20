@@ -24,9 +24,12 @@
 @synthesize tableBasket = _tableBasket;
 
 
+#pragma mark - ViewController
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName: nibNameOrNil
+                           bundle: nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -78,7 +81,8 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if(cell == nil)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleValue1
+                                      reuseIdentifier: CellIdentifier];
     
     NSString* name = [[self.basketArray objectAtIndex:[indexPath row]] name];
     NSString* price = [[self.basketArray objectAtIndex:[indexPath row]] price];
@@ -115,7 +119,7 @@
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     NSString * query = [NSString stringWithFormat:@"SELECT  item_id, quantity \
                                                     FROM    document_line \
-                                                    WHERE document_id = %d", doc_ID];
+                                                    WHERE   document_id = %d", doc_ID];
     
     void (^blockGetOrder)(id rows) = ^(id rows) {
         
@@ -125,7 +129,9 @@
         [((NSMutableArray *)rows) addObject:order];
     };
     
-    [dbWrapperInstance fetchRows:query foreachCallback:blockGetOrder p_rows:objectsHelperInstance.dataSet.orderArray];
+    [dbWrapperInstance fetchRows: query
+                 foreachCallback: blockGetOrder
+                          p_rows: objectsHelperInstance.dataSet.orderArray];
     
     
     for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
@@ -161,7 +167,8 @@
             
         };
         
-        [dbWrapperInstance extractMultipleValues:query foreachCallback:blockExtractOrderValues];
+        [dbWrapperInstance extractMultipleValues: query
+                                 foreachCallback: blockExtractOrderValues];
     }
     
     [dbWrapperInstance closeDB];
@@ -173,7 +180,10 @@
     if (![dbWrapperInstance openDB])
         return;
     
-    NSString * query = @"SELECT id, date, paid_price, user_id FROM document WHERE user_id = 1 ORDER BY id DESC";
+    NSString * query = @"SELECT id, date, paid_price, user_id \
+                         FROM   document \
+                         WHERE  user_id = 1 \
+                         ORDER BY id DESC";
     
     void (^blockGetBasket)(id rows) = ^(id rows) {
         
@@ -190,14 +200,15 @@
         }
     };
     
-    [dbWrapperInstance fetchRows:query foreachCallback:blockGetBasket p_rows:self.basketArray];
+    [dbWrapperInstance fetchRows: query
+                 foreachCallback: blockGetBasket
+                          p_rows: self.basketArray];
     [dbWrapperInstance closeDB];
 }
 
 
-/*
- * Actions
- */
+#pragma mark - Actions
+ 
 - (IBAction)onSave:(id)sender {
     
     NSIndexPath *indexPath = [self.tableBasket indexPathForSelectedRow];
