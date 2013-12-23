@@ -27,9 +27,9 @@
 @synthesize textPrice1 = _textPrice1;
 @synthesize textPrice2 = _textPrice2;
 @synthesize textViewDescription = _textViewDescription;
-@synthesize viewContent = _viewContent;
+//@synthesize viewContent = _viewContent;
 @synthesize scrollView = _scrollView;
-@synthesize imageView = _imageView;
+//@synthesize imageView = _imageView;
 
 
 #pragma mark - ViewController
@@ -49,6 +49,17 @@
     
     [super viewDidLoad];
     
+    self.scrollView.delegate = self;
+    self.scrollView.backgroundColor = [UIColor whiteColor];
+    [self.scrollView setScrollEnabled:YES];
+    self.scrollView.contentSize = CGSizeMake(self.item.gallery.count*180, 200);
+    self.scrollView.pagingEnabled = YES;
+    self.scrollView.backgroundColor = [UIColor lightGrayColor];
+    
+    [self.scrollView setMinimumZoomScale:1.0];
+    [self.scrollView setMaximumZoomScale:2.0];
+
+    
     self.oldName = self.item.name;
     self.textName.text = self.item.name;
     self.textCategory.text = item.category;
@@ -60,10 +71,13 @@
     for(int i = 0; i<self.item.gallery.count; i++) {
         
         UIImageView* localImageView = [[UIImageView alloc] initWithImage:[self.item.gallery objectAtIndex:i]];
-        localImageView.frame = CGRectMake(i*180, 0, 177, 180);
+        localImageView.frame = CGRectMake(i*180, 0, 180, 200);
         localImageView.backgroundColor = [UIColor whiteColor];
-        [self.viewContent addSubview:localImageView];
+        localImageView.contentMode = UIViewContentModeScaleAspectFit;
+        localImageView.clipsToBounds = YES;
+        [self.scrollView addSubview:localImageView];
     }
+    
     
     self.textName.delegate = self;
     self.textCategory.delegate = self;
@@ -72,6 +86,8 @@
     self.textPrice2.delegate = self;
     self.textViewDescription.delegate = self;
     
+    [self.textViewDescription setReturnKeyType:UIReturnKeyDone];
+
 	// Do any additional setup after loading the view.
 }
 
@@ -103,11 +119,21 @@
 }
 
 
-//TODO
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
+    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    [self.item.gallery addObject:image];
+    self.scrollView.contentSize = CGSizeMake(self.item.gallery.count*180, 200);
+
+    UIImageView* localImageView = [[UIImageView alloc] initWithImage:image];
+    localImageView.frame = CGRectMake((self.item.gallery.count-1)*180, 0, 180, 200);
+    localImageView.backgroundColor = [UIColor whiteColor];
+    localImageView.contentMode = UIViewContentModeScaleAspectFit;
+    localImageView.clipsToBounds = YES;
+    
+    [self.scrollView addSubview:localImageView];
+    
     // Code here to work with media
-    self.imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     [self dismissViewControllerAnimated: YES
                              completion: nil];
 }
@@ -147,9 +173,9 @@
                 }
                 else if ([dbWrapperInstance openDB]) {
                     
-                    NSString * query = [NSString stringWithFormat:@"DELETE \
+                    NSString * query = [NSString stringWithFormat:@"DELETE  \
                                                                     FROM    product \
-                                                                    WHERE       name = \"%@\" AND user_id = %d", self.item.name, 1];
+                                                                    WHERE   name = \"%@\" AND user_id = %d", self.item.name, 1];
                     
                     [dbWrapperInstance tryExecQuery:query];
                     [dbWrapperInstance closeDB];
@@ -157,9 +183,21 @@
                     [objectsHelperInstance.dataSet.items removeObjectAtIndex:objectsHelperInstance.currentItemsIndex];
                     [self.navigationController popViewControllerAnimated:YES];
                 }
-            }
+        }
+        else if ([alertView.title isEqual: @"Select source"] && buttonIndex == 0) {
+            
+            controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController: controller
+                               animated: YES
+                             completion: nil];
+        }
     }
 }
+
+
+//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+//    return [scrollView viewWithTag:1];
+//}
 
 
 #pragma mark - Actions

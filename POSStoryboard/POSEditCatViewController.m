@@ -158,8 +158,12 @@
     
     NSString* random_name = [[NSUUID UUID] UUIDString];
     
-    query = [NSString stringWithFormat:@"UPDATE collection SET name = \"%@\" WHERE id = %d; ", self.cat.name, self.cat.ID];
-    query = [query stringByAppendingFormat:@"DELETE FROM image WHERE object_id = %d AND object_name = \"collection\"; ", self.cat.ID];
+    query = [NSString stringWithFormat:@"UPDATE collection \
+                                         SET    name = \"%@\" \
+                                         WHERE  id = %d; ", self.cat.name, self.cat.ID];
+    query = [query stringByAppendingFormat:@"DELETE \
+                                             FROM   image \
+                                             WHERE  object_id = %d AND object_name = \"collection\"; ", self.cat.ID];
     query = [query stringByAppendingFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) \
                                              VALUES (\"%@\", \"%@\", %d, \"collection\", 1);", random_name, random_name, self.cat.ID];
 

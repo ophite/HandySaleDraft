@@ -21,8 +21,8 @@
 @property POSCategory *category;
 @property NSString *oldName;
 
-@property (nonatomic, strong) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIView *viewContent;
+//@property (nonatomic, strong) IBOutlet UIImageView *imageView;
+//@property (weak, nonatomic) IBOutlet UIView *viewContent;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *textName;
 @property (weak, nonatomic) IBOutlet UITextField *textCategory;
