@@ -12,6 +12,7 @@
 #import "POSSetCatViewController.h"
 #import "POSObjectsHelper.h"
 #import "POSDBWrapper.h"
+#import "POSHelper.h"
 
 
 @interface POSEditGoodViewController : UIViewController<UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate>

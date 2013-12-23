@@ -96,7 +96,7 @@
     
     if (cell == nil) {
         
-        cell = [[POSGridViewCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 160, 160)
+        cell = [[POSGridViewCell alloc] initWithFrame: CGRectMake(0.0, 0.0, helperInstance.ITEM_LIST_WIDTH, helperInstance.ITEM_LIST_HEIGHT)
                                       reuseIdentifier: PlainCellIdentifier];
     }
     
@@ -115,13 +115,10 @@
 
 
 - (void) gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index {
-
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"
-                                                             bundle: nil];
     
     if(!objectsHelperInstance.goodsMode) {
         //View
-        POSItemViewController *controller = [mainStoryboard instantiateViewControllerWithIdentifier: @"POSItemViewController"];
+        POSItemViewController *controller = [helperInstance GetUIViewController: @"POSItemViewController"];
         controller.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
         controller.title = controller.item.name;
         [self.navigationController pushViewController: controller
@@ -130,7 +127,7 @@
     }
     else {
         //Edit
-        POSEditGoodViewController *controller = [mainStoryboard instantiateViewControllerWithIdentifier: @"POSEditGoodViewController"];
+        POSEditGoodViewController *controller = [helperInstance GetUIViewController: @"POSEditGoodViewController"];
         controller.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
         controller.title = controller.item.name;
         objectsHelperInstance.currentItemsIndex = index;

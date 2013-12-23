@@ -45,16 +45,12 @@
     
     [super viewDidLoad];
     
-    self.scrollView.delegate = self;
-    self.scrollView.backgroundColor = [UIColor whiteColor];
-    [self.scrollView setScrollEnabled:YES];
-    self.scrollView.contentSize = CGSizeMake(self.item.gallery.count*180, 200);
-    self.scrollView.pagingEnabled = YES;
-    self.scrollView.backgroundColor = [UIColor lightGrayColor];
-    
-    [self.scrollView setMinimumZoomScale:1.0];
-    [self.scrollView setMaximumZoomScale:2.0];
-
+    self.textName.delegate = self;
+    self.textCategory.delegate = self;
+    self.textCode.delegate = self;
+    self.textPrice1.delegate = self;
+    self.textPrice2.delegate = self;
+    self.textViewDescription.delegate = self;
     
     self.oldName = self.item.name;
     self.textName.text = self.item.name;
@@ -64,25 +60,24 @@
     self.textPrice2.text = self.item.price2;
     self.textViewDescription.text = self.item.description;
     
+    self.scrollView.delegate = self;
+    self.scrollView.backgroundColor = [UIColor whiteColor];
+    [self.scrollView setScrollEnabled:YES];
+    self.scrollView.contentSize = CGSizeMake(self.item.gallery.count*180, 200);
+    self.scrollView.pagingEnabled = YES;
+    self.scrollView.backgroundColor = [UIColor lightGrayColor];
+    [self.scrollView setMinimumZoomScale:1.0];
+    [self.scrollView setMaximumZoomScale:2.0];
+
     for(int i = 0; i<self.item.gallery.count; i++) {
         
         UIImageView* localImageView = [[UIImageView alloc] initWithImage:[self.item.gallery objectAtIndex:i]];
-        localImageView.frame = CGRectMake(i*180, 0, 180, 200);
+        localImageView.frame = CGRectMake(i*helperInstance.ITEM_EDIT_WIDTH, 0, helperInstance.ITEM_EDIT_WIDTH, helperInstance.ITEM_EDIT_HEIGHT);
         localImageView.backgroundColor = [UIColor whiteColor];
         localImageView.contentMode = UIViewContentModeScaleAspectFit;
         localImageView.clipsToBounds = YES;
         [self.scrollView addSubview:localImageView];
     }
-    
-    
-    self.textName.delegate = self;
-    self.textCategory.delegate = self;
-    self.textCode.delegate = self;
-    self.textPrice1.delegate = self;
-    self.textPrice2.delegate = self;
-    self.textViewDescription.delegate = self;
-    
-//    [self.textViewDescription setReturnKeyType:UIReturnKeyDone];
 
 	// Do any additional setup after loading the view.
 }
@@ -133,10 +128,10 @@
     
     UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     [self.item.gallery addObject:image];
-    self.scrollView.contentSize = CGSizeMake(self.item.gallery.count*180, 200);
+    self.scrollView.contentSize = CGSizeMake(self.item.gallery.count*helperInstance.ITEM_EDIT_WIDTH, helperInstance.ITEM_EDIT_HEIGHT);
 
     UIImageView* localImageView = [[UIImageView alloc] initWithImage:image];
-    localImageView.frame = CGRectMake((self.item.gallery.count-1)*180, 0, 180, 200);
+    localImageView.frame = CGRectMake((self.item.gallery.count-1)*helperInstance.ITEM_EDIT_WIDTH, 0, helperInstance.ITEM_EDIT_WIDTH, helperInstance.ITEM_EDIT_HEIGHT);
     localImageView.backgroundColor = [UIColor whiteColor];
     localImageView.contentMode = UIViewContentModeScaleAspectFit;
     localImageView.clipsToBounds = YES;

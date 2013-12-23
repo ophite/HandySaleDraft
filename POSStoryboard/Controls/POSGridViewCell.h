@@ -8,6 +8,7 @@
 
 #import "UIKit/UIKit.h"
 #import "AQGridViewCell.h"
+#import "POSHelper.h"
 
 @interface POSGridViewCell : AQGridViewCell
 

@@ -103,6 +103,7 @@
 		807C43DC185B5A0E00CBAB88 /* POSItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43DB185B5A0E00CBAB88 /* POSItemViewController.m */; };
 		80BEBBC3186087FB003228B1 /* POSBasketOpenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80BEBBC2186087FB003228B1 /* POSBasketOpenViewController.m */; };
 		80BEBBC61861D9E4003228B1 /* POSSetCatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80BEBBC51861D9E4003228B1 /* POSSetCatViewController.m */; };
+		80FFAD2E18689A230070D993 /* POSHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 80FFAD2D18689A230070D993 /* POSHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -280,6 +281,8 @@
 		80BEBBC2186087FB003228B1 /* POSBasketOpenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSBasketOpenViewController.m; sourceTree = "<group>"; };
 		80BEBBC41861D9E4003228B1 /* POSSetCatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSSetCatViewController.h; sourceTree = "<group>"; };
 		80BEBBC51861D9E4003228B1 /* POSSetCatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSSetCatViewController.m; sourceTree = "<group>"; };
+		80FFAD2C18689A230070D993 /* POSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSHelper.h; path = Helpers/POSHelper.h; sourceTree = "<group>"; };
+		80FFAD2D18689A230070D993 /* POSHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSHelper.m; path = Helpers/POSHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -579,6 +582,8 @@
 				807C43901859F56F00CBAB88 /* POSDBWrapper.m */,
 				807C4396185A16EC00CBAB88 /* POSObjectsHelper.h */,
 				807C4397185A16EC00CBAB88 /* POSObjectsHelper.m */,
+				80FFAD2C18689A230070D993 /* POSHelper.h */,
+				80FFAD2D18689A230070D993 /* POSHelper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -828,6 +833,7 @@
 				8004B7011850D30900681B11 /* AQGridViewUpdateItem.m in Sources */,
 				8004B7001850D30900681B11 /* AQGridViewUpdateInfo.m in Sources */,
 				8004B6FD1850D30900681B11 /* AQGridViewCell.m in Sources */,
+				80FFAD2E18689A230070D993 /* POSHelper.m in Sources */,
 				8004B6AF1850C86300681B11 /* POSDataSet.m in Sources */,
 				80BEBBC61861D9E4003228B1 /* POSSetCatViewController.m in Sources */,
 			);

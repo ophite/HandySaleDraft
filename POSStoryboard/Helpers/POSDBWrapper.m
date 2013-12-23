@@ -69,7 +69,8 @@
 }
 
 
-- (int)execQueryResultInt:(NSString *)query p_index:(int)index {
+- (int)execQueryResultInt:(NSString *)query
+                  p_index:(int)index {
 
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
     sqlite3_step(statement);    
@@ -79,13 +80,15 @@
     return result;
 }
 
-- (BOOL)tryExecQueryResultText:(NSString *)query p_index:(int)index p_result:(NSString** )text {
+- (BOOL)tryExecQueryResultText:(NSString *)query
+                       p_index:(int)index
+                      p_result:(NSString **)text {
     
     BOOL result = YES;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
     
     if (sqlite3_step(statement) == SQLITE_ROW)
-        *text = [[NSString alloc] initWithUTF8String:(const char *)sqlite3_column_text(statement, 0)];
+        *text = [self getCellText:0];
     else
         result = NO;
     
@@ -97,7 +100,8 @@
 
 - (NSString *)getCellText:(int)index {
     
-   return [[NSString alloc] initWithUTF8String:(const char *)sqlite3_column_text(statement, index)];
+    const char *result = ((char *)sqlite3_column_text(statement, index));
+    return result == NULL ? nil : [[NSString alloc] initWithUTF8String: result];
 }
 
 
@@ -162,7 +166,9 @@
 }
 
 
-- (void)fetchRows:query foreachCallback:(void (^)( id rows ) )callback p_rows:(id) rows {
+- (void)fetchRows:query
+  foreachCallback:(void (^)( id rows ))callback
+           p_rows:(id) rows {
 
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
     
@@ -173,7 +179,10 @@
 }
 
 
-- (void)fetchRows:query foreachCallback:(void (^)( id rows, id library ) )callback p_rows:(id) rows p_library:(id)library; {
+- (void)fetchRows:query
+  foreachCallback:(void (^)(id rows, id library ))callback
+           p_rows:(id)rows
+        p_library:(id)library; {
     
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
     
@@ -184,7 +193,8 @@
 }
 
 
-- (void)extractMultipleValues:query foreachCallback:(void (^)())callback {
+- (void)extractMultipleValues:query
+              foreachCallback:(void (^)())callback {
     
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
     sqlite3_step(statement);

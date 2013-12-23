@@ -14,6 +14,7 @@
 #import "POSOrder.h"
 #import "POSItemViewController.h"
 #import "POSBasketOpenViewController.h"
+#import "POSHelper.h"
 
 
 @interface POSBasketViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate>

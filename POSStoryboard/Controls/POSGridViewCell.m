@@ -23,8 +23,8 @@
         //self.backgroundColor = [UIColor clearColor];
         //self.contentView.backgroundColor = [UIColor clearColor];
         
-        UIView* mainView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 160, 160)];
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(3, 3, 154, 154)];
+        UIView* mainView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, helperInstance.ITEM_LIST_WIDTH, helperInstance.ITEM_LIST_HEIGHT)];
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(3, 3, helperInstance.ITEM_LIST_WIDTH - 6, helperInstance.ITEM_LIST_HEIGHT - 6)];
         self.imageView.backgroundColor = [UIColor whiteColor];
         //[self.imageView setBackgroundColor:[UIColor colorWithPatternImage:backgroundPattern]];
         

@@ -10,6 +10,7 @@
 #import "POSItem.h"
 #import "POSOrder.h"
 #import "POSObjectsHelper.h"
+#import "POSHelper.h"
 
 
 @interface POSItemViewController : UIViewController<UIScrollViewDelegate,UITextFieldDelegate>

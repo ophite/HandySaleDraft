@@ -63,7 +63,7 @@
     for(int i = 0; i < self.item.gallery.count; i++) {
         
         UIImageView* imageView = [[UIImageView alloc] initWithImage:[self.item.gallery objectAtIndex:i]];
-        imageView.frame = CGRectMake(i*300, 0, 295, 285);
+        imageView.frame = CGRectMake(i*helperInstance.ITEM_VIEW_WIDTH, 0, helperInstance.ITEM_VIEW_WIDTH, helperInstance.ITEM_VIEW_HEIGHT);
         imageView.backgroundColor = [UIColor whiteColor];
         [self.viewContent addSubview:imageView];
     }

@@ -48,7 +48,6 @@
     
     self.tableBasket.dataSource = self;
     self.tableBasket.delegate = self;
-
 	// Do any additional setup after loading the view.
 }
 
@@ -80,24 +79,28 @@
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
     
     return [objectsHelperInstance.dataSet.orderArray count];
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString* CellIdentifier = @"Cell";
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if(cell == nil)
+    if(cell == nil) {
+
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
                                       reuseIdentifier:CellIdentifier];
+    }
     
-    NSString* good = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]] name];
-    NSString* quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]] quantity];
-    NSString* title = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]] category];
+    NSString *good = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]] name];
+    NSString *quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]] quantity];
+    NSString *title = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]] category];
     
     title = [title stringByAppendingString:@"  "];
     title = [title stringByAppendingString:good];
@@ -121,17 +124,19 @@
 
 #pragma mark - Email
 
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+- (void)mailComposeController:(MFMailComposeViewController*)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError*)error {
     
-    [controller dismissViewControllerAnimated:YES
-                                   completion:nil];
+    [controller dismissViewControllerAnimated: YES
+                                   completion: nil];
 }
 
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     
-    NSString* name;
-    NSString* cat;
+    NSString *name;
+    NSString *cat;
     
     int index = indexPath.row;
     int n = [objectsHelperInstance.dataSet.allItems count];
@@ -152,19 +157,22 @@
     POSItemViewController* viewItem = [POSItemViewController new];
     viewItem.item = [objectsHelperInstance.dataSet.allItems objectAtIndex:self.itemIndex];
     viewItem.title = viewItem.item.name;
-    NSString* quan;
+
+    NSString *quan;
     quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row] quantity];
-    NSLog(@"Quan = %@", quan);
+    
     viewItem.item.quantityOrdered = quan;
     viewItem.currentQuantity = quan;
-    [self.navigationController pushViewController:viewItem animated:YES];
+    
+    [self.navigationController pushViewController: viewItem
+                                         animated: YES];
 }
 
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString* name;
-    NSString* cat;
+    NSString *name;
+    NSString *cat;
     
     int index = indexPath.row;
     int n = [objectsHelperInstance.dataSet.allItems count];
@@ -182,13 +190,12 @@
         }
     }
     
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"
-                                                             bundle: nil];
-    POSItemViewController *controller = (POSItemViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"POSItemViewController"];
+    
+    POSItemViewController *controller = [helperInstance GetUIViewController:@"POSItemViewController"];
     controller.item = [objectsHelperInstance.dataSet.allItems objectAtIndex:self.itemIndex];
     controller.title = controller.item.name;
     
-    NSString * quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row] quantity];
+    NSString *quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row] quantity];
 //    quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row] quantity];
     controller.item.quantityOrdered = quan;
     controller.currentQuantity = quan;

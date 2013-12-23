@@ -134,7 +134,7 @@
     
     for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
         
-        POSOrder* order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
+        POSOrder *order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
         query = [NSString stringWithFormat:@"SELECT     p.name, c.name, p.price_buy, i.asset \
                                              FROM       product p, collection c, image i \
                                              WHERE      p.id = %d AND c.id = p.collection_id AND i.object_id = p.id", order.item_ID];
@@ -154,15 +154,14 @@
                 
                 [library assetForURL: assetUrl resultBlock:^(ALAsset *asset) {
                     
-                     order.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
-                 }
-                 failureBlock: ^(NSError* error) {
-                     
-                     NSLog(@"%@", error.description);
-                 }
+                    order.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+                }
+                        failureBlock: ^(NSError* error) {
+                            
+                            NSLog(@"%@", error.description);
+                        }
                  ];
             }
-            
         };
         
         [dbWrapperInstance extractMultipleValues: query

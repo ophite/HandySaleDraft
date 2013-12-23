@@ -46,7 +46,6 @@
     [objectsHelperInstance.dataSet getAllItems];
 
     ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
-    
     [library enumerateGroupsWithTypes: ALAssetsGroupAlbum
                            usingBlock: ^(ALAssetsGroup *group, BOOL *stop) {
                                // Срабатывает дважды, можно будет добавить проверку что только один раз было
@@ -115,7 +114,7 @@
     POSGridViewCell* cell = (POSGridViewCell*)[aGridView dequeueReusableCellWithIdentifier:@"PlainCellIdentifier"];
     if (cell == nil) {
         
-        cell = [[POSGridViewCell alloc] initWithFrame:CGRectMake(0.0, 0.0, 160, 160)
+        cell = [[POSGridViewCell alloc] initWithFrame:CGRectMake(0.0, 0.0, helperInstance.CATEGORY_LIST_WIDTH, helperInstance.CATEGORY_LIST_HEIGHT)
                                       reuseIdentifier:PlainCellIdentifier];
     }
     
@@ -137,12 +136,9 @@
 
 - (void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index {
 
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"
-                                                             bundle: nil];
-
     if(!objectsHelperInstance.catsMode) {
         //View goods
-        POSGoodsGridViewController *controller = [mainStoryboard instantiateViewControllerWithIdentifier: @"POSGoodsGridViewController"];
+        POSGoodsGridViewController *controller = [helperInstance GetUIViewController:@"POSGoodsGridViewController"];
         controller.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
         controller.title = controller.cat.name;
         [self.navigationController pushViewController: controller
@@ -150,7 +146,7 @@
     }
     else {
         //Edit
-        POSEditCatViewController *controller = [mainStoryboard instantiateViewControllerWithIdentifier:@"POSEditCatViewController"];
+        POSEditCatViewController *controller = [helperInstance GetUIViewController:@"POSEditCatViewController"];
         controller.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
         [self.navigationController pushViewController: controller
                                              animated: YES];

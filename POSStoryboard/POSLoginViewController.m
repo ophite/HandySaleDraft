@@ -100,7 +100,9 @@
     if ([dbWrapperInstance openDB]) {
         
         NSString* passStr;
-        NSString* query = [NSString stringWithFormat: @"SELECT password FROM user WHERE email=\"%@\"", self.textEmail.text];
+        NSString* query = [NSString stringWithFormat: @"SELECT  password \
+                                                        FROM    user \
+                                                        WHERE   email=\"%@\"", self.textEmail.text];
         
         if ([dbWrapperInstance tryExecQueryResultText:query p_index:0
                                              p_result:&passStr] == YES) {

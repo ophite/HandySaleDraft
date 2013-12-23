@@ -14,7 +14,7 @@
 #import "POSObjectsHelper.h"
 #import "POSItemViewController.h"
 #import "POSEditGoodViewController.h"
-
+#import "POSHelper.h"
 
 @interface POSGoodsGridViewController : UIViewController <AQGridViewDelegate, AQGridViewDataSource>
 
