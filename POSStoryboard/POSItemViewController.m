@@ -5,13 +5,13 @@
 //  Created by kobernik.u on 12/13/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-
 #import "POSItemViewController.h"
-#import "POSObjectsHelper.h"
+
 
 @interface POSItemViewController ()
 
 @end
+
 
 @implementation POSItemViewController
 

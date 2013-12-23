@@ -5,19 +5,14 @@
 //  Created by kobernik.u on 12/13/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-
 #import <UIKit/UIKit.h>
+
 #import "POSItem.h"
 #import "POSOrder.h"
+#import "POSObjectsHelper.h"
+
 
 @interface POSItemViewController : UIViewController<UIScrollViewDelegate,UITextFieldDelegate>
-{
-//    POSItem *item;
-//    POSOrder *order;
-//
-//    NSString *previousQuantity;
-//    NSString *currentQuantity;
-}
 
 
 @property POSItem *item;

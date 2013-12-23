@@ -7,18 +7,17 @@
 //
 #import <UIKit/UIKit.h>
 #import <MessageUI/MFMailComposeViewController.h>
-#import "POSObjectsHelper.h"
 #import "NSData+Base64.h"
+
+#import "POSObjectsHelper.h"
 #import "POSBasket.h"
 #import "POSOrder.h"
 #import "POSItemViewController.h"
 #import "POSBasketOpenViewController.h"
 
+
 @interface POSBasketViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate>
-{
-//    int                 itemIndex;
-//    POSBasket*          basket;
-}
+
 
 @property int itemIndex;
 @property POSBasket *basket;

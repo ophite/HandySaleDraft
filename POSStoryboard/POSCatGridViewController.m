@@ -5,14 +5,13 @@
 //  Created by kobernik.u on 12/12/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-
 #import "POSCatGridViewController.h"
-#import "POSCategory.h"
-#import <AssetsLibrary/AssetsLibrary.h>
+
 
 @interface POSCatGridViewController ()
 
 @end
+
 
 @implementation POSCatGridViewController
 
@@ -22,6 +21,7 @@
 @synthesize btnBasket = _btnBasket;
 @synthesize btnChangeMode = _btnChangeMode;
 @synthesize btnScan = _btnScan;
+@synthesize catName = _catName;
 
 
 #pragma mark - ViewController
@@ -250,7 +250,7 @@
 
         NSString * query = [NSString stringWithFormat:@"DELETE \
                                                         FROM    collection \
-                                                        WHERE   name = \"%@\" AND user_id = %d", catName, 1];
+                                                        WHERE   name = \"%@\" AND user_id = %d", self.catName, 1];
         [dbWrapperInstance tryExecQuery:query];
         [dbWrapperInstance closeDB];
     }

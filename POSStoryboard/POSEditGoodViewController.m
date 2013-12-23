@@ -5,15 +5,13 @@
 //  Created by kobernik.u on 12/16/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-
 #import "POSEditGoodViewController.h"
-#import "POSSetCatViewController.h"
-#import "POSObjectsHelper.h"
-#import "POSDBWrapper.h"
+
 
 @interface POSEditGoodViewController ()
 
 @end
+
 
 @implementation POSEditGoodViewController
 
@@ -27,9 +25,7 @@
 @synthesize textPrice1 = _textPrice1;
 @synthesize textPrice2 = _textPrice2;
 @synthesize textViewDescription = _textViewDescription;
-//@synthesize viewContent = _viewContent;
 @synthesize scrollView = _scrollView;
-//@synthesize imageView = _imageView;
 
 
 #pragma mark - ViewController
@@ -62,7 +58,7 @@
     
     self.oldName = self.item.name;
     self.textName.text = self.item.name;
-    self.textCategory.text = item.category;
+    self.textCategory.text = self.item.category;
     self.textCode.text = self.item.codeItem;
     self.textPrice1.text = self.item.price1;
     self.textPrice2.text = self.item.price2;
@@ -209,11 +205,6 @@
 }
 
 
-//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-//    return [scrollView viewWithTag:1];
-//}
-
-
 #pragma mark - Actions
 
 - (IBAction)onSave:(id)sender {
@@ -237,7 +228,7 @@
     }
     
     
-    if(n != 0 && ![self.textName.text isEqualToString:oldName]) {
+    if(n != 0 && ![self.textName.text isEqualToString:self.oldName]) {
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement"
                                                         message: @"The good already exists"
@@ -261,14 +252,14 @@
     
     NSString* random_name = [[NSUUID UUID] UUIDString];
     
-    NSString * query = [NSString stringWithFormat:@"UPDATE product SET \
-                                                     name            = \"%@\", \
-                                                     price_buy       = \"%@\", \
-                                                     price_sale      = \"%@\", \
-                                                     comment         = \"%@\", \
-                                                     user_id         = \"%d\", \
-                                                     collection_id   = \"%@\"  \
-                                                     WHERE id = %d;", self.item.name, self.item.price1, self.item.price2, self.item.description, self.item.userID, self.item.category, self.item.ID];
+    NSString * query = [NSString stringWithFormat:@"UPDATE  product \
+                                                    SET     name            = \"%@\", \
+                                                            price_buy       = \"%@\", \
+                                                            price_sale      = \"%@\", \
+                                                            comment         = \"%@\", \
+                                                            user_id         = \"%d\", \
+                                                            collection_id   = \"%@\"  \
+                                                    WHERE   id = %d;", self.item.name, self.item.price1, self.item.price2, self.item.description, self.item.userID, self.item.category, self.item.ID];
     
     query = [query stringByAppendingFormat:@"DELETE \
                                              FROM   image \
@@ -304,7 +295,7 @@
     
     POSSetCatViewController* viewSetCat = [POSSetCatViewController new];
     viewSetCat.title = @"Set category";
-    viewSetCat.item = item;
+    viewSetCat.item = self.item;
     NSMutableArray* array = [[NSMutableArray alloc] init];
     
     for(int i = 0; i<[objectsHelperInstance.dataSet.categories count]; i++) {

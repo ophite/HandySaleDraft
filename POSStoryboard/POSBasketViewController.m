@@ -7,9 +7,11 @@
 //
 #import "POSBasketViewController.h"
 
+
 @interface POSBasketViewController ()
 
 @end
+
 
 @implementation POSBasketViewController
 
@@ -241,7 +243,7 @@
         
         query = @"SELECT    id \
                   FROM      document \
-                  ORDER BY id DESC limit 1";
+                  ORDER BY  id DESC limit 1";
         int doc_ID = [dbWrapperInstance execQueryResultInt:query p_index:0];
         
         for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {

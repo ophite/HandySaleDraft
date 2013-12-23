@@ -5,13 +5,13 @@
 //  Created by kobernik.u on 12/18/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-
 #import "POSSetCatViewController.h"
-#import "POSObjectsHelper.h"
+
 
 @interface POSSetCatViewController ()
 
 @end
+
 
 @implementation POSSetCatViewController
 
@@ -37,6 +37,7 @@
     return self;
 }
 
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -61,10 +62,12 @@
     return  1;
 }
 
+
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     
     return [self.pickerData count];
 }
+
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     

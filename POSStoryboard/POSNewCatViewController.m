@@ -5,11 +5,7 @@
 //  Created by kobernik.u on 12/13/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-
 #import "POSNewCatViewController.h"
-#import "POSDBWrapper.h"
-#import "POSCategory.h"
-#import "POSObjectsHelper.h"
 
 
 @interface POSNewCatViewController ()
@@ -68,9 +64,8 @@
 }
 
 
-/*
- *
- */
+#pragma mark - Methods
+
 - (BOOL)createdNewCategory {
     
     BOOL result = NO;

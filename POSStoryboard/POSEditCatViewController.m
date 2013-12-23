@@ -5,14 +5,13 @@
 //  Created by kobernik.u on 12/16/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-
 #import "POSEditCatViewController.h"
-#import "POSDBWrapper.h"
-#import "POSObjectsHelper.h"
+
 
 @interface POSEditCatViewController ()
 
 @end
+
 
 @implementation POSEditCatViewController
 
@@ -146,7 +145,7 @@
     
     int count = [dbWrapperInstance execQueryResultInt:query p_index:0];
     
-    if(count != 0 && ![self.cat.name isEqualToString:oldName]) {
+    if(count != 0 && ![self.cat.name isEqualToString:self.oldName]) {
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement"
                                                         message: @"The category already exists. Select another name"

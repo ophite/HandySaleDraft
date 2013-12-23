@@ -5,12 +5,14 @@
 //  Created by kobernik.u on 12/12/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-
 #import <UIKit/UIKit.h>
-#import "POSObjectsHelper.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 #import "AQGridView.h"
 #import "ZBarSDK.h"
+
 #import "POSGridViewCell.h"
+#import "POSCategory.h"
+#import "POSObjectsHelper.h"
 #import "POSDBWrapper.h"
 #import "POSGoodsGridViewController.h"
 #import "POSEditCatViewController.h"
@@ -19,10 +21,8 @@
  *UIScrollViewDelegate может надо для viewForZoomingInScrollView
  */
 @interface POSCatGridViewController : UIViewController<UIAlertViewDelegate, AQGridViewDelegate, AQGridViewDataSource, ZBarReaderDelegate,UIScrollViewDelegate>
-{
-    NSString *catName;
-}
 
+@property NSString *catName;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet AQGridView *gridView;
 

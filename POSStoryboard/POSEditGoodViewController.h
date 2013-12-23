@@ -5,24 +5,22 @@
 //  Created by kobernik.u on 12/16/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-
 #import <UIKit/UIKit.h>
+
 #import "POSItem.h"
 #import "POSCategory.h"
+#import "POSSetCatViewController.h"
+#import "POSObjectsHelper.h"
+#import "POSDBWrapper.h"
+
 
 @interface POSEditGoodViewController : UIViewController<UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate>
-{
-    POSItem *item;
-    POSCategory *category;
-    NSString *oldName;
-}
+
 
 @property POSItem *item;
 @property POSCategory *category;
 @property NSString *oldName;
 
-//@property (nonatomic, strong) IBOutlet UIImageView *imageView;
-//@property (weak, nonatomic) IBOutlet UIView *viewContent;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *textName;
 @property (weak, nonatomic) IBOutlet UITextField *textCategory;
@@ -38,5 +36,6 @@
 - (IBAction)onDeleteItem:(id)sender;
 - (IBAction)onSetImage:(id)sender;
 - (IBAction)onDeleteImage:(id)sender;
+
 
 @end
