@@ -112,6 +112,20 @@
 }
 
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    
+    if ([text isEqualToString:@"\n"]) {
+        
+        [textView resignFirstResponder];
+        // Return FALSE so that the final '\n' character doesn't get added
+        return NO;
+    }
+    // For any other character return TRUE so that the text gets added to the view
+    return YES;
+}
+
+
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
