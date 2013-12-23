@@ -114,13 +114,13 @@
 
 
 - (void) gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index {
+
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"
+                                                             bundle: nil];
     
     if(!objectsHelperInstance.goodsMode) {
         //View
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"
-                                                                 bundle: nil];
-        POSItemViewController *controller = (POSItemViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"POSItemViewController"];
-          
+        POSItemViewController *controller = [mainStoryboard instantiateViewControllerWithIdentifier: @"POSItemViewController"];
         controller.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
         controller.title = controller.item.name;
         [self.navigationController pushViewController: controller
@@ -129,12 +129,11 @@
     }
     else {
         //Edit
-        POSEditGoodViewController* viewEditGood = [[POSEditGoodViewController alloc] initWithNibName: @"POSEditGoodViewController"
-                                                                                              bundle: nil];
-        viewEditGood.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
-        viewEditGood.title = viewEditGood.item.name;
+        POSEditGoodViewController *controller = [mainStoryboard instantiateViewControllerWithIdentifier: @"POSEditGoodViewController"];
+        controller.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
+        controller.title = controller.item.name;
         objectsHelperInstance.currentItemsIndex = index;
-        [self.navigationController pushViewController: viewEditGood
+        [self.navigationController pushViewController: controller
                                              animated: YES];
     }
 }

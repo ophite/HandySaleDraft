@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface POSNewCatViewController : UIViewController
+@interface POSNewCatViewController : UIViewController <UITextFieldDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITextField *textName;

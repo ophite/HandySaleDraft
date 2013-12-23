@@ -41,6 +41,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    self.textName.delegate = self;
+    self.textImageName.delegate = self;
 	// Do any additional setup after loading the view.
 }
 

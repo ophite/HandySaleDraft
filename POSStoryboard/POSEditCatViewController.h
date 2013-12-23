@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "POSCategory.h"
 
-@interface POSEditCatViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface POSEditCatViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 {
     POSCategory *cat;
     NSString *oldName;

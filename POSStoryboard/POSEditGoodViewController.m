@@ -20,7 +20,7 @@
 
 @synthesize item = _item;
 @synthesize category = _category;
-@synthesize oldName = _oldName;
+@synthesize oldName = _oUITextViewldName;
 @synthesize textName = _textName;
 @synthesize textCategory = _textCategory;
 @synthesize textCode = _textCode;
@@ -49,22 +49,29 @@
     
     [super viewDidLoad];
     
-    oldName = item.name;
-    self.textName.text = item.name;
+    self.oldName = self.item.name;
+    self.textName.text = self.item.name;
     self.textCategory.text = item.category;
-    self.textCode.text = item.codeItem;
-    self.textPrice1.text = item.price1;
-    self.textPrice2.text = item.price2;
-    self.textViewDescription.text = item.description;
+    self.textCode.text = self.item.codeItem;
+    self.textPrice1.text = self.item.price1;
+    self.textPrice2.text = self.item.price2;
+    self.textViewDescription.text = self.item.description;
     
-    for(int i = 0; i<item.gallery.count; i++) {
+    for(int i = 0; i<self.item.gallery.count; i++) {
         
-        UIImageView* localImageView = [[UIImageView alloc] initWithImage:[item.gallery objectAtIndex:i]];
+        UIImageView* localImageView = [[UIImageView alloc] initWithImage:[self.item.gallery objectAtIndex:i]];
         localImageView.frame = CGRectMake(i*180, 0, 177, 180);
         localImageView.backgroundColor = [UIColor whiteColor];
         [self.viewContent addSubview:localImageView];
     }
-
+    
+    self.textName.delegate = self;
+    self.textCategory.delegate = self;
+    self.textCode.delegate = self;
+    self.textPrice1.delegate = self;
+    self.textPrice2.delegate = self;
+    self.textViewDescription.delegate = self;
+    
 	// Do any additional setup after loading the view.
 }
 
@@ -127,7 +134,7 @@
         if ([alertView.title isEqual: @"Delete image"] && buttonIndex == 1) {
             
             int page = self.scrollView.contentOffset.x/self.scrollView.frame.size.width;
-            [item.gallery removeObjectAtIndex:page];
+            [self.item.gallery removeObjectAtIndex:page];
             [self.navigationController popViewControllerAnimated:YES];
         }
         else if ([alertView.title isEqual: @"Delete"]) {
@@ -140,7 +147,9 @@
                 }
                 else if ([dbWrapperInstance openDB]) {
                     
-                    NSString * query = [NSString stringWithFormat:@"DELETE FROM product WHERE name = \"%@\" AND user_id = %d", self.item.name, 1];
+                    NSString * query = [NSString stringWithFormat:@"DELETE \
+                                                                    FROM    product \
+                                                                    WHERE       name = \"%@\" AND user_id = %d", self.item.name, 1];
                     
                     [dbWrapperInstance tryExecQuery:query];
                     [dbWrapperInstance closeDB];
@@ -207,21 +216,21 @@
                                                      comment         = \"%@\", \
                                                      user_id         = \"%d\", \
                                                      collection_id   = \"%@\"  \
-                                                     WHERE id = %d;", item.name, item.price1, item.price2, item.description, item.userID, item.category, item.ID];
+                                                     WHERE id = %d;", self.item.name, self.item.price1, self.item.price2, self.item.description, self.item.userID, self.item.category, self.item.ID];
     
     query = [query stringByAppendingFormat:@"DELETE \
                                              FROM   image \
-                                             WHERE  object_id = %d AND object_name = \"product\"; ", item.ID];
+                                             WHERE  object_id = %d AND object_name = \"product\"; ", self.item.ID];
     query = [query stringByAppendingFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) \
-                                             VALUES (\"%@\", \"%@\", %d, \"product\", 1);", random_name, random_name, item.ID];
+                                             VALUES (\"%@\", \"%@\", %d, \"product\", 1);", random_name, random_name, self.item.ID];
     
     [dbWrapperInstance tryExecQuery:query];
     [dbWrapperInstance closeDB];
     
-    POSImage * image = [[POSImage alloc] initWithImage: item.image
+    POSImage * image = [[POSImage alloc] initWithImage: self.item.image
                                              withAsset: nil
                                               withPath: random_name
-                                         withObject_id: item.ID
+                                         withObject_id: self.item.ID
                                        withObject_name: @"product"];
     [objectsHelperInstance.dataSet.images addObject:image];
     

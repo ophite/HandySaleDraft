@@ -10,7 +10,7 @@
 #import "POSDBWrapper.h"
 #import "POSObjectsHelper.h"
 
-@interface POSNewGoodViewController : UIViewController
+@interface POSNewGoodViewController : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *textName;
 @property (weak, nonatomic) IBOutlet UITextField *textImageName;

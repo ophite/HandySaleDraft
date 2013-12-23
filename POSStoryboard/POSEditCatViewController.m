@@ -39,8 +39,12 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    self.textName.delegate = self;
+    
     self.oldName = self.cat.name;
     self.imageView.image = self.cat.image;
+    self.textName.text = self.cat.name;
     [self.textName setReturnKeyType:UIReturnKeyDone];
 	// Do any additional setup after loading the view.
 }
@@ -162,7 +166,7 @@
     [dbWrapperInstance tryExecQuery:query];
     [dbWrapperInstance closeDB];
     
-    POSImage * image = [[POSImage alloc] initWithImage: cat.image
+    POSImage * image = [[POSImage alloc] initWithImage: self.cat.image
                                              withAsset: nil
                                               withPath: random_name
                                          withObject_id: self.cat.ID

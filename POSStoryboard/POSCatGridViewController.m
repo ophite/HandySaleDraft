@@ -136,12 +136,13 @@
 
 
 - (void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index {
-    
+
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"
+                                                             bundle: nil];
+
     if(!objectsHelperInstance.catsMode) {
         //View goods
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"
-                                                                 bundle: nil];
-        POSGoodsGridViewController *controller = (POSGoodsGridViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"POSGoodsGridViewController"];
+        POSGoodsGridViewController *controller = [mainStoryboard instantiateViewControllerWithIdentifier: @"POSGoodsGridViewController"];
         controller.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
         controller.title = controller.cat.name;
         [self.navigationController pushViewController: controller
@@ -149,11 +150,10 @@
     }
     else {
         //Edit
-        POSEditCatViewController * viewEditCat = [[POSEditCatViewController alloc] initWithNibName: @"POSEditCatViewController"
-                                                                                            bundle: nil];
-        viewEditCat.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
-            [self.navigationController pushViewController: viewEditCat
-                                                 animated: YES];
+        POSEditCatViewController *controller = [mainStoryboard instantiateViewControllerWithIdentifier:@"POSEditCatViewController"];
+        controller.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
+        [self.navigationController pushViewController: controller
+                                             animated: YES];
     }
 }
 
