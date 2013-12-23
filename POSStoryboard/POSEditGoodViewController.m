@@ -82,7 +82,7 @@
     self.textPrice2.delegate = self;
     self.textViewDescription.delegate = self;
     
-    [self.textViewDescription setReturnKeyType:UIReturnKeyDone];
+//    [self.textViewDescription setReturnKeyType:UIReturnKeyDone];
 
 	// Do any additional setup after loading the view.
 }
@@ -291,11 +291,26 @@
 }
 
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    
+    if ([identifier isEqualToString:@"goToFakeSetCategory"]) {
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
+
+
 - (IBAction)onSetCategory:(id)sender {
     
-    POSSetCatViewController* viewSetCat = [POSSetCatViewController new];
-    viewSetCat.title = @"Set category";
-    viewSetCat.item = self.item;
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"
+                                                             bundle: nil];
+
+    POSSetCatViewController *controller = [mainStoryboard instantiateViewControllerWithIdentifier:@"POSSetCatViewController"];
+    controller.title = @"Set category";
+    controller.item = self.item;
     NSMutableArray* array = [[NSMutableArray alloc] init];
     
     for(int i = 0; i<[objectsHelperInstance.dataSet.categories count]; i++) {
@@ -304,11 +319,11 @@
         [array addObject:name];
         
         if([self.item.category isEqualToString:name])
-            viewSetCat.initRow = i;
+            controller.initRow = i;
     }
     
-    viewSetCat.pickerData = array;
-    [self.navigationController pushViewController: viewSetCat
+    controller.pickerData = array;
+    [self.navigationController pushViewController: controller
                                          animated: YES];
 }
 

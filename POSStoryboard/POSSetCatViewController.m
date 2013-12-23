@@ -17,15 +17,16 @@
 
 
 @synthesize item = _item;
-@synthesize picker = _picker;
 @synthesize initRow = _initRow;
 @synthesize exitRow = _exitRow;
+@synthesize picker = _picker;
 @synthesize pickerData = _pickerData;
 
 
 #pragma mark - ViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (id)initWithNibName: (NSString *)nibNameOrNil
+               bundle: (NSBundle *)nibBundleOrNil {
     
     self = [super initWithNibName: nibNameOrNil
                            bundle: nibBundleOrNil];
@@ -41,6 +42,10 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    self.picker.dataSource = self;
+    self.picker.delegate = self;
+    
     [self.picker selectRow: self.initRow
                inComponent: 0
                   animated: YES];
@@ -63,13 +68,16 @@
 }
 
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+- (NSInteger)pickerView: (UIPickerView *)pickerView
+numberOfRowsInComponent: (NSInteger)component {
     
     return [self.pickerData count];
 }
 
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+- (NSString *)pickerView: (UIPickerView *)pickerView
+             titleForRow: (NSInteger)row
+            forComponent: (NSInteger)component {
     
     return [self.pickerData objectAtIndex:row];
 }
