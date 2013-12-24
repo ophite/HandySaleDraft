@@ -11,18 +11,24 @@
 
 @implementation POSDataSet
 
-@synthesize images, categories, items, orderArray, allItems;
+@synthesize images = _images;
+@synthesize categories = _categories;
+@synthesize items = _items;
+@synthesize orderArray = _orderArray;
+@synthesize allItems = _allItems;
+@synthesize settings = _settings;
 
 
 - (id)init {
     
     self = [super init];
     
-    images          = [[NSMutableArray alloc] init];
-    categories      = [[NSMutableArray alloc] init];
-    items           = [[NSMutableArray alloc] init];
-    allItems        = [[NSMutableArray alloc] init];
-    orderArray      = [[NSMutableArray alloc] init];
+    self.images = [[NSMutableArray alloc] init];
+    self.categories = [[NSMutableArray alloc] init];
+    self.items = [[NSMutableArray alloc] init];
+    self.allItems = [[NSMutableArray alloc] init];
+    self.orderArray = [[NSMutableArray alloc] init];
+    self.settings = [[NSMutableArray alloc] init];
     
     //currentBasketID = 0;
        
@@ -77,6 +83,62 @@
 }
 
 */
+
+
+- (void)saveSettings {
+
+    if ([self.settings count] == 0)
+        return;
+    
+    if (![dbWrapperInstance openDB])
+        return;
+    
+    NSMutableString *query = [[NSMutableString alloc] init];
+    
+    for (id object in self.settings) {
+        
+        POSSetting *settingObject = (POSSetting *)object;
+        NSString *subQuery = [NSString stringWithFormat:@"update setting    \
+                                                          set   value = \"%@\" \
+                                                          where name = \"%@\";", settingObject.value, settingObject.name];
+        [query stringByAppendingString:subQuery];
+    }
+    
+    [dbWrapperInstance tryExecQuery:query];
+    [dbWrapperInstance closeDB];
+}
+
+
+- (void)getSettings {
+
+//    [self.settings removeAllObjects];
+    if ([self.settings count] > 0)
+        return;
+    
+    if (![dbWrapperInstance openDB])
+        return;
+    
+    [self.settings removeAllObjects];
+    NSString *query = [NSString stringWithFormat: @"select name, value, type, image_id \
+                                                    from   setting"];
+    
+    void(^blockGetSetting)(id rows) = ^(id rows) {
+      
+        POSSetting *settingObject = [[POSSetting alloc] init];
+        settingObject.name = [dbWrapperInstance getCellText:0];
+        settingObject.value = [dbWrapperInstance getCellText:1];
+        settingObject.type = [dbWrapperInstance getCellText:2];
+        settingObject.image_id = [dbWrapperInstance getCellInt:3];
+        
+        [((NSMutableArray *)rows) addObject:settingObject];
+    };
+    
+    [dbWrapperInstance fetchRows:query
+                 foreachCallback:blockGetSetting
+                          p_rows:self.settings];
+    
+    [dbWrapperInstance closeDB];
+}
 
 
 - (void)getCategories {
@@ -224,8 +286,8 @@
     //[allItems filterUsingPredicate:@"I"]
     POSItem* item;
     
-    for(int i = 0; i<[allItems count]; i++) {
-        item = [allItems objectAtIndex:i];
+    for(int i = 0; i<[self.allItems count]; i++) {
+        item = [self.allItems objectAtIndex:i];
         
         if([item.category isEqualToString:selectedCatName])
             [self.items addObject:item];
@@ -298,24 +360,28 @@
 
 - (void)saveGallery:(int)index withLibrary:(ALAssetsLibrary*)library {
     
-    if(index >= images.count)
+    if(index >= self.images.count)
         return;
 
-    POSImage* posImage = [images objectAtIndex:index];
+    POSImage* posImage = [self.images objectAtIndex:index];
 
     if (posImage.assetUrl != nil) {
         
-        [self saveGallery:index + 1 withLibrary:library];
+        [self saveGallery: index + 1
+              withLibrary: library];
         return;
     }
 
-    [library saveImage:posImage.image toAlbum:@"POS" withCompletionBlock:^(NSURL* url, NSError *error) {
+    [library saveImage: posImage.image
+               toAlbum: @"POS"
+   withCompletionBlock: ^(NSURL* url, NSError *error) {
         
         NSString* query = [[NSString alloc] init];
 
         if (error != nil) {
 
-            [self saveGallery:index withLibrary:library];
+            [self saveGallery: index
+                  withLibrary: library];
             return;
         }
         else {

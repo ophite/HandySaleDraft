@@ -31,6 +31,9 @@
 //    
 //    query = @"DROP TABLE IF EXISTS document_line";
 //    [dbWrapperInstance tryExecQuery:query];
+//    
+//    query = @"DROP TABLE IF EXISTS setting";
+//    [dbWrapperInstance tryExecQuery:query];
     
     query =
     @"CREATE TABLE IF NOT EXISTS attribute ( \
@@ -183,6 +186,18 @@
         PRIMARY KEY (id), \
         UNIQUE (email), \
         CHECK (is_deleted IN (0, 1))\
+    ); \
+    CREATE TABLE IF NOT EXISTS setting ( \
+        id INTEGER NOT NULL, \
+        name VARCHAR(255) NOT NULL, \
+        value VARCHAR(128) NOT NULL, \
+        type VARCHAR(255), \
+        is_deleted BOOLEAN, \
+        image_id INTEGER, \
+        PRIMARY KEY (id), \
+        UNIQUE (name), \
+        CHECK (is_deleted IN (0, 1)), \
+        FOREIGN KEY(image_id) REFERENCES image (id) \
     );";
     
     [dbWrapperInstance tryExecQuery:query];
@@ -258,12 +273,14 @@
         INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car03.png\", \"car03.png\", 2, \"product\", 1);\
         INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car4.png\", \"car4.png\", 3, \"product\", 1);\
         INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car5.png\", \"car5.png\", 4, \"product\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car6.png\", \"car6.png\", 5, \"cproduct\", 1);\
+        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car6.png\", \"car6.png\", 5, \"product\", 1);\
         INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car7.png\", \"car7.png\", 6, \"product\", 1);\
         INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car8.png\", \"car8.png\", 7, \"product\", 1);\
         INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car9.png\", \"car9.png\", 8, \"product\", 1);\
         INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car10.png\", \"car10.png\", 9, \"product\", 1);\
         INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car10.png\", \"car10.png\", 10, \"product\", 1);";
+        
+        query = [query stringByAppendingFormat: @"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"%@\", \"%@\", 11, \"setting\", 1);", helperInstance.SETTING_EMAIL, helperInstance.SETTING_EMAIL];
         
         [dbWrapperInstance tryExecQuery:query];
        
@@ -287,9 +304,23 @@
         [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car18.png"] withAsset:nil withPath:@"car18.png" withObject_id:18 withObject_name:@"product"]];
         [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car19.png"] withAsset:nil withPath:@"car19.png" withObject_id:19 withObject_name:@"product"]];
         [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car20.png"] withAsset:nil withPath:@"car20.png" withObject_id:20 withObject_name:@"product"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:helperInstance.SETTING_EMAIL] withAsset:nil withPath:helperInstance.SETTING_EMAIL withObject_id:21 withObject_name:@"setting"]];
         
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [dataSet saveGallery:0 withLibrary:library];
+    }
+    
+    query = @"SELECT count(*) FROM setting";
+    count = [dbWrapperInstance execQueryResultInt:query p_index:0];
+    
+    if(count == 0) {
+        
+        query = [NSString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"", helperInstance.SETTING_EMAIL];
+        int imageID = [dbWrapperInstance execQueryResultInt:query p_index:0];
+
+        query = [NSString stringWithFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"test@ukr.net\", \"STRING\", 0, %d); ",helperInstance.SETTING_EMAIL, imageID];
+        
+        [dbWrapperInstance tryExecQuery:query];
     }
     
     [dbWrapperInstance closeDB];

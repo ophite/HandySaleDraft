@@ -9,6 +9,7 @@
 #import "POSImage.h"
 #import "POSCategory.h"
 #import "POSDataSet.h"
+#import "POSHelper.h"
 
 @interface POSTest : NSObject
 

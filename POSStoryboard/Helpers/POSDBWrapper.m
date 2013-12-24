@@ -168,7 +168,7 @@
 
 - (void)fetchRows:query
   foreachCallback:(void (^)( id rows ))callback
-           p_rows:(id) rows {
+           p_rows:(id)rows {
 
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
     

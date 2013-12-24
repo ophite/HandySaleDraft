@@ -10,6 +10,12 @@
 
 @implementation POSHelper
 
+#pragma mark - SETTINGS
+
+- (NSString *)SETTING_EMAIL {
+    
+    return @"setting_email_icon.png";
+}
 
 #pragma mark - SIZES
 

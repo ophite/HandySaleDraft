@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "POSDataSet.h"
+#import "POSObjectsHelper.h"
 
 @interface POSAppDelegate : UIResponder <UIApplicationDelegate>
 

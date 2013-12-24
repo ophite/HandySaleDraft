@@ -21,7 +21,7 @@
 /*
  *UIScrollViewDelegate может надо для viewForZoomingInScrollView
  */
-@interface POSCatGridViewController : UIViewController<UIAlertViewDelegate, AQGridViewDelegate, AQGridViewDataSource, ZBarReaderDelegate,UIScrollViewDelegate>
+@interface POSCatGridViewController : UIViewController<UIAlertViewDelegate, AQGridViewDelegate, AQGridViewDataSource, ZBarReaderDelegate, UIScrollViewDelegate>
 
 @property NSString *catName;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;

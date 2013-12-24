@@ -44,6 +44,7 @@
     [super viewDidLoad];
     [objectsHelperInstance.dataSet getCategories];
     [objectsHelperInstance.dataSet getAllItems];
+    [objectsHelperInstance.dataSet getSettings];
 
     ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
     [library enumerateGroupsWithTypes: ALAssetsGroupAlbum

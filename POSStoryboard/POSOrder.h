@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface POSOrder : NSObject
-
 {
     NSString*       name;
     NSString*       category;

@@ -11,6 +11,8 @@
 
 @interface POSHelper : NSObject
 
+- (NSString *)SETTING_EMAIL;
+
 - (CGFloat)ITEM_EDIT_WIDTH;
 - (CGFloat)ITEM_EDIT_HEIGHT;
 - (CGFloat)ITEM_VIEW_WIDTH;
