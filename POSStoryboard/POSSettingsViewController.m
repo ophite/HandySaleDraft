@@ -38,6 +38,8 @@
     
     self.textEmail.delegate = self;
     
+    [objectsHelperInstance.dataSet getSettings];
+
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", helperInstance.SETTING_EMAIL];
     NSArray *arr = [objectsHelperInstance.dataSet.settings filteredArrayUsingPredicate:predicate];
     

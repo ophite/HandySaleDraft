@@ -14,7 +14,8 @@
 
 - (NSString *)SETTING_EMAIL {
     
-    return @"setting_email_icon.png";
+    return @"email";
+//    return @"setting_email_icon.png";
 }
 
 #pragma mark - SIZES

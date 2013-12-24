@@ -17,7 +17,7 @@
 @synthesize orderArray = _orderArray;
 @synthesize allItems = _allItems;
 @synthesize settings = _settings;
-
+@synthesize attributes = _attributes;
 
 - (id)init {
     
@@ -29,6 +29,7 @@
     self.allItems = [[NSMutableArray alloc] init];
     self.orderArray = [[NSMutableArray alloc] init];
     self.settings = [[NSMutableArray alloc] init];
+    self.attributes = [[NSMutableArray alloc] init];
     
     //currentBasketID = 0;
        
@@ -98,10 +99,10 @@
     for (id object in self.settings) {
         
         POSSetting *settingObject = (POSSetting *)object;
-        NSString *subQuery = [NSString stringWithFormat:@"update setting    \
-                                                          set   value = \"%@\" \
-                                                          where name = \"%@\";", settingObject.value, settingObject.name];
-        [query stringByAppendingString:subQuery];
+        NSString *subQuery = [NSString stringWithFormat:@"update    setting    \
+                                                          set       value = \"%@\" \
+                                                          where     name = \"%@\"; ", settingObject.value, settingObject.name];
+        [query appendString:subQuery];
     }
     
     [dbWrapperInstance tryExecQuery:query];
@@ -109,18 +110,45 @@
 }
 
 
-- (void)getSettings {
+- (void)getAttributes {
 
-//    [self.settings removeAllObjects];
-    if ([self.settings count] > 0)
+//    [self.attributes removeAllObjects];
+    if ([self.attributes count] > 0)
         return;
     
     if (![dbWrapperInstance openDB])
         return;
+
+    NSString *query = [NSString stringWithFormat:@"select   name, is_active \
+                                                   from     attribute;"];
     
-    [self.settings removeAllObjects];
-    NSString *query = [NSString stringWithFormat: @"select name, value, type, image_id \
-                                                    from   setting"];
+    void(^getAttribute)(id rows) = ^(id rows) {
+        
+        POSAttribute *attrObject = [[POSAttribute alloc] init];
+        attrObject.name = [dbWrapperInstance getCellText:0];
+        attrObject.is_active = [dbWrapperInstance getCellInt:1];
+        
+        [((NSMutableArray *)rows) addObject:attrObject];
+    };
+    
+    [dbWrapperInstance fetchRows:query foreachCallback:getAttribute p_rows:self.attributes];
+    
+    [dbWrapperInstance closeDB];
+}
+
+
+- (void)getSettings {
+
+    if ([self.settings count] > 0)
+        return;
+    
+//    [self.settings removeAllObjects];
+
+    if (![dbWrapperInstance openDB])
+        return;
+    
+    NSString *query = [NSString stringWithFormat: @"select  name, value, type, image_id \
+                                                    from    setting;"];
     
     void(^blockGetSetting)(id rows) = ^(id rows) {
       

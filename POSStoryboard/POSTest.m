@@ -16,10 +16,13 @@
         return;
     
     NSString * query = [[NSString alloc] init];
-    
-//    query = @"DROP TABLE IF EXISTS image";
+//
+//    query = @"DROP TABLE IF EXISTS attribute";
 //    [dbWrapperInstance tryExecQuery:query];
 //    
+//    query = @"DROP TABLE IF EXISTS image";
+//    [dbWrapperInstance tryExecQuery:query];
+//
 //    query = @"DROP TABLE IF EXISTS collection";
 //    [dbWrapperInstance tryExecQuery:query];
 //
@@ -41,6 +44,7 @@
         name VARCHAR(255) NOT NULL, \
         owner_id INTEGER, \
         is_deleted BOOLEAN,\
+        is_active BOOLEAN,\
         tst TIMESTAMP, \
         PRIMARY KEY (id), \
         CHECK (is_deleted IN (0, 1))\
@@ -319,6 +323,21 @@
         int imageID = [dbWrapperInstance execQueryResultInt:query p_index:0];
 
         query = [NSString stringWithFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"test@ukr.net\", \"STRING\", 0, %d); ",helperInstance.SETTING_EMAIL, imageID];
+        
+        [dbWrapperInstance tryExecQuery:query];
+    }
+    
+    query = @"SELECT count(*) FROM attribute";
+    count = [dbWrapperInstance execQueryResultInt:query p_index:0];
+    
+    if(count == 0) {
+        
+        query = [NSString stringWithFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"first attribute", 0];
+        query = [query stringByAppendingFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"second attribute", 0];
+        query = [query stringByAppendingFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"third attribute", 1];
+        query = [query stringByAppendingFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"size attribute", 1];
+        query = [query stringByAppendingFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"width attribute", 0];
+        query = [query stringByAppendingFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"height attribute", 1];
         
         [dbWrapperInstance tryExecQuery:query];
     }

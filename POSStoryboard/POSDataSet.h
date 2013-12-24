@@ -13,16 +13,9 @@
 #import "POSImage.h"
 #import "POSCategory.h"
 #import "POSSetting.h"
+#import "POSAttribute.h"
 
-@interface POSDataSet : NSObject {
-    
-//    NSMutableArray *images;
-//    NSMutableArray *categories;
-//    NSMutableArray *items;
-//    NSMutableArray *allItems;
-//    NSMutableArray *orderArray;
-//    NSMutableArray *settings;
-}
+@interface POSDataSet : NSObject
 
 
 @property NSMutableArray *images;
@@ -31,8 +24,12 @@
 @property NSMutableArray *allItems;
 @property NSMutableArray *orderArray;
 @property NSMutableArray *settings;
+@property NSMutableArray *attributes;
+
 
 - (id)init;
+- (void)getAttributes;
+- (void)saveAttributes;
 - (void)getSettings;
 - (void)saveSettings;
 - (void)getCategories;
