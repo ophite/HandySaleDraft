@@ -7,8 +7,12 @@
 //
 #import <UIKit/UIKit.h>
 #import "POSDataSet.h"
+#import "POSObjectsHelper.h"
+#import "POSAttributeCell.h"
 
-@interface POSAttributesViewController : UIViewController
+@interface POSAttributesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

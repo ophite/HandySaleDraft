@@ -45,8 +45,6 @@
     [objectsHelperInstance.dataSet getCategories];
     [objectsHelperInstance.dataSet getAllItems];
 
-    [objectsHelperInstance.dataSet getAttributes];
-
     ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
     [library enumerateGroupsWithTypes: ALAssetsGroupAlbum
                            usingBlock: ^(ALAssetsGroup *group, BOOL *stop) {

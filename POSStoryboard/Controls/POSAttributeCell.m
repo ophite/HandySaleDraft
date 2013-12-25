@@ -14,6 +14,7 @@
 @synthesize buttonDelete = _buttonDelete;
 @synthesize textName = _textName;
 @synthesize swithIsActive = _swithIsActive;
+@synthesize cellIndex = _cellIndex;
 
 
 #pragma mark - Standart
@@ -44,9 +45,4 @@
 }
 
 
-- (IBAction)onDelete:(id)sender {
-}
-
-- (IBAction)onChangeActive:(id)sender {
-}
 @end
