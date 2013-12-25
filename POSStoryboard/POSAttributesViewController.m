@@ -86,13 +86,41 @@
 
 
 - (void)onDeleteButton:(id)sender{
-    
-    POSAttributeCell *cell = (POSAttributeCell *)[[[sender superview] superview] superview];
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    [objectsHelperInstance.dataSet.attributes removeObjectAtIndex:indexPath.row];
 
-    [self.tableView deleteRowsAtIndexPaths: @[indexPath]
-                          withRowAnimation: UITableViewRowAnimationFade];
+    POSAttributeCell *cell = (POSAttributeCell *)[[[sender superview] superview] superview];
+
+    
+    NSString* question = [NSString stringWithFormat:@"Delete the %@ attribute?", cell.textName.text];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Delete"
+                                                    message: question
+                                                   delegate: self
+                                          cancelButtonTitle: @"No"
+                                          otherButtonTitles: @"Yes", nil];
+    
+    __deletedCell = cell;
+    [alert show];
+}
+
+
+#pragma mark - Alert
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if ([alertView.title isEqual: @"Delete"]) {
+        
+        NSString* title = [alertView buttonTitleAtIndex:buttonIndex];
+        
+        if([title isEqualToString:@"Yes"]) {
+            // delete attribute
+            POSAttributeCell *cell = (POSAttributeCell *)__deletedCell;
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            [objectsHelperInstance.dataSet.attributes removeObjectAtIndex:indexPath.row];
+            [self.tableView deleteRowsAtIndexPaths: @[indexPath]
+                                  withRowAnimation: UITableViewRowAnimationFade];
+        }
+    }
+    
+    __deletedCell = nil;
 }
 
 
