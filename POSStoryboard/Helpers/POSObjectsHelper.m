@@ -10,6 +10,7 @@
 
 @implementation POSObjectsHelper
 
+
 @synthesize dataSet = _dataSet;
 @synthesize catsMode = _catsMode;
 @synthesize goodsMode = _goodsMode;

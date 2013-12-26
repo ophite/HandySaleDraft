@@ -209,7 +209,7 @@
 }
 
 
-- (void)initDBData:(POSDataSet*) dataSet {
+- (void)initDBData:(POSDataSet*)dataSet {
     
     if ([dbWrapperInstance openDB] == NO)
         return;
@@ -338,6 +338,23 @@
         query = [query stringByAppendingFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"size attribute", 1];
         query = [query stringByAppendingFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"width attribute", 0];
         query = [query stringByAppendingFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"height attribute", 1];
+        
+        [dbWrapperInstance tryExecQuery:query];
+    }
+    
+    
+    query = @"SELECT count(*) FROM attribute_value";
+    count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+    
+    if(count == 0) {
+        
+        query = [NSString stringWithFormat:@"SELECT id FROM attribute WHERE name= \"%@\"", @"first attribute"];
+        int attributeID = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+
+        query = [NSString stringWithFormat:@"INSERT INTO attribute_value (name, attribute_id) VALUES (\"%@\", %d); ", @"attribute value 1", attributeID];
+        query = [query stringByAppendingFormat:@"INSERT INTO attribute_value (name, attribute_id) VALUES (\"%@\", %d); ", @"attribute value 2", attributeID];
+        query = [query stringByAppendingFormat:@"INSERT INTO attribute_value (name, attribute_id) VALUES (\"%@\", %d); ", @"attribute value 3", attributeID];
+        query = [query stringByAppendingFormat:@"INSERT INTO attribute_value (name, attribute_id) VALUES (\"%@\", %d); ", @"test attribbute value", attributeID];
         
         [dbWrapperInstance tryExecQuery:query];
     }

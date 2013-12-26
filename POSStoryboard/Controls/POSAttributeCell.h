@@ -7,13 +7,12 @@
 //
 #import <UIKit/UIKit.h>
 
-@interface POSAttributeCell : UITableViewCell<UITextFieldDelegate>
+@interface POSAttributeCell : UITableViewCell
 
 
 @property (nonatomic, weak) IBOutlet UIButton *buttonDelete;
-@property (nonatomic, weak) IBOutlet UITextField *textName;
+@property (nonatomic, weak) IBOutlet UIButton *buttonName;
 @property (nonatomic, weak) IBOutlet UISwitch *swithIsActive;
-@property NSIndexPath *cellIndex;
 
 
 @end

@@ -14,6 +14,6 @@
 @interface POSTest : NSObject
 
 - (void)initDBStructure;
-- (void)initDBData:(POSDataSet*)dataSet;
+- (void)initDBData:(POSDataSet *)dataSet;
 
 @end

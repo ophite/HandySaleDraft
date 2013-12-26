@@ -39,6 +39,7 @@
     self.tableView.delegate = self;
     
     [objectsHelperInstance.dataSet getAttributes];
+    [objectsHelperInstance.dataSet getAttributeValues];
 	// Do any additional setup after loading the view.
 }
 
@@ -50,45 +51,78 @@
 }
 
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    
+    BOOL result = YES;
+    
+    if ([identifier isEqualToString:@"goToAddNewVariant"]) {
+        
+        
+    }
+    
+    return result;
+}
+
+
 # pragma mark - UITableViewDelegate, UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
     return 1;
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return	 the number of rows in the section.
     return objectsHelperInstance.dataSet.attributes.count;
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"AttributeCustomCell";
-    POSAttributeCell *cell = (POSAttributeCell *)[tableView dequeueReusableCellWithIdentifier: CellIdentifier
-                                                                                 forIndexPath: indexPath];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    static NSString *CellIdentifier = @"AttributeCustomCell";
+
     POSAttribute *attribute = [objectsHelperInstance.dataSet.attributes objectAtIndex:indexPath.row];
-    cell.textName.text = attribute.name;
+    POSAttributeCell *cell = (POSAttributeCell *)[tableView dequeueReusableCellWithIdentifier: CellIdentifier forIndexPath: indexPath];
+    [cell.buttonName setTitle:attribute.name forState:UIControlStateNormal];
+    [cell.buttonName setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     cell.swithIsActive.on = attribute.is_active;
-    cell.cellIndex = indexPath;
+    cell.tag = attribute.ID;
     
     [cell.buttonDelete addTarget: self
                           action: @selector(onDeleteButton:)
                 forControlEvents: UIControlEventTouchUpInside];
     
+    [cell.buttonName addTarget: self
+                        action: @selector(onGoToAttribute:)
+              forControlEvents: UIControlEventTouchUpInside];
+    
     return cell;
 }
 
 
-- (void)onDeleteButton:(id)sender{
+- (void)onGoToAttribute:(id)sender {
+    
+    __deletedCell = [[[sender superview] superview] superview];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID = %d", (int)((POSAttributeCell *)__deletedCell).tag];
+    NSArray *arr = [objectsHelperInstance.dataSet.attributes filteredArrayUsingPredicate:predicate];
+
+    POSEditAttributeViewController *controller = [helperInstance GetUIViewController:@"POSEditAttributeViewController"];
+    controller.attribute = [arr objectAtIndex:0];
+    
+    predicate = [NSPredicate predicateWithFormat:@"attribute_ID = %d", controller.attribute.ID];
+    controller.attributeValues = (NSMutableArray *)[objectsHelperInstance.dataSet.attributeValues filteredArrayUsingPredicate:predicate];
+    
+    [self.navigationController pushViewController: controller
+                                         animated: YES];
+}
+
+
+- (void)onDeleteButton:(id)sender {
 
     __deletedCell = [[[sender superview] superview] superview];
-    NSString* question = [NSString stringWithFormat:@"Delete the %@ attribute?", ((POSAttributeCell *)__deletedCell).textName.text];
+    NSString* question = [NSString stringWithFormat:@"Delete the %@ attribute?", ((POSAttributeCell *)__deletedCell).buttonName.titleLabel.text];
     
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Delete"
                                                     message: question

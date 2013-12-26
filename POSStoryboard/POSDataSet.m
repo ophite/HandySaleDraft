@@ -5,11 +5,12 @@
 //  Created by Pavel Slusar on 6/1/13.
 //  Copyright (c) 2013 IT Vik. All rights reserved.
 //
-
 #import "POSDataSet.h"
 #import <dispatch/dispatch.h>
 
+
 @implementation POSDataSet
+
 
 @synthesize images = _images;
 @synthesize categories = _categories;
@@ -18,6 +19,7 @@
 @synthesize allItems = _allItems;
 @synthesize settings = _settings;
 @synthesize attributes = _attributes;
+//@synthesize attributeValues = _attributeValues;
 
 - (id)init {
     
@@ -30,6 +32,7 @@
     self.orderArray = [[NSMutableArray alloc] init];
     self.settings = [[NSMutableArray alloc] init];
     self.attributes = [[NSMutableArray alloc] init];
+    self.attributeValues = [[NSMutableArray alloc] init];
     
     //currentBasketID = 0;
        
@@ -119,7 +122,7 @@
     if (![dbWrapperInstance openDB])
         return;
 
-    NSString *query = [NSString stringWithFormat:@"select   name, is_active \
+    NSString *query = [NSString stringWithFormat:@"select   name, is_active, id \
                                                    from     attribute;"];
     
     void(^getAttribute)(id rows) = ^(id rows) {
@@ -127,6 +130,7 @@
         POSAttribute *attrObject = [[POSAttribute alloc] init];
         attrObject.name = [dbWrapperInstance getCellText:0];
         attrObject.is_active = [dbWrapperInstance getCellInt:1];
+        attrObject.ID = [dbWrapperInstance getCellInt:2];
         
         [((NSMutableArray *)rows) addObject:attrObject];
     };
@@ -134,6 +138,34 @@
     [dbWrapperInstance fetchRows: query
               andForeachCallback: getAttribute
                          andRows: self.attributes];
+    [dbWrapperInstance closeDB];
+}
+
+
+- (void)getAttributeValues {
+    
+    //    [self.attributeValues removeAllObjects];
+    if ([self.attributeValues count] > 0)
+        return;
+    
+    if (![dbWrapperInstance openDB])
+        return;
+    
+    NSString *query = [NSString stringWithFormat:@"select   name, attribute_id \
+                                                   from     attribute_value;"];
+    
+    void(^getAttributeValue)(id rows) = ^(id rows) {
+        
+        POSAttributeValue *attrValueObject = [[POSAttributeValue alloc] init];
+        attrValueObject.name = [dbWrapperInstance getCellText:0];
+        attrValueObject.attribute_ID = [dbWrapperInstance getCellInt:1];
+        
+        [((NSMutableArray *)rows) addObject:attrValueObject];
+    };
+    
+    [dbWrapperInstance fetchRows: query
+              andForeachCallback: getAttributeValue
+                         andRows: self.attributeValues];
     [dbWrapperInstance closeDB];
 }
 
@@ -193,10 +225,10 @@
     // TODO подумать может в будущем не удалять, а проверять что уже есть и ничего не делать
     [self.categories removeAllObjects];
     
-    NSString * query = [NSString stringWithFormat: @"SELECT    c.id, c.name, i.asset \
-                                                     FROM      collection c \
-                                                     LEFT JOIN image i \
-                                                     WHERE     i.object_id = c.id AND i.object_name = \"collection\" AND i.is_default = 1"];
+    NSString * query = [NSString stringWithFormat: @"SELECT     c.id, c.name, i.asset \
+                                                     FROM       collection c \
+                                                     LEFT JOIN  image i \
+                                                     WHERE      i.object_id = c.id AND i.object_name = \"collection\" AND i.is_default = 1"];
     ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
   
     void(^blockGetCategory)( id rows, ALAssetsLibrary * lib) = ^(id rows, id lib) {
@@ -331,9 +363,9 @@
     // TODO подумать может в будущем не удалять, а проверять что уже есть и ничего не делать
     [self.allItems removeAllObjects];
 
-    NSString* query = [NSString stringWithFormat: @"SELECT    p.id, p.name, p.price_buy, p.price_sale, p.comment, i.asset, c.id, c.name \
-                                                    FROM      product p, image i, collection c \
-                                                    WHERE     i.object_id = p.id AND i.object_name = \"product\" AND i.is_default = 1 and c.id = p.collection_id"];
+    NSString* query = [NSString stringWithFormat: @"SELECT  p.id, p.name, p.price_buy, p.price_sale, p.comment, i.asset, c.id, c.name \
+                                                    FROM    product p, image i, collection c \
+                                                    WHERE   i.object_id = p.id AND i.object_name = \"product\" AND i.is_default = 1 and c.id = p.collection_id"];
     
     void(^blockGetItems)(id rows) = ^(id rows) {
         

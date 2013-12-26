@@ -9,16 +9,19 @@
 #import "POSDataSet.h"
 #import "POSObjectsHelper.h"
 #import "POSAttributeCell.h"
+#import "POSEditAttributeViewController.h"
+#import "POSHelper.h"
 
 @interface POSAttributesViewController : UIViewController <UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource> {
 
 @private
     id __deletedCell;
     
-    
 }
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *onAddNewAttribute;
+
 
 @end

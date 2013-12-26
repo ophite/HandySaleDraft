@@ -22,8 +22,8 @@
 
 #pragma mark - ViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
+    
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
@@ -32,8 +32,8 @@
 }
 
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     self.textEmail.delegate = self;
@@ -56,8 +56,8 @@
 }
 
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

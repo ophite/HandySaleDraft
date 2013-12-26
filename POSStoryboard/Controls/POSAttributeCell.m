@@ -12,9 +12,8 @@
 
 
 @synthesize buttonDelete = _buttonDelete;
-@synthesize textName = _textName;
+@synthesize buttonName = _buttonName;
 @synthesize swithIsActive = _swithIsActive;
-@synthesize cellIndex = _cellIndex;
 
 
 #pragma mark - Standart
@@ -33,15 +32,9 @@
     
     [super setSelected:selected animated:animated];
 
-    self.textName.delegate = self;
+    self.buttonName.layer.cornerRadius = 5;
+    self.buttonName.clipsToBounds = YES;
     // Configure the view for the selected state
-}
-
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    
-    [textField resignFirstResponder];
-    return YES;
 }
 
 
