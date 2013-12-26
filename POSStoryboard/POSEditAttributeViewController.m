@@ -45,9 +45,10 @@
     
     self.tableViewAttribute.dataSource = self;
     self.tableViewAttribute.delegate = self;
+//    self.tableViewAttribute.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableViewAttributeValue.dataSource = self;
     self.tableViewAttributeValue.delegate = self;
-    
+    self.tableViewAttributeValue.separatorStyle = UITableViewCellSeparatorStyleNone;
 	// Do any additional setup after loading the view.
 }
 

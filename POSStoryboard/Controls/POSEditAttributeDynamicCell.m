@@ -24,6 +24,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        self.textAttributeValue.delegate = self;
     }
     return self;
 }
@@ -33,6 +34,7 @@
     
     [super setSelected:selected animated:animated];
     
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.textAttributeValue.delegate = self;
     self.viewTextAttrValueTitle.layer.cornerRadius = 5;
     self.viewTextAttrValueTitle.clipsToBounds = YES;
@@ -44,6 +46,12 @@
     self.textAttributeValue.text = self.attrValue ? self.attrValue.name : @"";
 
     // Configure the view for the selected state
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return nil;
 }
 
 @end

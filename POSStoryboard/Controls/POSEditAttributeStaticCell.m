@@ -27,6 +27,7 @@
     
     [super setSelected:selected animated:animated];
    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.textAttributeName.delegate = self;
     self.viewTextName.layer.cornerRadius = 5;
     self.viewTextName.clipsToBounds = YES;
