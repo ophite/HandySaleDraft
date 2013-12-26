@@ -143,7 +143,7 @@
                                                     FROM    collection \
                                                     WHERE   name = \"%@\" AND user_id = \"%d\"", self.cat.name, 1];
     
-    int count = [dbWrapperInstance execQueryResultInt:query p_index:0];
+    int count = [dbWrapperInstance execQueryResultInt: query andIndex: 0];
     
     if(count != 0 && ![self.cat.name isEqualToString:self.oldName]) {
         

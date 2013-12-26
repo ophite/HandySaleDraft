@@ -215,7 +215,7 @@
         return;
 
     NSString* query = @"SELECT count(*) FROM collection";
-    int count = [dbWrapperInstance execQueryResultInt:query p_index:0];
+    int count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
 
     if(count == 0) {
         
@@ -234,12 +234,12 @@
     }
     
     query = @"SELECT count(*) FROM product";
-    count = [dbWrapperInstance execQueryResultInt:query p_index:0];
+    count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
     if(count == 0) {
         
         query = [NSString stringWithFormat:@"SELECT id FROM collection WHERE name= \"%@\" AND user_id = %d", @"Nissan", 1];
-        int catID = [dbWrapperInstance execQueryResultInt:query p_index:0];
+        int catID = [dbWrapperInstance execQueryResultInt:query andIndex:0];
 
         query = [NSString stringWithFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"X-Trail\", 1, %d, 1000.0, 2000.0, \"Crossover\"); ", catID];
         query = [query stringByAppendingFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Pathfinder\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
@@ -259,7 +259,7 @@
 //    count = [dbWrapper execQueryResultInt:query p_index:0];
     
     query = @"SELECT count(*) FROM image";
-    count = [dbWrapperInstance execQueryResultInt:query p_index:0];
+    count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
 
     if(count == 0) {
         
@@ -315,12 +315,12 @@
     }
     
     query = @"SELECT count(*) FROM setting";
-    count = [dbWrapperInstance execQueryResultInt:query p_index:0];
+    count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
     if(count == 0) {
         
         query = [NSString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"", helperInstance.SETTING_EMAIL];
-        int imageID = [dbWrapperInstance execQueryResultInt:query p_index:0];
+        int imageID = [dbWrapperInstance execQueryResultInt:query andIndex:0];
 
         query = [NSString stringWithFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"test@ukr.net\", \"STRING\", 0, %d); ",helperInstance.SETTING_EMAIL, imageID];
         
@@ -328,7 +328,7 @@
     }
     
     query = @"SELECT count(*) FROM attribute";
-    count = [dbWrapperInstance execQueryResultInt:query p_index:0];
+    count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
     if(count == 0) {
         

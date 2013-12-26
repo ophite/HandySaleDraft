@@ -128,8 +128,8 @@
     };
     
     [dbWrapperInstance fetchRows: query
-                 foreachCallback: blockGetOrder
-                          p_rows: objectsHelperInstance.dataSet.orderArray];
+              andForeachCallback: blockGetOrder
+                         andRows: objectsHelperInstance.dataSet.orderArray];
     
     
     for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
@@ -165,7 +165,7 @@
         };
         
         [dbWrapperInstance extractMultipleValues: query
-                                 foreachCallback: blockExtractOrderValues];
+                              andForeachCallback: blockExtractOrderValues];
     }
     
     [dbWrapperInstance closeDB];
@@ -198,8 +198,8 @@
     };
     
     [dbWrapperInstance fetchRows: query
-                 foreachCallback: blockGetBasket
-                          p_rows: self.basketArray];
+              andForeachCallback: blockGetBasket
+                         andRows: self.basketArray];
     [dbWrapperInstance closeDB];
 }
 

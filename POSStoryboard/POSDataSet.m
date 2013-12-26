@@ -131,8 +131,9 @@
         [((NSMutableArray *)rows) addObject:attrObject];
     };
     
-    [dbWrapperInstance fetchRows:query foreachCallback:getAttribute p_rows:self.attributes];
-    
+    [dbWrapperInstance fetchRows: query
+              andForeachCallback: getAttribute
+                         andRows: self.attributes];
     [dbWrapperInstance closeDB];
 }
 
@@ -161,10 +162,9 @@
         [((NSMutableArray *)rows) addObject:settingObject];
     };
     
-    [dbWrapperInstance fetchRows:query
-                 foreachCallback:blockGetSetting
-                          p_rows:self.settings];
-    
+    [dbWrapperInstance fetchRows: query
+              andForeachCallback: blockGetSetting
+                         andRows: self.settings];
     [dbWrapperInstance closeDB];
 }
 
@@ -225,9 +225,9 @@
     };
     
     [dbWrapperInstance fetchRows: query
-                 foreachCallback: blockGetCategory
-                          p_rows: self.categories
-                       p_library: library];
+              andForeachCallback: blockGetCategory
+                         andRows: self.categories
+                      andLibrary: library];
     [dbWrapperInstance closeDB];
 }
 
@@ -336,6 +336,7 @@
                                                     WHERE     i.object_id = p.id AND i.object_name = \"product\" AND i.is_default = 1 and c.id = p.collection_id"];
     
     void(^blockGetItems)(id rows) = ^(id rows) {
+        
         POSItem* goodObject = [[POSItem alloc] init];
         goodObject.gallery = [[NSMutableArray alloc] init];
         goodObject.ID = [dbWrapperInstance getCellInt:0];
@@ -355,11 +356,13 @@
         [goodObject.gallery addObject:[UIImage imageNamed:@"car11.png"]];
         [goodObject.gallery addObject:[UIImage imageNamed:@"car12.png"]];
         
-        
         [((NSMutableArray* )rows) addObject:goodObject];
     };
     
-    [dbWrapperInstance fetchRows:query foreachCallback:blockGetItems p_rows:self.allItems];
+    [dbWrapperInstance fetchRows: query
+              andForeachCallback: blockGetItems
+                         andRows: self.allItems];
+    
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
 
     for (int i = 0; i < [self.allItems count]; i++) {
@@ -367,11 +370,14 @@
         POSItem* item= [self.allItems objectAtIndex:i];
         
         if (item.asset != Nil && ![item.asset isEqualToString:@""]) {
+            
             NSURL* assetUrl = [[NSURL alloc] initWithString:item.asset];
             [library assetForURL: assetUrl resultBlock:^(ALAsset *asset) {
+                
                  item.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
              }
              failureBlock: ^(NSError* error) {
+                 
                  NSLog(@"%@", error.description);
              }];
         }
@@ -418,7 +424,9 @@
             
             if ([dbWrapperInstance openDB]) {
                 
-                query = [NSString stringWithFormat:@"UPDATE image SET asset = \"%@\" where path = \"%@\"", url, posImage.path];
+                query = [NSString stringWithFormat:@"UPDATE image \
+                                                     SET    asset = \"%@\" \
+                                                     where  path = \"%@\"", url, posImage.path];
                 [dbWrapperInstance tryExecQuery:query];
                 [dbWrapperInstance closeDB];
             }

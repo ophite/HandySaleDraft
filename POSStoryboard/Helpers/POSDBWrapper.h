@@ -33,12 +33,12 @@
 - (BOOL)openDB;
 - (void)closeDB;
 
-- (int)execQueryResultInt:(NSString *)query p_index:(int)index;
+- (int)execQueryResultInt:(NSString *)query andIndex:(int)index;
 - (BOOL)tryExecQuery:(NSString *)query;
-- (BOOL)tryExecQueryResultText:(NSString *)query p_index:(int)index p_result:(NSString**)text;
+- (BOOL)tryExecQueryResultText:(NSString *)query andIndex:(int)index andResult:(NSString**)text;
 
 - (BOOL)tryGetNextRow;
-- (void)prepareRows:(NSString *) query;
+- (void)prepareRows:(NSString *)query;
 - (void)closeForeach;
 
 - (int)getCellInt:(int)index;
@@ -47,9 +47,9 @@
 - (float)getCellFloat:(int)index;
 - (double)getCellDouble:(int)index;
 
-- (void)fetchRows:query foreachCallback:(void (^)( id rows ) )callback p_rows:(id) rows;
-- (void)fetchRows:query foreachCallback:(void (^)( id rows, id library ) )callback p_rows:(id) rows p_library:(id)library;
+- (void)fetchRows:query andForeachCallback:(void (^)(id rows ))callback andRows:(id)rows;
+- (void)fetchRows:query andForeachCallback:(void (^)(id rows, id library))callback andRows:(id)rows andLibrary:(id)library;
 
-- (void)extractMultipleValues:query foreachCallback:(void (^)() )callback;
+- (void)extractMultipleValues:query andForeachCallback:(void (^)())callback;
 
 @end

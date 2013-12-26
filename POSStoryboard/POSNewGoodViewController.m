@@ -69,9 +69,7 @@
         NSString * query = [NSString stringWithFormat:@"SELECT  count(*) \
                                                         FROM    product \
                                                         WHERE   name = \"%@\" AND collection_id = \"%d\" AND user_id = \"%d\"", self.textName.text, cat_ID, 1];
-        int count = [dbWrapperInstance execQueryResultInt: query
-                                                  p_index: 0];
-        
+        int count = [dbWrapperInstance execQueryResultInt: query andIndex: 0];
         if(count != 0) {
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement"

@@ -89,6 +89,7 @@
 
     __deletedCell = [[[sender superview] superview] superview];
     NSString* question = [NSString stringWithFormat:@"Delete the %@ attribute?", ((POSAttributeCell *)__deletedCell).textName.text];
+    
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Delete"
                                                     message: question
                                                    delegate: self

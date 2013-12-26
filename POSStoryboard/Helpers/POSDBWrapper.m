@@ -70,7 +70,7 @@
 
 
 - (int)execQueryResultInt:(NSString *)query
-                  p_index:(int)index {
+                  andIndex:(int)index {
 
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
     sqlite3_step(statement);    
@@ -80,9 +80,7 @@
     return result;
 }
 
-- (BOOL)tryExecQueryResultText:(NSString *)query
-                       p_index:(int)index
-                      p_result:(NSString **)text {
+- (BOOL)tryExecQueryResultText:(NSString *)query andIndex:(int)index andResult:(NSString **)text {
     
     BOOL result = YES;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
@@ -166,9 +164,7 @@
 }
 
 
-- (void)fetchRows:query
-  foreachCallback:(void (^)( id rows ))callback
-           p_rows:(id)rows {
+- (void)fetchRows:query andForeachCallback:(void (^)(id rows))callback andRows:(id)rows {
 
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
     
@@ -179,10 +175,7 @@
 }
 
 
-- (void)fetchRows:query
-  foreachCallback:(void (^)(id rows, id library ))callback
-           p_rows:(id)rows
-        p_library:(id)library; {
+- (void)fetchRows:query andForeachCallback:(void (^)(id rows, id library))callback andRows:(id)rows andLibrary:(id)library; {
     
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
     
@@ -193,8 +186,7 @@
 }
 
 
-- (void)extractMultipleValues:query
-              foreachCallback:(void (^)())callback {
+- (void)extractMultipleValues:query andForeachCallback:(void (^)())callback {
     
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
     sqlite3_step(statement);

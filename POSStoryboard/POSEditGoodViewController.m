@@ -213,12 +213,11 @@
                                                         FROM    collection \
                                                         WHERE   name = \"%@\" AND user_id = %d", self.textCategory.text, 1];
         
-        int cat_ID = [dbWrapperInstance execQueryResultInt:query p_index:0];
+        int cat_ID = [dbWrapperInstance execQueryResultInt:query andIndex:0];
         query = [NSString stringWithFormat:@"SELECT count(*) \
                                              FROM   product \
                                              WHERE  name = \"%@\" AND collection_id = %d AND user_id = %d", self.textName.text, cat_ID, 1];
-        n = [dbWrapperInstance execQueryResultInt: query
-                                          p_index: 0];
+        n = [dbWrapperInstance execQueryResultInt: query andIndex: 0];
         [dbWrapperInstance closeDB];
     }
     

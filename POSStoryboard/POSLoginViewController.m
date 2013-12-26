@@ -104,8 +104,9 @@
                                                         FROM    user \
                                                         WHERE   email=\"%@\"", self.textEmail.text];
         
-        if ([dbWrapperInstance tryExecQueryResultText:query p_index:0
-                                             p_result:&passStr] == YES) {
+        if ([dbWrapperInstance tryExecQueryResultText:query
+                                             andIndex:0
+                                            andResult:&passStr] == YES) {
             
             if([passStr isEqualToString:self.textPassword.text])
                 isLogged = YES;

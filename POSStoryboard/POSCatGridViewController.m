@@ -196,8 +196,7 @@
     NSString* query = [NSString stringWithFormat:@"select   id \
                                                    from     Product \
                                                    where    code = \"%@\"; ", result];
-    int product_id = [dbWrapperInstance execQueryResultInt: query
-                                                   p_index: 0];
+    int product_id = [dbWrapperInstance execQueryResultInt: query andIndex: 0];
     [dbWrapperInstance closeDB];
     
     POSItem* resultItem = nil;

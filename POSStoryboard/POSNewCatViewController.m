@@ -75,7 +75,7 @@
         NSString * query = [NSString stringWithFormat:@"SELECT  count(*) \
                                                         FROM    collection \
                                                         WHERE   name = \"%@\" AND user_id = \"%d\"", [self.textName text], 1];
-        int count = [dbWrapperInstance execQueryResultInt:query p_index:0];
+        int count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
         if(count != 0) {
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement" message: @"The category already exists. Select another name"
