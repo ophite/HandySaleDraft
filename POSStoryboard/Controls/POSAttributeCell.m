@@ -32,6 +32,7 @@
     
     [super setSelected:selected animated:animated];
 
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.buttonName.layer.cornerRadius = 5;
     self.buttonName.clipsToBounds = YES;
     // Configure the view for the selected state

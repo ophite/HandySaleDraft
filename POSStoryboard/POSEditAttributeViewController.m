@@ -19,6 +19,7 @@
 @synthesize tableViewAttributeValue = _tableViewAttributeValue;
 @synthesize attribute = _attribute;
 @synthesize attributeValues = _attributeValues;
+@synthesize mainView = _mainView;
 
 
 #pragma mark - Standart
@@ -42,9 +43,29 @@
         self.attribute = [POSAttribute createNewAttribute:@"new attribute" withIs_active:NO];
         [objectsHelperInstance.dataSet.attributes addObject:self.attribute];
     }
+//    
+//    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.extendedLayoutIncludesOpaqueBars = NO;
+//    
+//    self.mainView.autoresizingMask=(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+//    self.mainView.autoresizesSubviews=YES;
+    
+//    self.tableViewAttributeValue.tableFooterView = [[UIView alloc] init];
+//    [self.tableViewAttributeValue setContentInset:UIEdgeInsetsMake(0,0,-50,0)];
+//    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.extendedLayoutIncludesOpaqueBars = NO;
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
+//    self.tableViewAttribute.sectionFooterHeight = 0.1;
+//    [self.tableViewAttribute setBounces:NO];
+//    [self.tableViewAttributeValue setBounces:NO];
+//    self.tableViewAttribute.contentInset = UIEdgeInsetsMake(-20, 0, -20, 0);
+//    self.tableViewAttributeValue.contentInset = UIEdgeInsetsMake(-50, 0, -50, 0);
+//    self.tableViewAttribute.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableViewAttribute.bounds.size.width, 0.01f)];
+//    self.tableViewAttributeValue.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableViewAttributeValue.bounds.size.width, 0.01f)];
     
     self.tableViewAttribute.dataSource = self;
     self.tableViewAttribute.delegate = self;
+    self.tableViewAttribute.scrollEnabled = NO;
 //    self.tableViewAttribute.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableViewAttributeValue.dataSource = self;
     self.tableViewAttributeValue.delegate = self;
@@ -58,7 +79,38 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+//
+//-(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//    if(section == 0)
+//        return 0.01f;
+//    return 0.01f;
+//}
+//
+//
+//-(CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section
+//{
+//    return 0.0f;
+//}
+//
+//-(UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+//}
+//
+//-(UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section
+//{
+//    return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+//}
 
+//
+//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    return 0.001;
+//}
+//
+//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+//    return 0.001;
+//}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     

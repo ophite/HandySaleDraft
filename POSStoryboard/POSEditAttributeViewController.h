@@ -14,10 +14,10 @@
 
 @interface POSEditAttributeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
-
 @property POSAttribute *attribute;
 @property NSMutableArray *attributeValues;
 
+@property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewAttribute;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewAttributeValue;
 
