@@ -18,7 +18,6 @@
 @property NSMutableArray *attributeValues;
 
 @property (strong, nonatomic) IBOutlet UIView *mainView;
-@property (weak, nonatomic) IBOutlet UITableView *tableViewAttribute;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewAttributeValue;
 
 

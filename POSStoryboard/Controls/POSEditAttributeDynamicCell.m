@@ -12,7 +12,7 @@
 
 
 @synthesize textAttributeValue = _textAttributeValue;
-@synthesize labelAttributeValueTitle = _labelAttributeValueTitle;
+//@synthesize labelAttributeValueTitle = _labelAttributeValueTitle;
 @synthesize viewTextAttrValueTitle = _viewTextAttrValueTitle;
 @synthesize attrValue = _attrValue;
 
@@ -35,7 +35,7 @@
     [super setSelected:selected animated:animated];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.textAttributeValue.delegate = self;
+
     self.viewTextAttrValueTitle.layer.cornerRadius = 5;
     self.viewTextAttrValueTitle.clipsToBounds = YES;
     
@@ -47,7 +47,6 @@
 
     // Configure the view for the selected state
 }
-
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {

@@ -15,7 +15,7 @@
 
 @implementation POSEditAttributeViewController
 
-@synthesize tableViewAttribute = _tableViewAttribute;
+
 @synthesize tableViewAttributeValue = _tableViewAttributeValue;
 @synthesize attribute = _attribute;
 @synthesize attributeValues = _attributeValues;
@@ -43,33 +43,11 @@
         self.attribute = [POSAttribute createNewAttribute:@"new attribute" withIs_active:NO];
         [objectsHelperInstance.dataSet.attributes addObject:self.attribute];
     }
-//    
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-//    self.extendedLayoutIncludesOpaqueBars = NO;
-//    
-//    self.mainView.autoresizingMask=(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-//    self.mainView.autoresizesSubviews=YES;
-    
-//    self.tableViewAttributeValue.tableFooterView = [[UIView alloc] init];
-//    [self.tableViewAttributeValue setContentInset:UIEdgeInsetsMake(0,0,-50,0)];
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-//    self.extendedLayoutIncludesOpaqueBars = NO;
-//    self.edgesForExtendedLayout = UIRectEdgeNone;
-//    self.tableViewAttribute.sectionFooterHeight = 0.1;
-//    [self.tableViewAttribute setBounces:NO];
-//    [self.tableViewAttributeValue setBounces:NO];
-//    self.tableViewAttribute.contentInset = UIEdgeInsetsMake(-20, 0, -20, 0);
-//    self.tableViewAttributeValue.contentInset = UIEdgeInsetsMake(-50, 0, -50, 0);
-//    self.tableViewAttribute.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableViewAttribute.bounds.size.width, 0.01f)];
-//    self.tableViewAttributeValue.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableViewAttributeValue.bounds.size.width, 0.01f)];
-    
-    self.tableViewAttribute.dataSource = self;
-    self.tableViewAttribute.delegate = self;
-    self.tableViewAttribute.scrollEnabled = NO;
-//    self.tableViewAttribute.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    self.tableViewAttributeValue.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableViewAttributeValue.dataSource = self;
     self.tableViewAttributeValue.delegate = self;
-    self.tableViewAttributeValue.separatorStyle = UITableViewCellSeparatorStyleNone;
+
 	// Do any additional setup after loading the view.
 }
 
@@ -79,38 +57,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-//
-//-(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    if(section == 0)
-//        return 0.01f;
-//    return 0.01f;
-//}
-//
-//
-//-(CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section
-//{
-//    return 0.0f;
-//}
-//
-//-(UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-//}
-//
-//-(UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section
-//{
-//    return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-//}
 
-//
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return 0.001;
-//}
-//
-//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-//    return 0.001;
-//}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
@@ -123,17 +70,8 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    NSInteger count = 1;
     
-    if (tableView == self.tableViewAttribute) {
-        
-        count = 1;
-    }
-    else {
-        
-    }
-        
-    return count;
+    return 3;
 }
 
 
@@ -141,7 +79,11 @@
     // Return	 the number of rows in the section.
     NSInteger count = 1;
     
-    if (tableView == self.tableViewAttribute) {
+    if (section == 0) {
+        
+        count = 1;
+    }
+    else if (section == 1) {
         
         count = 1;
     }
@@ -157,13 +99,23 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell;
+
+    if (indexPath.section == 0) {
     
-    if (tableView == self.tableViewAttribute) {
-        
         static NSString *CellStaticIdentifier = @"EditAttributeStaticCell";
         
         cell = [tableView dequeueReusableCellWithIdentifier: CellStaticIdentifier forIndexPath: indexPath];
         ((POSEditAttributeStaticCell *)cell).attribute = self.attribute;
+        
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, cell.bounds.size.height - 1, cell.bounds.size.width, 1)];
+        lineView.backgroundColor = self.tableViewAttributeValue.separatorColor;
+        [cell.contentView addSubview:lineView];
+    }
+    else if (indexPath.section == 1) {
+        
+        static NSString *EditAttributeSimpleStaticCell = @"EditAttributeSimpleStaticCell";
+        
+        cell = [tableView dequeueReusableCellWithIdentifier: EditAttributeSimpleStaticCell forIndexPath: indexPath];
     }
     else {
         
@@ -172,11 +124,8 @@
         cell = [tableView dequeueReusableCellWithIdentifier: CellDynamicIdentifier forIndexPath: indexPath];
         POSEditAttributeDynamicCell *dynamicCell = (POSEditAttributeDynamicCell *)cell;
         
-        if (indexPath.row > 0)
-            dynamicCell.labelAttributeValueTitle.text = @"";
-        
         if (self.attributeValues.count >  0) {
-
+            
             dynamicCell.attrValue = [objectsHelperInstance.dataSet.attributeValues objectAtIndex:indexPath.row];
         }
         else {
@@ -185,9 +134,28 @@
             [objectsHelperInstance.dataSet.attributeValues addObject:dynamicCell.attrValue];
         }
     }
-    
+
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat rowHeight = 0;
+    
+    if (indexPath.section == 0) {
+        
+        rowHeight = 76;
+    }
+    else if (indexPath.section == 1) {
+        
+        rowHeight = 30;
+    }
+    else {
+        
+        rowHeight = 68;
+    }
+    
+    return rowHeight;
+}
 
 @end

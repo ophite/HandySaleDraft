@@ -12,7 +12,7 @@
 
 @property POSAttributeValue *attrValue;
 @property (weak, nonatomic) IBOutlet UITextField *textAttributeValue;
-@property (weak, nonatomic) IBOutlet UILabel *labelAttributeValueTitle;
+//@property (weak, nonatomic) IBOutlet UILabel *labelAttributeValueTitle;
 @property (weak, nonatomic) IBOutlet UIView *viewTextAttrValueTitle;
 
 @end

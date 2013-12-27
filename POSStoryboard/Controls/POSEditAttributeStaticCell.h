@@ -11,6 +11,8 @@
 @interface POSEditAttributeStaticCell : UITableViewCell <UITextFieldDelegate>
 
 @property POSAttribute *attribute;
+
+
 @property (weak, nonatomic) IBOutlet UILabel *labelAttributeNameTitle;
 @property (weak, nonatomic) IBOutlet UITextField *textAttributeName;
 @property (weak, nonatomic) IBOutlet UIView *viewTextName;
