@@ -12,7 +12,6 @@
 
 
 @synthesize textAttributeValue = _textAttributeValue;
-//@synthesize labelAttributeValueTitle = _labelAttributeValueTitle;
 @synthesize viewTextAttrValueTitle = _viewTextAttrValueTitle;
 @synthesize attrValue = _attrValue;
 
@@ -42,15 +41,18 @@
     self.textAttributeValue.backgroundColor = [UIColor whiteColor];
     self.textAttributeValue.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 0)];
     self.textAttributeValue.leftViewMode = UITextFieldViewModeAlways;
-    self.textAttributeValue.delegate = self;
     self.textAttributeValue.text = self.attrValue ? self.attrValue.name : @"";
+    self.textAttributeValue.delegate = self;
 
     // Configure the view for the selected state
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    return nil;
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [textField resignFirstResponder];
+    return YES;
 }
+
 
 @end

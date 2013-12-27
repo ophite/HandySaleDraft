@@ -12,7 +12,7 @@
 #import "POSEditAttributeStaticCell.h"
 #import "POSEditAttributeDynamicCell.h"
 
-@interface POSEditAttributeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface POSEditAttributeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property POSAttribute *attribute;
 @property NSMutableArray *attributeValues;

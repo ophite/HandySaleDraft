@@ -59,13 +59,6 @@
 }
 
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    
-    [textField resignFirstResponder];
-    return YES;
-}
-
-
 # pragma mark - UITableViewDelegate, UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -103,9 +96,9 @@
     if (indexPath.section == 0) {
     
         static NSString *CellStaticIdentifier = @"EditAttributeStaticCell";
-        
         cell = [tableView dequeueReusableCellWithIdentifier: CellStaticIdentifier forIndexPath: indexPath];
-        ((POSEditAttributeStaticCell *)cell).attribute = self.attribute;
+        POSEditAttributeStaticCell *staticCell = (POSEditAttributeStaticCell *)cell;
+        staticCell.attribute = self.attribute;
         
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, cell.bounds.size.height - 1, cell.bounds.size.width, 1)];
         lineView.backgroundColor = self.tableViewAttributeValue.separatorColor;
@@ -114,13 +107,11 @@
     else if (indexPath.section == 1) {
         
         static NSString *EditAttributeSimpleStaticCell = @"EditAttributeSimpleStaticCell";
-        
         cell = [tableView dequeueReusableCellWithIdentifier: EditAttributeSimpleStaticCell forIndexPath: indexPath];
     }
     else {
         
         static NSString *CellDynamicIdentifier = @"EditAttributeDynamicCell";
-        
         cell = [tableView dequeueReusableCellWithIdentifier: CellDynamicIdentifier forIndexPath: indexPath];
         POSEditAttributeDynamicCell *dynamicCell = (POSEditAttributeDynamicCell *)cell;
         

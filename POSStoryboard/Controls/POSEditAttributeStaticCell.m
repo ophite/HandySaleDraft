@@ -7,6 +7,7 @@
 //
 #import "POSEditAttributeStaticCell.h"
 
+
 @implementation POSEditAttributeStaticCell
 
 
@@ -33,11 +34,11 @@
     self.viewTextName.layer.cornerRadius = 5;
     self.viewTextName.clipsToBounds = YES;
 
-    self.textAttributeName.delegate = self;
     self.textAttributeName.backgroundColor = [UIColor whiteColor];
     self.textAttributeName.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 0)];
     self.textAttributeName.leftViewMode = UITextFieldViewModeAlways;
     self.textAttributeName.text = self.attribute ? self.attribute.name : @"";
+    self.textAttributeName.delegate = self;
 
     // Configure the view for the selected state
 }

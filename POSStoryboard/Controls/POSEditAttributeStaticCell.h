@@ -10,6 +10,7 @@
 
 @interface POSEditAttributeStaticCell : UITableViewCell <UITextFieldDelegate>
 
+
 @property POSAttribute *attribute;
 
 
