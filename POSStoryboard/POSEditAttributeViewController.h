@@ -12,7 +12,12 @@
 #import "POSEditAttributeStaticCell.h"
 #import "POSEditAttributeDynamicCell.h"
 
-@interface POSEditAttributeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface POSEditAttributeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    
+@private
+    id __deletedCell;
+    
+}
 
 @property POSAttribute *attribute;
 @property NSMutableArray *attributeValues;

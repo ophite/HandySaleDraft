@@ -38,7 +38,7 @@
     
     self.textEmail.delegate = self;
     
-    [objectsHelperInstance.dataSet getSettings];
+    [objectsHelperInstance.dataSet settingsGet];
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", helperInstance.SETTING_EMAIL];
     NSArray *arr = [objectsHelperInstance.dataSet.settings filteredArrayUsingPredicate:predicate];
@@ -84,7 +84,8 @@
 
             if (![settingObject.value isEqualToString:self.textEmail.text]) {
                 
-                [settingObject updateSetting: self.textEmail.text];
+                [objectsHelperInstance.dataSet settingsUpdate: settingObject
+                                                    withValue: self.textEmail.text];
             }
         }
     }

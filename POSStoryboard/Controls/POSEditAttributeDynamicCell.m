@@ -14,6 +14,7 @@
 @synthesize textAttributeValue = _textAttributeValue;
 @synthesize viewTextAttrValueTitle = _viewTextAttrValueTitle;
 @synthesize attrValue = _attrValue;
+@synthesize buttonDelete = _buttonDelete;
 
 
 #pragma mark - Standart

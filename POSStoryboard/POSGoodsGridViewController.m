@@ -47,7 +47,7 @@
     self.catName = self.cat.name;
     
     [objectsHelperInstance.dataSet.items removeAllObjects];
-    [objectsHelperInstance.dataSet getItems: self.catName];
+    [objectsHelperInstance.dataSet itemsGet:self.catName];
     
     self.gridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.gridView.autoresizesSubviews = YES;

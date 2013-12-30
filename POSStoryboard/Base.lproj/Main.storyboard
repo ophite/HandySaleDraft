@@ -1201,6 +1201,13 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                                         </textField>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nlR-F8-vlG">
+                                                            <rect key="frame" x="251" y="12" width="25" height="25"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <state key="normal" image="delete_white_icon.png">
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.90196084980000002" green="0.90196084980000002" blue="0.90196084980000002" alpha="1" colorSpace="deviceRGB"/>
                                                 </view>
@@ -1209,6 +1216,7 @@
                                         <color key="backgroundColor" red="0.97647064920000004" green="0.97647064920000004" blue="0.97647064920000004" alpha="1" colorSpace="deviceRGB"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
+                                            <outlet property="buttonDelete" destination="nlR-F8-vlG" id="0D8-5f-SwH"/>
                                             <outlet property="textAttributeValue" destination="xw1-HY-kJ4" id="Bpu-H7-BvL"/>
                                             <outlet property="viewTextAttrValueTitle" destination="NJW-Mh-0lW" id="8ZF-t8-gEo"/>
                                         </connections>
@@ -1249,6 +1257,7 @@
     </scenes>
     <resources>
         <image name="delete_icon.png" width="22" height="20"/>
+        <image name="delete_white_icon.png" width="29" height="29"/>
         <image name="setting_addattribute_icon.png" width="26" height="27"/>
         <image name="setting_email_icon.png" width="27" height="27"/>
     </resources>

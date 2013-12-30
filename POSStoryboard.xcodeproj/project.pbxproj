@@ -95,6 +95,7 @@
 		803238F9186C6C2200BB9DAE /* POSEditAttributeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 803238F8186C6C2200BB9DAE /* POSEditAttributeViewController.m */; };
 		803238FC186C767B00BB9DAE /* POSEditAttributeDynamicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 803238FB186C767B00BB9DAE /* POSEditAttributeDynamicCell.m */; };
 		803238FF186C7B5F00BB9DAE /* POSAttributeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 803238FE186C7B5F00BB9DAE /* POSAttributeValue.m */; };
+		803239011871BE4B00BB9DAE /* delete_white_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 803239001871BE4B00BB9DAE /* delete_white_icon.png */; };
 		8054C3EF1852233E00299E2F /* POSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3EE1852233E00299E2F /* POSLoginViewController.m */; };
 		8054C3F21852235000299E2F /* POSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3F11852235000299E2F /* POSRegisterViewController.m */; };
 		807C43911859F56F00CBAB88 /* POSDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C438E1859F56F00CBAB88 /* POSDBHelper.m */; };
@@ -255,6 +256,7 @@
 		803238FB186C767B00BB9DAE /* POSEditAttributeDynamicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSEditAttributeDynamicCell.m; path = Controls/POSEditAttributeDynamicCell.m; sourceTree = "<group>"; };
 		803238FD186C7B5F00BB9DAE /* POSAttributeValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSAttributeValue.h; sourceTree = "<group>"; };
 		803238FE186C7B5F00BB9DAE /* POSAttributeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSAttributeValue.m; sourceTree = "<group>"; };
+		803239001871BE4B00BB9DAE /* delete_white_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_white_icon.png; sourceTree = "<group>"; };
 		8054C3ED1852233E00299E2F /* POSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSLoginViewController.h; sourceTree = "<group>"; };
 		8054C3EE1852233E00299E2F /* POSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSLoginViewController.m; sourceTree = "<group>"; };
 		8054C3F01852235000299E2F /* POSRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSRegisterViewController.h; sourceTree = "<group>"; };
@@ -519,6 +521,7 @@
 		8004B7171850D36500681B11 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				803239001871BE4B00BB9DAE /* delete_white_icon.png */,
 				803238E61869FB0100BB9DAE /* delete_icon.png */,
 				803238DE1869D53900BB9DAE /* setting_addattribute_icon.png */,
 				803238DC1869D46C00BB9DAE /* setting_email_icon.png */,
@@ -826,6 +829,7 @@
 				8004B7501850D38800681B11 /* car19.png in Resources */,
 				807C43A6185A21E900CBAB88 /* zbar-back.png in Resources */,
 				8004B46A1850B01500681B11 /* Main.storyboard in Resources */,
+				803239011871BE4B00BB9DAE /* delete_white_icon.png in Resources */,
 				803238DD1869D46C00BB9DAE /* setting_email_icon.png in Resources */,
 				8004B7401850D38800681B11 /* car03.png in Resources */,
 				8004B75A1850D38800681B11 /* button-splash.png in Resources */,

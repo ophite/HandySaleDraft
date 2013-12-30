@@ -13,14 +13,16 @@
 
 
 @synthesize images = _images;
-@synthesize categories = _categories;
-@synthesize items = _items;
 @synthesize orderArray = _orderArray;
-@synthesize allItems = _allItems;
 @synthesize settings = _settings;
+
+@synthesize items = _items;
+@synthesize allItems = _allItems;
+@synthesize categories = _categories;
 
 @synthesize attributes = _attributes;
 @synthesize attributeValues = _attributeValues;
+
 
 - (id)init {
     
@@ -42,56 +44,37 @@
 }
 
 
-/*
--(void) getImages
-{
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+#pragma mark - Attributes
 
-    if(sqlite3_open([dataPath UTF8String], &database) == SQLITE_OK)
-    {
-        query = [NSString stringWithFormat: @"SELECT id, asset, path, object_id, object_name FROM images"];
-        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
-        {
-            while (sqlite3_step(statement) == SQLITE_ROW)
-            {
-                POSImage* image = [[POSImage alloc] init];
-                
-                const unsigned char* asset = sqlite3_column_text(statement, 1);
-                
-                if (asset != nil)
-                    image.assetUrl = [[NSURL alloc] initWithString:[[NSString alloc] initWithUTF8String:(const char*)asset]];
-                
-                image.path = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 2)];
-                image.object_id = sqlite3_column_int(statement, 3);
-                image.object_name = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 4)];
-                
-                [library assetForURL: image.assetUrl resultBlock:^(ALAsset *asset) {
-                    image.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+- (void)attributesGet {
+    
+    //    [self.attributes removeAllObjects];
+    if ([self.attributes count] > 0)
+        return;
+    
+    if (![dbWrapperInstance openDB])
+        return;
+    
+    NSString *query = [NSString stringWithFormat:@"select   name, is_active, id \
+                       from     attribute;"];
+    
+    void(^getAttribute)(id rows) = ^(id rows) {
         
-                } failureBlock: ^(NSError* error) {
-                    NSLog(@"%@", error.description);
-                }];
-
-                [images addObject:image];
-            }
-                
-            sqlite3_finalize(statement);
-        }
-        sqlite3_close(database);
+        POSAttribute *attrObject = [[POSAttribute alloc] init];
+        attrObject.name = [dbWrapperInstance getCellText:0];
+        attrObject.is_active = [dbWrapperInstance getCellInt:1];
+        attrObject.ID = [dbWrapperInstance getCellInt:2];
         
-        NSLog(@"Read from DB");
-    }
-    else
-    {
-        //statusDB = NO;
-        NSAssert(0, @"Failed to open database");
-    }
+        [((NSMutableArray *)rows) addObject:attrObject];
+    };
+    
+    [dbWrapperInstance fetchRows: query
+              andForeachCallback: getAttribute
+                         andRows: self.attributes];
+    [dbWrapperInstance closeDB];
 }
 
-*/
-
-
-- (void)saveAttributes {
+- (void)attributesSave {
     
     if ([self.attributes count] == 0)
         return;
@@ -106,9 +89,116 @@
     [dbWrapperInstance closeDB];
 }
 
+- (POSAttribute *)attributesCreate:(NSString *)name withIs_active:(BOOL)is_active {
+    
+    POSAttribute *newAttr;
+    NSString *query = [NSString stringWithFormat:@"insert into attribute (name, is_active) \
+                       values (\"%@\", %d); ", name, is_active];
+    
+    if ([dbWrapperInstance openDB]) {
+        
+        [dbWrapperInstance tryExecQuery:query];
+        [dbWrapperInstance closeDB];
+        
+        newAttr = [[POSAttribute alloc] init];
+        newAttr.name = name;
+        newAttr.is_active = is_active;
+        
+        [self.attributes addObject:newAttr];
+    }
+    
+    return newAttr;
+}
 
-- (void)saveSettings {
+- (BOOL)attributesUpdate:(POSAttribute *)attribute withName:(NSString *)name withIs_active:(BOOL)is_active {
+    
+    BOOL result = NO;
+    NSString *query = [NSString stringWithFormat:@"update   attribute \
+                                                   set      name = \"%@\", \
+                                                            is_active = %d \
+                                                   where    id = %d; ", name, is_active, attribute.ID];
+    
+    if ([dbWrapperInstance openDB]) {
+        
+        [dbWrapperInstance tryExecQuery:query];
+        [dbWrapperInstance closeDB];
+        
+        attribute.name = name;
+        attribute.is_active = is_active;
+        result = YES;
+    }
+    
+    return result;
+}
 
+- (BOOL)attributesDelete:(POSAttribute *)attribute {
+
+    BOOL result = NO;
+    
+    if ([dbWrapperInstance openDB]) {
+    
+        NSMutableString *query = [NSMutableString stringWithFormat:@"delete \
+                                                                     from   attribute_value \
+                                                                     where  attribute_id = %d; ", attribute.ID];
+        [query appendString:[NSString stringWithFormat:@"delete \
+                                                         from   attribute \
+                                                         where  id = %d; ", attribute.ID]];
+        
+        [dbWrapperInstance tryExecQuery:query];
+        [dbWrapperInstance closeDB];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"attribute_ID = %d", attribute.ID];
+        NSArray *arr = [self.attributeValues filteredArrayUsingPredicate:predicate];
+        
+        for(POSAttributeValue *attrValue in arr) {
+            
+            [self.attributeValues removeObject:attrValue];
+        }
+        
+        [self.attributes removeObject:attribute];
+        
+        result = YES;
+    }
+    
+    return result;
+}
+
+
+#pragma mark - Settings
+
+- (void)settingsGet {
+    
+    if ([self.settings count] > 0)
+        return;
+    
+    //    [self.settings removeAllObjects];
+    
+    if (![dbWrapperInstance openDB])
+        return;
+    
+    NSString *query = [NSString stringWithFormat: @"select  name, value, type, image_id, id \
+                       from    setting;"];
+    
+    void(^blockGetSetting)(id rows) = ^(id rows) {
+        
+        POSSetting *settingObject = [[POSSetting alloc] init];
+        settingObject.name = [dbWrapperInstance getCellText:0];
+        settingObject.value = [dbWrapperInstance getCellText:1];
+        settingObject.type = [dbWrapperInstance getCellText:2];
+        settingObject.image_id = [dbWrapperInstance getCellInt:3];
+        settingObject.ID = [dbWrapperInstance getCellInt:4];
+        
+        [((NSMutableArray *)rows) addObject:settingObject];
+    };
+    
+    [dbWrapperInstance fetchRows: query
+              andForeachCallback: blockGetSetting
+                         andRows: self.settings];
+    [dbWrapperInstance closeDB];
+}
+
+- (void)settingsSave {
+    
     if ([self.settings count] == 0)
         return;
     
@@ -130,37 +220,47 @@
     [dbWrapperInstance closeDB];
 }
 
+- (BOOL)settingsUpdate:(POSSetting *)setting withName:(NSString *)name withValue:(NSString *)value withType:(NSString *)type withImage_id:(int)image_id {
 
-- (void)getAttributes {
-
-//    [self.attributes removeAllObjects];
-    if ([self.attributes count] > 0)
-        return;
+    BOOL result = NO;
     
-    if (![dbWrapperInstance openDB])
-        return;
-
-    NSString *query = [NSString stringWithFormat:@"select   name, is_active, id \
-                                                   from     attribute;"];
-    
-    void(^getAttribute)(id rows) = ^(id rows) {
+    if ([dbWrapperInstance openDB]) {
         
-        POSAttribute *attrObject = [[POSAttribute alloc] init];
-        attrObject.name = [dbWrapperInstance getCellText:0];
-        attrObject.is_active = [dbWrapperInstance getCellInt:1];
-        attrObject.ID = [dbWrapperInstance getCellInt:2];
+        NSString *query = [NSString stringWithFormat:@"update   setting \
+                                                       set      name = \"%@\", \
+                                                                value = \"%@\", \
+                                                                type = \"%@\", \
+                                                                image_id = %d \
+                                                       where    id = %d; ", name, value, type, image_id, setting.ID];
         
-        [((NSMutableArray *)rows) addObject:attrObject];
-    };
+        [dbWrapperInstance tryExecQuery:query];
+        [dbWrapperInstance closeDB];
+        
+        setting.name = name;
+        setting.value = value;
+        setting.type = type;
+        setting.image_id = image_id;
+        
+        result = YES;
+    }
     
-    [dbWrapperInstance fetchRows: query
-              andForeachCallback: getAttribute
-                         andRows: self.attributes];
-    [dbWrapperInstance closeDB];
+    return result;
+}
+
+- (BOOL)settingsUpdate:(POSSetting *)setting withValue:(NSString *)value {
+
+    return [self settingsUpdate: setting
+                       withName: setting.name
+                      withValue: value
+                       withType: setting.type
+                   withImage_id: setting.image_id];
 }
 
 
-- (void)getAttributeValues {
+
+#pragma mark - AttributeValues
+
+- (void)attributeValuesGet {
     
     //    [self.attributeValues removeAllObjects];
     if ([self.attributeValues count] > 0)
@@ -188,40 +288,83 @@
     [dbWrapperInstance closeDB];
 }
 
+- (POSAttributeValue *)attributeValuesCreate:(NSString *)name withAttribute_ID:(int)attribute_ID {
 
-- (void)getSettings {
-
-    if ([self.settings count] > 0)
-        return;
+    POSAttributeValue *newAttrValue;
     
-//    [self.settings removeAllObjects];
-
-    if (![dbWrapperInstance openDB])
-        return;
+    NSString *query = [NSString stringWithFormat:@"insert into attribute_value (name, attribute_id) \
+                                                   values(\"%@\", %d); ", name, attribute_ID];
     
-    NSString *query = [NSString stringWithFormat: @"select  name, value, type, image_id, id \
-                                                    from    setting;"];
-    
-    void(^blockGetSetting)(id rows) = ^(id rows) {
-      
-        POSSetting *settingObject = [[POSSetting alloc] init];
-        settingObject.name = [dbWrapperInstance getCellText:0];
-        settingObject.value = [dbWrapperInstance getCellText:1];
-        settingObject.type = [dbWrapperInstance getCellText:2];
-        settingObject.image_id = [dbWrapperInstance getCellInt:3];
-        settingObject.ID = [dbWrapperInstance getCellInt:4];
+    if ([dbWrapperInstance openDB]) {
         
-        [((NSMutableArray *)rows) addObject:settingObject];
-    };
+        [dbWrapperInstance tryExecQuery:query];
+        [dbWrapperInstance closeDB];
+        
+        newAttrValue = [[POSAttributeValue alloc] init];
+        newAttrValue.name = name;
+        newAttrValue.attribute_ID = attribute_ID;
+        
+        [self.attributeValues addObject:newAttrValue];
+    }
     
-    [dbWrapperInstance fetchRows: query
-              andForeachCallback: blockGetSetting
-                         andRows: self.settings];
-    [dbWrapperInstance closeDB];
+    return newAttrValue;
+}
+
+- (BOOL)attributeValuesUpdate:(NSMutableArray *)arr {
+
+    BOOL result = NO;
+    
+    if ([arr count] > 0) {
+        
+        NSMutableString *query = [[NSMutableString alloc] init];
+        
+        for(POSAttributeValue *attrValue in arr) {
+            
+            [query appendString:[NSString stringWithFormat:@"update attribute_value \
+                                 set    name = \"%@\", \
+                                 attribute_id = %d \
+                                 where  id = %d; ", attrValue.name, attrValue.attribute_ID, attrValue.ID]];
+        }
+        
+        if ([dbWrapperInstance openDB]) {
+            
+            [dbWrapperInstance tryExecQuery:query];
+            [dbWrapperInstance closeDB];
+        }
+    }
+    else {
+        
+        result = YES;
+    }
+    
+    return result;
+}
+
+- (BOOL)attributeValuesDelete:(POSAttributeValue *)attrValue {
+    
+    BOOL result = NO;
+    
+    if ([dbWrapperInstance openDB]) {
+        
+        NSString *query = [NSString stringWithFormat:@"delete   \
+                                                       from     attribute_value \
+                                                       where    id = %d;", attrValue.ID];
+        
+        [dbWrapperInstance tryExecQuery:query];
+        [dbWrapperInstance closeDB];
+        
+        [self.attributeValues removeObject:attrValue];
+        
+        result = YES;
+    }
+    
+    return result;
 }
 
 
-- (void)getCategories {
+#pragma mark - Categories
+
+- (void)categoriesGet {
     
     /*
     url            = [NSURL URLWithString:[NSString stringWithFormat:@"http://goods.itvik.com/api/collection/?token=%@", token]];
@@ -284,83 +427,85 @@
 }
 
 
-- (void)getItems:(NSString*)selectedCatName {
+#pragma mark - Items
+
+- (void)itemsGet:(NSString*)selectedCategoryName {
     
     /*
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    
-    if(sqlite3_open([dataPath UTF8String], &database) == SQLITE_OK)
-    {
-        query = [NSString stringWithFormat:@"SELECT id FROM collection WHERE name= \"%@\" AND user_id = %d", selectedCatName, 1];
-        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
-        sqlite3_step(statement);
-        int catID = sqlite3_column_int(statement, 0);
-        sqlite3_finalize(statement);
-        
-        NSLog(@"Category query=%@, catID = %d", query, catID);
-        
-        query = [NSString stringWithFormat: @"SELECT p.id, p.name, p.price_buy, p.price_sale, p.comment, i.asset FROM product p LEFT JOIN image i WHERE i.object_id = p.id AND i.object_name = \"product\" AND i.is_default = 1 AND p.collection_id = %d", catID];
-        
-        int i;
-        
-        i = 0;
-        
-        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
-        {
-            while (sqlite3_step(statement) == SQLITE_ROW)
-            {
-                POSItem* goodObject = [[POSItem alloc] init];
-                goodObject.gallery = [[NSMutableArray alloc] init];                
-                goodObject.ID = sqlite3_column_int(statement, 0);
-                goodObject.name = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 1)];                
-                goodObject.codeItem = @"001";
-                goodObject.price1 = [[NSString alloc] initWithFormat:@"%f", (float)sqlite3_column_double(statement, 2)];
-                goodObject.price2 = [[NSString alloc] initWithFormat:@"%f", (float)sqlite3_column_double(statement, 3)];
-                goodObject.description = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 4)];
-                goodObject.category = selectedCatName;
-                goodObject.quantityAvailable = @"10";
-                goodObject.quantityOrdered = @"0";
-                goodObject.catID = catID;
-                
-                [goodObject.gallery addObject:[UIImage imageNamed:@"car9.png"]];
-                [goodObject.gallery addObject:[UIImage imageNamed:@"car10.png"]];
-                [goodObject.gallery addObject:[UIImage imageNamed:@"car11.png"]];
-                [goodObject.gallery addObject:[UIImage imageNamed:@"car12.png"]];
-                
-                const unsigned char* asset = sqlite3_column_text(statement, 5);
-                
-                if (asset != nil)
-                {
-                    NSURL* assetUrl = [[NSURL alloc] initWithString:[[NSString alloc] initWithUTF8String:(const char *) asset]];
-                    
-                    [library assetForURL: assetUrl resultBlock:^(ALAsset *asset)
-                    {
-                        goodObject.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
-                        
-                    }
-                    
-                    failureBlock: ^(NSError* error)
-                    {
-                        NSLog(@"%@", error.description);
-                    }
-                    ];
-                }
-                
-                [items addObject:goodObject];
-            }
-            
-            sqlite3_finalize(statement);
-        }
-        sqlite3_close(database);
-        
-        NSLog(@"items inserted = %d", [items count]);
-    }
-    else
-    {
-        //statusDB = NO;
-        NSAssert(0, @"Failed to open database");
-    }
-    */
+     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+     
+     if(sqlite3_open([dataPath UTF8String], &database) == SQLITE_OK)
+     {
+     query = [NSString stringWithFormat:@"SELECT id FROM collection WHERE name= \"%@\" AND user_id = %d", selectedCatName, 1];
+     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
+     sqlite3_step(statement);
+     int catID = sqlite3_column_int(statement, 0);
+     sqlite3_finalize(statement);
+     
+     NSLog(@"Category query=%@, catID = %d", query, catID);
+     
+     query = [NSString stringWithFormat: @"SELECT p.id, p.name, p.price_buy, p.price_sale, p.comment, i.asset FROM product p LEFT JOIN image i WHERE i.object_id = p.id AND i.object_name = \"product\" AND i.is_default = 1 AND p.collection_id = %d", catID];
+     
+     int i;
+     
+     i = 0;
+     
+     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
+     {
+     while (sqlite3_step(statement) == SQLITE_ROW)
+     {
+     POSItem* goodObject = [[POSItem alloc] init];
+     goodObject.gallery = [[NSMutableArray alloc] init];
+     goodObject.ID = sqlite3_column_int(statement, 0);
+     goodObject.name = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 1)];
+     goodObject.codeItem = @"001";
+     goodObject.price1 = [[NSString alloc] initWithFormat:@"%f", (float)sqlite3_column_double(statement, 2)];
+     goodObject.price2 = [[NSString alloc] initWithFormat:@"%f", (float)sqlite3_column_double(statement, 3)];
+     goodObject.description = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 4)];
+     goodObject.category = selectedCatName;
+     goodObject.quantityAvailable = @"10";
+     goodObject.quantityOrdered = @"0";
+     goodObject.catID = catID;
+     
+     [goodObject.gallery addObject:[UIImage imageNamed:@"car9.png"]];
+     [goodObject.gallery addObject:[UIImage imageNamed:@"car10.png"]];
+     [goodObject.gallery addObject:[UIImage imageNamed:@"car11.png"]];
+     [goodObject.gallery addObject:[UIImage imageNamed:@"car12.png"]];
+     
+     const unsigned char* asset = sqlite3_column_text(statement, 5);
+     
+     if (asset != nil)
+     {
+     NSURL* assetUrl = [[NSURL alloc] initWithString:[[NSString alloc] initWithUTF8String:(const char *) asset]];
+     
+     [library assetForURL: assetUrl resultBlock:^(ALAsset *asset)
+     {
+     goodObject.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+     
+     }
+     
+     failureBlock: ^(NSError* error)
+     {
+     NSLog(@"%@", error.description);
+     }
+     ];
+     }
+     
+     [items addObject:goodObject];
+     }
+     
+     sqlite3_finalize(statement);
+     }
+     sqlite3_close(database);
+     
+     NSLog(@"items inserted = %d", [items count]);
+     }
+     else
+     {
+     //statusDB = NO;
+     NSAssert(0, @"Failed to open database");
+     }
+     */
     
     [self.items removeAllObjects];
     //[allItems filterUsingPredicate:@"I"]
@@ -369,13 +514,15 @@
     for(int i = 0; i<[self.allItems count]; i++) {
         item = [self.allItems objectAtIndex:i];
         
-        if([item.category isEqualToString:selectedCatName])
+        if([item.category isEqualToString:selectedCategoryName])
             [self.items addObject:item];
     }
 }
 
 
-- (void)getAllItems {
+#pragma mark - All items
+
+- (void)allItemsGet {
     
     if(![dbWrapperInstance openDB])
         return;
@@ -439,12 +586,16 @@
 }
 
 
+#pragma mark - Order
+
 - (void)getOrderArray {
 
 }
 
 
-- (void)saveGallery:(int)index withLibrary:(ALAssetsLibrary*)library {
+#pragma mark - Images
+
+- (void)gallerySave:(int)index withLibrary:(ALAssetsLibrary*)library {
     
     if(index >= self.images.count)
         return;
@@ -453,7 +604,7 @@
 
     if (posImage.assetUrl != nil) {
         
-        [self saveGallery: index + 1
+        [self gallerySave: index + 1
               withLibrary: library];
         return;
     }
@@ -466,7 +617,7 @@
 
         if (error != nil) {
 
-            [self saveGallery: index
+            [self gallerySave: index
                   withLibrary: library];
             return;
         }
@@ -483,10 +634,59 @@
                 [dbWrapperInstance closeDB];
             }
 
-            [self saveGallery:index + 1 withLibrary:library];
+            [self gallerySave:index + 1 withLibrary:library];
         }
     }];
 }
+
+
+/*
+ -(void) getImages
+ {
+ ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+ 
+ if(sqlite3_open([dataPath UTF8String], &database) == SQLITE_OK)
+ {
+ query = [NSString stringWithFormat: @"SELECT id, asset, path, object_id, object_name FROM images"];
+ sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
+ {
+ while (sqlite3_step(statement) == SQLITE_ROW)
+ {
+ POSImage* image = [[POSImage alloc] init];
+ 
+ const unsigned char* asset = sqlite3_column_text(statement, 1);
+ 
+ if (asset != nil)
+ image.assetUrl = [[NSURL alloc] initWithString:[[NSString alloc] initWithUTF8String:(const char*)asset]];
+ 
+ image.path = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 2)];
+ image.object_id = sqlite3_column_int(statement, 3);
+ image.object_name = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 4)];
+ 
+ [library assetForURL: image.assetUrl resultBlock:^(ALAsset *asset) {
+ image.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+ 
+ } failureBlock: ^(NSError* error) {
+ NSLog(@"%@", error.description);
+ }];
+ 
+ [images addObject:image];
+ }
+ 
+ sqlite3_finalize(statement);
+ }
+ sqlite3_close(database);
+ 
+ NSLog(@"Read from DB");
+ }
+ else
+ {
+ //statusDB = NO;
+ NSAssert(0, @"Failed to open database");
+ }
+ }
+ 
+ */
 
 
 @end

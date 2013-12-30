@@ -311,7 +311,7 @@
         [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:helperInstance.SETTING_EMAIL] withAsset:nil withPath:helperInstance.SETTING_EMAIL withObject_id:21 withObject_name:@"setting"]];
         
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [dataSet saveGallery:0 withLibrary:library];
+        [dataSet gallerySave:0 withLibrary:library];
     }
     
     query = @"SELECT count(*) FROM setting";

@@ -78,8 +78,9 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
         
         if (![self.attribute.name isEqualToString:staticCell.textAttributeName.text]) {
             
-            [self.attribute updateAttribute: staticCell.textAttributeName.text
-                              withIs_active: self.attribute.is_active];
+            [ objectsHelperInstance.dataSet attributesUpdate: self.attribute
+                                                    withName: staticCell.textAttributeName.text
+                                               withIs_active: self.attribute.is_active];
         }
 
         //attribute value
@@ -103,7 +104,7 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
         
         if ([arrDirty count] > 0) {
             
-            [POSAttributeValue updateAttributeValues:arrDirty];
+            [objectsHelperInstance.dataSet attributeValuesUpdate:arrDirty];
         }
     }
     [super viewWillDisappear:animated];
@@ -169,18 +170,37 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"attribute_ID = %d", self.attribute.ID];
         NSArray *arr = [objectsHelperInstance.dataSet.attributeValues filteredArrayUsingPredicate:predicate];
         
+        [dynamicCell.buttonDelete addTarget: self
+                                     action: @selector(onDeleteButton:)
+                           forControlEvents: UIControlEventTouchUpInside];
+
         if (arr.count >  0) {
             
             dynamicCell.attrValue = [arr objectAtIndex:indexPath.row];
         }
         else {
             
-            dynamicCell.attrValue = [POSAttributeValue createNewAttributeValue:@"new attribute variant" withAttribute_ID:self.attribute.ID];
-            [objectsHelperInstance.dataSet.attributeValues addObject:dynamicCell.attrValue];
+            dynamicCell.attrValue = [objectsHelperInstance.dataSet attributeValuesCreate: @"new attribute variant"
+                                                                        withAttribute_ID: self.attribute.ID];
         }
     }
 
     return cell;
+}
+
+
+- (void)onDeleteButton:(id)sender {
+    
+    __deletedCell = [[[[sender superview] superview] superview] superview];
+    
+    NSString* question = [NSString stringWithFormat:@"Delete the %@ attribute?", ((POSEditAttributeDynamicCell *)__deletedCell).textAttributeValue.text];
+    
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Delete"
+                                                    message: question
+                                                   delegate: self
+                                          cancelButtonTitle: @"No"
+                                          otherButtonTitles: @"Yes", nil];
+    [alert show];
 }
 
 
@@ -205,14 +225,38 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
 }
 
 
+#pragma mark - Alert
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if ([alertView.title isEqual: @"Delete"]) {
+        
+        NSString* title = [alertView buttonTitleAtIndex:buttonIndex];
+        
+        if([title isEqualToString:@"Yes"]) {
+            // delete attribute
+            POSEditAttributeDynamicCell *cell = (POSEditAttributeDynamicCell *)__deletedCell;
+            NSIndexPath *indexPath = [self.tableViewAttributeValue indexPathForCell:cell];
+            POSAttributeValue *attributeValue = [self.attributeValues objectAtIndex:indexPath.row];
+            
+            [objectsHelperInstance.dataSet attributeValuesDelete:attributeValue];
+            [self.attributeValues removeObject:attributeValue];
+            [self.tableViewAttributeValue deleteRowsAtIndexPaths: @[indexPath]
+                                                withRowAnimation: UITableViewRowAnimationFade];
+        }
+    }
+    
+    __deletedCell = nil;
+}
+
+
 #pragma mark - Actions
 
 - (IBAction)onAddNewAttrValue:(id)sender {
 
-    POSAttributeValue *newAttrValue = [POSAttributeValue createNewAttributeValue: @"new variant"
-                                                                withAttribute_ID: self.attribute.ID];
+    POSAttributeValue *newAttrValue = [objectsHelperInstance.dataSet attributeValuesCreate: @"new variant"
+                                                                          withAttribute_ID: self.attribute.ID];
     [self.attributeValues addObject:newAttrValue];
-    [objectsHelperInstance.dataSet.attributeValues addObject:newAttrValue];
 
     NSArray *arr = [[NSArray alloc] initWithObjects: [NSIndexPath indexPathForItem:(self.attributeValues.count - 1) inSection: SECTION_ATTRIBUTE_VALUE], nil];
     [self.tableViewAttributeValue insertRowsAtIndexPaths:arr withRowAnimation:UITableViewRowAnimationFade];

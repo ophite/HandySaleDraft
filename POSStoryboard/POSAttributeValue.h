@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
 #import <Foundation/Foundation.h>
-#import "POSDBWrapper.h"
 
 
 @interface POSAttributeValue : NSObject
@@ -15,10 +14,6 @@
 @property NSString *name;
 @property int attribute_ID;
 @property int ID;
-
-
-+ (POSAttributeValue *)createNewAttributeValue:(NSString *)name withAttribute_ID:(int)attribute_ID;
-+ (BOOL)updateAttributeValues:(NSMutableArray *)arr;
 
 
 @end

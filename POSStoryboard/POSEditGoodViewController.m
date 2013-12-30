@@ -272,7 +272,7 @@
     [objectsHelperInstance.dataSet.images addObject:image];
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [objectsHelperInstance.dataSet saveGallery: (objectsHelperInstance.dataSet.images.count - 1)
+    [objectsHelperInstance.dataSet gallerySave: (objectsHelperInstance.dataSet.images.count - 1)
                                    withLibrary: library];
     
     [self.navigationController popViewControllerAnimated:YES];

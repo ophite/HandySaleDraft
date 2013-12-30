@@ -38,8 +38,8 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    [objectsHelperInstance.dataSet getAttributes];
-    [objectsHelperInstance.dataSet getAttributeValues];
+    [objectsHelperInstance.dataSet attributesGet];
+    [objectsHelperInstance.dataSet attributeValuesGet];
 	// Do any additional setup after loading the view.
 }
 
@@ -56,9 +56,8 @@
     if ([[segue identifier] isEqualToString: @"goToAddNewVariant"]) {
         //the sender is what you pass into the previous method
         POSEditAttributeViewController *dest = (POSEditAttributeViewController *)[segue destinationViewController];
-        dest.attribute = [POSAttribute createNewAttribute: @"new attribute"
-                                            withIs_active: NO];
-        [objectsHelperInstance.dataSet.attributes addObject:dest.attribute];
+        dest.attribute = [objectsHelperInstance.dataSet attributesCreate: @"new attribute"
+                                                           withIs_active: NO];
     }
 }
 
@@ -145,17 +144,7 @@
             POSAttributeCell *cell = (POSAttributeCell *)__deletedCell;
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
             POSAttribute *attribute = [objectsHelperInstance.dataSet.attributes objectAtIndex:indexPath.row];
-            
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"attribute_ID = %d", attribute.ID];
-            NSArray *arr = [objectsHelperInstance.dataSet.attributeValues filteredArrayUsingPredicate:predicate];
-            
-            for(POSAttributeValue *attrValue in arr) {
-                
-                [objectsHelperInstance.dataSet.attributeValues removeObject:attrValue];
-            }
-
-            [objectsHelperInstance.dataSet.attributes removeObject:attribute];
-//            [objectsHelperInstance.dataSet.attributes removeObjectAtIndex:indexPath.row];
+            [objectsHelperInstance.dataSet attributesDelete:attribute];
             [self.tableView deleteRowsAtIndexPaths: @[indexPath]
                                   withRowAnimation: UITableViewRowAnimationFade];
         }

@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "POSDBWrapper.h"
 
 @interface POSSetting : NSObject
 
@@ -18,8 +17,5 @@
 @property int image_id;
 @property int ID;
 
-
-- (BOOL)updateSetting:(NSString *)name withValue:(NSString *)value withType:(NSString *)type withImage_id:(int)image_id;
-- (BOOL)updateSetting:(NSString *)name;
 
 @end

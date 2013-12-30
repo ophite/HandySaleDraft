@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
 #import <Foundation/Foundation.h>
-#import "POSDBWrapper.h"
 
 @interface POSAttribute : NSObject
 
@@ -15,7 +14,5 @@
 @property BOOL is_active;
 @property int ID;
 
-+ (POSAttribute *)createNewAttribute:(NSString *)name withIs_active:(BOOL)is_active;
-- (BOOL)updateAttribute:(NSString *)name withIs_active:(BOOL)is_active;
 
 @end
