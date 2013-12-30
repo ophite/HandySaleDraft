@@ -51,16 +51,15 @@
 }
 
 
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    
-    BOOL result = YES;
-    
-    if ([identifier isEqualToString:@"goToAddNewVariant"]) {
-        
-        
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString: @"goToAddNewVariant"]) {
+        //the sender is what you pass into the previous method
+        POSEditAttributeViewController *dest = (POSEditAttributeViewController *)[segue destinationViewController];
+        dest.attribute = [POSAttribute createNewAttribute: @"new attribute"
+                                            withIs_active: NO];
+        [objectsHelperInstance.dataSet.attributes addObject:dest.attribute];
     }
-    
-    return result;
 }
 
 
@@ -94,14 +93,14 @@
                 forControlEvents: UIControlEventTouchUpInside];
     
     [cell.buttonName addTarget: self
-                        action: @selector(onGoToAttribute:)
+                        action: @selector(onGoToEditAttribute:)
               forControlEvents: UIControlEventTouchUpInside];
     
     return cell;
 }
 
 
-- (void)onGoToAttribute:(id)sender {
+- (void)onGoToEditAttribute:(id)sender {
     
     __deletedCell = [[[sender superview] superview] superview];
     
@@ -112,7 +111,7 @@
     controller.attribute = [arr objectAtIndex:0];
     
     predicate = [NSPredicate predicateWithFormat:@"attribute_ID = %d", controller.attribute.ID];
-    controller.attributeValues = (NSMutableArray *)[objectsHelperInstance.dataSet.attributeValues filteredArrayUsingPredicate:predicate];
+    controller.attributeValues = [[NSMutableArray alloc] initWithArray:[objectsHelperInstance.dataSet.attributeValues filteredArrayUsingPredicate:predicate]];
     
     [self.navigationController pushViewController: controller
                                          animated: YES];
@@ -145,7 +144,18 @@
             // delete attribute
             POSAttributeCell *cell = (POSAttributeCell *)__deletedCell;
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-            [objectsHelperInstance.dataSet.attributes removeObjectAtIndex:indexPath.row];
+            POSAttribute *attribute = [objectsHelperInstance.dataSet.attributes objectAtIndex:indexPath.row];
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"attribute_ID = %d", attribute.ID];
+            NSArray *arr = [objectsHelperInstance.dataSet.attributeValues filteredArrayUsingPredicate:predicate];
+            
+            for(POSAttributeValue *attrValue in arr) {
+                
+                [objectsHelperInstance.dataSet.attributeValues removeObject:attrValue];
+            }
+
+            [objectsHelperInstance.dataSet.attributes removeObject:attribute];
+//            [objectsHelperInstance.dataSet.attributes removeObjectAtIndex:indexPath.row];
             [self.tableView deleteRowsAtIndexPaths: @[indexPath]
                                   withRowAnimation: UITableViewRowAnimationFade];
         }

@@ -81,7 +81,11 @@
         if ([arr count] > 0) {
             
             POSSetting *settingObject = ((POSSetting *)[arr objectAtIndex:0]);
-            settingObject.value = self.textEmail.text;
+
+            if (![settingObject.value isEqualToString:self.textEmail.text]) {
+                
+                [settingObject updateSetting: self.textEmail.text];
+            }
         }
     }
     [super viewWillDisappear:animated];

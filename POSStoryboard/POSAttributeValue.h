@@ -14,9 +14,11 @@
 
 @property NSString *name;
 @property int attribute_ID;
+@property int ID;
 
 
 + (POSAttributeValue *)createNewAttributeValue:(NSString *)name withAttribute_ID:(int)attribute_ID;
++ (BOOL)updateAttributeValues:(NSMutableArray *)arr;
 
 
 @end

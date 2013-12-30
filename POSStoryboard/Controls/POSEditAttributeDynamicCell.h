@@ -16,4 +16,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *textAttributeValue;
 @property (weak, nonatomic) IBOutlet UIView *viewTextAttrValueTitle;
 
+
++(NSInteger) TextAttributeTAG;
+
+
 @end

@@ -21,4 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableViewAttributeValue;
 
 
+- (IBAction)onAddNewAttrValue:(id)sender;
+
+
 @end

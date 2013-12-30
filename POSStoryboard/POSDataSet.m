@@ -18,8 +18,9 @@
 @synthesize orderArray = _orderArray;
 @synthesize allItems = _allItems;
 @synthesize settings = _settings;
+
 @synthesize attributes = _attributes;
-//@synthesize attributeValues = _attributeValues;
+@synthesize attributeValues = _attributeValues;
 
 - (id)init {
     
@@ -31,6 +32,7 @@
     self.allItems = [[NSMutableArray alloc] init];
     self.orderArray = [[NSMutableArray alloc] init];
     self.settings = [[NSMutableArray alloc] init];
+
     self.attributes = [[NSMutableArray alloc] init];
     self.attributeValues = [[NSMutableArray alloc] init];
     
@@ -87,6 +89,22 @@
 }
 
 */
+
+
+- (void)saveAttributes {
+    
+    if ([self.attributes count] == 0)
+        return;
+    
+    if (![dbWrapperInstance openDB])
+        return;
+    
+    NSMutableString *query = [[NSMutableString alloc] init];
+    
+    
+    [dbWrapperInstance tryExecQuery:query];
+    [dbWrapperInstance closeDB];
+}
 
 
 - (void)saveSettings {
@@ -151,7 +169,7 @@
     if (![dbWrapperInstance openDB])
         return;
     
-    NSString *query = [NSString stringWithFormat:@"select   name, attribute_id \
+    NSString *query = [NSString stringWithFormat:@"select   name, attribute_id, id \
                                                    from     attribute_value;"];
     
     void(^getAttributeValue)(id rows) = ^(id rows) {
@@ -159,6 +177,7 @@
         POSAttributeValue *attrValueObject = [[POSAttributeValue alloc] init];
         attrValueObject.name = [dbWrapperInstance getCellText:0];
         attrValueObject.attribute_ID = [dbWrapperInstance getCellInt:1];
+        attrValueObject.ID = [dbWrapperInstance getCellInt:2];
         
         [((NSMutableArray *)rows) addObject:attrValueObject];
     };
@@ -180,7 +199,7 @@
     if (![dbWrapperInstance openDB])
         return;
     
-    NSString *query = [NSString stringWithFormat: @"select  name, value, type, image_id \
+    NSString *query = [NSString stringWithFormat: @"select  name, value, type, image_id, id \
                                                     from    setting;"];
     
     void(^blockGetSetting)(id rows) = ^(id rows) {
@@ -190,6 +209,7 @@
         settingObject.value = [dbWrapperInstance getCellText:1];
         settingObject.type = [dbWrapperInstance getCellText:2];
         settingObject.image_id = [dbWrapperInstance getCellInt:3];
+        settingObject.ID = [dbWrapperInstance getCellInt:4];
         
         [((NSMutableArray *)rows) addObject:settingObject];
     };

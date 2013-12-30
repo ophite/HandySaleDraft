@@ -11,6 +11,7 @@
 #import "POSAttributeCell.h"
 #import "POSEditAttributeViewController.h"
 #import "POSHelper.h"
+#import "POSAttribute.h"
 
 @interface POSAttributesViewController : UIViewController <UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource> {
 

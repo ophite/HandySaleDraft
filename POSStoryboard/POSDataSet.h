@@ -33,7 +33,7 @@
 - (void)getAttributeValues;
 //- (void)saveAttributeValues;
 - (void)getAttributes;
-//- (void)saveAttributes;
+- (void)saveAttributes;
 - (void)getSettings;
 - (void)saveSettings;
 - (void)getCategories;

@@ -43,6 +43,7 @@
     self.textAttributeValue.leftViewMode = UITextFieldViewModeAlways;
     self.textAttributeValue.text = self.attrValue ? self.attrValue.name : @"";
     self.textAttributeValue.delegate = self;
+    self.textAttributeValue.tag = [POSEditAttributeDynamicCell TextAttributeTAG];
 
     // Configure the view for the selected state
 }
@@ -54,5 +55,12 @@
     return YES;
 }
 
+
+#pragma mark - Methods
+
++(NSInteger) TextAttributeTAG {
+    
+    return 100;
+}
 
 @end

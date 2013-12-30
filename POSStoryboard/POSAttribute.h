@@ -16,5 +16,6 @@
 @property int ID;
 
 + (POSAttribute *)createNewAttribute:(NSString *)name withIs_active:(BOOL)is_active;
+- (BOOL)updateAttribute:(NSString *)name withIs_active:(BOOL)is_active;
 
 @end
