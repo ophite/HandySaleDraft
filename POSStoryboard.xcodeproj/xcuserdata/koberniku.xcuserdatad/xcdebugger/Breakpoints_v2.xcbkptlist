@@ -856,11 +856,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "POSStoryboard/POSDataSet.m"
-            timestampString = "410114979.953529"
+            timestampString = "410115882.967803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
             landmarkName = "-attributeValuesGet"
             landmarkType = "5">
          </BreakpointContent>
@@ -872,11 +872,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "POSStoryboard/POSDataSet.m"
-            timestampString = "410114979.953529"
+            timestampString = "410115882.967803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "269"
-            endingLineNumber = "269"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "-attributeValuesGet"
             landmarkType = "5">
          </BreakpointContent>
@@ -1016,11 +1016,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "POSStoryboard/POSAttributesViewController.m"
-            timestampString = "410113960.117544"
+            timestampString = "410115882.967803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "@implementation POSAttributesViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1032,11 +1032,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "POSStoryboard/POSAttributesViewController.m"
-            timestampString = "410113960.117544"
+            timestampString = "410115882.967803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171">
+            startingLineNumber = "162"
+            endingLineNumber = "162">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1116,22 +1116,6 @@
             startingLineNumber = "148"
             endingLineNumber = "148"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "POSStoryboard/POSEditAttributeViewController.m"
-            timestampString = "410113960.117544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
-            landmarkName = "-tableView:heightForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1332,11 +1316,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "POSStoryboard/POSEditAttributeViewController.m"
-            timestampString = "410113960.117544"
+            timestampString = "410116361.213902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1364,11 +1348,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "POSStoryboard/POSEditAttributeViewController.m"
-            timestampString = "410113960.117544"
+            timestampString = "410116361.213902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1396,11 +1380,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "POSStoryboard/POSDataSet.m"
-            timestampString = "410115244.523628"
+            timestampString = "410115882.967803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "-attributesDelete:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1412,11 +1396,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "POSStoryboard/POSDataSet.m"
-            timestampString = "410115267.927917"
+            timestampString = "410115882.967803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
             landmarkName = "-attributeValuesDelete:"
             landmarkType = "5">
          </BreakpointContent>

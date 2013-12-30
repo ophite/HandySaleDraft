@@ -194,7 +194,6 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
     __deletedCell = [[[[sender superview] superview] superview] superview];
     
     NSString* question = [NSString stringWithFormat:@"Delete the %@ attribute?", ((POSEditAttributeDynamicCell *)__deletedCell).textAttributeValue.text];
-    
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Delete"
                                                     message: question
                                                    delegate: self
@@ -208,17 +207,19 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
 {
     CGFloat rowHeight = 0;
     
-    if (indexPath.section == SECTION_ATTRIBUTE_NAME) {
-        
-        rowHeight = SECTION_ATTRIBUTE_NAME_HEIGHT;
-    }
-    else if (indexPath.section == SECTION_ATTRIBUTE_LABEL) {
-        
-        rowHeight = SECTION_ATTRIBUTE_LABEL_HEIGHT;
-    }
-    else {
-        
-        rowHeight = SECTION_ATTRIBUTE_VALUE_HEIGHT;
+    switch (indexPath.section) {
+    
+        case SECTION_ATTRIBUTE_NAME:
+            rowHeight = SECTION_ATTRIBUTE_NAME_HEIGHT;
+            break;
+        case SECTION_ATTRIBUTE_LABEL:
+            rowHeight = SECTION_ATTRIBUTE_LABEL_HEIGHT;
+            break;
+        case SECTION_ATTRIBUTE_VALUE:
+            rowHeight = SECTION_ATTRIBUTE_VALUE_HEIGHT;
+            break;
+        default:
+            break;
     }
     
     return rowHeight;
