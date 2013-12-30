@@ -96,6 +96,10 @@
 		803238FC186C767B00BB9DAE /* POSEditAttributeDynamicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 803238FB186C767B00BB9DAE /* POSEditAttributeDynamicCell.m */; };
 		803238FF186C7B5F00BB9DAE /* POSAttributeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 803238FE186C7B5F00BB9DAE /* POSAttributeValue.m */; };
 		803239011871BE4B00BB9DAE /* delete_white_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 803239001871BE4B00BB9DAE /* delete_white_icon.png */; };
+		803239031871E30A00BB9DAE /* setting_wifi_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 803239021871E30A00BB9DAE /* setting_wifi_icon.png */; };
+		803239071871E4D900BB9DAE /* setting_language_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 803239041871E4D900BB9DAE /* setting_language_icon.png */; };
+		803239081871E4D900BB9DAE /* setting_money_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 803239051871E4D900BB9DAE /* setting_money_icon.png */; };
+		803239091871E4D900BB9DAE /* setting_vat_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 803239061871E4D900BB9DAE /* setting_vat_icon.png */; };
 		8054C3EF1852233E00299E2F /* POSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3EE1852233E00299E2F /* POSLoginViewController.m */; };
 		8054C3F21852235000299E2F /* POSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3F11852235000299E2F /* POSRegisterViewController.m */; };
 		807C43911859F56F00CBAB88 /* POSDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C438E1859F56F00CBAB88 /* POSDBHelper.m */; };
@@ -257,6 +261,10 @@
 		803238FD186C7B5F00BB9DAE /* POSAttributeValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSAttributeValue.h; sourceTree = "<group>"; };
 		803238FE186C7B5F00BB9DAE /* POSAttributeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSAttributeValue.m; sourceTree = "<group>"; };
 		803239001871BE4B00BB9DAE /* delete_white_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_white_icon.png; sourceTree = "<group>"; };
+		803239021871E30A00BB9DAE /* setting_wifi_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_wifi_icon.png; sourceTree = "<group>"; };
+		803239041871E4D900BB9DAE /* setting_language_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_language_icon.png; sourceTree = "<group>"; };
+		803239051871E4D900BB9DAE /* setting_money_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_money_icon.png; sourceTree = "<group>"; };
+		803239061871E4D900BB9DAE /* setting_vat_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_vat_icon.png; sourceTree = "<group>"; };
 		8054C3ED1852233E00299E2F /* POSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSLoginViewController.h; sourceTree = "<group>"; };
 		8054C3EE1852233E00299E2F /* POSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSLoginViewController.m; sourceTree = "<group>"; };
 		8054C3F01852235000299E2F /* POSRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSRegisterViewController.h; sourceTree = "<group>"; };
@@ -521,6 +529,10 @@
 		8004B7171850D36500681B11 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				803239041871E4D900BB9DAE /* setting_language_icon.png */,
+				803239051871E4D900BB9DAE /* setting_money_icon.png */,
+				803239061871E4D900BB9DAE /* setting_vat_icon.png */,
+				803239021871E30A00BB9DAE /* setting_wifi_icon.png */,
 				803239001871BE4B00BB9DAE /* delete_white_icon.png */,
 				803238E61869FB0100BB9DAE /* delete_icon.png */,
 				803238DE1869D53900BB9DAE /* setting_addattribute_icon.png */,
@@ -793,7 +805,9 @@
 				8004B7521850D38800681B11 /* car0.png in Resources */,
 				8004B7411850D38800681B11 /* car02.png in Resources */,
 				8004B7441850D38800681B11 /* car3.png in Resources */,
+				803239071871E4D900BB9DAE /* setting_language_icon.png in Resources */,
 				8004B46F1850B01500681B11 /* Images.xcassets in Resources */,
+				803239081871E4D900BB9DAE /* setting_money_icon.png in Resources */,
 				8004B7421850D38800681B11 /* car01.png in Resources */,
 				8004B75C1850D38800681B11 /* right.png in Resources */,
 				807C43A9185A21E900CBAB88 /* zbar-samples.png in Resources */,
@@ -808,6 +822,7 @@
 				8004B7091850D30900681B11 /* AQGridSelectionRed.png in Resources */,
 				8004B7591850D38800681B11 /* bg-splash.png in Resources */,
 				8004B74C1850D38800681B11 /* car15.png in Resources */,
+				803239091871E4D900BB9DAE /* setting_vat_icon.png in Resources */,
 				8004B75B1850D38800681B11 /* back.png in Resources */,
 				8004B7541850D38800681B11 /* star2.png in Resources */,
 				8004B7491850D38800681B11 /* car8.png in Resources */,
@@ -817,6 +832,7 @@
 				8004B7061850D30900681B11 /* AQGridSelectionGray.png in Resources */,
 				8004B7431850D38800681B11 /* car2.png in Resources */,
 				8004B7451850D38800681B11 /* car4.png in Resources */,
+				803239031871E30A00BB9DAE /* setting_wifi_icon.png in Resources */,
 				8004B75D1850D38800681B11 /* right1.png in Resources */,
 				8004B73F1850D38800681B11 /* car12.png in Resources */,
 				8004B7481850D38800681B11 /* car7.png in Resources */,
