@@ -191,7 +191,7 @@
     }
     
     
-    POSItemViewController *controller = [helperInstance GetUIViewController:@"POSItemViewController"];
+    POSItemViewController *controller = [helperInstance getUIViewController:@"POSItemViewController"];
     controller.item = [objectsHelperInstance.dataSet.allItems objectAtIndex:self.itemIndex];
     controller.title = controller.item.name;
     

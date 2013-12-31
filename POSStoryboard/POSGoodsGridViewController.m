@@ -118,7 +118,7 @@
     
     if(!objectsHelperInstance.goodsMode) {
         //View
-        POSItemViewController *controller = [helperInstance GetUIViewController: @"POSItemViewController"];
+        POSItemViewController *controller = [helperInstance getUIViewController: @"POSItemViewController"];
         controller.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
         controller.title = controller.item.name;
         [self.navigationController pushViewController: controller
@@ -127,7 +127,7 @@
     }
     else {
         //Edit
-        POSEditGoodViewController *controller = [helperInstance GetUIViewController: @"POSEditGoodViewController"];
+        POSEditGoodViewController *controller = [helperInstance getUIViewController: @"POSEditGoodViewController"];
         controller.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
         controller.title = controller.item.name;
         objectsHelperInstance.currentItemsIndex = index;

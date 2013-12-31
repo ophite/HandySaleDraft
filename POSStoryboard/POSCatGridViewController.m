@@ -138,7 +138,7 @@
 
     if(!objectsHelperInstance.catsMode) {
         //View goods
-        POSGoodsGridViewController *controller = [helperInstance GetUIViewController:@"POSGoodsGridViewController"];
+        POSGoodsGridViewController *controller = [helperInstance getUIViewController:@"POSGoodsGridViewController"];
         controller.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
         controller.title = controller.cat.name;
         [self.navigationController pushViewController: controller
@@ -146,7 +146,7 @@
     }
     else {
         //Edit
-        POSEditCatViewController *controller = [helperInstance GetUIViewController:@"POSEditCatViewController"];
+        POSEditCatViewController *controller = [helperInstance getUIViewController:@"POSEditCatViewController"];
         controller.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
         [self.navigationController pushViewController: controller
                                              animated: YES];

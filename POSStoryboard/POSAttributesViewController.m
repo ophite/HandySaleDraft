@@ -106,7 +106,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID = %d", (int)((POSAttributeCell *)__deletedCell).tag];
     NSArray *arr = [objectsHelperInstance.dataSet.attributes filteredArrayUsingPredicate:predicate];
 
-    POSEditAttributeViewController *controller = [helperInstance GetUIViewController:@"POSEditAttributeViewController"];
+    POSEditAttributeViewController *controller = [helperInstance getUIViewController:@"POSEditAttributeViewController"];
     controller.attribute = [arr objectAtIndex:0];
     
     predicate = [NSPredicate predicateWithFormat:@"attribute_ID = %d", controller.attribute.ID];

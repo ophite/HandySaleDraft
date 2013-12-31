@@ -23,6 +23,6 @@
 - (CGFloat)CATEGORY_LIST_HEIGHT;
 
 + (POSHelper *)getInstance;
-- (id)GetUIViewController:(NSString *)storyboardName;
+- (id)getUIViewController:(NSString *)storyboardName;
 
 @end

@@ -10,11 +10,19 @@
 #import "POSObjectsHelper.h"
 #import "POSHelper.h"
 #import "POSSetting.h"
+#import "POSSettingsPickerViewController.h"
+
 
 @interface POSSettingsViewController : UITableViewController <UITextFieldDelegate>
 
+@property (strong, nonatomic) NSString *pickerSelectedItem_Money;
+@property (strong, nonatomic) NSString *pickerSelectedItem_Language;
 
 @property (weak, nonatomic) IBOutlet UITextField *textEmail;
+@property (weak, nonatomic) IBOutlet UIButton *buttonMoney;
+@property (weak, nonatomic) IBOutlet UIButton *buttonLanguage;
+@property (weak, nonatomic) IBOutlet UISwitch *switchWIFI;
+@property (weak, nonatomic) IBOutlet UISwitch *switchVAT;
 
 
 @end

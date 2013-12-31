@@ -10,6 +10,7 @@
 
 @implementation POSHelper
 
+
 #pragma mark - SETTINGS
 
 - (NSString *)SETTING_EMAIL {
@@ -17,6 +18,7 @@
     return @"email";
 //    return @"setting_email_icon.png";
 }
+
 
 #pragma mark - SIZES
 
@@ -77,13 +79,14 @@
     static dispatch_once_t once;
     
     dispatch_once(&once, ^{
+        
         sharedInstance = [[POSHelper alloc] init];
     });
     
     return sharedInstance;
 }
 
-- (id)GetUIViewController:(NSString *)storyboardName {
+- (id)getUIViewController:(NSString *)storyboardName {
 
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"
                                                              bundle: nil];

@@ -18,6 +18,12 @@
 
 
 @synthesize textEmail = _textEmail;
+@synthesize pickerSelectedItem_Language = _pickerSelectedItem_Language;
+@synthesize pickerSelectedItem_Money = _pickerSelectedItem_Money;
+@synthesize buttonLanguage = _buttonLanguage;
+@synthesize buttonMoney = _buttonMoney;
+@synthesize switchVAT = _switchVAT;
+@synthesize switchWIFI = _switchWIFI;
 
 
 #pragma mark - ViewController
@@ -47,6 +53,9 @@
      
         self.textEmail.text = ((POSSetting *)[arr objectAtIndex:0]).value;
     }
+    
+    self.buttonMoney.titleLabel.text = self.pickerSelectedItem_Money;
+    self.buttonLanguage.titleLabel.text = self.pickerSelectedItem_Language;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -89,6 +98,7 @@
             }
         }
     }
+    
     [super viewWillDisappear:animated];
 }
 
@@ -160,17 +170,39 @@
 }
 */
 
-/*
 #pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    POSSettingsPickerViewController *controller = (POSSettingsPickerViewController *)[segue destinationViewController];
+
+    if ([[segue identifier] isEqualToString:@"goToLanguage"]) {
+
+        controller.currentItem = self.buttonLanguage.titleLabel.text;
+        controller.selectedItem = self.pickerSelectedItem_Language;
+        controller.pickerDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 @"Russian", @"russian",
+                                 @"English", @"english",
+                                 nil];
+        
+    }
+    else if ([[segue identifier] isEqualToString:@"goToMoney"]) {
+        
+        controller.currentItem = self.buttonMoney.titleLabel.text;
+        controller.selectedItem = self.pickerSelectedItem_Money;
+        controller.pickerDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 @"$", @"dollar",
+                                 @"P", @"rubl",
+                                 @"₴", @"hryvna",
+                                 @"€", @"evro",
+                                 nil];
+    }
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
 
- */
+
 
 
 @end
