@@ -74,35 +74,21 @@
     [dbWrapperInstance closeDB];
 }
 
-- (void)attributesSave {
-    
-    if ([self.attributes count] == 0)
-        return;
-    
-    if (![dbWrapperInstance openDB])
-        return;
-    
-    NSMutableString *query = [[NSMutableString alloc] init];
-    
-    
-    [dbWrapperInstance tryExecQuery:query];
-    [dbWrapperInstance closeDB];
-}
-
 - (POSAttribute *)attributesCreate:(NSString *)name withIs_active:(BOOL)is_active {
     
     POSAttribute *newAttr;
     NSString *query = [NSString stringWithFormat:@"insert into attribute (name, is_active) \
-                       values (\"%@\", %d); ", name, is_active];
-    
+                                                   values (\"%@\", %d); ", name, is_active];
+   
     if ([dbWrapperInstance openDB]) {
         
-        [dbWrapperInstance tryExecQuery:query];
+        int newID = [dbWrapperInstance tryCreateNewRow:query];
         [dbWrapperInstance closeDB];
         
         newAttr = [[POSAttribute alloc] init];
         newAttr.name = name;
         newAttr.is_active = is_active;
+        newAttr.ID = newID;
         
         [self.attributes addObject:newAttr];
     }
@@ -196,29 +182,29 @@
                          andRows: self.settings];
     [dbWrapperInstance closeDB];
 }
-
-- (void)settingsSave {
-    
-    if ([self.settings count] == 0)
-        return;
-    
-    if (![dbWrapperInstance openDB])
-        return;
-    
-    NSMutableString *query = [[NSMutableString alloc] init];
-    
-    for (id object in self.settings) {
-        
-        POSSetting *settingObject = (POSSetting *)object;
-        NSString *subQuery = [NSString stringWithFormat:@"update    setting    \
-                                                          set       value = \"%@\" \
-                                                          where     name = \"%@\"; ", settingObject.value, settingObject.name];
-        [query appendString:subQuery];
-    }
-    
-    [dbWrapperInstance tryExecQuery:query];
-    [dbWrapperInstance closeDB];
-}
+//
+//- (void)settingsSave {
+//    
+//    if ([self.settings count] == 0)
+//        return;
+//    
+//    if (![dbWrapperInstance openDB])
+//        return;
+//    
+//    NSMutableString *query = [[NSMutableString alloc] init];
+//    
+//    for (id object in self.settings) {
+//        
+//        POSSetting *settingObject = (POSSetting *)object;
+//        NSString *subQuery = [NSString stringWithFormat:@"update    setting    \
+//                                                          set       value = \"%@\" \
+//                                                          where     name = \"%@\"; ", settingObject.value, settingObject.name];
+//        [query appendString:subQuery];
+//    }
+//    
+//    [dbWrapperInstance tryExecQuery:query];
+//    [dbWrapperInstance closeDB];
+//}
 
 - (BOOL)settingsUpdate:(POSSetting *)setting withName:(NSString *)name withValue:(NSString *)value withType:(NSString *)type withImage_id:(int)image_id {
 
@@ -291,18 +277,18 @@
 - (POSAttributeValue *)attributeValuesCreate:(NSString *)name withAttribute_ID:(int)attribute_ID {
 
     POSAttributeValue *newAttrValue;
-    
     NSString *query = [NSString stringWithFormat:@"insert into attribute_value (name, attribute_id) \
                                                    values(\"%@\", %d); ", name, attribute_ID];
     
     if ([dbWrapperInstance openDB]) {
         
-        [dbWrapperInstance tryExecQuery:query];
+        int newID = [dbWrapperInstance tryCreateNewRow:query];
         [dbWrapperInstance closeDB];
         
         newAttrValue = [[POSAttributeValue alloc] init];
         newAttrValue.name = name;
         newAttrValue.attribute_ID = attribute_ID;
+        newAttrValue.ID = newID;
         
         [self.attributeValues addObject:newAttrValue];
     }

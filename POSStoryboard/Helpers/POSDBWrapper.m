@@ -43,6 +43,7 @@
     static dispatch_once_t once;
     
     dispatch_once(&once, ^{
+        
         sharedInstance = [[POSDBWrapper alloc] init];
         sharedInstance.dataPath = [sharedInstance getDBFilePath];
     });
@@ -139,6 +140,25 @@
     
     return result;
 }
+
+
+- (int)tryCreateNewRow:(NSString *)query {
+    
+    int newID = 0;
+    
+    if(sqlite3_exec(database, [query UTF8String], NULL, NULL, &errorMsg) != SQLITE_OK) {
+        
+        NSAssert(0, @"Error exec query %@: %s", query, errorMsg);
+        newID = -2;
+    }
+    else {
+        
+        newID = (int)sqlite3_last_insert_rowid(database);
+    }
+    
+    return newID;
+}
+
 
 
 - (void)prepareRows:(NSString *) query {

@@ -36,6 +36,7 @@
 - (int)execQueryResultInt:(NSString *)query andIndex:(int)index;
 - (BOOL)tryExecQuery:(NSString *)query;
 - (BOOL)tryExecQueryResultText:(NSString *)query andIndex:(int)index andResult:(NSString**)text;
+- (int)tryCreateNewRow:(NSString *)query;
 
 - (BOOL)tryGetNextRow;
 - (void)prepareRows:(NSString *)query;

@@ -51,26 +51,34 @@
 }
 
 
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
     if ([[segue identifier] isEqualToString: @"onAddNewAttribute"]) {
-        //the sender is what you pass into the previous method
+
         POSEditAttributeViewController *dest = (POSEditAttributeViewController *)[segue destinationViewController];
         dest.attribute = [objectsHelperInstance.dataSet attributesCreate: @"new attribute"
                                                            withIs_active: NO];
+        
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:(objectsHelperInstance.dataSet.attributes.count - 1) inSection:0];
+        NSArray *arr = [[NSArray alloc] initWithObjects: newIndexPath, nil];
+        [self.tableView insertRowsAtIndexPaths:arr withRowAnimation:UITableViewRowAnimationFade];
+
+        __currentCell = [self.tableView cellForRowAtIndexPath:newIndexPath];
     }
+    //the sender is what you pass into the previous method
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    if (__currentCell) {
+    if (!__currentCell)
+        return;
         
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:__currentCell];
-        POSAttribute *attribute = [objectsHelperInstance.dataSet.attributes objectAtIndex:indexPath.row];
-        POSAttributeCell *cell = (POSAttributeCell *)__currentCell;
-        [cell.buttonName setTitle:attribute.name forState:UIControlStateNormal];
-    }
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:__currentCell];
+    POSAttribute *attribute = [objectsHelperInstance.dataSet.attributes objectAtIndex:indexPath.row];
+    POSAttributeCell *cell = (POSAttributeCell *)__currentCell;
+    [cell.buttonName setTitle:attribute.name forState:UIControlStateNormal];
+    __currentCell = Nil;
 }
 
 
@@ -115,13 +123,13 @@
     
     __currentCell = [[[sender superview] superview] superview];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID = %d", ((POSAttributeCell *)__currentCell).tag];
-    NSArray *arr = [objectsHelperInstance.dataSet.attributes filteredArrayUsingPredicate:predicate];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:__currentCell];
+    POSAttribute *attribute = [objectsHelperInstance.dataSet.attributes objectAtIndex:indexPath.row];
 
     POSEditAttributeViewController *controller = [helperInstance getUIViewController:@"POSEditAttributeViewController"];
-    controller.attribute = [arr objectAtIndex:0];
+    controller.attribute = attribute;
     
-    predicate = [NSPredicate predicateWithFormat:@"attribute_ID = %d", controller.attribute.ID];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"attribute_ID = %d", controller.attribute.ID];
     controller.attributeValues = [[NSMutableArray alloc] initWithArray:[objectsHelperInstance.dataSet.attributeValues filteredArrayUsingPredicate:predicate]];
     
     [self.navigationController pushViewController: controller

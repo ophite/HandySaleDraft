@@ -32,7 +32,6 @@
 - (id)init;
 
 - (void)attributesGet;
-- (void)attributesSave;
 - (POSAttribute *)attributesCreate:(NSString *)name withIs_active:(BOOL)is_active;
 - (BOOL)attributesUpdate:(POSAttribute *)attribute withName:(NSString *)name withIs_active:(BOOL)is_active;
 - (BOOL)attributesDelete:(POSAttribute *)attribute;
@@ -43,7 +42,7 @@
 - (BOOL)attributeValuesDelete:(POSAttributeValue *)attrValue;
 
 - (void)settingsGet;
-- (void)settingsSave;
+//- (void)settingsSave;
 - (BOOL)settingsUpdate:(POSSetting *)setting withName:(NSString *)name withValue:(NSString *)value withType:(NSString *)type withImage_id:(int)image_id;
 - (BOOL)settingsUpdate:(POSSetting *)setting withValue:(NSString *)value;
 
