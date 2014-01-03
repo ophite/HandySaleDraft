@@ -16,7 +16,7 @@
 @interface POSAttributesViewController : UIViewController <UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource> {
 
 @private
-    id __deletedCell;
+    id __currentCell;
     
 }
 

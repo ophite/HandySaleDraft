@@ -18,8 +18,6 @@
 
 
 @synthesize textEmail = _textEmail;
-@synthesize pickerSelectedItem_Language = _pickerSelectedItem_Language;
-@synthesize pickerSelectedItem_Money = _pickerSelectedItem_Money;
 @synthesize buttonLanguage = _buttonLanguage;
 @synthesize buttonMoney = _buttonMoney;
 @synthesize switchVAT = _switchVAT;
@@ -46,17 +44,12 @@
     
     [objectsHelperInstance.dataSet settingsGet];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", helperInstance.SETTING_EMAIL];
-    NSArray *arr = [objectsHelperInstance.dataSet.settings filteredArrayUsingPredicate:predicate];
-    
-    if ([arr count] > 0) {
-     
-        self.textEmail.text = ((POSSetting *)[arr objectAtIndex:0]).value;
-    }
-    
-    self.buttonMoney.titleLabel.text = self.pickerSelectedItem_Money;
-    self.buttonLanguage.titleLabel.text = self.pickerSelectedItem_Language;
-    
+    self.textEmail.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_EMAIL];
+    [self.buttonLanguage setTitle:[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_LANGUAGE] forState:UIControlStateNormal];
+    [self.buttonMoney setTitle:[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_MONEY] forState:UIControlStateNormal];
+    [self.switchWIFI setOn:[[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_WIFI] boolValue]];
+    [self.switchVAT setOn:[[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_VAT] boolValue]];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -84,22 +77,36 @@
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
         // back button was pressed.  We know this is true because self is no longer
         // in the navigation stack.
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", helperInstance.SETTING_EMAIL];
-        NSArray *arr = [objectsHelperInstance.dataSet.settings filteredArrayUsingPredicate:predicate];
-        
-        if ([arr count] > 0) {
+        POSSetting *settingEmail = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_EMAIL];
+        if (![settingEmail.value isEqualToString:self.textEmail.text]) {
             
-            POSSetting *settingObject = ((POSSetting *)[arr objectAtIndex:0]);
-
-            if (![settingObject.value isEqualToString:self.textEmail.text]) {
-                
-                [objectsHelperInstance.dataSet settingsUpdate: settingObject
-                                                    withValue: self.textEmail.text];
-            }
+            [objectsHelperInstance.dataSet settingsUpdate: settingEmail
+                                                withValue: self.textEmail.text];
+        }
+        
+        POSSetting *settingWIFI = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_WIFI];
+        if ([settingWIFI.value boolValue] != self.switchWIFI.isOn) {
+            
+            [objectsHelperInstance.dataSet settingsUpdate: settingWIFI
+                                                withValue: [helperInstance convertBoolToString:self.switchWIFI.isOn]];
+        }
+        
+        POSSetting *settingVAT = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_VAT];
+        if ([settingVAT.value  boolValue] != self.switchVAT.isOn) {
+            
+            [objectsHelperInstance.dataSet settingsUpdate: settingVAT
+                                                withValue: [helperInstance convertBoolToString:self.switchVAT.isOn]];
         }
     }
     
     [super viewWillDisappear:animated];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [self.buttonLanguage setTitle:[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_LANGUAGE] forState:UIControlStateNormal];
+    [self.buttonMoney setTitle:[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_MONEY] forState:UIControlStateNormal];
 }
 
 
@@ -179,30 +186,20 @@
 
     if ([[segue identifier] isEqualToString:@"goToLanguage"]) {
 
-        controller.currentItem = self.buttonLanguage.titleLabel.text;
-        controller.selectedItem = self.pickerSelectedItem_Language;
-        controller.pickerDict = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                 @"Russian", @"russian",
-                                 @"English", @"english",
-                                 nil];
+        controller.settingName = helperInstance.SETTING_LANGUAGE;
+        controller.settingValue = self.buttonLanguage.titleLabel.text;
+        controller.pickerDict = [helperInstance getLanguages];
         
     }
     else if ([[segue identifier] isEqualToString:@"goToMoney"]) {
         
-        controller.currentItem = self.buttonMoney.titleLabel.text;
-        controller.selectedItem = self.pickerSelectedItem_Money;
-        controller.pickerDict = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                 @"$", @"dollar",
-                                 @"P", @"rubl",
-                                 @"₴", @"hryvna",
-                                 @"€", @"evro",
-                                 nil];
+        controller.settingName = helperInstance.SETTING_MONEY;
+        controller.settingValue = self.buttonMoney.titleLabel.text;
+        controller.pickerDict = [helperInstance getMoney];
     }
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-
-
 
 
 @end

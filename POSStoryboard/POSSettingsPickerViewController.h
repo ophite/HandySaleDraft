@@ -7,13 +7,14 @@
 //
 #import <UIKit/UIKit.h>
 #import "POSHelper.h"
+#import "POSSetting.h"
+#import "POSObjectsHelper.h"
 
 @interface POSSettingsPickerViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 
 
-@property (nonatomic, retain) NSString *currentItem;
-@property (nonatomic, retain) NSString *selectedItem;
-@property int rowIndex;
+@property (nonatomic, retain) NSString *settingValue;
+@property (nonatomic, retain) NSString *settingName;
 @property (strong, nonatomic) NSDictionary *pickerDict;
 @property (weak, nonatomic) IBOutlet UIPickerView *picker;
 

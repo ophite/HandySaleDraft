@@ -11,7 +11,19 @@
 
 @interface POSHelper : NSObject
 
+- (NSDictionary *)getMoney;
+- (NSDictionary *)getLanguages;
+
+- (NSString *)SETTING_EMAIL_ICON;
+- (NSString *)SETTING_LANGUAGE_ICON;
+- (NSString *)SETTING_MONEY_ICON;
+- (NSString *)SETTING_WIFI_ICON;
+- (NSString *)SETTING_VAT_ICON;
 - (NSString *)SETTING_EMAIL;
+- (NSString *)SETTING_LANGUAGE;
+- (NSString *)SETTING_MONEY;
+- (NSString *)SETTING_WIFI;
+- (NSString *)SETTING_VAT;
 
 - (CGFloat)ITEM_EDIT_WIDTH;
 - (CGFloat)ITEM_EDIT_HEIGHT;
@@ -21,6 +33,10 @@
 - (CGFloat)ITEM_LIST_HEIGHT;
 - (CGFloat)CATEGORY_LIST_WIDTH;
 - (CGFloat)CATEGORY_LIST_HEIGHT;
+
+- (id)getDictionaryFirstValue:(NSDictionary *)dict;
+- (id)getDictionaryFirstKey:(NSDictionary *)dict;
+- (NSString *)convertBoolToString:(BOOL)value;
 
 + (POSHelper *)getInstance;
 - (id)getUIViewController:(NSString *)storyboardName;

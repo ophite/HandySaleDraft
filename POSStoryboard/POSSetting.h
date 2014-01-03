@@ -18,4 +18,8 @@
 @property int ID;
 
 
++ (NSString *)getSettingValue:(NSMutableArray *)settings withName:(NSString *)name;
++ (POSSetting *)getSetting:(NSMutableArray *)settings withName:(NSString *)name;
+
+
 @end

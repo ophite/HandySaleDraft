@@ -16,11 +16,10 @@
 @implementation POSSettingsPickerViewController
 
 
-@synthesize currentItem = _currentItem;
+@synthesize settingName = _settingName;
+@synthesize settingValue = _settingValue;
 @synthesize picker = _picker;
 @synthesize pickerDict = _pickerDict;
-@synthesize rowIndex = _rowIndex;
-@synthesize selectedItem = _selectedItem;
 
 
 #pragma mark - Standart
@@ -45,18 +44,13 @@
     
     NSArray *keys = [self.pickerDict allKeys];
     
-    int index = [keys containsObject:self.currentItem]? [keys indexOfObject:self.currentItem]: -1;
-    
-    if (index > 0) {
+    int index = [keys containsObject:self.settingValue]? [keys indexOfObject:self.settingValue]: -1;
+    if (index < 0) {
 
-        self.rowIndex = index;
-    }
-    else {
-    
-        self.rowIndex = 0;
+        index = 0;
     }
     
-    [self.picker selectRow: self.rowIndex
+    [self.picker selectRow: index
                inComponent: 0
                   animated: YES];
     
@@ -68,6 +62,14 @@
     
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent {
+    
+    if (![parent isEqual:self.parentViewController]) {
+       
+        [self.parentViewController viewDidLoad];
+    }
 }
 
 
@@ -88,16 +90,28 @@
 - (NSString *)pickerView: (UIPickerView *)pickerView titleForRow: (NSInteger)row forComponent: (NSInteger)component {
     
     NSArray *keys = [self.pickerDict allKeys];
-    self.selectedItem = [self.pickerDict valueForKey:[keys objectAtIndex:row]];
     
-    return self.selectedItem;
-//    return [self.pickerDict objectAtIndex:row];
+    return [self.pickerDict valueForKey:[keys objectAtIndex:row]];
 }
 
 
 #pragma mark - Actions
 
 - (IBAction)onSelect:(id)sender {
+
+    NSInteger row = [self.picker selectedRowInComponent:0];
+    NSString *newValue = [[self.pickerDict allKeys] objectAtIndex:row];
+    
+    POSSetting *settingObject = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
+                                              withName: self.settingName];
+    if (settingObject) {
+        
+        if (![settingObject.value isEqualToString:newValue]) {
+            
+            [objectsHelperInstance.dataSet settingsUpdate: settingObject
+                                                withValue: newValue];
+        }
+    }
     
     [self.navigationController popViewControllerAnimated:YES];
 }

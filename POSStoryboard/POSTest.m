@@ -35,8 +35,8 @@
 //    query = @"DROP TABLE IF EXISTS document_line";
 //    [dbWrapperInstance tryExecQuery:query];
 //    
-//    query = @"DROP TABLE IF EXISTS setting";
-//    [dbWrapperInstance tryExecQuery:query];
+    query = @"DROP TABLE IF EXISTS setting";
+    [dbWrapperInstance tryExecQuery:query];
     
     query =
     @"CREATE TABLE IF NOT EXISTS attribute ( \
@@ -214,43 +214,44 @@
     if ([dbWrapperInstance openDB] == NO)
         return;
 
-    NSString* query = @"SELECT count(*) FROM collection";
+    NSMutableString* query = [NSMutableString stringWithString:@"SELECT count(*) FROM collection"];
     int count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
 
     if(count == 0) {
         
-        query = @"INSERT INTO collection (name, user_id) VALUES (\"Nissan\", 1);\
-        INSERT INTO collection (name, user_id) VALUES (\"Toyota\", 1); \
-        INSERT INTO collection (name, user_id) VALUES (\"Suzuki\", 1); \
-        INSERT INTO collection (name, user_id) VALUES (\"Mitsubishi\", 1); \
-        INSERT INTO collection (name, user_id) VALUES (\"Ford\", 1); \
-        INSERT INTO collection (name, user_id) VALUES (\"Subaru\", 1); \
-        INSERT INTO collection (name, user_id) VALUES (\"Citroen\", 1); \
-        INSERT INTO collection (name, user_id) VALUES (\"Renault\", 1); \
-        INSERT INTO collection (name, user_id) VALUES (\"Mercedes\", 1); \
-        INSERT INTO collection (name, user_id) VALUES (\"BMW\", 1);";
+        [query setString:@""];
+        [query appendString:@"INSERT INTO collection (name, user_id) VALUES (\"Nissan\", 1); "];
+        [query appendString:@"INSERT INTO collection (name, user_id) VALUES (\"Toyota\", 1); "];
+        [query appendString:@"INSERT INTO collection (name, user_id) VALUES (\"Suzuki\", 1); "];
+        [query appendString:@"INSERT INTO collection (name, user_id) VALUES (\"Mitsubishi\", 1); "];
+        [query appendString:@"INSERT INTO collection (name, user_id) VALUES (\"Ford\", 1); "];
+        [query appendString:@"INSERT INTO collection (name, user_id) VALUES (\"Subaru\", 1); "];
+        [query appendString:@"INSERT INTO collection (name, user_id) VALUES (\"Citroen\", 1); "];
+        [query appendString:@"INSERT INTO collection (name, user_id) VALUES (\"Renault\", 1); "];
+        [query appendString:@"INSERT INTO collection (name, user_id) VALUES (\"Mercedes\", 1); "];
+        [query appendString:@"INSERT INTO collection (name, user_id) VALUES (\"BMW\", 1); "];
         
         [dbWrapperInstance tryExecQuery:query];
     }
     
-    query = @"SELECT count(*) FROM product";
+    [query setString:@"SELECT count(*) FROM product"];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
     if(count == 0) {
         
-        query = [NSString stringWithFormat:@"SELECT id FROM collection WHERE name= \"%@\" AND user_id = %d", @"Nissan", 1];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM collection WHERE name= \"%@\" AND user_id = %d; ", @"Nissan", 1];
         int catID = [dbWrapperInstance execQueryResultInt:query andIndex:0];
 
-        query = [NSString stringWithFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"X-Trail\", 1, %d, 1000.0, 2000.0, \"Crossover\"); ", catID];
-        query = [query stringByAppendingFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Pathfinder\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
-        query = [query stringByAppendingFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Qashqai\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
-        query = [query stringByAppendingFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Navara\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
-        query = [query stringByAppendingFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Note\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
-        query = [query stringByAppendingFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Almera\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
-        query = [query stringByAppendingFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Teana\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
-        query = [query stringByAppendingFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Z350\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
-        query = [query stringByAppendingFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Micra\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
-        query = [query stringByAppendingFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Tiida\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
+        query = [NSMutableString stringWithFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"X-Trail\", 1, %d, 1000.0, 2000.0, \"Crossover\"); ", catID];
+        [query appendFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Pathfinder\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
+        [query appendFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Qashqai\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
+        [query appendFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Navara\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
+        [query appendFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Note\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
+        [query appendFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Almera\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
+        [query appendFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Teana\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
+        [query appendFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Z350\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
+        [query appendFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Micra\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
+        [query appendFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Tiida\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
         
         [dbWrapperInstance tryExecQuery:query];
     }
@@ -258,103 +259,154 @@
 //    query = @"SELECT count(*) FROM product";
 //    count = [dbWrapper execQueryResultInt:query p_index:0];
     
-    query = @"SELECT count(*) FROM image";
+    [query setString:@"SELECT count(*) FROM image"];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
 
     if(count == 0) {
         
-        query = @"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car01.png\", \"car01.png\", 1, \"collection\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car02.png\", \"car02.png\", 2, \"collection\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car03.png\", \"car03.png\", 3, \"collection\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car4.png\", \"car4.png\", 4, \"collection\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car5.png\", \"car5.png\", 5, \"collection\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car6.png\", \"car6.png\", 6, \"collection\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car7.png\", \"car7.png\", 7, \"collection\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car8.png\", \"car8.png\", 8, \"collection\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car9.png\", \"car9.png\", 9, \"collection\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car10.png\", \"car10.png\", 10, \"collection\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car02.png\", \"car02.png\", 1, \"product\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car03.png\", \"car03.png\", 2, \"product\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car4.png\", \"car4.png\", 3, \"product\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car5.png\", \"car5.png\", 4, \"product\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car6.png\", \"car6.png\", 5, \"product\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car7.png\", \"car7.png\", 6, \"product\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car8.png\", \"car8.png\", 7, \"product\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car9.png\", \"car9.png\", 8, \"product\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car10.png\", \"car10.png\", 9, \"product\", 1);\
-        INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car10.png\", \"car10.png\", 10, \"product\", 1);";
-        
-        query = [query stringByAppendingFormat: @"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"%@\", \"%@\", 11, \"setting\", 1);", helperInstance.SETTING_EMAIL, helperInstance.SETTING_EMAIL];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car01.png\", \"car01.png\", 1, \"collection\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car02.png\", \"car02.png\", 2, \"collection\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car03.png\", \"car03.png\", 3, \"collection\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car4.png\", \"car4.png\", 4, \"collection\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car5.png\", \"car5.png\", 5, \"collection\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car6.png\", \"car6.png\", 6, \"collection\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car7.png\", \"car7.png\", 7, \"collection\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car8.png\", \"car8.png\", 8, \"collection\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car9.png\", \"car9.png\", 9, \"collection\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car10.png\", \"car10.png\", 10, \"collection\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car02.png\", \"car02.png\", 1, \"product\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car03.png\", \"car03.png\", 2, \"product\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car4.png\", \"car4.png\", 3, \"product\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car5.png\", \"car5.png\", 4, \"product\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car6.png\", \"car6.png\", 5, \"product\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car7.png\", \"car7.png\", 6, \"product\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car8.png\", \"car8.png\", 7, \"product\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car9.png\", \"car9.png\", 8, \"product\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car10.png\", \"car10.png\", 9, \"product\", 1); "];
+        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car10.png\", \"car10.png\", 10, \"product\", 1); "];
+        [query appendFormat: @"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"%@\", \"%@\", 11, \"setting\", 1); ",
+                                helperInstance.SETTING_EMAIL_ICON, helperInstance.SETTING_EMAIL_ICON];
+        [query appendFormat: @"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"%@\", \"%@\", 11, \"setting\", 1); ",
+                                helperInstance.SETTING_LANGUAGE_ICON, helperInstance.SETTING_LANGUAGE_ICON];
+        [query appendFormat: @"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"%@\", \"%@\", 11, \"setting\", 1); ",
+                                helperInstance.SETTING_MONEY_ICON, helperInstance.SETTING_MONEY_ICON];
         
         [dbWrapperInstance tryExecQuery:query];
        
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car01.png"] withAsset:nil withPath:@"car01.png" withObject_id:1 withObject_name:@"collection"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car02.png"] withAsset:nil withPath:@"car02.png" withObject_id:2 withObject_name:@"collection"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car03.png"] withAsset:nil withPath:@"car03.png" withObject_id:3 withObject_name:@"collection"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car4.png"] withAsset:nil withPath:@"car4.png" withObject_id:4 withObject_name:@"collection"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car5.png"] withAsset:nil withPath:@"car5.png" withObject_id:5 withObject_name:@"collection"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car6.png"] withAsset:nil withPath:@"car6.png" withObject_id:6 withObject_name:@"collection"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car7.png"] withAsset:nil withPath:@"car7.png" withObject_id:7 withObject_name:@"collection"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car8.png"] withAsset:nil withPath:@"car8.png" withObject_id:8 withObject_name:@"collection"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car9.png"] withAsset:nil withPath:@"car9.png" withObject_id:9 withObject_name:@"collection"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car10.png"] withAsset:nil withPath:@"car10.png" withObject_id:10 withObject_name:@"collection"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car11.png"] withAsset:nil withPath:@"car11.png" withObject_id:11 withObject_name:@"product"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car12.png"] withAsset:nil withPath:@"car12.png" withObject_id:12 withObject_name:@"product"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car13.png"] withAsset:nil withPath:@"car13.png" withObject_id:13 withObject_name:@"product"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car14.png"] withAsset:nil withPath:@"car14.png" withObject_id:14 withObject_name:@"product"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car15.png"] withAsset:nil withPath:@"car15.png" withObject_id:15 withObject_name:@"product"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car16.png"] withAsset:nil withPath:@"car16.png" withObject_id:16 withObject_name:@"product"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car17.png"] withAsset:nil withPath:@"car17.png" withObject_id:17 withObject_name:@"product"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car18.png"] withAsset:nil withPath:@"car18.png" withObject_id:18 withObject_name:@"product"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car19.png"] withAsset:nil withPath:@"car19.png" withObject_id:19 withObject_name:@"product"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car20.png"] withAsset:nil withPath:@"car20.png" withObject_id:20 withObject_name:@"product"]];
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:helperInstance.SETTING_EMAIL] withAsset:nil withPath:helperInstance.SETTING_EMAIL withObject_id:21 withObject_name:@"setting"]];
+        int imageID = 0;
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car01.png"] withAsset:nil withPath:@"car01.png" withObject_id:++imageID withObject_name:@"collection"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car02.png"] withAsset:nil withPath:@"car02.png" withObject_id:++imageID withObject_name:@"collection"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car03.png"] withAsset:nil withPath:@"car03.png" withObject_id:++imageID withObject_name:@"collection"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car4.png"] withAsset:nil withPath:@"car4.png" withObject_id:++imageID withObject_name:@"collection"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car5.png"] withAsset:nil withPath:@"car5.png" withObject_id:++imageID withObject_name:@"collection"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car6.png"] withAsset:nil withPath:@"car6.png" withObject_id:++imageID withObject_name:@"collection"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car7.png"] withAsset:nil withPath:@"car7.png" withObject_id:++imageID withObject_name:@"collection"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car8.png"] withAsset:nil withPath:@"car8.png" withObject_id:++imageID withObject_name:@"collection"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car9.png"] withAsset:nil withPath:@"car9.png" withObject_id:++imageID withObject_name:@"collection"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car10.png"] withAsset:nil withPath:@"car10.png" withObject_id:++imageID withObject_name:@"collection"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car11.png"] withAsset:nil withPath:@"car11.png" withObject_id:++imageID withObject_name:@"product"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car12.png"] withAsset:nil withPath:@"car12.png" withObject_id:++imageID withObject_name:@"product"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car13.png"] withAsset:nil withPath:@"car13.png" withObject_id:++imageID withObject_name:@"product"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car14.png"] withAsset:nil withPath:@"car14.png" withObject_id:++imageID withObject_name:@"product"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car15.png"] withAsset:nil withPath:@"car15.png" withObject_id:++imageID withObject_name:@"product"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car16.png"] withAsset:nil withPath:@"car16.png" withObject_id:++imageID withObject_name:@"product"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car17.png"] withAsset:nil withPath:@"car17.png" withObject_id:++imageID withObject_name:@"product"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car18.png"] withAsset:nil withPath:@"car18.png" withObject_id:++imageID withObject_name:@"product"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car19.png"] withAsset:nil withPath:@"car19.png" withObject_id:++imageID withObject_name:@"product"]];
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:@"car20.png"] withAsset:nil withPath:@"car20.png" withObject_id:++imageID withObject_name:@"product"]];
+        
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:helperInstance.SETTING_EMAIL_ICON]
+                                                        withAsset: nil
+                                                         withPath: helperInstance.SETTING_EMAIL_ICON
+                                                    withObject_id: ++imageID
+                                                  withObject_name: @"setting"]];
+        
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:helperInstance.SETTING_LANGUAGE_ICON]
+                                                        withAsset: nil
+                                                         withPath: helperInstance.SETTING_LANGUAGE_ICON
+                                                    withObject_id: ++imageID
+                                                  withObject_name: @"setting"]];
+        
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:helperInstance.SETTING_MONEY_ICON]
+                                                        withAsset: nil
+                                                         withPath: helperInstance.SETTING_MONEY_ICON
+                                                    withObject_id: ++imageID
+                                                  withObject_name: @"setting"]];
+        
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:helperInstance.SETTING_WIFI_ICON]
+                                                        withAsset: nil
+                                                         withPath: helperInstance.SETTING_WIFI_ICON
+                                                    withObject_id: ++imageID
+                                                  withObject_name: @"setting"]];
+        
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:helperInstance.SETTING_VAT_ICON]
+                                                        withAsset: nil
+                                                         withPath: helperInstance.SETTING_VAT_ICON
+                                                    withObject_id: ++imageID
+                                                  withObject_name: @"setting"]];
         
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [dataSet gallerySave:0 withLibrary:library];
     }
     
-    query = @"SELECT count(*) FROM setting";
+    [query setString:@"SELECT count(*) FROM setting"];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
     if(count == 0) {
         
-        query = [NSString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"", helperInstance.SETTING_EMAIL];
-        int imageID = [dbWrapperInstance execQueryResultInt:query andIndex:0];
-
-        query = [NSString stringWithFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"test@ukr.net\", \"STRING\", 0, %d); ",helperInstance.SETTING_EMAIL, imageID];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", helperInstance.SETTING_EMAIL_ICON];
+        int image_email_id = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", helperInstance.SETTING_LANGUAGE_ICON];
+        int image_language_id = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", helperInstance.SETTING_MONEY_ICON];
+        int image_money_id = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", helperInstance.SETTING_WIFI_ICON];
+        int image_wifi_id = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", helperInstance.SETTING_VAT_ICON];
+        int image_vat_id = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+      
+        query = [NSMutableString stringWithFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
+                                helperInstance.SETTING_EMAIL, @"test@ukr.net", image_email_id];
+        [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
+                                helperInstance.SETTING_LANGUAGE, [helperInstance getDictionaryFirstValue:[helperInstance getLanguages]], image_language_id];
+        [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
+                                helperInstance.SETTING_MONEY,[helperInstance getDictionaryFirstKey:[helperInstance getMoney]], image_money_id];
+        [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
+                                helperInstance.SETTING_WIFI, [helperInstance convertBoolToString:YES], image_wifi_id];
+        [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
+                                helperInstance.SETTING_VAT, [helperInstance convertBoolToString:NO], image_vat_id];
         
         [dbWrapperInstance tryExecQuery:query];
     }
     
-    query = @"SELECT count(*) FROM attribute";
+    [query setString:@"SELECT count(*) FROM attribute"];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
     if(count == 0) {
         
-        query = [NSString stringWithFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"first attribute", 0];
-        query = [query stringByAppendingFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"second attribute", 0];
-        query = [query stringByAppendingFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"third attribute", 1];
-        query = [query stringByAppendingFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"size attribute", 1];
-        query = [query stringByAppendingFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"width attribute", 0];
-        query = [query stringByAppendingFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"height attribute", 1];
+        query = [NSMutableString stringWithFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"first attribute", 0];
+        [query appendFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"second attribute", 0];
+        [query appendFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"third attribute", 1];
+        [query appendFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"size attribute", 1];
+        [query appendFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"width attribute", 0];
+        [query appendFormat:@"INSERT INTO attribute (name, is_active) VALUES (\"%@\", %d); ", @"height attribute", 1];
         
         [dbWrapperInstance tryExecQuery:query];
     }
     
     
-    query = @"SELECT count(*) FROM attribute_value";
+    [query setString:@"SELECT count(*) FROM attribute_value"];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
     if(count == 0) {
         
-        query = [NSString stringWithFormat:@"SELECT id FROM attribute WHERE name= \"%@\"", @"first attribute"];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM attribute WHERE name= \"%@\"", @"first attribute"];
         int attributeID = [dbWrapperInstance execQueryResultInt:query andIndex:0];
 
-        query = [NSString stringWithFormat:@"INSERT INTO attribute_value (name, attribute_id) VALUES (\"%@\", %d); ", @"attribute value 1", attributeID];
-        query = [query stringByAppendingFormat:@"INSERT INTO attribute_value (name, attribute_id) VALUES (\"%@\", %d); ", @"attribute value 2", attributeID];
-        query = [query stringByAppendingFormat:@"INSERT INTO attribute_value (name, attribute_id) VALUES (\"%@\", %d); ", @"attribute value 3", attributeID];
-        query = [query stringByAppendingFormat:@"INSERT INTO attribute_value (name, attribute_id) VALUES (\"%@\", %d); ", @"test attribbute value", attributeID];
+        query = [NSMutableString stringWithFormat:@"INSERT INTO attribute_value (name, attribute_id) VALUES (\"%@\", %d); ", @"attribute value 1", attributeID];
+        [query appendFormat:@"INSERT INTO attribute_value (name, attribute_id) VALUES (\"%@\", %d); ", @"attribute value 2", attributeID];
+        [query appendFormat:@"INSERT INTO attribute_value (name, attribute_id) VALUES (\"%@\", %d); ", @"attribute value 3", attributeID];
+        [query appendFormat:@"INSERT INTO attribute_value (name, attribute_id) VALUES (\"%@\", %d); ", @"test attribbute value", attributeID];
         
         [dbWrapperInstance tryExecQuery:query];
     }

@@ -13,10 +13,77 @@
 
 #pragma mark - SETTINGS
 
+- (NSDictionary *)getLanguages {
+    
+    return [[NSDictionary alloc] initWithObjectsAndKeys:
+            @"Russian", @"Russian",
+            @"English", @"English",
+            nil];
+}
+
+- (NSDictionary *)getMoney {
+    
+    return [[NSDictionary alloc] initWithObjectsAndKeys:
+            @"$ dollar", @"$",
+            @"P rubl", @"P",
+            @"₴ hryvna", @"₴",
+            @"€ evro", @"€",
+            nil];
+}
+
+- (NSString *)SETTING_EMAIL_ICON {
+    
+    return @"setting_email_icon.png";
+}
+
+- (NSString *)SETTING_LANGUAGE_ICON {
+    
+    return @"setting_language_icon.png";
+}
+
+- (NSString *)SETTING_MONEY_ICON {
+    
+    return @"setting_money_icon.png";
+}
+
+- (NSString *)SETTING_WIFI_ICON {
+    
+    return @"setting_wifi_icon.png";
+}
+
+- (NSString *)SETTING_VAT_ICON {
+    
+    return @"setting_vat_icon.png";
+}
+
 - (NSString *)SETTING_EMAIL {
     
     return @"email";
 //    return @"setting_email_icon.png";
+}
+
+- (NSString *)SETTING_LANGUAGE {
+    
+    return @"language";
+    //    return @"setting_email_icon.png";
+}
+
+- (NSString *)SETTING_MONEY {
+    
+    return @"money";
+    //    return @"setting_email_icon.png";
+}
+
+- (NSString *)SETTING_WIFI {
+    
+    return @"wifi";
+    //    return @"setting_email_icon.png";
+}
+
+- (NSString *)SETTING_VAT {
+    
+    return @"vat";
+    //    return @"setting_email_icon.png";
 }
 
 
@@ -68,6 +135,24 @@
 - (CGFloat)CATEGORY_LIST_HEIGHT {
     
     return  200;
+}
+
+
+#pragma mark - Other 
+
+- (id)getDictionaryFirstValue:(NSDictionary *)dict {
+    
+    return [dict valueForKey:[[dict allKeys] objectAtIndex:0]];
+}
+
+- (id)getDictionaryFirstKey:(NSDictionary *)dict {
+    
+    return [[dict allKeys] objectAtIndex:0];
+}
+
+- (NSString *)convertBoolToString:(BOOL)value {
+    
+    return value ? @"YES" : @"NO";
 }
 
 

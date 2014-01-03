@@ -53,11 +53,23 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString: @"goToAddNewVariant"]) {
+    if ([[segue identifier] isEqualToString: @"onAddNewAttribute"]) {
         //the sender is what you pass into the previous method
         POSEditAttributeViewController *dest = (POSEditAttributeViewController *)[segue destinationViewController];
         dest.attribute = [objectsHelperInstance.dataSet attributesCreate: @"new attribute"
                                                            withIs_active: NO];
+    }
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    if (__currentCell) {
+        
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:__currentCell];
+        POSAttribute *attribute = [objectsHelperInstance.dataSet.attributes objectAtIndex:indexPath.row];
+        POSAttributeCell *cell = (POSAttributeCell *)__currentCell;
+        [cell.buttonName setTitle:attribute.name forState:UIControlStateNormal];
     }
 }
 
@@ -101,9 +113,9 @@
 
 - (void)onGoToEditAttribute:(id)sender {
     
-    __deletedCell = [[[sender superview] superview] superview];
+    __currentCell = [[[sender superview] superview] superview];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID = %d", (int)((POSAttributeCell *)__deletedCell).tag];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID = %d", ((POSAttributeCell *)__currentCell).tag];
     NSArray *arr = [objectsHelperInstance.dataSet.attributes filteredArrayUsingPredicate:predicate];
 
     POSEditAttributeViewController *controller = [helperInstance getUIViewController:@"POSEditAttributeViewController"];
@@ -119,8 +131,8 @@
 
 - (void)onDeleteButton:(id)sender {
 
-    __deletedCell = [[[sender superview] superview] superview];
-    NSString* question = [NSString stringWithFormat:@"Delete the %@ attribute?", ((POSAttributeCell *)__deletedCell).buttonName.titleLabel.text];
+    __currentCell = [[[sender superview] superview] superview];
+    NSString* question = [NSString stringWithFormat:@"Delete the %@ attribute?", ((POSAttributeCell *)__currentCell).buttonName.titleLabel.text];
     
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Delete"
                                                     message: question
@@ -141,7 +153,7 @@
         
         if([title isEqualToString:@"Yes"]) {
             // delete attribute
-            POSAttributeCell *cell = (POSAttributeCell *)__deletedCell;
+            POSAttributeCell *cell = (POSAttributeCell *)__currentCell;
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
             POSAttribute *attribute = [objectsHelperInstance.dataSet.attributes objectAtIndex:indexPath.row];
             [objectsHelperInstance.dataSet attributesDelete:attribute];
@@ -150,7 +162,7 @@
         }
     }
     
-    __deletedCell = nil;
+    __currentCell = nil;
 }
 
 

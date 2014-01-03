@@ -15,9 +15,6 @@
 
 @interface POSSettingsViewController : UITableViewController <UITextFieldDelegate>
 
-@property (strong, nonatomic) NSString *pickerSelectedItem_Money;
-@property (strong, nonatomic) NSString *pickerSelectedItem_Language;
-
 @property (weak, nonatomic) IBOutlet UITextField *textEmail;
 @property (weak, nonatomic) IBOutlet UIButton *buttonMoney;
 @property (weak, nonatomic) IBOutlet UIButton *buttonLanguage;
