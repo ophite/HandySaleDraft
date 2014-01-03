@@ -31,6 +31,16 @@
             nil];
 }
 
+- (NSString *)SETTING_REMEMBERME_CHECKED_ICON {
+    
+    return @"setting_rememberme_checked_icon.png";
+}
+
+- (NSString *)SETTING_REMEMBERME_UNCHECKED_ICON {
+    
+    return @"setting_rememberme_unchecked_icon.png";
+}
+
 - (NSString *)SETTING_EMAIL_ICON {
     
     return @"setting_email_icon.png";
@@ -83,6 +93,12 @@
 - (NSString *)SETTING_VAT {
     
     return @"vat";
+    //    return @"setting_email_icon.png";
+}
+
+- (NSString *)SETTING_REMEMBERME {
+    
+    return @"rememberme";
     //    return @"setting_email_icon.png";
 }
 

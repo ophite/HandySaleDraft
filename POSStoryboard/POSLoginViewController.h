@@ -10,14 +10,21 @@
 #import "POSObjectsHelper.h"
 
 
-@interface POSLoginViewController : UIViewController<UITextFieldDelegate>
+@interface POSLoginViewController : UIViewController<UITextFieldDelegate> {
+    
+@private
+    BOOL __remeberChecked;
+    
+}
 
 
+@property (weak, nonatomic) IBOutlet UIButton *buttonRememberMe;
 @property (weak, nonatomic) IBOutlet UITextField *textEmail;
 @property (weak, nonatomic) IBOutlet UITextField *textPassword;
 
 
 - (BOOL)isUserHasCorrectPassword;
+- (IBAction)onRememberMe:(id)sender;
 
 
 @end

@@ -18,6 +18,7 @@
 
 @synthesize textEmail = _textEmail;
 @synthesize textPassword = _textPassword;
+@synthesize buttonRememberMe = _buttonRememberMe;
 
 
 #pragma mark - ViewController
@@ -41,7 +42,9 @@
     
     self.textEmail.delegate = self;
     self.textPassword.delegate = self;
-
+    
+    self.textEmail.layer.borderColor = [[UIColor greenColor] CGColor];
+    
     POSTest* test = [[POSTest alloc] init];
     [test initDBStructure];
     [test initDBData:objectsHelperInstance.dataSet];
@@ -146,6 +149,15 @@
 //     token               = (NSString *) [responseDictionary objectForKey:@"token"];
 //     */
 //}
+
+
+#pragma mark - Actions
+
+- (IBAction)onRememberMe:(id)sender {
+    
+
+//    self.buttonRememberMe setImage:UIIMage forState:<#(UIControlState)#>
+}
 
 
 @end

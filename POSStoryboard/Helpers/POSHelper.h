@@ -14,6 +14,8 @@
 - (NSDictionary *)getMoney;
 - (NSDictionary *)getLanguages;
 
+- (NSString *)SETTING_REMEMBERME_CHECKED_ICON;
+- (NSString *)SETTING_REMEMBERME_UNCHECKED_ICON;
 - (NSString *)SETTING_EMAIL_ICON;
 - (NSString *)SETTING_LANGUAGE_ICON;
 - (NSString *)SETTING_MONEY_ICON;
@@ -24,6 +26,7 @@
 - (NSString *)SETTING_MONEY;
 - (NSString *)SETTING_WIFI;
 - (NSString *)SETTING_VAT;
+- (NSString *)SETTING_REMEMBERME;
 
 - (CGFloat)ITEM_EDIT_WIDTH;
 - (CGFloat)ITEM_EDIT_HEIGHT;

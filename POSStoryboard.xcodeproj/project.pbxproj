@@ -101,6 +101,9 @@
 		803239081871E4D900BB9DAE /* setting_money_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 803239051871E4D900BB9DAE /* setting_money_icon.png */; };
 		803239091871E4D900BB9DAE /* setting_vat_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 803239061871E4D900BB9DAE /* setting_vat_icon.png */; };
 		8032390C1872BF7600BB9DAE /* POSSettingsPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8032390B1872BF7600BB9DAE /* POSSettingsPickerViewController.m */; };
+		8032391318772F5900BB9DAE /* POSRemindPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8032391218772F5900BB9DAE /* POSRemindPasswordViewController.m */; };
+		8032391A187731B300BB9DAE /* setting_rememberme_checked_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 80323918187731B300BB9DAE /* setting_rememberme_checked_icon.png */; };
+		8032391B187731B300BB9DAE /* setting_rememberme_unchecked_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 80323919187731B300BB9DAE /* setting_rememberme_unchecked_icon.png */; };
 		8054C3EF1852233E00299E2F /* POSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3EE1852233E00299E2F /* POSLoginViewController.m */; };
 		8054C3F21852235000299E2F /* POSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3F11852235000299E2F /* POSRegisterViewController.m */; };
 		807C43911859F56F00CBAB88 /* POSDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C438E1859F56F00CBAB88 /* POSDBHelper.m */; };
@@ -268,6 +271,10 @@
 		803239061871E4D900BB9DAE /* setting_vat_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_vat_icon.png; sourceTree = "<group>"; };
 		8032390A1872BF7600BB9DAE /* POSSettingsPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSSettingsPickerViewController.h; sourceTree = "<group>"; };
 		8032390B1872BF7600BB9DAE /* POSSettingsPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSSettingsPickerViewController.m; sourceTree = "<group>"; };
+		8032391118772F5900BB9DAE /* POSRemindPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSRemindPasswordViewController.h; sourceTree = "<group>"; };
+		8032391218772F5900BB9DAE /* POSRemindPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSRemindPasswordViewController.m; sourceTree = "<group>"; };
+		80323918187731B300BB9DAE /* setting_rememberme_checked_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_rememberme_checked_icon.png; sourceTree = "<group>"; };
+		80323919187731B300BB9DAE /* setting_rememberme_unchecked_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_rememberme_unchecked_icon.png; sourceTree = "<group>"; };
 		8054C3ED1852233E00299E2F /* POSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSLoginViewController.h; sourceTree = "<group>"; };
 		8054C3EE1852233E00299E2F /* POSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSLoginViewController.m; sourceTree = "<group>"; };
 		8054C3F01852235000299E2F /* POSRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSRegisterViewController.h; sourceTree = "<group>"; };
@@ -532,6 +539,8 @@
 		8004B7171850D36500681B11 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				80323918187731B300BB9DAE /* setting_rememberme_checked_icon.png */,
+				80323919187731B300BB9DAE /* setting_rememberme_unchecked_icon.png */,
 				803239041871E4D900BB9DAE /* setting_language_icon.png */,
 				803239051871E4D900BB9DAE /* setting_money_icon.png */,
 				803239061871E4D900BB9DAE /* setting_vat_icon.png */,
@@ -614,6 +623,8 @@
 				803238F8186C6C2200BB9DAE /* POSEditAttributeViewController.m */,
 				8032390A1872BF7600BB9DAE /* POSSettingsPickerViewController.h */,
 				8032390B1872BF7600BB9DAE /* POSSettingsPickerViewController.m */,
+				8032391118772F5900BB9DAE /* POSRemindPasswordViewController.h */,
+				8032391218772F5900BB9DAE /* POSRemindPasswordViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -840,7 +851,9 @@
 				803239031871E30A00BB9DAE /* setting_wifi_icon.png in Resources */,
 				8004B75D1850D38800681B11 /* right1.png in Resources */,
 				8004B73F1850D38800681B11 /* car12.png in Resources */,
+				8032391A187731B300BB9DAE /* setting_rememberme_checked_icon.png in Resources */,
 				8004B7481850D38800681B11 /* car7.png in Resources */,
+				8032391B187731B300BB9DAE /* setting_rememberme_unchecked_icon.png in Resources */,
 				8004B7561850D38800681B11 /* tab-mask.png in Resources */,
 				8004B73C1850D38800681B11 /* car9.png in Resources */,
 				8004B7511850D38800681B11 /* car20.png in Resources */,
@@ -894,6 +907,7 @@
 				807C43C6185B198800CBAB88 /* POSBasketViewController.m in Sources */,
 				8004B6FB1850D30900681B11 /* AQGridView.m in Sources */,
 				807C43911859F56F00CBAB88 /* POSDBHelper.m in Sources */,
+				8032391318772F5900BB9DAE /* POSRemindPasswordViewController.m in Sources */,
 				8004B7031850D30900681B11 /* NSIndexSet+AQIsSetContiguous.m in Sources */,
 				80206FEE185F4E1A002FFC35 /* POSEditGoodViewController.m in Sources */,
 				8004B6AE1850C86300681B11 /* CustomPhotoAlbum.m in Sources */,

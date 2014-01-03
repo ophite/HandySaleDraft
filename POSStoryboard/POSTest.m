@@ -344,6 +344,18 @@
                                                          withPath: helperInstance.SETTING_VAT_ICON
                                                     withObject_id: ++imageID
                                                   withObject_name: @"setting"]];
+
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:helperInstance.SETTING_REMEMBERME_CHECKED_ICON]
+                                                        withAsset: nil
+                                                         withPath: helperInstance.SETTING_REMEMBERME_CHECKED_ICON
+                                                    withObject_id: ++imageID
+                                                  withObject_name: @"setting"]];
+
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:helperInstance.SETTING_REMEMBERME_UNCHECKED_ICON]
+                                                        withAsset: nil
+                                                         withPath: helperInstance.SETTING_REMEMBERME_UNCHECKED_ICON
+                                                    withObject_id: ++imageID
+                                                  withObject_name: @"setting"]];
         
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [dataSet gallerySave:0 withLibrary:library];
@@ -364,6 +376,8 @@
         int image_wifi_id = [dbWrapperInstance execQueryResultInt:query andIndex:0];
         query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", helperInstance.SETTING_VAT_ICON];
         int image_vat_id = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", helperInstance.SETTING_REMEMBERME_CHECKED_ICON];
+        int image_rememberme_checked_id = [dbWrapperInstance execQueryResultInt:query andIndex:0];
       
         query = [NSMutableString stringWithFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
                                 helperInstance.SETTING_EMAIL, @"test@ukr.net", image_email_id];
@@ -375,6 +389,8 @@
                                 helperInstance.SETTING_WIFI, [helperInstance convertBoolToString:YES], image_wifi_id];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
                                 helperInstance.SETTING_VAT, [helperInstance convertBoolToString:NO], image_vat_id];
+        [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
+                                helperInstance.SETTING_REMEMBERME, [helperInstance convertBoolToString:NO], image_rememberme_checked_id];
         
         [dbWrapperInstance tryExecQuery:query];
     }
