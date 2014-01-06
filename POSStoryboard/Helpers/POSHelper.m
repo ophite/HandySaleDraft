@@ -5,7 +5,6 @@
 //  Created by kobernik.u on 12/23/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-
 #import "POSHelper.h"
 
 @implementation POSHelper

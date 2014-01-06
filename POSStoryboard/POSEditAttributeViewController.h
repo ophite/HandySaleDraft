@@ -11,9 +11,13 @@
 #import "POSObjectsHelper.h"
 #import "POSEditAttributeStaticCell.h"
 #import "POSEditAttributeDynamicCell.h"
+#import "POSKBKeyboardHandlerDelegate.h"
+#import "POSKBKeyboardHandler.h"
+#import "UIView+POSFindFirstResponder.h"
 
-@interface POSEditAttributeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface POSEditAttributeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, POSKBKeyboardHandlerDelegate> {
     
+    POSKBKeyboardHandler *keyboard;
 @private
     id __deletedCell;
     

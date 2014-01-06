@@ -8,13 +8,17 @@
 #import <UIKit/UIKit.h>
 #import "POSTest.h"
 #import "POSObjectsHelper.h"
+#import "POSKBKeyboardHandler.h"
+#import "POSKBKeyboardHandlerDelegate.h"
+#import "UIView+POSFindFirstResponder.h"
 
-
-@interface POSLoginViewController : UIViewController<UITextFieldDelegate> {
+@interface POSLoginViewController: UIViewController<UITextFieldDelegate, POSKBKeyboardHandlerDelegate> {
     
+    POSKBKeyboardHandler *keyboard;
+
 @private
     BOOL __rememberChecked;
-    
+
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonLogin;

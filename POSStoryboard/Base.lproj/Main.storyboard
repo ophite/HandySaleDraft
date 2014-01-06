@@ -23,7 +23,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g6o-r8-qHD">
-                                <rect key="frame" x="20" y="207" width="280" height="284"/>
+                                <rect key="frame" x="20" y="120" width="280" height="284"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cCv-z3-a1S">
@@ -296,11 +296,11 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w9q-fx-7Ur">
-                                <rect key="frame" x="10" y="65" width="320" height="446"/>
+                                <rect key="frame" x="0.0" y="65" width="320" height="446"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fV3-rp-vOQ" customClass="AQGridView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="446"/>
+                                        <rect key="frame" x="-2" y="0.0" width="322" height="446"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </scrollView>
                                 </subviews>
@@ -1506,7 +1506,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Uwv-co-TKF"/>
         <segue reference="d1d-7q-bLz"/>
+        <segue reference="BqE-aY-ofo"/>
     </inferredMetricsTieBreakers>
 </document>

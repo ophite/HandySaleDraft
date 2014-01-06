@@ -8,13 +8,13 @@
 #import "POSLoginViewController.h"
 
 
-@interface POSLoginViewController ()
+@interface POSLoginViewController (POSFindFirstResponder)
 
 @end
 
 
 @implementation POSLoginViewController
-
+    
 
 @synthesize textEmail = _textEmail;
 @synthesize textPassword = _textPassword;
@@ -49,7 +49,10 @@
     // gui
     self.textEmail.delegate = self;
     self.textPassword.delegate = self;
-    self.textEmail.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+//    self.textEmail.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    
+    keyboard = [[POSKBKeyboardHandler alloc] init];
+    keyboard.delegate = self;
     
     // login password - remember
     __rememberChecked = [[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME] boolValue];
@@ -107,6 +110,37 @@
     }
     
     return YES;
+}
+
+
+#pragma mark - POSKBKeyboardHandlerDelegate
+
+- (void)keyboardSizeChanged:(CGSize)delta {
+    
+    // Resize / reposition your views here. All actions performed here
+    // will appear animated.
+    // delta is the difference between the previous size of the keyboard
+    // and the new one.
+    // For instance when the keyboard is shown,
+    // delta may has width=768, height=264,
+    // when the keyboard is hidden: width=-768, height=-264.
+    // Use keyboard.frame.size to get the real keyboard size.
+    
+    // Sample:
+    
+    UIView *firstResponder = [self.view posFindFirstResponder];
+    CGPoint point = [self.view convertPoint:CGPointZero fromView:firstResponder];
+    
+    // 568 - height of main window
+    // 264 - height of keyboard
+    // 25 delta
+    
+    if (point.y > (568 - 264 + 25)) {
+        
+        CGRect frame = self.view.frame;
+        frame.origin.y -= delta.height;
+        self.view.frame = frame;
+    }
 }
 
 
