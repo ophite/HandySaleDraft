@@ -9,7 +9,7 @@
 #import "POSDBHelper.h"
 
 
-@interface POSRegisterViewController : UIViewController<UITextFieldDelegate>
+@interface POSRegisterViewController : UIViewController<UITextFieldDelegate, UIAlertViewDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITextField *textEmail;

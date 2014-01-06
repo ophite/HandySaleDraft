@@ -86,15 +86,61 @@
     
     BOOL isRegistered = NO;
     
-    if ([dbWrapperInstance openDB]) {
+    // valid email
+    if ([self.textEmail.text rangeOfString:@"@"].location == NSNotFound || [self.textEmail.text rangeOfString:@"."].location == NSNotFound) {
         
-        NSString * query = [NSString stringWithFormat:@"INSERT INTO USER (email, password) VALUES (\"%@\", \"%@\")", self.textEmail.text, self.textPassword.text];
-        isRegistered = [dbWrapperInstance tryExecQuery:query];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Email not correct"
+                                                        message: @"You entered not valid email"
+                                                       delegate: self
+                                              cancelButtonTitle: @"Ok"
+                                              otherButtonTitles: nil, nil];
+        [alert show];
+    }
+    else if ([dbWrapperInstance openDB]) {
         
+        // valid user+email
+        NSString * query = [NSString stringWithFormat:@"select    count(*) \
+                                                        from      user \
+                                                        where     email = \"%@\"; ", self.textEmail.text];
+        int count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
         [dbWrapperInstance closeDB];
+        
+        if (count > 0) {
+            
+            NSString* question = [NSString stringWithFormat:@"User with email %@ already exist?", self.textEmail.text];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Email exist"
+                                                            message: question
+                                                           delegate: self
+                                                  cancelButtonTitle: @"Ok"
+                                                  otherButtonTitles: nil, nil];
+            [alert show];
+        }
+        else {
+            
+            if ([dbWrapperInstance openDB]) {
+                
+                NSString *query = [NSString stringWithFormat: @"insert into user(email, password) values(\"%@\", \"%@\"); ", self.textEmail.text, self.textPassword.text];
+                isRegistered = [dbWrapperInstance tryExecQuery:query];
+                [dbWrapperInstance closeDB];
+            }
+        }
     }
     
     return isRegistered;
+}
+
+
+#pragma mark - Alert
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if ([alertView.title isEqual: @"Email exist"]) {
+        
+//        NSString* title = [alertView buttonTitleAtIndex:buttonIndex];
+        
+    } else if ([alertView.title isEqual: @"Email not correct"]) {
+        
+    }
 }
 
 

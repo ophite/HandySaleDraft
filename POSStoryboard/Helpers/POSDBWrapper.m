@@ -70,8 +70,7 @@
 }
 
 
-- (int)execQueryResultInt:(NSString *)query
-                  andIndex:(int)index {
+- (int)execQueryResultInt:(NSString *)query andIndex:(int)index {
 
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
     sqlite3_step(statement);    
