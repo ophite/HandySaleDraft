@@ -41,9 +41,6 @@
     [super viewDidLoad];
     
     self.textEmail.delegate = self;
-    
-    [objectsHelperInstance.dataSet settingsGet];
-
     self.textEmail.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_EMAIL];
     [self.buttonLanguage setTitle:[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_LANGUAGE] forState:UIControlStateNormal];
     [self.buttonMoney setTitle:[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_MONEY] forState:UIControlStateNormal];
@@ -188,14 +185,14 @@
 
         controller.settingName = helperInstance.SETTING_LANGUAGE;
         controller.settingValue = self.buttonLanguage.titleLabel.text;
-        controller.pickerDict = [helperInstance getLanguages];
+        controller.pickerDict = [helperInstance SETTING_LANGUAGES_DICT];
         
     }
     else if ([[segue identifier] isEqualToString:@"goToMoney"]) {
         
         controller.settingName = helperInstance.SETTING_MONEY;
         controller.settingValue = self.buttonMoney.titleLabel.text;
-        controller.pickerDict = [helperInstance getMoney];
+        controller.pickerDict = [helperInstance SETTING_MONEY_DICT];
     }
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.

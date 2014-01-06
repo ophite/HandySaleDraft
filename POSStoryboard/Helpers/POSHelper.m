@@ -13,7 +13,7 @@
 
 #pragma mark - SETTINGS
 
-- (NSDictionary *)getLanguages {
+- (NSDictionary *)SETTING_LANGUAGES_DICT {
     
     return [[NSDictionary alloc] initWithObjectsAndKeys:
             @"Russian", @"Russian",
@@ -21,7 +21,7 @@
             nil];
 }
 
-- (NSDictionary *)getMoney {
+- (NSDictionary *)SETTING_MONEY_DICT {
     
     return [[NSDictionary alloc] initWithObjectsAndKeys:
             @"$ dollar", @"$",
@@ -69,37 +69,41 @@
 - (NSString *)SETTING_EMAIL {
     
     return @"email";
-//    return @"setting_email_icon.png";
 }
 
 - (NSString *)SETTING_LANGUAGE {
     
     return @"language";
-    //    return @"setting_email_icon.png";
 }
 
 - (NSString *)SETTING_MONEY {
     
     return @"money";
-    //    return @"setting_email_icon.png";
 }
 
 - (NSString *)SETTING_WIFI {
     
     return @"wifi";
-    //    return @"setting_email_icon.png";
 }
 
 - (NSString *)SETTING_VAT {
     
     return @"vat";
-    //    return @"setting_email_icon.png";
 }
 
 - (NSString *)SETTING_REMEMBERME {
     
     return @"rememberme";
-    //    return @"setting_email_icon.png";
+}
+
+- (NSString *)SETTING_REMEMBERME_LOGIN {
+    
+    return @"rememberme_login";
+}
+
+- (NSString *)SETTING_REMEMBERME_PASS {
+    
+    return @"rememberme_pass";
 }
 
 

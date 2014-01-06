@@ -13,11 +13,11 @@
 @interface POSLoginViewController : UIViewController<UITextFieldDelegate> {
     
 @private
-    BOOL __remeberChecked;
+    BOOL __rememberChecked;
     
 }
 
-
+@property (weak, nonatomic) IBOutlet UIButton *buttonLogin;
 @property (weak, nonatomic) IBOutlet UIButton *buttonRememberMe;
 @property (weak, nonatomic) IBOutlet UITextField *textEmail;
 @property (weak, nonatomic) IBOutlet UITextField *textPassword;

@@ -19,7 +19,7 @@
 @synthesize textEmail = _textEmail;
 @synthesize textPassword = _textPassword;
 @synthesize buttonRememberMe = _buttonRememberMe;
-
+@synthesize buttonLogin = _buttonLogin;
 
 #pragma mark - ViewController
 
@@ -40,14 +40,29 @@
 
     [super viewDidLoad];
     
-    self.textEmail.delegate = self;
-    self.textPassword.delegate = self;
-    
-    self.textEmail.layer.borderColor = [[UIColor greenColor] CGColor];
-    
+    // init data
     POSTest* test = [[POSTest alloc] init];
     [test initDBStructure];
     [test initDBData:objectsHelperInstance.dataSet];
+    [objectsHelperInstance.dataSet settingsGet];
+
+    // gui
+    self.textEmail.delegate = self;
+    self.textPassword.delegate = self;
+    self.textEmail.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    
+    // login password - remember
+    __rememberChecked = [[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME] boolValue];
+    [self setRememberMeImage];
+    
+    if (__rememberChecked) {
+        
+        self.textEmail.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_LOGIN];
+        self.textPassword.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_PASS];
+        
+        [self.buttonLogin sendActionsForControlEvents:UIControlEventTouchUpInside];
+    }
+    
 	// Do any additional setup after loading the view.
 }
 
@@ -83,6 +98,10 @@
             [self.textEmail setText:@""];
             [self.textPassword setText:@""];
         }
+        else {
+
+            [self saveLoginPassIfRememberMe];
+        }
        
         return isLogged;
     }
@@ -105,7 +124,7 @@
         NSString* passStr;
         NSString* query = [NSString stringWithFormat: @"SELECT  password \
                                                         FROM    user \
-                                                        WHERE   email=\"%@\"", self.textEmail.text];
+                                                        WHERE   email=\"%@\"; ", self.textEmail.text];
         
         if ([dbWrapperInstance tryExecQueryResultText:query
                                              andIndex:0
@@ -150,13 +169,61 @@
 //     */
 //}
 
+- (void)setRememberMeImage {
+    
+    [self.buttonRememberMe setImage: [UIImage imageNamed:(__rememberChecked ? helperInstance.SETTING_REMEMBERME_CHECKED_ICON:helperInstance.SETTING_REMEMBERME_UNCHECKED_ICON)]
+                           forState: UIControlStateNormal];
+}
+
+
+- (void)saveLoginPassIfRememberMe {
+    
+    POSSetting *settingRememberMe = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME];
+    if ([settingRememberMe.value boolValue] != __rememberChecked) {
+        
+        [objectsHelperInstance.dataSet settingsUpdate:settingRememberMe withValue:[helperInstance convertBoolToString:__rememberChecked]];
+        
+        POSSetting *settingRememberMe_Login = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_LOGIN];
+        POSSetting *settingRememberMe_Pass = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_PASS];
+        
+        if (__rememberChecked) {
+            
+            if (![settingRememberMe_Login.value isEqualToString:self.textEmail.text]) {
+                
+                [objectsHelperInstance.dataSet settingsUpdate:settingRememberMe_Login withValue:self.textEmail.text];
+            }
+            
+            if (![settingRememberMe_Pass.value isEqualToString:self.textPassword.text]) {
+                
+                self.textPassword.enabled = NO;
+                self.textPassword.secureTextEntry = NO;
+                self.textPassword.enabled = YES;
+                [self.textPassword becomeFirstResponder];
+                
+                [objectsHelperInstance.dataSet settingsUpdate:settingRememberMe_Pass withValue:self.textPassword.text];
+                
+                self.textPassword.enabled = NO;
+                self.textPassword.secureTextEntry = YES;
+                self.textPassword.enabled = YES;
+                [self.textPassword becomeFirstResponder];
+            }
+        }
+        else  {
+            // clear values
+            [objectsHelperInstance.dataSet settingsUpdate:settingRememberMe_Login withValue:@""];
+            [objectsHelperInstance.dataSet settingsUpdate:settingRememberMe_Pass withValue:@""];
+        }
+    }
+}
+
 
 #pragma mark - Actions
 
 - (IBAction)onRememberMe:(id)sender {
-    
 
-//    self.buttonRememberMe setImage:UIIMage forState:<#(UIControlState)#>
+    __rememberChecked = !__rememberChecked;
+    [self setRememberMeImage];
+    [self.view endEditing:YES];
 }
 
 

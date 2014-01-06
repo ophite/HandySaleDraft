@@ -35,8 +35,8 @@
 //    query = @"DROP TABLE IF EXISTS document_line";
 //    [dbWrapperInstance tryExecQuery:query];
 //    
-    query = @"DROP TABLE IF EXISTS setting";
-    [dbWrapperInstance tryExecQuery:query];
+//    query = @"DROP TABLE IF EXISTS setting";
+//    [dbWrapperInstance tryExecQuery:query];
     
     query =
     @"CREATE TABLE IF NOT EXISTS attribute ( \
@@ -382,15 +382,19 @@
         query = [NSMutableString stringWithFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
                                 helperInstance.SETTING_EMAIL, @"test@ukr.net", image_email_id];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
-                                helperInstance.SETTING_LANGUAGE, [helperInstance getDictionaryFirstValue:[helperInstance getLanguages]], image_language_id];
+                                helperInstance.SETTING_LANGUAGE, [helperInstance getDictionaryFirstValue:[helperInstance SETTING_LANGUAGES_DICT]], image_language_id];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
-                                helperInstance.SETTING_MONEY,[helperInstance getDictionaryFirstKey:[helperInstance getMoney]], image_money_id];
+                                helperInstance.SETTING_MONEY,[helperInstance getDictionaryFirstKey:[helperInstance SETTING_MONEY_DICT]], image_money_id];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
                                 helperInstance.SETTING_WIFI, [helperInstance convertBoolToString:YES], image_wifi_id];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
                                 helperInstance.SETTING_VAT, [helperInstance convertBoolToString:NO], image_vat_id];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
                                 helperInstance.SETTING_REMEMBERME, [helperInstance convertBoolToString:NO], image_rememberme_checked_id];
+        [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
+                                helperInstance.SETTING_REMEMBERME_LOGIN, @"", -1];
+        [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
+                                helperInstance.SETTING_REMEMBERME_PASS, @"", -1];
         
         [dbWrapperInstance tryExecQuery:query];
     }

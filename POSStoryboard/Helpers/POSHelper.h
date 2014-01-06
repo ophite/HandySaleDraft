@@ -11,9 +11,11 @@
 
 @interface POSHelper : NSObject
 
-- (NSDictionary *)getMoney;
-- (NSDictionary *)getLanguages;
+- (NSDictionary *)SETTING_MONEY_DICT;
+- (NSDictionary *)SETTING_LANGUAGES_DICT;
 
+- (NSString *)SETTING_REMEMBERME_LOGIN;
+- (NSString *)SETTING_REMEMBERME_PASS;
 - (NSString *)SETTING_REMEMBERME_CHECKED_ICON;
 - (NSString *)SETTING_REMEMBERME_UNCHECKED_ICON;
 - (NSString *)SETTING_EMAIL_ICON;

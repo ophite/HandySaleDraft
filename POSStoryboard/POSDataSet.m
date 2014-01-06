@@ -377,7 +377,7 @@
     NSString * query = [NSString stringWithFormat: @"SELECT     c.id, c.name, i.asset \
                                                      FROM       collection c \
                                                      LEFT JOIN  image i \
-                                                     WHERE      i.object_id = c.id AND i.object_name = \"collection\" AND i.is_default = 1"];
+                                                     WHERE      i.object_id = c.id AND i.object_name = \"collection\" AND i.is_default = 1; "];
     ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
   
     void(^blockGetCategory)( id rows, ALAssetsLibrary * lib) = ^(id rows, id lib) {
@@ -387,8 +387,8 @@
         catObject.name = [dbWrapperInstance getCellText:1];
         catObject.asset = [dbWrapperInstance getCellText:2];
         
-        if (catObject.asset != Nil && ![catObject.asset isEqualToString:@""])
-        {
+        if (catObject.asset != Nil && ![catObject.asset isEqualToString:@""]) {
+            
             NSURL * assetUrl = [[NSURL alloc] initWithString:catObject.asset];
             
             [((ALAssetsLibrary *)lib) assetForURL: assetUrl
@@ -592,6 +592,7 @@
         
         [self gallerySave: index + 1
               withLibrary: library];
+        
         return;
     }
 
@@ -615,7 +616,7 @@
                 
                 query = [NSString stringWithFormat:@"UPDATE image \
                                                      SET    asset = \"%@\" \
-                                                     where  path = \"%@\"", url, posImage.path];
+                                                     where  path = \"%@\"; ", url, posImage.path];
                 [dbWrapperInstance tryExecQuery:query];
                 [dbWrapperInstance closeDB];
             }

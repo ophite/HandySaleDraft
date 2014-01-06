@@ -120,6 +120,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="oi4-7V-sul"/>
                     <connections>
+                        <outlet property="buttonLogin" destination="ycg-t6-Skj" id="Ai5-Pg-m8l"/>
                         <outlet property="buttonRememberMe" destination="Tjh-XC-lfu" id="32S-xj-KHD"/>
                         <outlet property="textEmail" destination="cCv-z3-a1S" id="h38-tW-6TF"/>
                         <outlet property="textPassword" destination="hV8-3s-UuC" id="iMa-BH-vEd"/>
