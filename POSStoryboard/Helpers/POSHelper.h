@@ -42,6 +42,8 @@
 - (id)getDictionaryFirstValue:(NSDictionary *)dict;
 - (id)getDictionaryFirstKey:(NSDictionary *)dict;
 - (NSString *)convertBoolToString:(BOOL)value;
+- (BOOL)isValidEmail:(NSString *)email;
+
 
 + (POSHelper *)getInstance;
 - (id)getUIViewController:(NSString *)storyboardName;

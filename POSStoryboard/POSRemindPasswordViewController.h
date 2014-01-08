@@ -11,10 +11,9 @@
 #import "POSDBWrapper.h"
 #import "POSDataSet.h"
 #import <MessageUI/MFMailComposeViewController.h>
-//#import "NSData+Base64.h"
 
 
-@interface POSRemindPasswordViewController : UIViewController <UITextFieldDelegate, MFMailComposeViewControllerDelegate>
+@interface POSRemindPasswordViewController : UIViewController <UITextFieldDelegate, MFMailComposeViewControllerDelegate, UIAlertViewDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITextField *textEmail;

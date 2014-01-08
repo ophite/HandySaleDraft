@@ -58,38 +58,118 @@
 
 - (IBAction)onResetPassword:(id)sender {
     
-    NSString *password;
-    NSString *query = [NSString stringWithFormat:@"select   password \
-                                                   from     user \
-                                                   where    email = \"%@\"; ", self.textEmail.text];
+    int count = 0;
+    NSMutableString * query;
     
-    [dbWrapperInstance openDB];
-    [dbWrapperInstance tryExecQueryResultText: query
-                                     andIndex: 0
-                                    andResult: &password];
-    [dbWrapperInstance closeDB];
+    if ([dbWrapperInstance openDB]) {
+        // valid user+email
+        query = [NSMutableString stringWithFormat:@"select  count(*) \
+                                                    from    user \
+                                                    where   email = \"%@\"; ", self.textEmail.text];
+        count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+        [dbWrapperInstance closeDB];
+    }
     
-    if (password != Nil && password.length > 0) {
+    if (count == 0) {
         
-        if([MFMailComposeViewController canSendMail]) {
+        NSString* question = [NSString stringWithFormat:@"User with email %@ not registered?", self.textEmail.text];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Email not registered"
+                                                        message: question
+                                                       delegate: self
+                                              cancelButtonTitle: @"Ok"
+                                              otherButtonTitles: nil, nil];
+        [alert show];
+    }
+    else {
         
-            MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
-            mailCont.mailComposeDelegate = self;
+        NSString *password;
+        query = [NSMutableString stringWithFormat:@"select  password \
+                                                    from    user \
+                                                    where   email = \"%@\"; ", self.textEmail.text];
+        
+        if ([dbWrapperInstance openDB]) {
             
-            [mailCont setSubject:@"POS password remind"];
+            [dbWrapperInstance tryExecQueryResultText: query
+                                             andIndex: 0
+                                            andResult: &password];
+            [dbWrapperInstance closeDB];
+        }
 
+        if (password != Nil && password.length > 0 && [MFMailComposeViewController canSendMail]) {
+                
+            MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
+            [mailController setMailComposeDelegate:self];
+            [mailController setToRecipients:@[self.textEmail.text]];
+            [mailController setSubject:@"POS password remind"];
+            
             NSMutableString *messageBody = [[NSMutableString alloc] initWithString:@"<html><body>"];
             [messageBody appendFormat:@"<b>"];
             [messageBody appendFormat:@"Your password:%@", password];
             [messageBody appendFormat:@"</b>"];
             [messageBody appendFormat:@"</body></html>"];
-            [mailCont setMessageBody:messageBody isHTML:YES];
+            [mailController setMessageBody:messageBody isHTML:YES];
             
-            [self presentViewController:mailCont animated:YES completion:nil];
+            [self presentViewController:mailController animated:YES completion:nil];
         }
     }
+}
 
-//    [self.navigationController popToRootViewControllerAnimated:YES];
+
+#pragma mark Email
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            break;
+            
+        case MFMailComposeResultSaved:
+            break;
+
+        case MFMailComposeResultSent: {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Result mail sent"
+                                                            message: @"Mail Sent Successfully"
+                                                           delegate: nil
+                                                  cancelButtonTitle: @"OK"
+                                                  otherButtonTitles: nil, nil];
+            [alert show];
+        }
+            break;
+        
+        case MFMailComposeResultFailed: {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Result mail sent"
+                                                            message: @"Error. Mail not sent"
+                                                           delegate: nil
+                                                  cancelButtonTitle: @"OK"
+                                                  otherButtonTitles: nil, nil];
+            [alert show];
+        }
+            break;
+        
+        default:
+            break;
+    }
+    
+    void(^blockCompleteMail)() = ^() {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    };
+    
+    [self dismissViewControllerAnimated:YES completion:blockCompleteMail];
+}
+
+
+#pragma mark - Alert
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if ([alertView.title isEqual: @"Email not registered"]) {
+
+    }else if ([alertView.title isEqualToString:@"Result mail sent"]){
+        
+    }
 }
 
 @end

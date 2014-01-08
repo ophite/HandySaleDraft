@@ -7,7 +7,7 @@
 //
 #import <UIKit/UIKit.h>
 #import "POSDBHelper.h"
-
+#import "POSHelper.h"
 
 @interface POSRegisterViewController : UIViewController<UITextFieldDelegate, UIAlertViewDelegate>
 
@@ -18,7 +18,6 @@
 
 
 - (IBAction)onCreate:(id)sender;
-- (BOOL)registerNewUser;
 
 
 @end

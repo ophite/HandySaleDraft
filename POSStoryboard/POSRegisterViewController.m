@@ -67,30 +67,39 @@
 
 - (IBAction)onCreate:(id)sender {
     
-    if(![self.textPassword.text isEqualToString:@""] &&
-       [self.textPassword.text isEqualToString:self.textPassword2.text] &&
-       [self registerNewUser]) {
+    if([self isRegisterNewUser]) {
     
         [self.navigationController popViewControllerAnimated:YES];
-    }
-    else {
-        
-        [self.textEmail setText:@""];
-        [self.textPassword setText:@""];
-        [self.textPassword2 setText:@""];
     }
 }
 
 
-- (BOOL)registerNewUser {
+- (BOOL)isRegisterNewUser {
     
     BOOL isRegistered = NO;
     
-    // valid email
-    if ([self.textEmail.text rangeOfString:@"@"].location == NSNotFound || [self.textEmail.text rangeOfString:@"."].location == NSNotFound) {
-        
+    if (![helperInstance isValidEmail:self.textEmail.text]) {
+        // valid email
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Email not correct"
                                                         message: @"You entered not valid email"
+                                                       delegate: self
+                                              cancelButtonTitle: @"Ok"
+                                              otherButtonTitles: nil, nil];
+        [alert show];
+    }
+    else if ([self.textPassword.text isEqualToString:@""] || [self.textPassword2.text isEqualToString:@""]) {
+        // valid password
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Password not correct"
+                                                        message: @"You did not entered passwords"
+                                                       delegate: self
+                                              cancelButtonTitle: @"Ok"
+                                              otherButtonTitles: nil, nil];
+        [alert show];
+    }
+    else if (![self.textPassword.text isEqualToString:self.textPassword2.text]) {
+        // valid password
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Password not correct"
+                                                        message: @"Your passwords not equils"
                                                        delegate: self
                                               cancelButtonTitle: @"Ok"
                                               otherButtonTitles: nil, nil];
@@ -99,9 +108,9 @@
     else if ([dbWrapperInstance openDB]) {
         
         // valid user+email
-        NSString * query = [NSString stringWithFormat:@"select    count(*) \
-                                                        from      user \
-                                                        where     email = \"%@\"; ", self.textEmail.text];
+        NSString * query = [NSString stringWithFormat:@"select  count(*) \
+                                                        from    user \
+                                                        where   email = \"%@\"; ", self.textEmail.text];
         int count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
         [dbWrapperInstance closeDB];
         
@@ -119,7 +128,8 @@
             
             if ([dbWrapperInstance openDB]) {
                 
-                NSString *query = [NSString stringWithFormat: @"insert into user(email, password) values(\"%@\", \"%@\"); ", self.textEmail.text, self.textPassword.text];
+                NSString *query = [NSString stringWithFormat: @"insert into user(email, password) \
+                                                                values(\"%@\", \"%@\"); ", self.textEmail.text, self.textPassword.text];
                 isRegistered = [dbWrapperInstance tryExecQuery:query];
                 [dbWrapperInstance closeDB];
             }
@@ -136,7 +146,6 @@
     
     if ([alertView.title isEqual: @"Email exist"]) {
         
-//        NSString* title = [alertView buttonTitleAtIndex:buttonIndex];
         
     } else if ([alertView.title isEqual: @"Email not correct"]) {
         
