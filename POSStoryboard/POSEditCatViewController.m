@@ -43,6 +43,8 @@
     
     self.oldName = self.cat.name;
     self.imageView.image = self.cat.image;
+    //    self.imageView.layer.    self.viewTextAttrValueTitle.layer.cornerRadius = 5;
+
     self.textName.text = self.cat.name;
     [self.textName setReturnKeyType:UIReturnKeyDone];
 	// Do any additional setup after loading the view.
@@ -130,6 +132,12 @@
 
 
 #pragma mark -  Actions
+
+- (IBAction)onSelectCategory2:(id)sender {
+}
+
+- (IBAction)onSelectCategory1:(id)sender {
+}
 
 - (IBAction)onSave:(id)sender {
     

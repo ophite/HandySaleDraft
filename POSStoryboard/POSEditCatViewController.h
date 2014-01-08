@@ -20,7 +20,10 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *textName;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIButton *buttonSave;
 
+- (IBAction)onSelectCategory1:(id)sender;
+- (IBAction)onSelectCategory2:(id)sender;
 
 - (IBAction)onSave:(id)sender;
 - (IBAction)onCancel:(id)sender;

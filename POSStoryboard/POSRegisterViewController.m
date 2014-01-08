@@ -146,7 +146,6 @@
     
     if ([alertView.title isEqual: @"Email exist"]) {
         
-        
     } else if ([alertView.title isEqual: @"Email not correct"]) {
         
     }

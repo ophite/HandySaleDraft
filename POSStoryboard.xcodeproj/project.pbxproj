@@ -106,6 +106,7 @@
 		8032391B187731B300BB9DAE /* setting_rememberme_unchecked_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 80323919187731B300BB9DAE /* setting_rememberme_unchecked_icon.png */; };
 		8054C3EF1852233E00299E2F /* POSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3EE1852233E00299E2F /* POSLoginViewController.m */; };
 		8054C3F21852235000299E2F /* POSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3F11852235000299E2F /* POSRegisterViewController.m */; };
+		80741498187D98A400BD1188 /* image_not_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 80741497187D98A400BD1188 /* image_not_selected.png */; };
 		807C43911859F56F00CBAB88 /* POSDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C438E1859F56F00CBAB88 /* POSDBHelper.m */; };
 		807C43921859F56F00CBAB88 /* POSDBWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43901859F56F00CBAB88 /* POSDBWrapper.m */; };
 		807C4398185A16EC00CBAB88 /* POSObjectsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C4397185A16EC00CBAB88 /* POSObjectsHelper.m */; };
@@ -281,6 +282,7 @@
 		8054C3EE1852233E00299E2F /* POSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSLoginViewController.m; sourceTree = "<group>"; };
 		8054C3F01852235000299E2F /* POSRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSRegisterViewController.h; sourceTree = "<group>"; };
 		8054C3F11852235000299E2F /* POSRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSRegisterViewController.m; sourceTree = "<group>"; };
+		80741497187D98A400BD1188 /* image_not_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_not_selected.png; sourceTree = "<group>"; };
 		807C438D1859F56F00CBAB88 /* POSDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSDBHelper.h; path = Helpers/POSDBHelper.h; sourceTree = "<group>"; };
 		807C438E1859F56F00CBAB88 /* POSDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSDBHelper.m; path = Helpers/POSDBHelper.m; sourceTree = "<group>"; };
 		807C438F1859F56F00CBAB88 /* POSDBWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSDBWrapper.h; path = Helpers/POSDBWrapper.h; sourceTree = "<group>"; };
@@ -546,6 +548,7 @@
 		8004B7171850D36500681B11 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				80741497187D98A400BD1188 /* image_not_selected.png */,
 				80323918187731B300BB9DAE /* setting_rememberme_checked_icon.png */,
 				80323919187731B300BB9DAE /* setting_rememberme_unchecked_icon.png */,
 				803239041871E4D900BB9DAE /* setting_language_icon.png */,
@@ -869,6 +872,7 @@
 				8004B7561850D38800681B11 /* tab-mask.png in Resources */,
 				8004B73C1850D38800681B11 /* car9.png in Resources */,
 				8004B7511850D38800681B11 /* car20.png in Resources */,
+				80741498187D98A400BD1188 /* image_not_selected.png in Resources */,
 				807C43A7185A21E900CBAB88 /* zbar-help.html in Resources */,
 				8004B74F1850D38800681B11 /* car18.png in Resources */,
 				803238DF1869D53900BB9DAE /* setting_addattribute_icon.png in Resources */,
