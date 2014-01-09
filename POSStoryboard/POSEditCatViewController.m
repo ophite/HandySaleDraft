@@ -17,8 +17,16 @@
 
 @synthesize cat = _cat;
 @synthesize textName = _textName;
-@synthesize imageView = _imageView;
 @synthesize oldName = _oldName;
+@synthesize buttonSave = _buttonSave;
+@synthesize viewForColorExample = _viewForColorExample;
+
+@synthesize viewMain = _viewMain;
+@synthesize scrollView = _scrollView;
+@synthesize viewScroll = _viewScroll;
+@synthesize viewImage = _viewImage;
+@synthesize imageView = _imageView;
+@synthesize viewButtons = _viewButtons;
 
 
 #pragma mark - ViewController
@@ -38,13 +46,47 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.viewImage.layer.cornerRadius = 10;
+
+    self.textName.layer.borderColor = [self.viewForColorExample.backgroundColor CGColor];
+    self.textName.layer.borderWidth = 1.0;
+
+    // scrolling
+    self.scrollView.delegate = self;
+    [self.scrollView setScrollEnabled:YES];
+    self.scrollView.pagingEnabled = YES;
+    [self.scrollView setMinimumZoomScale:1.0];
+    [self.scrollView setMaximumZoomScale:2.0];
+    [self.scrollView setContentSize:self.viewScroll.frame.size];
     
-    self.textName.delegate = self;
+    // image touch event
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget: self
+                                                                                    action: @selector(onSelectImage:)];
+    [tapRecognizer setNumberOfTouchesRequired:1];
+    [self.imageView addGestureRecognizer:tapRecognizer];
+
+    self.viewMain.userInteractionEnabled = YES;
+    self.scrollView.userInteractionEnabled = YES;
+    self.viewScroll.userInteractionEnabled = YES;
+    self.viewImage.userInteractionEnabled = YES;
+    self.imageView.userInteractionEnabled = YES;
+    self.viewButtons.userInteractionEnabled = YES;
+    
+    // button save shadow
+    self.buttonSave.layer.shadowRadius = 3.0f;
+    self.buttonSave.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.buttonSave.layer.shadowOffset = CGSizeMake(2, 2);
+    self.buttonSave.layer.shadowOpacity = 0.5f;
+    self.buttonSave.layer.masksToBounds = NO;
+    
+    // other
+    self.imageView.layer.cornerRadius = 10;
+    self.buttonSave.layer.cornerRadius = 15;
     
     self.oldName = self.cat.name;
     self.imageView.image = self.cat.image;
-    //    self.imageView.layer.    self.viewTextAttrValueTitle.layer.cornerRadius = 5;
 
+    self.textName.delegate = self;
     self.textName.text = self.cat.name;
     [self.textName setReturnKeyType:UIReturnKeyDone];
 	// Do any additional setup after loading the view.
@@ -130,6 +172,11 @@
     }
 }
 
+//
+//- (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+//    
+//    return self.viewMain;
+//}
 
 #pragma mark -  Actions
 
@@ -197,7 +244,7 @@
 }
 
 
-- (IBAction)onSelectImage:(id)sender {
+- (void)onSelectImage:(id)sender {
     
     UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: @"Select source"
                                                         message: @"Please select image source"

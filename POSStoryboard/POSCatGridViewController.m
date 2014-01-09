@@ -101,8 +101,8 @@
 
 #pragma mark - GridView methods
  
-- (NSUInteger)numberOfItemsInGridView:(AQGridView *)aGridView
-{
+- (NSUInteger)numberOfItemsInGridView:(AQGridView *)aGridView {
+    
     return [objectsHelperInstance.dataSet.categories count];
 }
 
