@@ -19,7 +19,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" id="g6o-r8-qHD">
-                                <rect key="frame" x="20" y="120" width="280" height="284"/>
+                                <rect key="frame" x="20" y="120" width="280" height="321"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Email" minimumFontSize="17" id="cCv-z3-a1S">
@@ -38,7 +38,7 @@
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XWD-Dr-ucu">
-                                        <rect key="frame" x="37" y="240" width="61" height="30"/>
+                                        <rect key="frame" x="37" y="276" width="61" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Register">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -48,8 +48,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ycg-t6-Skj">
-                                        <rect key="frame" x="118" y="190" width="45" height="30"/>
+                                        <rect key="frame" x="20" y="192" width="240" height="63"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.98823535442352295" green="0.82352948188781738" blue="0.19607844948768616" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Login">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -62,28 +64,22 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.83137261867523193" green="0.80392163991928101" blue="0.88235300779342651" alpha="1" colorSpace="deviceRGB"/>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="Tjh-XC-lfu">
-                                        <rect key="frame" x="14" y="119" width="126" height="38"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Tjh-XC-lfu">
+                                        <rect key="frame" x="17" y="119" width="118" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" image="setting_rememberme_checked_icon.png">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Remember me">
-                                                    <attributes>
-                                                        <font key="NSFont" size="11" name="HelveticaNeue"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                        <state key="normal" title="Remember me" image="setting_rememberme_checked_icon.png">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="onRememberMe:" destination="VcN-I6-SZA" eventType="touchUpInside" id="ylP-5w-a2g"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iQs-c8-86C">
-                                        <rect key="frame" x="153" y="123" width="107" height="30"/>
+                                        <rect key="frame" x="141" y="123" width="122" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Remind password">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -92,19 +88,19 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6sM-lK-ELl">
-                                        <rect key="frame" x="165" y="240" width="95" height="30"/>
+                                        <rect key="frame" x="165" y="276" width="95" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Demo-mode">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
                                     <view contentMode="scaleToFill" id="zku-8j-AcG">
-                                        <rect key="frame" x="0.0" y="230" width="280" height="1"/>
+                                        <rect key="frame" x="0.0" y="266" width="280" height="1"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.83137261870000001" green="0.80392163989999998" blue="0.88235300780000003" alpha="1" colorSpace="deviceRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="vHx-AT-ME4">
-                                        <rect key="frame" x="137" y="230" width="1" height="54"/>
+                                        <rect key="frame" x="137" y="266" width="1" height="54"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.83137261870000001" green="0.80392163989999998" blue="0.88235300780000003" alpha="1" colorSpace="deviceRGB"/>
                                     </view>
@@ -120,6 +116,7 @@
                         <outlet property="buttonRememberMe" destination="Tjh-XC-lfu" id="32S-xj-KHD"/>
                         <outlet property="textEmail" destination="cCv-z3-a1S" id="h38-tW-6TF"/>
                         <outlet property="textPassword" destination="hV8-3s-UuC" id="iMa-BH-vEd"/>
+                        <outlet property="viewForColorExample" destination="00T-pu-9Uw" id="AH0-3u-zdY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s5Z-Pe-Kxa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -399,9 +396,6 @@
                                                         <state key="normal" title="Attibutes management">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
-                                                        <connections>
-                                                            <segue destination="AlT-fp-Z1t" kind="push" id="6r6-cZ-s8T"/>
-                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WAY-PZ-1o6">
                                                         <rect key="frame" x="224" y="388" width="35" height="30"/>
@@ -1377,11 +1371,11 @@
             <objects>
                 <viewController id="AlT-fp-Z1t" customClass="POSAttributesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yzn-wf-pKK">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yzp-17-5ZW">
-                                <rect key="frame" x="89" y="518" width="142" height="30"/>
+                                <rect key="frame" x="61" y="518" width="198" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add new attribute">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1391,7 +1385,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ba4-pX-kCR">
-                                <rect key="frame" x="0.0" y="64" width="326" height="578"/>
+                                <rect key="frame" x="0.0" y="64" width="326" height="446"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.97254908084869385" green="0.97254908084869385" blue="0.97254908084869385" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="separatorColor" red="0.90196084976196289" green="0.90196084976196289" blue="0.90196084976196289" alpha="1" colorSpace="deviceRGB"/>
@@ -1436,11 +1430,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" id="dTP-eM-W8W">
+                                <rect key="frame" x="0.0" y="65" width="141" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.90196084976196289" green="0.90196084976196289" blue="0.90196084976196289" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Attributes" id="fsc-FG-1r2"/>
                     <connections>
+                        <outlet property="buttonAddNewAttribute" destination="yzp-17-5ZW" id="cna-XW-Phs"/>
                         <outlet property="tableView" destination="Ba4-pX-kCR" id="ZAL-wr-H9V"/>
                     </connections>
                 </viewController>
@@ -1453,11 +1453,11 @@
             <objects>
                 <viewController storyboardIdentifier="POSEditAttributeViewController" id="M6L-RJ-Lrq" customClass="POSEditAttributeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="W60-rH-rq9">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ido-Sl-Ji1">
-                                <rect key="frame" x="99" y="518" width="122" height="30"/>
+                                <rect key="frame" x="61" y="518" width="198" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add new variant">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1467,7 +1467,7 @@
                                 </connections>
                             </button>
                             <tableView contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="99" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ojx-Xe-BCG">
-                                <rect key="frame" x="0.0" y="66" width="320" height="576"/>
+                                <rect key="frame" x="0.0" y="66" width="320" height="444"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.96078437566757202" green="0.96078437566757202" blue="0.96078437566757202" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="separatorColor" red="0.90196084976196289" green="0.90196084976196289" blue="0.90196084976196289" alpha="1" colorSpace="deviceRGB"/>
@@ -1573,6 +1573,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Attribute" id="4FX-T3-0DV"/>
                     <connections>
+                        <outlet property="buttonAddNewVariant" destination="ido-Sl-Ji1" id="1Yg-jG-2eo"/>
                         <outlet property="mainView" destination="W60-rH-rq9" id="j6C-NX-hKA"/>
                         <outlet property="tableViewAttributeValue" destination="Ojx-Xe-BCG" id="LJE-DK-QQ4"/>
                     </connections>
@@ -1607,7 +1608,7 @@
         <image name="setting_email_icon.png" width="27" height="27"/>
         <image name="setting_language_icon.png" width="43" height="44"/>
         <image name="setting_money_icon.png" width="43" height="44"/>
-        <image name="setting_rememberme_checked_icon.png" width="40" height="38"/>
+        <image name="setting_rememberme_checked_icon.png" width="23" height="23"/>
         <image name="setting_vat_icon.png" width="46" height="43"/>
         <image name="setting_wifi_icon.png" width="43" height="44"/>
     </resources>
@@ -1619,7 +1620,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="Uwv-co-TKF"/>
         <segue reference="g2I-my-5pL"/>
-        <segue reference="6r6-cZ-s8T"/>
         <segue reference="d1d-7q-bLz"/>
     </inferredMetricsTieBreakers>
 </document>

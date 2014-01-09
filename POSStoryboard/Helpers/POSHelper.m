@@ -105,6 +105,26 @@
     return @"rememberme_pass";
 }
 
+- (NSString *)SETTING_BUTTON_COLOR {
+    
+    return @"button_color";
+}
+
+- (NSString *)SETTING_BUTTON_FONT_COLOR {
+    
+    return @"button_font_color";
+}
+
+- (NSString *)SETTING_TEXTFIELD_BORDER_COLOR {
+    
+    return @"textfield_border_color";
+}
+
+- (NSString *)SETTING_CATEGORY_MODE {
+    
+    return @"category_mode";
+}
+
 
 #pragma mark - SIZES
 
@@ -155,6 +175,12 @@
     
     return  200;
 }
+
+- (int)BUTTON_CORNER_RADIUS {
+    
+    return 15;
+}
+
 
 
 #pragma mark - Other 
@@ -208,6 +234,45 @@
 
     return [mainStoryboard instantiateViewControllerWithIdentifier:storyboardName];
 
+}
+
+- (void)setButtonShadow:(UIButton *)button withCornerRadius:(int)cornerRadius{
+
+    button.layer.shadowRadius = 3.0f;
+    button.layer.shadowColor = [UIColor blackColor].CGColor;
+    button.layer.shadowOffset = CGSizeMake(2, 2);
+    button.layer.shadowOpacity = 0.5f;
+    button.layer.masksToBounds = NO;
+    button.layer.cornerRadius = cornerRadius;
+}
+
+- (void)setTextFieldBorderColorBySetting:(UITextField *)textField {
+    
+    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
+                                        withName: helperInstance.SETTING_TEXTFIELD_BORDER_COLOR];
+
+    textField.layer.borderWidth = 1.0;
+    textField.layer.borderColor = [UIColor colorWithCIColor:[CIColor colorWithString:setting.value]].CGColor;
+}
+
+- (void)setButtonColorBySetting:(UIButton *)button {
+    
+    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
+                                        withName: helperInstance.SETTING_BUTTON_COLOR];
+    
+    button.layer.backgroundColor = [UIColor colorWithCIColor:[CIColor colorWithString:setting.value]].CGColor;
+}
+
+- (void)setButtonFontColorBySetting:(UIButton *)button {
+    
+    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
+                                        withName: helperInstance.SETTING_BUTTON_FONT_COLOR];
+    
+    UIColor *color = [UIColor colorWithCIColor:[CIColor colorWithString:setting.value]];
+//    button.tintColor = color;
+    [button setTintColor:color];
+//    [button setTitleColor: color
+//                 forState: UIControlStateNormal];
 }
 
 @end

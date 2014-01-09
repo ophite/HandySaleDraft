@@ -28,6 +28,7 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
 @synthesize attribute = _attribute;
 @synthesize attributeValues = _attributeValues;
 @synthesize mainView = _mainView;
+@synthesize buttonAddNewVariant = _buttonAddNewVariant;
 
 
 #pragma mark - Standart
@@ -50,6 +51,10 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
     self.tableViewAttributeValue.dataSource = self;
     self.tableViewAttributeValue.delegate = self;
     
+    [helperInstance setButtonShadow:self.buttonAddNewVariant withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
+    [helperInstance setButtonColorBySetting:self.buttonAddNewVariant];
+    [helperInstance setButtonFontColorBySetting:self.buttonAddNewVariant];
+
     if (!self.attributeValues) {
         
         self.attributeValues = [[NSMutableArray alloc] init];

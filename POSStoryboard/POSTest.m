@@ -35,8 +35,8 @@
 //    query = @"DROP TABLE IF EXISTS document_line";
 //    [dbWrapperInstance tryExecQuery:query];
 //    
-//    query = @"DROP TABLE IF EXISTS setting";
-//    [dbWrapperInstance tryExecQuery:query];
+    query = @"DROP TABLE IF EXISTS setting";
+    [dbWrapperInstance tryExecQuery:query];
     
     query =
     @"CREATE TABLE IF NOT EXISTS attribute ( \
@@ -392,10 +392,18 @@
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
                                 helperInstance.SETTING_REMEMBERME, [helperInstance convertBoolToString:NO], image_rememberme_checked_id];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
-                                helperInstance.SETTING_REMEMBERME_LOGIN, @"", -1];
+                                helperInstance.SETTING_REMEMBERME_LOGIN, @"NO", -1];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
-                                helperInstance.SETTING_REMEMBERME_PASS, @"", -1];
-        
+                                helperInstance.SETTING_REMEMBERME_PASS, @"NO", -1];
+        [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
+                                helperInstance.SETTING_BUTTON_COLOR, @"", -1];
+        [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
+                                helperInstance.SETTING_BUTTON_FONT_COLOR, @"", -1];
+        [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
+                                helperInstance.SETTING_CATEGORY_MODE, @"NO", -1];
+        [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
+                                helperInstance.SETTING_TEXTFIELD_BORDER_COLOR, @"", -1];
+
         [dbWrapperInstance tryExecQuery:query];
     }
     

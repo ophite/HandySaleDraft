@@ -17,6 +17,7 @@
 #import "POSGoodsGridViewController.h"
 #import "POSEditCatViewController.h"
 #import "POSHelper.h"
+#import "POSSetting.h"
 
 /*
  *UIScrollViewDelegate может надо для viewForZoomingInScrollView

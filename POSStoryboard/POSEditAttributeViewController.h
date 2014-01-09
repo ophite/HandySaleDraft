@@ -14,6 +14,7 @@
 #import "POSKBKeyboardHandlerDelegate.h"
 #import "POSKBKeyboardHandler.h"
 #import "UIView+POSFindFirstResponder.h"
+#import "POSHelper.h"
 
 @interface POSEditAttributeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, POSKBKeyboardHandlerDelegate> {
     
@@ -28,6 +29,7 @@
 
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewAttributeValue;
+@property (weak, nonatomic) IBOutlet UIButton *buttonAddNewVariant;
 
 
 - (IBAction)onAddNewAttrValue:(id)sender;

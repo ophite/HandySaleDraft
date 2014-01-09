@@ -67,6 +67,8 @@
     [self.scrollView setMinimumZoomScale:1.0];
     [self.scrollView setMaximumZoomScale:2.0];
 
+    objectsHelperInstance.catsMode = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CATEGORY_MODE].boolValue;
+    
     [self.btnChangeMode setTitle: (objectsHelperInstance.catsMode ? @"View mode" : @"Edit mode")
                         forState: UIControlStateNormal];
 	// Do any additional setup after loading the view.
@@ -131,6 +133,21 @@
     
     [super viewWillAppear:animated];
     [self.gridView reloadData];
+}
+
+
+-(void) viewWillDisappear:(BOOL)animated {
+    
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        // back button was pressed.  We know this is true because self is no longer
+        // in the navigation stack.
+        POSSetting *settingCategoryMode = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CATEGORY_MODE];
+        if (![settingCategoryMode.value isEqualToString:[helperInstance convertBoolToString:objectsHelperInstance.catsMode]]) {
+            
+            [objectsHelperInstance.dataSet settingsUpdate: settingCategoryMode
+                                                withValue: [helperInstance convertBoolToString:objectsHelperInstance.catsMode]];
+        }
+    }
 }
 
 

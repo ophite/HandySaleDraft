@@ -21,6 +21,7 @@
 
 }
 
+@property (weak, nonatomic) IBOutlet UIView *viewForColorExample;
 @property (weak, nonatomic) IBOutlet UIButton *buttonLogin;
 @property (weak, nonatomic) IBOutlet UIButton *buttonRememberMe;
 @property (weak, nonatomic) IBOutlet UITextField *textEmail;

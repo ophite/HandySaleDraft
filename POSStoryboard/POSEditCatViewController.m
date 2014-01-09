@@ -46,11 +46,12 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.viewImage.layer.cornerRadius = 10;
 
-    self.textName.layer.borderColor = [self.viewForColorExample.backgroundColor CGColor];
-    self.textName.layer.borderWidth = 1.0;
-
+    // text field border color
+    [helperInstance setTextFieldBorderColorBySetting: self.textName];
+    [helperInstance setButtonColorBySetting:self.buttonSave];
+    [helperInstance setButtonFontColorBySetting:self.buttonSave];
+    
     // scrolling
     self.scrollView.delegate = self;
     [self.scrollView setScrollEnabled:YES];
@@ -73,15 +74,12 @@
     self.viewButtons.userInteractionEnabled = YES;
     
     // button save shadow
-    self.buttonSave.layer.shadowRadius = 3.0f;
-    self.buttonSave.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.buttonSave.layer.shadowOffset = CGSizeMake(2, 2);
-    self.buttonSave.layer.shadowOpacity = 0.5f;
-    self.buttonSave.layer.masksToBounds = NO;
+    [helperInstance setButtonShadow:self.buttonSave withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
     
     // other
-    self.imageView.layer.cornerRadius = 10;
     self.buttonSave.layer.cornerRadius = 15;
+    self.imageView.layer.cornerRadius = 10;
+    self.viewImage.layer.cornerRadius = 10;
     
     self.oldName = self.cat.name;
     self.imageView.image = self.cat.image;

@@ -10,7 +10,7 @@
 #import "POSCategory.h"
 #import "POSDBWrapper.h"
 #import "POSObjectsHelper.h"
-
+#import "POSHelper.h"
 
 @interface POSEditCatViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate>
 

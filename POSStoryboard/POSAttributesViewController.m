@@ -17,7 +17,7 @@
 
 
 @synthesize tableView = _tableView;
-
+@synthesize buttonAddNewAttribute = _buttonAddNewAttribute;
 
 #pragma mark - Standart
 
@@ -38,6 +38,11 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    // button save shadow
+    [helperInstance setButtonShadow:self.buttonAddNewAttribute withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
+    [helperInstance setButtonColorBySetting:self.buttonAddNewAttribute];
+    [helperInstance setButtonFontColorBySetting:self.buttonAddNewAttribute];
+
     [objectsHelperInstance.dataSet attributesGet];
     [objectsHelperInstance.dataSet attributeValuesGet];
 	// Do any additional setup after loading the view.

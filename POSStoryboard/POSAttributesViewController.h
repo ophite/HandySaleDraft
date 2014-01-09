@@ -22,7 +22,8 @@
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIButton *onAddNewAttribute;
+@property (weak, nonatomic) IBOutlet UIButton *buttonAddNewAttribute;
+
 
 
 @end

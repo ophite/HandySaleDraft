@@ -20,6 +20,7 @@
 @synthesize textPassword = _textPassword;
 @synthesize buttonRememberMe = _buttonRememberMe;
 @synthesize buttonLogin = _buttonLogin;
+@synthesize viewForColorExample = _viewForColorExample;
 
 #pragma mark - ViewController
 
@@ -46,10 +47,14 @@
     [test initDBData:objectsHelperInstance.dataSet];
     [objectsHelperInstance.dataSet settingsGet];
 
+    [self loadAndSaveColorsFromControls];
+    
     // gui
     self.textEmail.delegate = self;
     self.textPassword.delegate = self;
-//    self.textEmail.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    [helperInstance setTextFieldBorderColorBySetting:self.textEmail];
+    [helperInstance setTextFieldBorderColorBySetting:self.textPassword];
+    [helperInstance setButtonShadow:self.buttonLogin withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
     
     keyboard = [[POSKBKeyboardHandler alloc] init];
     keyboard.delegate = self;
@@ -248,6 +253,29 @@
             [objectsHelperInstance.dataSet settingsUpdate:settingRememberMe_Pass withValue:@""];
         }
     }
+}
+
+
+- (void)loadAndSaveColorsFromControls {
+    // lines and text field border from first ViewController
+    POSSetting *settingTextFieldBorderColor = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
+                                                            withName: helperInstance.SETTING_TEXTFIELD_BORDER_COLOR];
+    [objectsHelperInstance.dataSet settingsUpdate: settingTextFieldBorderColor
+                                        withValue: [CIColor colorWithCGColor:self.viewForColorExample.backgroundColor.CGColor].stringRepresentation];
+
+    // big yellow buttons
+    POSSetting *settingYellowButton = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
+                                                    withName: helperInstance.SETTING_BUTTON_COLOR];
+    [objectsHelperInstance.dataSet settingsUpdate: settingYellowButton
+                                        withValue: [CIColor colorWithCGColor:self.buttonLogin.backgroundColor.CGColor].stringRepresentation];
+    
+    // big yellow buttons font color
+    POSSetting *settingYellowButtonFontColor = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
+                                                             withName: helperInstance.SETTING_BUTTON_FONT_COLOR];
+//    [objectsHelperInstance.dataSet settingsUpdate: settingYellowButtonFontColor
+//                                        withValue: [CIColor colorWithCGColor:self.buttonLogin.titleLabel.tintColor.CGColor].stringRepresentation];
+    [objectsHelperInstance.dataSet settingsUpdate: settingYellowButtonFontColor
+                                        withValue: [CIColor colorWithCGColor:self.buttonLogin.tintColor.CGColor].stringRepresentation];
 }
 
 
