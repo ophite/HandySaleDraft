@@ -46,11 +46,13 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
-    // text field border color
-    [helperInstance setTextFieldBorderColorBySetting: self.textName];
-    [helperInstance setButtonColorBySetting:self.buttonSave];
-    [helperInstance setButtonFontColorBySetting:self.buttonSave];
+    // init data
+    self.oldName = self.cat.name;
+    self.imageView.image = self.cat.image;
+    self.textName.text = self.cat.name;
+    
+    // gui
+    [self initControlsLayers];
     
     // scrolling
     self.scrollView.delegate = self;
@@ -73,19 +75,15 @@
     self.imageView.userInteractionEnabled = YES;
     self.viewButtons.userInteractionEnabled = YES;
     
-    // button save shadow
+    // button shadow
     [helperInstance setButtonShadow:self.buttonSave withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
     
     // other
     self.buttonSave.layer.cornerRadius = 15;
     self.imageView.layer.cornerRadius = 10;
     self.viewImage.layer.cornerRadius = 10;
-    
-    self.oldName = self.cat.name;
-    self.imageView.image = self.cat.image;
 
     self.textName.delegate = self;
-    self.textName.text = self.cat.name;
     [self.textName setReturnKeyType:UIReturnKeyDone];
 	// Do any additional setup after loading the view.
 }
@@ -170,11 +168,17 @@
     }
 }
 
-//
-//- (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-//    
-//    return self.viewMain;
-//}
+
+#pragma mark - Methods
+
+- (void)initControlsLayers {
+    
+    [helperInstance setTextFieldBorderColorBySetting: self.textName];
+    [helperInstance setButtonBackgroundColorBySetting:self.buttonSave];
+    [helperInstance setButtonFontColorBySetting:self.buttonSave];
+    [helperInstance setTextFieldFontColorBySetting:self.textName];
+}
+
 
 #pragma mark -  Actions
 

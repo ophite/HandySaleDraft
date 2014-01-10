@@ -47,14 +47,13 @@
     [test initDBData:objectsHelperInstance.dataSet];
     [objectsHelperInstance.dataSet settingsGet];
 
-    [self loadAndSaveColorsFromControls];
-    
     // gui
+    [self loadControlsLayers];
+    [self initControlsLayers];
+    [helperInstance setButtonShadow:self.buttonLogin withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
+
     self.textEmail.delegate = self;
     self.textPassword.delegate = self;
-    [helperInstance setTextFieldBorderColorBySetting:self.textEmail];
-    [helperInstance setTextFieldBorderColorBySetting:self.textPassword];
-    [helperInstance setButtonShadow:self.buttonLogin withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
     
     keyboard = [[POSKBKeyboardHandler alloc] init];
     keyboard.delegate = self;
@@ -131,15 +130,12 @@
     // when the keyboard is hidden: width=-768, height=-264.
     // Use keyboard.frame.size to get the real keyboard size.
     
-    // Sample:
-    
     UIView *firstResponder = [self.view posFindFirstResponder];
     CGPoint point = [self.view convertPoint:CGPointZero fromView:firstResponder];
     
     // 568 - height of main window
     // 264 - height of keyboard
     // 25 delta
-    
     if (point.y > (568 - 264 + 25)) {
         
         CGRect frame = self.view.frame;
@@ -256,26 +252,23 @@
 }
 
 
-- (void)loadAndSaveColorsFromControls {
-    // lines and text field border from first ViewController
-    POSSetting *settingTextFieldBorderColor = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
-                                                            withName: helperInstance.SETTING_TEXTFIELD_BORDER_COLOR];
-    [objectsHelperInstance.dataSet settingsUpdate: settingTextFieldBorderColor
-                                        withValue: [CIColor colorWithCGColor:self.viewForColorExample.backgroundColor.CGColor].stringRepresentation];
-
-    // big yellow buttons
-    POSSetting *settingYellowButton = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
-                                                    withName: helperInstance.SETTING_BUTTON_COLOR];
-    [objectsHelperInstance.dataSet settingsUpdate: settingYellowButton
-                                        withValue: [CIColor colorWithCGColor:self.buttonLogin.backgroundColor.CGColor].stringRepresentation];
+- (void)initControlsLayers {
     
+    [helperInstance setTextFieldBorderColorBySetting:self.textEmail];
+    [helperInstance setTextFieldBorderColorBySetting:self.textPassword];
+    [helperInstance setTextFieldFontColorBySetting:self.textPassword];
+}
+
+- (void)loadControlsLayers {
+    
+    // lines and text field border from first ViewController
+    [helperInstance loadTextFieldBorderColorSetting:self.viewForColorExample.backgroundColor];
+    // big yellow buttons
+    [helperInstance loadButtonBackgroundColorSetting:self.buttonLogin.backgroundColor];
     // big yellow buttons font color
-    POSSetting *settingYellowButtonFontColor = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
-                                                             withName: helperInstance.SETTING_BUTTON_FONT_COLOR];
-//    [objectsHelperInstance.dataSet settingsUpdate: settingYellowButtonFontColor
-//                                        withValue: [CIColor colorWithCGColor:self.buttonLogin.titleLabel.tintColor.CGColor].stringRepresentation];
-    [objectsHelperInstance.dataSet settingsUpdate: settingYellowButtonFontColor
-                                        withValue: [CIColor colorWithCGColor:self.buttonLogin.tintColor.CGColor].stringRepresentation];
+    [helperInstance loadButtonFontColorSetting:self.buttonLogin.tintColor];
+    // textField text color
+    [helperInstance loadTextFieldFontColorSetting:self.textEmail.textColor];
 }
 
 

@@ -47,18 +47,18 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
     
     [super viewDidLoad];
     
-    self.tableViewAttributeValue.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableViewAttributeValue.dataSource = self;
-    self.tableViewAttributeValue.delegate = self;
-    
-    [helperInstance setButtonShadow:self.buttonAddNewVariant withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
-    [helperInstance setButtonColorBySetting:self.buttonAddNewVariant];
-    [helperInstance setButtonFontColorBySetting:self.buttonAddNewVariant];
-
+    // init data
     if (!self.attributeValues) {
         
         self.attributeValues = [[NSMutableArray alloc] init];
     }
+    
+    // gui
+    self.tableViewAttributeValue.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableViewAttributeValue.dataSource = self;
+    self.tableViewAttributeValue.delegate = self;
+    
+    [self initControlsLayers];
     
     keyboard = [[POSKBKeyboardHandler alloc] init];
     keyboard.delegate = self;
@@ -283,6 +283,16 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
     }
     
     __deletedCell = nil;
+}
+
+
+#pragma mark - Methods
+
+- (void)initControlsLayers {
+    
+    [helperInstance setButtonShadow:self.buttonAddNewVariant withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
+    [helperInstance setButtonBackgroundColorBySetting:self.buttonAddNewVariant];
+    [helperInstance setButtonFontColorBySetting:self.buttonAddNewVariant];
 }
 
 

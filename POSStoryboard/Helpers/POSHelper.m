@@ -9,8 +9,23 @@
 
 @implementation POSHelper
 
+#pragma mark - Singleton
 
-#pragma mark - SETTINGS
++ (POSHelper *)getInstance {
+    
+    static POSHelper *sharedInstance = nil;
+    static dispatch_once_t once;
+    
+    dispatch_once(&once, ^{
+        
+        sharedInstance = [[POSHelper alloc] init];
+    });
+    
+    return sharedInstance;
+}
+
+
+#pragma mark - Settings
 
 - (NSDictionary *)SETTING_LANGUAGES_DICT {
     
@@ -23,10 +38,10 @@
 - (NSDictionary *)SETTING_MONEY_DICT {
     
     return [[NSDictionary alloc] initWithObjectsAndKeys:
-            @"$ dollar", @"$",
-            @"P rubl", @"P",
-            @"₴ hryvna", @"₴",
-            @"€ evro", @"€",
+            @"$ USD", @"$",
+            @"P RUB", @"P",
+            @"₴ UAH", @"₴",
+            @"€ EUR", @"€",
             nil];
 }
 
@@ -105,7 +120,7 @@
     return @"rememberme_pass";
 }
 
-- (NSString *)SETTING_BUTTON_COLOR {
+- (NSString *)SETTING_BUTTON_BACKGROUND_COLOR {
     
     return @"button_color";
 }
@@ -120,13 +135,18 @@
     return @"textfield_border_color";
 }
 
+- (NSString *)SETTING_TEXTFIELD_FONT_COLOR {
+    
+    return @"textfield_font_color";
+}
+
 - (NSString *)SETTING_CATEGORY_MODE {
     
     return @"category_mode";
 }
 
 
-#pragma mark - SIZES
+#pragma mark - Sizes
 
 - (CGFloat)ITEM_EDIT_WIDTH {
     
@@ -214,19 +234,6 @@
 
 #pragma mark - GUI
 
-+ (POSHelper *)getInstance {
-    
-    static POSHelper *sharedInstance = nil;
-    static dispatch_once_t once;
-    
-    dispatch_once(&once, ^{
-        
-        sharedInstance = [[POSHelper alloc] init];
-    });
-    
-    return sharedInstance;
-}
-
 - (id)getUIViewController:(NSString *)storyboardName {
 
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"
@@ -246,6 +253,16 @@
     button.layer.cornerRadius = cornerRadius;
 }
 
+
+- (void)loadTextFieldBorderColorSetting:(UIColor *)color {
+    
+    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
+                                        withName: helperInstance.SETTING_TEXTFIELD_BORDER_COLOR];
+    
+    [objectsHelperInstance.dataSet settingsUpdate: setting
+                                        withValue: [CIColor colorWithCGColor:color.CGColor].stringRepresentation];
+}
+
 - (void)setTextFieldBorderColorBySetting:(UITextField *)textField {
     
     POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
@@ -255,12 +272,48 @@
     textField.layer.borderColor = [UIColor colorWithCIColor:[CIColor colorWithString:setting.value]].CGColor;
 }
 
-- (void)setButtonColorBySetting:(UIButton *)button {
+- (void)loadTextFieldFontColorSetting:(UIColor *)color {
     
     POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
-                                        withName: helperInstance.SETTING_BUTTON_COLOR];
+                                        withName: helperInstance.SETTING_TEXTFIELD_FONT_COLOR];
+    [objectsHelperInstance.dataSet settingsUpdate: setting
+                                        withValue: [CIColor colorWithCGColor:color.CGColor].stringRepresentation];
+}
+
+- (void)setTextFieldFontColorBySetting:(UITextField *)textField {
+    
+    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
+                                        withName: helperInstance.SETTING_TEXTFIELD_FONT_COLOR];
+    
+    UIColor *color = [UIColor colorWithCIColor:[CIColor colorWithString:setting.value]];
+    color = [UIColor colorWithCGColor:color.CGColor];
+    [textField setTextColor:color];
+}
+
+- (void)loadButtonBackgroundColorSetting:(UIColor *)color {
+    
+    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
+                                        withName: helperInstance.SETTING_BUTTON_BACKGROUND_COLOR];
+    
+    [objectsHelperInstance.dataSet settingsUpdate: setting
+                                        withValue: [CIColor colorWithCGColor:color.CGColor].stringRepresentation];
+}
+
+- (void)setButtonBackgroundColorBySetting:(UIButton *)button {
+    
+    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
+                                        withName: helperInstance.SETTING_BUTTON_BACKGROUND_COLOR];
     
     button.layer.backgroundColor = [UIColor colorWithCIColor:[CIColor colorWithString:setting.value]].CGColor;
+}
+
+- (void)loadButtonFontColorSetting:(UIColor *)color {
+    
+    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
+                                        withName: helperInstance.SETTING_BUTTON_FONT_COLOR];
+    [objectsHelperInstance.dataSet settingsUpdate: setting
+                                        withValue: [CIColor colorWithCGColor:color.CGColor].stringRepresentation];
+    
 }
 
 - (void)setButtonFontColorBySetting:(UIButton *)button {
@@ -268,11 +321,16 @@
     POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
                                         withName: helperInstance.SETTING_BUTTON_FONT_COLOR];
     
-    UIColor *color = [UIColor colorWithCIColor:[CIColor colorWithString:setting.value]];
-//    button.tintColor = color;
-    [button setTintColor:color];
-//    [button setTitleColor: color
-//                 forState: UIControlStateNormal];
+    [self setButtonFontColor:button withSetting:setting];
 }
+
+- (void)setButtonFontColor:(UIButton *)button withSetting:(POSSetting *)setting {
+    
+    UIColor *color = [UIColor colorWithCIColor:[CIColor colorWithString:setting.value]];
+    color = [UIColor colorWithCGColor:color.CGColor];
+    [button setTintColor:color];
+    [button setTitleColor:color forState:UIControlStateNormal];
+}
+
 
 @end

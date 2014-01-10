@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
 #import <UIKit/UIKit.h>
+#import "POSHelper.h"
 
 @interface POSAttributeCell : UITableViewCell
 

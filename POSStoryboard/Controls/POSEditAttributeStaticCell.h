@@ -7,6 +7,7 @@
 //
 #import <UIKit/UIKit.h>
 #import "POSAttribute.h"
+#import "POSHelper.h"
 
 @interface POSEditAttributeStaticCell : UITableViewCell <UITextFieldDelegate>
 

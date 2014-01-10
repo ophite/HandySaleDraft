@@ -44,11 +44,12 @@
     
     [super viewDidLoad];
     
+    // init data
     self.catName = self.cat.name;
-    
     [objectsHelperInstance.dataSet.items removeAllObjects];
     [objectsHelperInstance.dataSet itemsGet:self.catName];
     
+    // gui
     self.gridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.gridView.autoresizesSubviews = YES;
     self.gridView.delegate = self;

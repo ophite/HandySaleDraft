@@ -42,6 +42,7 @@
     
     [super viewDidLoad];
     
+    // gui
     self.picker.dataSource = self;
     self.picker.delegate = self;
     

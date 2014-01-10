@@ -16,9 +16,10 @@
 - (NSDictionary *)SETTING_MONEY_DICT;
 - (NSDictionary *)SETTING_LANGUAGES_DICT;
 
+- (NSString *)SETTING_TEXTFIELD_FONT_COLOR;
 - (NSString *)SETTING_TEXTFIELD_BORDER_COLOR;
 - (NSString *)SETTING_CATEGORY_MODE;
-- (NSString *)SETTING_BUTTON_COLOR;
+- (NSString *)SETTING_BUTTON_BACKGROUND_COLOR;
 - (NSString *)SETTING_BUTTON_FONT_COLOR;
 - (NSString *)SETTING_REMEMBERME_LOGIN;
 - (NSString *)SETTING_REMEMBERME_PASS;
@@ -58,8 +59,20 @@
 + (POSHelper *)getInstance;
 - (id)getUIViewController:(NSString *)storyboardName;
 - (void)setButtonShadow:(UIButton *)button withCornerRadius:(int)cornerRadius;
+
 - (void)setTextFieldBorderColorBySetting:(UITextField *)textField;
-- (void)setButtonColorBySetting:(UIButton *)button;
+- (void)loadTextFieldBorderColorSetting:(UIColor *)color;
+
+- (void)setTextFieldFontColorBySetting:(UITextField *)textField;
+- (void)loadTextFieldFontColorSetting:(UIColor *)color;
+
+- (void)setButtonBackgroundColorBySetting:(UIButton *)button;
+- (void)loadButtonBackgroundColorSetting:(UIColor *)color;
+
 - (void)setButtonFontColorBySetting:(UIButton *)button;
+- (void)loadButtonFontColorSetting:(UIColor *)color;
+
+- (void)setButtonFontColor:(UIButton *)button withSetting:(POSSetting *)setting;
+
 
 @end

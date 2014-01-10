@@ -19,7 +19,7 @@
 @synthesize tableView = _tableView;
 @synthesize buttonAddNewAttribute = _buttonAddNewAttribute;
 
-#pragma mark - Standart
+#pragma mark - ViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
@@ -35,16 +35,15 @@
     
     [super viewDidLoad];
     
+    // init data
+    [objectsHelperInstance.dataSet attributesGet];
+    [objectsHelperInstance.dataSet attributeValuesGet];
+    
+    // gui
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    // button save shadow
-    [helperInstance setButtonShadow:self.buttonAddNewAttribute withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
-    [helperInstance setButtonColorBySetting:self.buttonAddNewAttribute];
-    [helperInstance setButtonFontColorBySetting:self.buttonAddNewAttribute];
-
-    [objectsHelperInstance.dataSet attributesGet];
-    [objectsHelperInstance.dataSet attributeValuesGet];
+    [self initControlsLayers];
 	// Do any additional setup after loading the view.
 }
 
@@ -177,6 +176,17 @@
     
     __currentCell = nil;
 }
+
+#pragma mark - Methods
+
+- (void)initControlsLayers {
+    
+    // button save shadow
+    [helperInstance setButtonShadow:self.buttonAddNewAttribute withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
+    [helperInstance setButtonBackgroundColorBySetting:self.buttonAddNewAttribute];
+    [helperInstance setButtonFontColorBySetting:self.buttonAddNewAttribute];
+}
+
 
 
 @end

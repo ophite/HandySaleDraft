@@ -45,6 +45,7 @@
     
     [super viewDidLoad];
     
+    // gui
     self.textName.delegate = self;
     self.textCategory.delegate = self;
     self.textCode.delegate = self;

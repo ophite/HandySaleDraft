@@ -396,13 +396,15 @@
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
                                 helperInstance.SETTING_REMEMBERME_PASS, @"NO", -1];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
-                                helperInstance.SETTING_BUTTON_COLOR, @"", -1];
+                                helperInstance.SETTING_BUTTON_BACKGROUND_COLOR, @"", -1];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
                                 helperInstance.SETTING_BUTTON_FONT_COLOR, @"", -1];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
                                 helperInstance.SETTING_CATEGORY_MODE, @"NO", -1];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
                                 helperInstance.SETTING_TEXTFIELD_BORDER_COLOR, @"", -1];
+        [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
+                                helperInstance.SETTING_TEXTFIELD_FONT_COLOR, @"", -1];
 
         [dbWrapperInstance tryExecQuery:query];
     }

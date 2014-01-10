@@ -22,7 +22,7 @@
 @synthesize pickerDict = _pickerDict;
 
 
-#pragma mark - Standart
+#pragma mark - ViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
@@ -39,6 +39,7 @@
 
     [super viewDidLoad];
 
+    // gui
     self.picker.dataSource = self;
     self.picker.delegate = self;
     

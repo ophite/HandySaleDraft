@@ -38,6 +38,7 @@
     
     [super viewDidLoad];
     
+    // gui
     self.textName.delegate = self;
     self.textImageName.delegate = self;
 	// Do any additional setup after loading the view.

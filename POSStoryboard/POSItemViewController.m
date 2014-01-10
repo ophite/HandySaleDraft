@@ -47,6 +47,7 @@
     
     [super viewDidLoad];
 
+    // gui
     self.textQuantity.delegate = self;
 
     self.scrollView.delegate = self;

@@ -17,7 +17,7 @@
 @synthesize buttonDelete = _buttonDelete;
 
 
-#pragma mark - Standart
+#pragma mark - ViewController
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -45,6 +45,7 @@
     self.textAttributeValue.text = self.attrValue ? self.attrValue.name : @"";
     self.textAttributeValue.delegate = self;
     self.textAttributeValue.tag = [POSEditAttributeDynamicCell TextAttributeTAG];
+    [helperInstance setTextFieldFontColorBySetting:self.textAttributeValue];
 
     // Configure the view for the selected state
 }

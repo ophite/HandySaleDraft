@@ -40,9 +40,12 @@
     
     [super viewDidLoad];
     
+    // gui
     self.textEmail.delegate = self;
     self.textPassword.delegate = self;
     self.textPassword2.delegate = self;
+    
+    [self initControlsLayers];
 
 	// Do any additional setup after loading the view.
 }
@@ -63,16 +66,7 @@
 }
 
 
-#pragma mark - Action
-
-- (IBAction)onCreate:(id)sender {
-    
-    if([self isRegisterNewUser]) {
-    
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
+#pragma mark - Methods
 
 - (BOOL)isRegisterNewUser {
     
@@ -109,8 +103,8 @@
         
         // valid user+email
         NSString * query = [NSString stringWithFormat:@"select  count(*) \
-                                                        from    user \
-                                                        where   email = \"%@\"; ", self.textEmail.text];
+                            from    user \
+                            where   email = \"%@\"; ", self.textEmail.text];
         int count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
         [dbWrapperInstance closeDB];
         
@@ -129,7 +123,7 @@
             if ([dbWrapperInstance openDB]) {
                 
                 NSString *query = [NSString stringWithFormat: @"insert into user(email, password) \
-                                                                values(\"%@\", \"%@\"); ", self.textEmail.text, self.textPassword.text];
+                                   values(\"%@\", \"%@\"); ", self.textEmail.text, self.textPassword.text];
                 isRegistered = [dbWrapperInstance tryExecQuery:query];
                 [dbWrapperInstance closeDB];
             }
@@ -137,6 +131,28 @@
     }
     
     return isRegistered;
+}
+
+
+- (void)initControlsLayers {
+    
+    [helperInstance setTextFieldBorderColorBySetting:self.textEmail];
+    [helperInstance setTextFieldFontColorBySetting:self.textEmail];
+    [helperInstance setTextFieldBorderColorBySetting:self.textPassword];
+    [helperInstance setTextFieldFontColorBySetting:self.textPassword];
+    [helperInstance setTextFieldBorderColorBySetting:self.textPassword2];
+    [helperInstance setTextFieldFontColorBySetting:self.textPassword2];
+}
+
+
+#pragma mark - Action
+
+- (IBAction)onCreate:(id)sender {
+    
+    if([self isRegisterNewUser]) {
+    
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 

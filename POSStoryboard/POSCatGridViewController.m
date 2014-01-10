@@ -42,12 +42,16 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    // init data
     [objectsHelperInstance.dataSet categoriesGet];
     [objectsHelperInstance.dataSet allItemsGet];
+    objectsHelperInstance.catsMode = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CATEGORY_MODE].boolValue;
 
+    // load image
     ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
     [library enumerateGroupsWithTypes: ALAssetsGroupAlbum
                            usingBlock: ^(ALAssetsGroup *group, BOOL *stop) {
+                               
                                // Срабатывает дважды, можно будет добавить проверку что только один раз было
                                [self.gridView reloadData];
                            }
@@ -56,6 +60,7 @@
                              NSLog(@"Failure load images");
                          }];
     
+    // gui
     self.gridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.gridView.autoresizesSubviews = YES;
     self.gridView.delegate = self;
@@ -66,8 +71,6 @@
     self.scrollView.pagingEnabled = YES;
     [self.scrollView setMinimumZoomScale:1.0];
     [self.scrollView setMaximumZoomScale:2.0];
-
-    objectsHelperInstance.catsMode = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CATEGORY_MODE].boolValue;
     
     [self.btnChangeMode setTitle: (objectsHelperInstance.catsMode ? @"View mode" : @"Edit mode")
                         forState: UIControlStateNormal];

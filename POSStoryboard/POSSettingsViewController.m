@@ -40,12 +40,15 @@
     
     [super viewDidLoad];
     
-    self.textEmail.delegate = self;
+    // init data
     self.textEmail.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_EMAIL];
     [self.buttonLanguage setTitle:[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_LANGUAGE] forState:UIControlStateNormal];
     [self.buttonMoney setTitle:[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_MONEY] forState:UIControlStateNormal];
     [self.switchWIFI setOn:[[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_WIFI] boolValue]];
     [self.switchVAT setOn:[[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_VAT] boolValue]];
+    
+    // gui
+    self.textEmail.delegate = self;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -102,8 +105,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    [self.buttonLanguage setTitle:[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_LANGUAGE] forState:UIControlStateNormal];
-    [self.buttonMoney setTitle:[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_MONEY] forState:UIControlStateNormal];
+    [self.buttonLanguage setTitle: [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_LANGUAGE]
+                         forState: UIControlStateNormal];
+    [self.buttonMoney setTitle: [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_MONEY]
+                      forState: UIControlStateNormal];
 }
 
 

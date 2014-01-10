@@ -35,7 +35,9 @@
     
     [super viewDidLoad];
     
+    // gui
     self.textEmail.delegate = self;
+    [self initControlsLayers];
 	// Do any additional setup after loading the view.
 }
 
@@ -51,6 +53,15 @@
     
     [textField resignFirstResponder];
     return YES;
+}
+
+
+#pragma mark - Methods
+
+- (void)initControlsLayers {
+    
+    [helperInstance setTextFieldBorderColorBySetting:self.textEmail];
+    [helperInstance setTextFieldFontColorBySetting:self.textEmail];
 }
 
 
@@ -154,6 +165,7 @@
     }
     
     void(^blockCompleteMail)() = ^() {
+        
         [self.navigationController popToRootViewControllerAnimated:YES];
     };
     

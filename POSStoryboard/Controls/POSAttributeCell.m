@@ -16,7 +16,7 @@
 @synthesize swithIsActive = _swithIsActive;
 
 
-#pragma mark - Standart
+#pragma mark - ViewController
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -35,6 +35,11 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.buttonName.layer.cornerRadius = 5;
     self.buttonName.clipsToBounds = YES;
+    
+    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
+                                        withName: helperInstance.SETTING_TEXTFIELD_FONT_COLOR];
+    [helperInstance setButtonFontColor:self.buttonName withSetting:setting];
+
     // Configure the view for the selected state
 }
 
