@@ -15,9 +15,14 @@
 
 @implementation POSEditCatViewController
 
-@synthesize cat = _cat;
-@synthesize textName = _textName;
+@synthesize category = _category;
+@synthesize categoryAttribute1 = _categoryAttribute1;
+@synthesize categoryAttribute2 = _categoryAttribute2;
 @synthesize oldName = _oldName;
+
+@synthesize labelCategory1 = _labelCategory1;
+@synthesize labelCategory2 = _labelCategory2;
+@synthesize textName = _textName;
 @synthesize buttonSave = _buttonSave;
 @synthesize viewForColorExample = _viewForColorExample;
 
@@ -46,10 +51,14 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
     // init data
-    self.oldName = self.cat.name;
-    self.imageView.image = self.cat.image;
-    self.textName.text = self.cat.name;
+    [objectsHelperInstance.dataSet attributesGet];
+    [objectsHelperInstance.dataSet categoriesAttributesGet];
+    
+    self.oldName = self.category.name;
+    self.imageView.image = self.category.image;
+    self.textName.text = self.category.name;
     
     // gui
     [self initControlsLayers];
@@ -86,6 +95,34 @@
     self.textName.delegate = self;
     [self.textName setReturnKeyType:UIReturnKeyDone];
 	// Do any additional setup after loading the view.
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    if (!self.categoryAttribute1) {
+
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(categoryID = %d) AND (index = %d)", self.category.ID, 0];
+        self.categoryAttribute1 = (POSCategoryAttribute *)[helperInstance getObject: objectsHelperInstance.dataSet.categoriesAttributes
+                                                                      withPredicate: predicate];
+    }
+    
+    if (self.categoryAttribute1) {
+        
+        [self.labelCategory1 setText:self.categoryAttribute1.name];
+    }
+
+    if (!self.categoryAttribute2) {
+
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(categoryID = %d) AND (index = %d)", self.category.ID, 1];
+        self.categoryAttribute2 = (POSCategoryAttribute *)[helperInstance getObject: objectsHelperInstance.dataSet.categoriesAttributes
+                                                                      withPredicate: predicate];
+    }
+
+    if (self.categoryAttribute2) {
+        
+        [self.labelCategory2 setText:self.categoryAttribute2.name];
+    }
 }
 
 
@@ -157,7 +194,7 @@
                 
                 NSString * query = [NSString stringWithFormat:@"DELETE  \
                                                                 FROM    collection \
-                                                                WHERE   name = \"%@\" AND user_id = %d", self.cat.name, 1];
+                                                                WHERE   name = \"%@\" AND user_id = %d", self.category.name, 1];
                 [dbWrapperInstance tryExecQuery:query];
                 [dbWrapperInstance closeDB];
                 
@@ -166,6 +203,27 @@
             }
         }
     }
+}
+
+
+// In a story board-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    POSSelectAttributeViewController *controller = (POSSelectAttributeViewController *)[segue destinationViewController];
+    controller.category = self.category;
+    
+    if ([[segue identifier] isEqualToString:@"goToAttribute1"]) {
+
+        controller.attributeIndex = 0;
+        controller.categoryAttribute = self.categoryAttribute1;
+    }
+    else if ([[segue identifier] isEqualToString:@"goToAttribute2"]) {
+        
+        controller.attributeIndex = 1;
+        controller.categoryAttribute = self.categoryAttribute2;
+    }
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
 
 
@@ -182,27 +240,22 @@
 
 #pragma mark -  Actions
 
-- (IBAction)onSelectCategory2:(id)sender {
-}
-
-- (IBAction)onSelectCategory1:(id)sender {
-}
-
 - (IBAction)onSave:(id)sender {
     
-    self.cat.name = self.textName.text;
-    self.cat.image = self.imageView.image;
+    self.category.name = self.textName.text;
+    self.category.image = self.imageView.image;
     
     if (![dbWrapperInstance openDB])
         return;
     
+    //TODO: user_id зашита константа пока что
     NSString * query = [NSString stringWithFormat:@"SELECT  count(*) \
                                                     FROM    collection \
-                                                    WHERE   name = \"%@\" AND user_id = \"%d\"", self.cat.name, 1];
+                                                    WHERE   name = \"%@\" AND user_id = \"%d\"; AND ID != %d", self.category.name, 1, self.category.ID];
     
     int count = [dbWrapperInstance execQueryResultInt: query andIndex: 0];
     
-    if(count != 0 && ![self.cat.name isEqualToString:self.oldName]) {
+    if(count != 0 && ![self.category.name isEqualToString:self.oldName]) {
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement"
                                                         message: @"The category already exists. Select another name"
@@ -216,20 +269,22 @@
     
     query = [NSString stringWithFormat:@"UPDATE collection \
                                          SET    name = \"%@\" \
-                                         WHERE  id = %d; ", self.cat.name, self.cat.ID];
+                                         WHERE  id = %d; ", self.category.name, self.category.ID];
+    
     query = [query stringByAppendingFormat:@"DELETE \
                                              FROM   image \
-                                             WHERE  object_id = %d AND object_name = \"collection\"; ", self.cat.ID];
+                                             WHERE  object_id = %d AND object_name = \"collection\"; ", self.category.ID];
+    
     query = [query stringByAppendingFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) \
-                                             VALUES (\"%@\", \"%@\", %d, \"collection\", 1);", random_name, random_name, self.cat.ID];
+                                             VALUES (\"%@\", \"%@\", %d, \"collection\", 1);", random_name, random_name, self.category.ID];
 
     [dbWrapperInstance tryExecQuery:query];
     [dbWrapperInstance closeDB];
     
-    POSImage * image = [[POSImage alloc] initWithImage: self.cat.image
+    POSImage * image = [[POSImage alloc] initWithImage: self.category.image
                                              withAsset: nil
                                               withPath: random_name
-                                         withObject_id: self.cat.ID
+                                         withObject_id: self.category.ID
                                        withObject_name: @"collection"];
     [objectsHelperInstance.dataSet.images addObject:image];
     

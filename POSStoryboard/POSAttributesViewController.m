@@ -168,7 +168,7 @@
             POSAttributeCell *cell = (POSAttributeCell *)__currentCell;
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
             POSAttribute *attribute = [objectsHelperInstance.dataSet.attributes objectAtIndex:indexPath.row];
-            [objectsHelperInstance.dataSet attributesDelete:attribute];
+            [objectsHelperInstance.dataSet attributesRemove:attribute];
             [self.tableView deleteRowsAtIndexPaths: @[indexPath]
                                   withRowAnimation: UITableViewRowAnimationFade];
         }

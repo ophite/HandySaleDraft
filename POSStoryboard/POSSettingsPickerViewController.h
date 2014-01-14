@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSString *settingValue;
 @property (nonatomic, retain) NSString *settingName;
 @property (strong, nonatomic) NSDictionary *pickerDict;
+
 @property (weak, nonatomic) IBOutlet UIPickerView *picker;
 
 

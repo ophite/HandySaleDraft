@@ -13,12 +13,14 @@
 
 
 @synthesize images = _images;
-@synthesize orderArray = _orderArray;
 @synthesize settings = _settings;
+@synthesize orderArray = _orderArray;
 
 @synthesize items = _items;
 @synthesize allItems = _allItems;
+
 @synthesize categories = _categories;
+@synthesize categoriesAttributes = _categoriesAttributes;
 
 @synthesize attributes = _attributes;
 @synthesize attributeValues = _attributeValues;
@@ -29,14 +31,17 @@
     self = [super init];
     
     self.images = [[NSMutableArray alloc] init];
-    self.categories = [[NSMutableArray alloc] init];
+    self.settings = [[NSMutableArray alloc] init];
+    self.orderArray = [[NSMutableArray alloc] init];
+
     self.items = [[NSMutableArray alloc] init];
     self.allItems = [[NSMutableArray alloc] init];
-    self.orderArray = [[NSMutableArray alloc] init];
-    self.settings = [[NSMutableArray alloc] init];
 
     self.attributes = [[NSMutableArray alloc] init];
     self.attributeValues = [[NSMutableArray alloc] init];
+
+    self.categories = [[NSMutableArray alloc] init];
+    self.categoriesAttributes = [[NSMutableArray alloc] init];
     
     //currentBasketID = 0;
        
@@ -48,7 +53,6 @@
 
 - (void)attributesGet {
     
-    //    [self.attributes removeAllObjects];
     if ([self.attributes count] > 0)
         return;
     
@@ -56,16 +60,16 @@
         return;
     
     NSString *query = [NSString stringWithFormat:@"select   name, is_active, id \
-                       from     attribute;"];
+                                                   from     attribute;"];
     
     void(^getAttribute)(id rows) = ^(id rows) {
         
-        POSAttribute *attrObject = [[POSAttribute alloc] init];
-        attrObject.name = [dbWrapperInstance getCellText:0];
-        attrObject.is_active = [dbWrapperInstance getCellInt:1];
-        attrObject.ID = [dbWrapperInstance getCellInt:2];
+        POSAttribute *object = [[POSAttribute alloc] init];
+        object.name = [dbWrapperInstance getCellText:0];
+        object.is_active = [dbWrapperInstance getCellInt:1];
+        object.ID = [dbWrapperInstance getCellInt:2];
         
-        [((NSMutableArray *)rows) addObject:attrObject];
+        [((NSMutableArray *)rows) addObject:object];
     };
     
     [dbWrapperInstance fetchRows: query
@@ -117,7 +121,7 @@
     return result;
 }
 
-- (BOOL)attributesDelete:(POSAttribute *)attribute {
+- (BOOL)attributesRemove:(POSAttribute *)attribute {
 
     BOOL result = NO;
     
@@ -157,24 +161,22 @@
     if ([self.settings count] > 0)
         return;
     
-    //    [self.settings removeAllObjects];
-    
     if (![dbWrapperInstance openDB])
         return;
     
     NSString *query = [NSString stringWithFormat: @"select  name, value, type, image_id, id \
-                       from    setting;"];
+                                                    from    setting;"];
     
     void(^blockGetSetting)(id rows) = ^(id rows) {
         
-        POSSetting *settingObject = [[POSSetting alloc] init];
-        settingObject.name = [dbWrapperInstance getCellText:0];
-        settingObject.value = [dbWrapperInstance getCellText:1];
-        settingObject.type = [dbWrapperInstance getCellText:2];
-        settingObject.image_id = [dbWrapperInstance getCellInt:3];
-        settingObject.ID = [dbWrapperInstance getCellInt:4];
+        POSSetting *object = [[POSSetting alloc] init];
+        object.name = [dbWrapperInstance getCellText:0];
+        object.value = [dbWrapperInstance getCellText:1];
+        object.type = [dbWrapperInstance getCellText:2];
+        object.image_id = [dbWrapperInstance getCellInt:3];
+        object.ID = [dbWrapperInstance getCellInt:4];
         
-        [((NSMutableArray *)rows) addObject:settingObject];
+        [((NSMutableArray *)rows) addObject:object];
     };
     
     [dbWrapperInstance fetchRows: query
@@ -248,7 +250,6 @@
 
 - (void)attributeValuesGet {
     
-    //    [self.attributeValues removeAllObjects];
     if ([self.attributeValues count] > 0)
         return;
     
@@ -307,9 +308,9 @@
         for(POSAttributeValue *attrValue in arr) {
             
             [query appendString:[NSString stringWithFormat:@"update attribute_value \
-                                 set    name = \"%@\", \
-                                 attribute_id = %d \
-                                 where  id = %d; ", attrValue.name, attrValue.attribute_ID, attrValue.ID]];
+                                                             set    name = \"%@\", \
+                                                             attribute_id = %d \
+                                                             where  id = %d; ", attrValue.name, attrValue.attribute_ID, attrValue.ID]];
         }
         
         if ([dbWrapperInstance openDB]) {
@@ -326,7 +327,7 @@
     return result;
 }
 
-- (BOOL)attributeValuesDelete:(POSAttributeValue *)attrValue {
+- (BOOL)attributeValuesRemove:(POSAttributeValue *)attrValue {
     
     BOOL result = NO;
     
@@ -368,11 +369,11 @@
     timeStamp           = (NSString*) [responseDictionary objectForKey:@"tst"];
     */
     
-    if (![dbWrapperInstance openDB])
+    if (self.categories.count > 0)
         return;
     
-    // TODO подумать может в будущем не удалять, а проверять что уже есть и ничего не делать
-    [self.categories removeAllObjects];
+    if (![dbWrapperInstance openDB])
+        return;
     
     NSString * query = [NSString stringWithFormat: @"SELECT     c.id, c.name, i.asset \
                                                      FROM       collection c \
@@ -382,19 +383,19 @@
   
     void(^blockGetCategory)( id rows, ALAssetsLibrary * lib) = ^(id rows, id lib) {
         
-        POSCategory* catObject = [[POSCategory alloc] init];
-        catObject.ID = [dbWrapperInstance getCellInt:0];
-        catObject.name = [dbWrapperInstance getCellText:1];
-        catObject.asset = [dbWrapperInstance getCellText:2];
+        POSCategory* object = [[POSCategory alloc] init];
+        object.ID = [dbWrapperInstance getCellInt:0];
+        object.name = [dbWrapperInstance getCellText:1];
+        object.asset = [dbWrapperInstance getCellText:2];
         
-        if (catObject.asset != Nil && ![catObject.asset isEqualToString:@""]) {
+        if (object.asset != Nil && ![object.asset isEqualToString:@""]) {
             
-            NSURL * assetUrl = [[NSURL alloc] initWithString:catObject.asset];
+            NSURL * assetUrl = [[NSURL alloc] initWithString:object.asset];
             
             [((ALAssetsLibrary *)lib) assetForURL: assetUrl
                                       resultBlock:^(ALAsset *asset) {
                                           
-                                          catObject.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+                                          object.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
                                       }
                                      failureBlock: ^(NSError* error) {
                                          
@@ -402,7 +403,7 @@
                                      }];
         }
         
-        [((NSMutableArray *)rows) addObject:catObject];
+        [((NSMutableArray *)rows) addObject:object];
     };
     
     [dbWrapperInstance fetchRows: query
@@ -410,6 +411,102 @@
                          andRows: self.categories
                       andLibrary: library];
     [dbWrapperInstance closeDB];
+}
+
+
+#pragma mark - CategoriesAttributes
+
+- (void)categoriesAttributesGet {
+    
+    if (self.categoriesAttributes.count > 0)
+        return;
+    
+    if (![dbWrapperInstance openDB])
+        return;
+    
+    NSString * query = [NSString stringWithFormat: @"SELECT     c.id, c.collection_id, c.attribute_id, c.attributeIndex, a.name \
+                                                     FROM       collection_attribute c \
+                                                     INNER JOIN attribute a on a.ID = c.attribute_id; "];
+    
+    void(^blockGetCategoryAttribute)( id rows) = ^(id rows) {
+        
+        POSCategoryAttribute *object = [[POSCategoryAttribute alloc] init];
+        object.ID = [dbWrapperInstance getCellInt:0];
+        object.categoryID = [dbWrapperInstance getCellInt:1];
+        object.attributeID = [dbWrapperInstance getCellInt:2];
+        object.index = [dbWrapperInstance getCellInt:3];
+        object.name = [dbWrapperInstance getCellText:4];
+        
+        [((NSMutableArray *)rows) addObject:object];
+    };
+    
+    [dbWrapperInstance fetchRows: query
+              andForeachCallback: blockGetCategoryAttribute
+                         andRows: self.categoriesAttributes];
+    [dbWrapperInstance closeDB];
+}
+
+- (POSCategoryAttribute *)categoriesAttributesCreate:(POSCategory *)category withAttributeID:(POSAttribute *)attribute withIndex:(int)index {
+    
+    POSCategoryAttribute *newCategoryAttribute;
+    NSString *query = [NSString stringWithFormat:@"insert into collection_attribute (collection_id, attribute_id, attributeIndex) \
+                                                   values(%d, %d, %d); ", category.ID, attribute.ID, index];
+    
+    if ([dbWrapperInstance openDB]) {
+        
+        int newID = [dbWrapperInstance tryCreateNewRow:query];
+        [dbWrapperInstance closeDB];
+        
+        newCategoryAttribute = [[POSCategoryAttribute alloc] init];
+        newCategoryAttribute.categoryID = category.ID;
+        newCategoryAttribute.attributeID = attribute.ID;
+        newCategoryAttribute.index = index;
+        newCategoryAttribute.name = attribute.name;
+        newCategoryAttribute.ID = newID;
+        
+        [self.categoriesAttributes addObject:newCategoryAttribute];
+    }
+    
+    return newCategoryAttribute;
+
+}
+
+- (BOOL)categoriesAttributesUpdate:(POSCategoryAttribute *)categoryAttribute withAttribute:(POSAttribute *)attribute {
+    
+    BOOL result = NO;
+    
+    NSMutableString *query = [[NSMutableString alloc] init];
+    [query appendString:[NSString stringWithFormat:@"update collection_attribute \
+                                                     set    attribute_id = %d \
+                                                     where  ID = %d; ", attribute.ID, categoryAttribute.ID]];
+    if ([dbWrapperInstance openDB]) {
+        
+        [dbWrapperInstance tryExecQuery:query];
+        [dbWrapperInstance closeDB];
+        result = YES;
+        
+        categoryAttribute.name = attribute.name;
+        categoryAttribute.attributeID = attribute.ID;
+    }
+    
+    return result;
+}
+
+- (BOOL)categoriesAttributesRemove:(POSCategoryAttribute *)categoryAttribute {
+   
+    BOOL result = NO;
+    
+    NSMutableString *query = [NSMutableString stringWithFormat:@"delete \
+                                                                 from   collection_attribute \
+                                                                 where  ID = %d; ", categoryAttribute.ID];
+    if ([dbWrapperInstance openDB]) {
+        
+        [dbWrapperInstance tryExecQuery:query];
+        [dbWrapperInstance closeDB];
+        result = YES;
+    }
+    
+    return result;
 }
 
 
@@ -492,16 +589,20 @@
      NSAssert(0, @"Failed to open database");
      }
      */
+
+    if (self.items.count > 0)
+        return;
     
-    [self.items removeAllObjects];
     //[allItems filterUsingPredicate:@"I"]
     POSItem* item;
     
-    for(int i = 0; i<[self.allItems count]; i++) {
-        item = [self.allItems objectAtIndex:i];
+    for(int i = 0; i < [self.allItems count]; i++) {
         
-        if([item.category isEqualToString:selectedCategoryName])
+        item = [self.allItems objectAtIndex:i];
+        if([item.category isEqualToString:selectedCategoryName]) {
+            
             [self.items addObject:item];
+        }
     }
 }
 
@@ -510,12 +611,12 @@
 
 - (void)allItemsGet {
     
+    if (self.allItems.count > 0)
+        return;
+    
     if(![dbWrapperInstance openDB])
         return;
     
-    // TODO подумать может в будущем не удалять, а проверять что уже есть и ничего не делать
-    [self.allItems removeAllObjects];
-
     NSString* query = [NSString stringWithFormat: @"SELECT  p.id, p.name, p.price_buy, p.price_sale, p.comment, i.asset, c.id, c.name \
                                                     FROM    product p, image i, collection c \
                                                     WHERE   i.object_id = p.id AND i.object_name = \"product\" AND i.is_default = 1 and c.id = p.collection_id"];
@@ -524,17 +625,17 @@
         
         POSItem* goodObject = [[POSItem alloc] init];
         goodObject.gallery = [[NSMutableArray alloc] init];
+        goodObject.codeItem = @"001";
+        goodObject.quantityAvailable = @"10";
+        goodObject.quantityOrdered = @"0";
         goodObject.ID = [dbWrapperInstance getCellInt:0];
         goodObject.name = [dbWrapperInstance getCellText:1];
-        goodObject.codeItem = @"001";
         goodObject.price1 = [[NSString alloc] initWithFormat:@"%f", [dbWrapperInstance getCellFloat:2]];
         goodObject.price2 = [[NSString alloc] initWithFormat:@"%f", [dbWrapperInstance getCellFloat:3]];
         goodObject.description = [dbWrapperInstance getCellText:4];
         goodObject.category =  [dbWrapperInstance getCellText:7];
-        goodObject.quantityAvailable = @"10";
-        goodObject.quantityOrdered = @"0";
-        goodObject.catID = goodObject.ID = [dbWrapperInstance getCellInt:6];
         goodObject.asset = [dbWrapperInstance getCellText:5];
+        goodObject.catID = goodObject.ID = [dbWrapperInstance getCellInt:6];
         
         [goodObject.gallery addObject:[UIImage imageNamed:@"car9.png"]];
         [goodObject.gallery addObject:[UIImage imageNamed:@"car10.png"]];

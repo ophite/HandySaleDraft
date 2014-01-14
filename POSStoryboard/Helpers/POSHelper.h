@@ -54,6 +54,8 @@
 - (NSString *)convertBoolToString:(BOOL)value;
 
 - (BOOL)isValidEmail:(NSString *)email;
+- (NSObject *)getObject:(NSMutableArray *)objects withID:(int)id;
+- (NSObject *)getObject:(NSMutableArray *)objects withPredicate:(NSPredicate *)predicate;
 
 
 + (POSHelper *)getInstance;

@@ -232,6 +232,34 @@
 }
 
 
+- (NSObject *)getObject:(NSMutableArray *)objects withID:(int)id {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID = %d", id];
+    NSArray *arr = [objects filteredArrayUsingPredicate:predicate];
+    NSObject *value;
+    
+    if ([arr count] > 0) {
+        
+        value = ((NSObject *)[arr objectAtIndex:0]);
+    }
+    
+    return value;
+}
+
+- (NSObject *)getObject:(NSMutableArray *)objects withPredicate:(NSPredicate *)predicate {
+    
+    NSArray *arr = [objects filteredArrayUsingPredicate:predicate];
+    NSObject *value;
+    
+    if ([arr count] > 0) {
+        
+        value = ((NSObject *)[arr objectAtIndex:0]);
+    }
+    
+    return value;
+}
+
+
 #pragma mark - GUI
 
 - (id)getUIViewController:(NSString *)storyboardName {

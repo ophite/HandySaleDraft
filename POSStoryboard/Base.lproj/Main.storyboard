@@ -403,14 +403,14 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WAY-PZ-1o6">
-                                                        <rect key="frame" x="224" y="388" width="35" height="30"/>
+                                                        <rect key="frame" x="226" y="389" width="35" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <state key="normal" title=">">
                                                             <color key="titleColor" red="0.54509806632995605" green="0.56470590829849243" blue="0.61960786581039429" alpha="1" colorSpace="deviceRGB"/>
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="0Av-fe-Kah" kind="push" id="BeC-x6-6J5"/>
+                                                            <segue destination="0Av-fe-Kah" kind="push" identifier="goToAttribute2" id="BeC-x6-6J5"/>
                                                         </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" id="x5C-Q5-brA">
@@ -424,14 +424,14 @@
                                                         <color key="backgroundColor" red="0.87843143939971924" green="0.87843143939971924" blue="0.87843143939971924" alpha="1" colorSpace="deviceRGB"/>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5oY-oo-FXg">
-                                                        <rect key="frame" x="206" y="341" width="74" height="30"/>
+                                                        <rect key="frame" x="226" y="341" width="35" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <state key="normal" title=">">
                                                             <color key="titleColor" red="0.53333336114883423" green="0.56078433990478516" blue="0.61568629741668701" alpha="1" colorSpace="deviceRGB"/>
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="0Av-fe-Kah" kind="push" id="g2I-my-5pL"/>
+                                                            <segue destination="0Av-fe-Kah" kind="push" identifier="goToAttribute1" id="g2I-my-5pL"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select from list" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jdq-GP-z0V">
@@ -530,6 +530,8 @@
                     <connections>
                         <outlet property="buttonSave" destination="CIu-av-umO" id="rL7-RX-Ypr"/>
                         <outlet property="imageView" destination="z0O-x2-RJc" id="JVs-0Q-oPn"/>
+                        <outlet property="labelCategory1" destination="hWa-xe-NjD" id="ANi-bJ-CBO"/>
+                        <outlet property="labelCategory2" destination="jdq-GP-z0V" id="laR-EK-Ury"/>
                         <outlet property="scrollView" destination="B8z-yC-Wa6" id="ZUn-Dc-lXJ"/>
                         <outlet property="textName" destination="vrQ-hc-3W8" id="8oh-Rh-wxY"/>
                         <outlet property="viewButtons" destination="rJJ-bL-KyW" id="dmu-aS-BCQ"/>
@@ -543,7 +545,7 @@
             </objects>
             <point key="canvasLocation" x="1924" y="140"/>
         </scene>
-        <!--Select Attribute View Controller - Attributes-->
+        <!--Select Attribute View Controller - Select attribute-->
         <scene sceneID="K9M-zV-IKy">
             <objects>
                 <viewController id="0Av-fe-Kah" customClass="POSSelectAttributeViewController" sceneMemberID="viewController">
@@ -561,12 +563,18 @@
                                 <state key="normal" title="Ok">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onSelect:" destination="0Av-fe-Kah" eventType="touchUpInside" id="Zxl-7V-lzR"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Attributes" id="vl8-MG-V5W"/>
+                    <navigationItem key="navigationItem" title="Select attribute" id="vl8-MG-V5W"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="picker" destination="62E-6R-XyC" id="KHw-SE-F9j"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cST-8U-Oby" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1619,9 +1627,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="iAD-Nf-PUJ"/>
-        <segue reference="g2I-my-5pL"/>
-        <segue reference="d1d-7q-bLz"/>
         <segue reference="BqE-aY-ofo"/>
+        <segue reference="BeC-x6-6J5"/>
+        <segue reference="iAD-Nf-PUJ"/>
+        <segue reference="4Gh-bX-aFU"/>
     </inferredMetricsTieBreakers>
 </document>

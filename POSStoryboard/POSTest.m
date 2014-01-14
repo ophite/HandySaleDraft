@@ -16,15 +16,18 @@
         return;
     
     NSString * query = [[NSString alloc] init];
+
+    query = @"DROP TABLE IF EXISTS attribute";
+    [dbWrapperInstance tryExecQuery:query];
 //
-//    query = @"DROP TABLE IF EXISTS attribute";
-//    [dbWrapperInstance tryExecQuery:query];
-//    
 //    query = @"DROP TABLE IF EXISTS image";
 //    [dbWrapperInstance tryExecQuery:query];
 //
 //    query = @"DROP TABLE IF EXISTS collection";
 //    [dbWrapperInstance tryExecQuery:query];
+//
+    query = @"DROP TABLE IF EXISTS collection_attribute";
+    [dbWrapperInstance tryExecQuery:query];
 //
 //    query = @"DROP TABLE IF EXISTS product";
 //    [dbWrapperInstance tryExecQuery:query];
@@ -35,8 +38,8 @@
 //    query = @"DROP TABLE IF EXISTS document_line";
 //    [dbWrapperInstance tryExecQuery:query];
 //    
-    query = @"DROP TABLE IF EXISTS setting";
-    [dbWrapperInstance tryExecQuery:query];
+//    query = @"DROP TABLE IF EXISTS setting";
+//    [dbWrapperInstance tryExecQuery:query];
     
     query =
     @"CREATE TABLE IF NOT EXISTS attribute ( \
@@ -68,6 +71,18 @@
         PRIMARY KEY (id), \
         CHECK (is_deleted IN (0, 1)), \
         FOREIGN KEY(user_id) REFERENCES user (id)\
+    );\
+    CREATE TABLE IF NOT EXISTS collection_attribute (\
+        id INTEGER NOT NULL, \
+        is_deleted BOOLEAN, \
+        tst TIMESTAMP, \
+        collection_id INTEGER NOT NULL, \
+        attribute_id INTEGER NOT NULL, \
+        attributeIndex INTEGER NOT NULL, \
+        PRIMARY KEY (id), \
+        CHECK (is_deleted IN (0, 1)), \
+        FOREIGN KEY(collection_id) REFERENCES collection (id)\
+        FOREIGN KEY(attribute_id) REFERENCES attribute (id)\
     );\
     CREATE TABLE IF NOT EXISTS document (\
         id INTEGER NOT NULL, \
@@ -430,7 +445,7 @@
     
     if(count == 0) {
         
-        query = [NSMutableString stringWithFormat:@"SELECT id FROM attribute WHERE name= \"%@\"", @"first attribute"];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM attribute WHERE name= \"%@\";", @"first attribute"];
         int attributeID = [dbWrapperInstance execQueryResultInt:query andIndex:0];
 
         query = [NSMutableString stringWithFormat:@"INSERT INTO attribute_value (name, attribute_id) VALUES (\"%@\", %d); ", @"attribute value 1", attributeID];
@@ -440,6 +455,28 @@
         
         [dbWrapperInstance tryExecQuery:query];
     }
+    
+    
+    [query setString:@"SELECT count(*) FROM collection_attribute"];
+    count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+    
+    if(count == 0) {
+        
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM attribute WHERE name= \"%@\"; ", @"first attribute"];
+        int attributeID1 = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM attribute WHERE name= \"%@\"; ", @"second attribute"];
+        int attributeID2 = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM collection WHERE name= \"%@\"; ", @"Nissan"];
+        int collectionID = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+
+        query = [NSMutableString stringWithFormat:@"INSERT INTO collection_attribute (collection_id, attribute_id, attributeIndex) \
+                                                    VALUES (%d, %d, %d); ", collectionID, attributeID1, 0];
+        [query appendFormat:@"INSERT INTO collection_attribute  (collection_id, attribute_id, attributeIndex) \
+                              VALUES (%d, %d, %d); ", collectionID, attributeID2, 1];
+        
+        [dbWrapperInstance tryExecQuery:query];
+    }
+
     
     [dbWrapperInstance closeDB];
 }

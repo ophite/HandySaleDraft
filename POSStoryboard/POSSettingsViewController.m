@@ -112,6 +112,29 @@
 }
 
 
+// In a story board-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    POSSettingsPickerViewController *controller = (POSSettingsPickerViewController *)[segue destinationViewController];
+    
+    if ([[segue identifier] isEqualToString:@"goToLanguage"]) {
+        
+        controller.settingName = helperInstance.SETTING_LANGUAGE;
+        controller.settingValue = self.buttonLanguage.titleLabel.text;
+        controller.pickerDict = [helperInstance SETTING_LANGUAGES_DICT];
+        
+    }
+    else if ([[segue identifier] isEqualToString:@"goToMoney"]) {
+        
+        controller.settingName = helperInstance.SETTING_MONEY;
+        controller.settingValue = self.buttonMoney.titleLabel.text;
+        controller.pickerDict = [helperInstance SETTING_MONEY_DICT];
+    }
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+
+
 #pragma mark - Table view data source
 /*
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -178,30 +201,5 @@
     return YES;
 }
 */
-
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    POSSettingsPickerViewController *controller = (POSSettingsPickerViewController *)[segue destinationViewController];
-
-    if ([[segue identifier] isEqualToString:@"goToLanguage"]) {
-
-        controller.settingName = helperInstance.SETTING_LANGUAGE;
-        controller.settingValue = self.buttonLanguage.titleLabel.text;
-        controller.pickerDict = [helperInstance SETTING_LANGUAGES_DICT];
-        
-    }
-    else if ([[segue identifier] isEqualToString:@"goToMoney"]) {
-        
-        controller.settingName = helperInstance.SETTING_MONEY;
-        controller.settingValue = self.buttonMoney.titleLabel.text;
-        controller.pickerDict = [helperInstance SETTING_MONEY_DICT];
-    }
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
 
 @end

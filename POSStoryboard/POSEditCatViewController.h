@@ -11,14 +11,19 @@
 #import "POSDBWrapper.h"
 #import "POSObjectsHelper.h"
 #import "POSHelper.h"
+#import "POSSelectAttributeViewController.h"
 
 @interface POSEditCatViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate>
 
 
-@property POSCategory *cat;
+@property POSCategory *category;
+@property POSCategoryAttribute *categoryAttribute1;
+@property POSCategoryAttribute *categoryAttribute2;
 @property NSString *oldName;
 
 @property (weak, nonatomic) IBOutlet UITextField *textName;
+@property (weak, nonatomic) IBOutlet UILabel *labelCategory1;
+@property (weak, nonatomic) IBOutlet UILabel *labelCategory2;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSave;
 
 @property (weak, nonatomic) IBOutlet UIView *viewMain;
@@ -28,10 +33,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *viewButtons;
 @property (weak, nonatomic) IBOutlet UIView *viewForColorExample;
-
-
-- (IBAction)onSelectCategory1:(id)sender;
-- (IBAction)onSelectCategory2:(id)sender;
 
 
 - (IBAction)onSave:(id)sender;

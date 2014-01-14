@@ -45,13 +45,13 @@
     
     NSArray *keys = [self.pickerDict allKeys];
     
-    int index = [keys containsObject:self.settingValue]? [keys indexOfObject:self.settingValue]: -1;
-    if (index < 0) {
+    int row = [keys containsObject:self.settingValue]? [keys indexOfObject:self.settingValue]: -1;
+    if (row < 0) {
 
-        index = 0;
+        row = 0;
     }
     
-    [self.picker selectRow: index
+    [self.picker selectRow: row
                inComponent: 0
                   animated: YES];
     

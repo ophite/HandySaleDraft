@@ -275,7 +275,7 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
             NSIndexPath *indexPath = [self.tableViewAttributeValue indexPathForCell:cell];
             POSAttributeValue *attributeValue = [self.attributeValues objectAtIndex:indexPath.row];
             
-            [objectsHelperInstance.dataSet attributeValuesDelete:attributeValue];
+            [objectsHelperInstance.dataSet attributeValuesRemove:attributeValue];
             [self.attributeValues removeObject:attributeValue];
             [self.tableViewAttributeValue deleteRowsAtIndexPaths: @[indexPath]
                                                 withRowAnimation: UITableViewRowAnimationFade];
