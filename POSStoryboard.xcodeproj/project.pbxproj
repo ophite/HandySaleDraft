@@ -1106,9 +1106,7 @@
 				INFOPLIST_FILE = "POSStoryboard/POSStoryboard-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/koberniku/trunk/pos/POS/POS/ZBarSDK,
-					/Users/koberniku/trunk/POSStoryboard/POSStoryboard,
-					/Users/koberniku/trunk/POSStoryboard/POSStoryboard/ZBarSDK,
+					/Users/koberniku/trunk/gitPOS/POSStoryboard/ZBarSDK,
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1130,9 +1128,7 @@
 				INFOPLIST_FILE = "POSStoryboard/POSStoryboard-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/koberniku/trunk/pos/POS/POS/ZBarSDK,
-					/Users/koberniku/trunk/POSStoryboard/POSStoryboard,
-					/Users/koberniku/trunk/POSStoryboard/POSStoryboard/ZBarSDK,
+					/Users/koberniku/trunk/gitPOS/POSStoryboard/ZBarSDK,
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";

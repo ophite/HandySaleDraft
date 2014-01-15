@@ -19,6 +19,7 @@
 - (NSString *)SETTING_TEXTFIELD_FONT_COLOR;
 - (NSString *)SETTING_TEXTFIELD_BORDER_COLOR;
 - (NSString *)SETTING_CATEGORY_MODE;
+- (NSString *)SETTING_ITEM_MODE;
 - (NSString *)SETTING_BUTTON_BACKGROUND_COLOR;
 - (NSString *)SETTING_BUTTON_FONT_COLOR;
 - (NSString *)SETTING_REMEMBERME_LOGIN;
@@ -75,6 +76,15 @@
 - (void)loadButtonFontColorSetting:(UIColor *)color;
 
 - (void)setButtonFontColor:(UIButton *)button withSetting:(POSSetting *)setting;
+
+- (void)createLeftMarginForLabel:(UILabel *)label withSize:(int)value;
+- (void)createLeftMarginForLabel:(UILabel *)label;
+
+- (void)createLeftMarginForTextField:(UITextField *)textField withSize:(int)value;
+- (void)createLeftMarginForTextField:(UITextField *)textField;
+
+- (void)createLeftMarginForTextView:(UITextView *)textView withSize:(int)value;
+- (void)createLeftMarginForTextView:(UITextView *)textView;
 
 
 @end

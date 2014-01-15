@@ -145,6 +145,10 @@
     return @"category_mode";
 }
 
+- (NSString *)SETTING_ITEM_MODE {
+    
+    return @"category_item";
+}
 
 #pragma mark - Sizes
 
@@ -360,5 +364,38 @@
     [button setTitleColor:color forState:UIControlStateNormal];
 }
 
+- (void)createLeftMarginForLabel:(UILabel *)label {
+    
+    [self createLeftMarginForLabel:label withSize:20];
+}
+
+- (void)createLeftMarginForLabel:(UILabel *)label withSize:(int)value {
+    
+    CGRect frameLabel = CGRectMake(label.frame.origin.x, label.frame.origin.y, label.frame.size.width, label.frame.size.height);
+    frameLabel.origin.x = value;
+    label.frame = frameLabel;
+}
+
+- (void)createLeftMarginForTextField:(UITextField *)textField {
+    
+    [self createLeftMarginForTextField:textField withSize:20];
+}
+
+- (void)createLeftMarginForTextField:(UITextField *)textField withSize:(int)value {
+    
+    UIView *paddingTxtfieldView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, value, 0)];
+    textField.leftView = paddingTxtfieldView;
+    textField.leftViewMode = UITextFieldViewModeAlways;
+}
+
+- (void)createLeftMarginForTextView:(UITextView *)textView {
+    
+    [textView setContentInset:UIEdgeInsetsMake(0, 20, 0, 0)];
+}
+
+- (void)createLeftMarginForTextView:(UITextView *)textView withSize:(int)value {
+    
+    [textView setContentInset:UIEdgeInsetsMake(0, value, 0, 0)];
+}
 
 @end

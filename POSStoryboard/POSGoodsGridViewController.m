@@ -48,6 +48,8 @@
     self.catName = self.cat.name;
     [objectsHelperInstance.dataSet.items removeAllObjects];
     [objectsHelperInstance.dataSet itemsGet:self.catName];
+    objectsHelperInstance.goodsMode = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_ITEM_MODE].boolValue;
+
     
     // gui
     self.gridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -74,6 +76,25 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+-(void) viewWillDisappear:(BOOL)animated {
+    
+    POSSetting *settingItemMode = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_ITEM_MODE];
+    if (![settingItemMode.value isEqualToString:[helperInstance convertBoolToString:objectsHelperInstance.goodsMode]]) {
+        
+        [objectsHelperInstance.dataSet settingsUpdate: settingItemMode
+                                            withValue: [helperInstance convertBoolToString:objectsHelperInstance.goodsMode]];
+    }
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [self.gridView reloadData];
+}
+
 
 
 #pragma mark - GridView
@@ -135,13 +156,6 @@
         [self.navigationController pushViewController: controller
                                              animated: YES];
     }
-}
-
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    [self.gridView reloadData];
 }
 
 

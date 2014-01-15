@@ -416,6 +416,8 @@
                                 helperInstance.SETTING_BUTTON_FONT_COLOR, @"", -1];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
                                 helperInstance.SETTING_CATEGORY_MODE, @"NO", -1];
+        [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
+                                helperInstance.SETTING_ITEM_MODE, @"NO", -1];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
                                 helperInstance.SETTING_TEXTFIELD_BORDER_COLOR, @"", -1];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
