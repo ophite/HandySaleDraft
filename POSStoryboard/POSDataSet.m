@@ -503,6 +503,8 @@
         
         [dbWrapperInstance tryExecQuery:query];
         [dbWrapperInstance closeDB];
+        
+        [self.categoriesAttributes removeObject:categoryAttribute];
         result = YES;
     }
     

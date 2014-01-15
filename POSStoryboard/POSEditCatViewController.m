@@ -33,6 +33,7 @@
 @synthesize imageView = _imageView;
 @synthesize viewButtons = _viewButtons;
 
+NSString *labelCategoryEmpty = @"Select from list";
 
 #pragma mark - ViewController
 
@@ -100,28 +101,28 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    if (!self.categoryAttribute1) {
-
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(categoryID = %d) AND (index = %d)", self.category.ID, 0];
-        self.categoryAttribute1 = (POSCategoryAttribute *)[helperInstance getObject: objectsHelperInstance.dataSet.categoriesAttributes
-                                                                      withPredicate: predicate];
-    }
-    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(categoryID = %d) AND (index = %d)", self.category.ID, 0];
+    self.categoryAttribute1 = (POSCategoryAttribute *)[helperInstance getObject: objectsHelperInstance.dataSet.categoriesAttributes
+                                                                  withPredicate: predicate];
     if (self.categoryAttribute1) {
         
         [self.labelCategory1 setText:self.categoryAttribute1.name];
     }
-
-    if (!self.categoryAttribute2) {
-
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(categoryID = %d) AND (index = %d)", self.category.ID, 1];
-        self.categoryAttribute2 = (POSCategoryAttribute *)[helperInstance getObject: objectsHelperInstance.dataSet.categoriesAttributes
-                                                                      withPredicate: predicate];
+    else {
+        
+        [self.labelCategory1 setText:labelCategoryEmpty];
     }
 
+    predicate = [NSPredicate predicateWithFormat:@"(categoryID = %d) AND (index = %d)", self.category.ID, 1];
+    self.categoryAttribute2 = (POSCategoryAttribute *)[helperInstance getObject: objectsHelperInstance.dataSet.categoriesAttributes
+                                                                  withPredicate: predicate];
     if (self.categoryAttribute2) {
         
         [self.labelCategory2 setText:self.categoryAttribute2.name];
+    }
+    else {
+        
+        [self.labelCategory2 setText:labelCategoryEmpty];
     }
 }
 

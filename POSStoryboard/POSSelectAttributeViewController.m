@@ -57,6 +57,12 @@
                    inComponent: 0
                       animated: YES];
     }
+    else {
+        
+        [self.picker selectRow: (objectsHelperInstance.dataSet.attributes.count + 1)
+                   inComponent: 0
+                      animated: YES];
+    }
     
 	// Do any additional setup after loading the view.
 }
@@ -79,15 +85,26 @@
 
 - (NSInteger)pickerView: (UIPickerView *)pickerView numberOfRowsInComponent: (NSInteger)component {
     
-    return [objectsHelperInstance.dataSet.attributes count];
+    return [objectsHelperInstance.dataSet.attributes count] + 1;
 }
 
 
 - (NSString *)pickerView: (UIPickerView *)pickerView titleForRow: (NSInteger)row forComponent: (NSInteger)component {
     
-    POSAttribute *attribute = (POSAttribute *)[objectsHelperInstance.dataSet.attributes objectAtIndex:row];
+    NSString *pickerValue;
     
-    return attribute.name;
+    if (row < objectsHelperInstance.dataSet.attributes.count) {
+        
+        POSAttribute *attribute = (POSAttribute *)[objectsHelperInstance.dataSet.attributes objectAtIndex:row];
+        pickerValue = attribute.name;
+    
+    }
+    else {
+    
+        pickerValue = @"NONE";
+    }
+    
+    return pickerValue;
 }
 
 
@@ -96,21 +113,32 @@
 - (IBAction)onSelect:(id)sender {
 
     NSInteger row = [self.picker selectedRowInComponent:0];
-    POSAttribute *newAttribute = (POSAttribute *)[objectsHelperInstance.dataSet.attributes objectAtIndex:row];
     
-    if (self.oldAttribute) {
+    if (row < objectsHelperInstance.dataSet.attributes.count) {
         
-        if (self.oldAttribute.ID != newAttribute.ID) {
+        POSAttribute *newAttribute = (POSAttribute *)[objectsHelperInstance.dataSet.attributes objectAtIndex:row];
+        
+        if (self.oldAttribute) {
             
-            [objectsHelperInstance.dataSet categoriesAttributesUpdate: self.categoryAttribute
-                                                        withAttribute: newAttribute];
+            if (self.oldAttribute.ID != newAttribute.ID) {
+                
+                [objectsHelperInstance.dataSet categoriesAttributesUpdate: self.categoryAttribute
+                                                            withAttribute: newAttribute];
+            }
+        }
+        else {
+            
+            [objectsHelperInstance.dataSet categoriesAttributesCreate: self.category
+                                                      withAttributeID: newAttribute
+                                                            withIndex: self.attributeIndex];
         }
     }
     else {
         
-        [objectsHelperInstance.dataSet categoriesAttributesCreate: self.category
-                                                  withAttributeID: newAttribute
-                                                        withIndex: self.attributeIndex];
+        if (self.oldAttribute) {
+            
+            [objectsHelperInstance.dataSet categoriesAttributesRemove:self.categoryAttribute];
+        }
     }
     
     [self.navigationController popViewControllerAnimated:YES];
