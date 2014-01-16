@@ -608,9 +608,6 @@
     }
 }
 
-
-#pragma mark - All items
-
 - (void)allItemsGet {
     
     if (self.allItems.count > 0)
@@ -672,6 +669,27 @@
     }
     
     [dbWrapperInstance closeDB];
+}
+
+
+- (BOOL)itemUpdate:(POSItem *)item withCategory:(POSCategory *)category {
+    
+    BOOL result = NO;
+    
+    NSString *query = [NSString stringWithFormat:@"update product \
+                                                   set    collection_id = %d \
+                                                   where  id = %d; ", category.ID, item.ID];
+    
+    if ([dbWrapperInstance openDB]) {
+        
+        [dbWrapperInstance tryExecQuery:query];
+        [dbWrapperInstance closeDB];
+        
+        item.category = category.name;
+        result = YES;
+    }
+    
+    return result;
 }
 
 

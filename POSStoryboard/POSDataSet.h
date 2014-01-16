@@ -56,9 +56,9 @@
 - (BOOL)categoriesAttributesUpdate:(POSCategoryAttribute *)categoryAttribute withAttribute:(POSAttribute *)attribute;
 - (BOOL)categoriesAttributesRemove:(POSCategoryAttribute *)categoryAttribute;
 
-- (void)itemsGet:(NSString *)selectedCategoryName;
-
 - (void)allItemsGet;
+- (void)itemsGet:(NSString *)selectedCategoryName;
+- (BOOL)itemUpdate:(POSItem *)item withCategory:(POSCategory *)category;
 
 - (void)gallerySave:(int)index withLibrary:(ALAssetsLibrary *)library;
 

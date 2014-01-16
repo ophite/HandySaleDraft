@@ -17,10 +17,8 @@
 
 
 @synthesize item = _item;
-@synthesize initRow = _initRow;
-@synthesize exitRow = _exitRow;
+@synthesize category = _category;
 @synthesize picker = _picker;
-@synthesize pickerData = _pickerData;
 
 
 #pragma mark - ViewController
@@ -46,7 +44,8 @@
     self.picker.dataSource = self;
     self.picker.delegate = self;
     
-    [self.picker selectRow: self.initRow
+    int row = self.category ? [objectsHelperInstance.dataSet.categories indexOfObject:self.category] : 0;
+    [self.picker selectRow: row
                inComponent: 0
                   animated: YES];
 	// Do any additional setup after loading the view.
@@ -70,22 +69,30 @@
 
 - (NSInteger)pickerView: (UIPickerView *)pickerView numberOfRowsInComponent: (NSInteger)component {
     
-    return [self.pickerData count];
+    return [objectsHelperInstance.dataSet.categories count];
 }
 
 
 - (NSString *)pickerView: (UIPickerView *)pickerView titleForRow: (NSInteger)row forComponent: (NSInteger)component {
     
-    return [self.pickerData objectAtIndex:row];
+    POSCategory *category = [objectsHelperInstance.dataSet.categories objectAtIndex:row];
+    
+    return category.name;
 }
 
 
 #pragma mark - Actions
  
-- (IBAction)onOk:(id)sender {
+- (IBAction)onSelect:(id)sender {
     
-    self.exitRow = [self.picker selectedRowInComponent:0];
-    self.item.category = [[objectsHelperInstance.dataSet.categories objectAtIndex:self.exitRow] name];
+    NSInteger row = [self.picker selectedRowInComponent:0];
+    POSCategory *newCategory = [objectsHelperInstance.dataSet.categories objectAtIndex:row];
+    
+    if (self.category.ID != newCategory.ID) {
+        
+        [objectsHelperInstance.dataSet itemUpdate:self.item withCategory:newCategory];
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

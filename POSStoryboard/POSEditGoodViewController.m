@@ -102,7 +102,7 @@ const int CELL_DESCRIPTION_INDEX = 7;
 
     // image touch event
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget: self
-                                                                                    action: @selector(onSelectImage:)];
+                                                                                    action: @selector(onShowImageButtons:)];
     [tapRecognizer setNumberOfTouchesRequired:1];
     [self.scrollView addGestureRecognizer:tapRecognizer];
 
@@ -122,6 +122,26 @@ const int CELL_DESCRIPTION_INDEX = 7;
     }
 
 	// Do any additional setup after loading the view.
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [self.buttonCategory setTitle:self.item.category forState:UIControlStateNormal];
+
+
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(categoryID = %d) AND (index = %d)", self.category.ID, 0];
+//    self.categoryAttribute1 = (POSCategoryAttribute *)[helperInstance getObject: objectsHelperInstance.dataSet.categoriesAttributes
+//                                                                  withPredicate: predicate];
+//    if (self.categoryAttribute1) {
+//        
+//        [self.labelCategory1 setText:self.categoryAttribute1.name];
+//    }
+//    else {
+//        
+//        [self.labelCategory1 setText:labelCategoryEmpty];
+//    }
 }
 
 
@@ -159,13 +179,6 @@ const int CELL_DESCRIPTION_INDEX = 7;
 }
 
 
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-//    self.textCategory.text = self.item.category;
-}
-
-
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     
     if ([identifier isEqualToString:@"goToFakeSetCategory"]) {
@@ -176,6 +189,57 @@ const int CELL_DESCRIPTION_INDEX = 7;
     return YES;
 }
 
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    UIImagePickerController* controller = [[UIImagePickerController alloc] init];
+    controller.delegate = self;
+    
+    if ([alertView.title isEqual: @"Delete image"] && buttonIndex == 0) {
+        
+        
+    }
+    else {
+        
+        if ([alertView.title isEqual: @"Delete image"] && buttonIndex == 1) {
+            
+            int page = self.scrollView.contentOffset.x/self.scrollView.frame.size.width;
+            [self.item.gallery removeObjectAtIndex:page];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else if ([alertView.title isEqual: @"Delete"]) {
+            
+            NSString* title = [alertView buttonTitleAtIndex:buttonIndex];
+            
+            if([title isEqualToString:@"No"]) {
+                
+                
+            }
+            else if ([dbWrapperInstance openDB]) {
+                
+                NSString * query = [NSString stringWithFormat:@"DELETE  \
+                                    FROM    product \
+                                    WHERE   name = \"%@\" AND user_id = %d", self.item.name, 1];
+                
+                [dbWrapperInstance tryExecQuery:query];
+                [dbWrapperInstance closeDB];
+                
+                [objectsHelperInstance.dataSet.items removeObjectAtIndex:objectsHelperInstance.currentItemsIndex];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }
+        else if ([alertView.title isEqual: @"Select source"] && buttonIndex == 0) {
+            
+            controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController: controller
+                               animated: YES
+                             completion: nil];
+        }
+    }
+}
+
+
+#pragma mark - UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
@@ -201,55 +265,6 @@ const int CELL_DESCRIPTION_INDEX = 7;
     
     [self dismissViewControllerAnimated: YES
                              completion: nil];
-}
-
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    UIImagePickerController* controller = [[UIImagePickerController alloc] init];
-    controller.delegate = self;
-    
-    if ([alertView.title isEqual: @"Delete image"] && buttonIndex == 0) {
-        
-        
-    }
-    else {
-        
-        if ([alertView.title isEqual: @"Delete image"] && buttonIndex == 1) {
-            
-            int page = self.scrollView.contentOffset.x/self.scrollView.frame.size.width;
-            [self.item.gallery removeObjectAtIndex:page];
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-        else if ([alertView.title isEqual: @"Delete"]) {
-            
-                NSString* title = [alertView buttonTitleAtIndex:buttonIndex];
-                
-                if([title isEqualToString:@"No"]) {
-                    
-                    
-                }
-                else if ([dbWrapperInstance openDB]) {
-                    
-                    NSString * query = [NSString stringWithFormat:@"DELETE  \
-                                                                    FROM    product \
-                                                                    WHERE   name = \"%@\" AND user_id = %d", self.item.name, 1];
-                    
-                    [dbWrapperInstance tryExecQuery:query];
-                    [dbWrapperInstance closeDB];
-                    
-                    [objectsHelperInstance.dataSet.items removeObjectAtIndex:objectsHelperInstance.currentItemsIndex];
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
-        }
-        else if ([alertView.title isEqual: @"Select source"] && buttonIndex == 0) {
-            
-            controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            [self presentViewController: controller
-                               animated: YES
-                             completion: nil];
-        }
-    }
 }
 
 
@@ -405,29 +420,15 @@ const int CELL_DESCRIPTION_INDEX = 7;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
-- (IBAction)onSetCategory:(id)sender {
+// In a story board-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"
-                                                             bundle: nil];
-
-    POSSetCatViewController *controller = [mainStoryboard instantiateViewControllerWithIdentifier:@"POSSetCatViewController"];
-    controller.title = @"Set category";
+    POSSetCatViewController *controller = (POSSetCatViewController *)[segue destinationViewController];
     controller.item = self.item;
-    NSMutableArray* array = [[NSMutableArray alloc] init];
+    controller.category = self.category;
     
-    for(int i = 0; i<[objectsHelperInstance.dataSet.categories count]; i++) {
-        
-        NSString* name = [[objectsHelperInstance.dataSet.categories objectAtIndex:i] name];
-        [array addObject:name];
-        
-        if([self.item.category isEqualToString:name])
-            controller.initRow = i;
-    }
-    
-    controller.pickerData = array;
-    [self.navigationController pushViewController: controller
-                                         animated: YES];
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
 
 

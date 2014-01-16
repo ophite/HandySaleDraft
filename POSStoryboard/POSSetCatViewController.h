@@ -9,19 +9,17 @@
 
 #import "POSItem.h"
 #import "POSObjectsHelper.h"
-
+#import "POSCategory.h"
 
 @interface POSSetCatViewController : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource>
 
 
-@property int initRow;
-@property int exitRow;
 @property POSItem *item;
-@property (strong, nonatomic) NSMutableArray *pickerData;
+@property POSCategory *category;
 @property (weak, nonatomic) IBOutlet UIPickerView *picker;
 
 
-- (IBAction)onOk:(id)sender;
+- (IBAction)onSelect:(id)sender;
 
 
 @end

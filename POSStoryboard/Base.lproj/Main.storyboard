@@ -763,6 +763,9 @@
                                                     <state key="normal" title="Category name">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <segue destination="Bst-JA-gve" kind="push" identifier="goToSelectCategory" id="ORm-Nc-KDk"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" red="0.97254908084869385" green="0.97254908084869385" blue="0.97254908084869385" alpha="1" colorSpace="deviceRGB"/>
@@ -1018,7 +1021,7 @@
             <objects>
                 <viewController storyboardIdentifier="POSSetCatViewController" id="Bst-JA-gve" customClass="POSSetCatViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8BN-fK-GKH">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="820"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t83-6b-fqe">
@@ -1028,7 +1031,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="onOk:" destination="Bst-JA-gve" eventType="touchUpInside" id="M2I-MB-ca0"/>
+                                    <action selector="onSelect:" destination="Bst-JA-gve" eventType="touchUpInside" id="g3X-Sw-bdl"/>
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" id="xjl-g1-KEy">
@@ -1045,7 +1048,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AQP-cU-5gZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4331" y="140"/>
+            <point key="canvasLocation" x="3983" y="140"/>
         </scene>
         <!--Cat Grid View Controller - Categories-->
         <scene sceneID="TvI-xD-Shc">
