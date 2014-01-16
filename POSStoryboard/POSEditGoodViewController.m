@@ -15,6 +15,7 @@
 
 @implementation POSEditGoodViewController
 
+const int CELL_DESCRIPTION_INDEX = 7;
 
 @synthesize item = _item;
 @synthesize category = _category;
@@ -77,7 +78,7 @@
     [helperInstance createLeftMarginForLabel:self.labelPrice2];
     [helperInstance createLeftMarginForLabel:self.labelDescription];
     [helperInstance createLeftMarginForTextView:self.textViewDescription];
-    
+    //scroll
     self.scrollView.delegate = self;
     self.scrollView.backgroundColor = [UIColor whiteColor];
     [self.scrollView setScrollEnabled:YES];
@@ -86,7 +87,6 @@
     self.scrollView.backgroundColor = [UIColor lightGrayColor];
     [self.scrollView setMinimumZoomScale:1.0];
     [self.scrollView setMaximumZoomScale:2.0];
-
     // images
     for(int i = 0; i<self.item.gallery.count; i++) {
         
@@ -97,21 +97,7 @@
         localImageView.clipsToBounds = YES;
         [self.scrollView addSubview:localImageView];
     }
-    
-//    UITableViewCell *cell = (UITableViewCell*)self.textViewDescription.superview.superview;
-//    
-//    if (cell.frame.size.height < self.textViewDescription.contentSize.height) {
-//        [self.tableView beginUpdates];
-//        CGRect frame = self.textViewDescription.frame;
-//        frame.size.height = self.textViewDescription.contentSize.height;
-//        self.textViewDescription.frame = frame;
-//        CGRect cellFrame = cell.frame;
-//        cellFrame.size.height = self.textViewDescription.frame.size.height;
-//        cell.frame = cellFrame;
-//        [self.tableView endUpdates];
-//    }
-
-
+  
 	// Do any additional setup after loading the view.
 }
 
@@ -233,51 +219,30 @@
 }
 
 
-#pragma mark - Resizing textview and after tablecell
-//int _cellDescriptionHeight;
+#pragma mark - Resizing textview/tablecell (description)
 
-- (void)textViewDidChange:(UITextView *)textView {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UITableViewCell *cell = (UITableViewCell*)textView.superview.superview;
+    CGFloat cellHeight = 0;
     
-    if (cell.frame.size.height < textView.contentSize.height) {
-        [self.tableView beginUpdates];
-        CGRect frame = textView.frame;
-        frame.size.height = textView.contentSize.height;
-        textView.frame = frame;
-        CGRect cellFrame = cell.frame;
-        cellFrame.size.height = textView.frame.size.height;
-        cell.frame = cellFrame;
-        [self.tableView endUpdates];
+    if (indexPath.row == CELL_DESCRIPTION_INDEX) {
+        
+        cellHeight = [self.textViewDescription sizeThatFits:CGSizeMake(self.textViewDescription.contentSize.width, FLT_MAX)].height;
     }
-//    
-//    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellEditItemDescription"];
-//
-//    if (self.textViewDescription.contentSize.height > cell.frame.size.height ) {
-//        
-//        _cellDescriptionHeight = self.textViewDescription.contentSize.height ;
-//        
-//        [self.table beginUpdates];
-//        [self.table endUpdates];
-//        
-//        [self.textViewDescription setFrame:CGRectMake(0, 0, 300.0, self.textViewDescription.contentSize.height)];
-//    }
+    else {
+    
+        cellHeight = [super tableView:self.table heightForRowAtIndexPath:indexPath];
+    }
+    
+    return cellHeight;
 }
 
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//    NSLog(@"%d", indexPath.row);
-//    NSLog(@"%d", indexPath.section);
-//    
-//    UITableViewCell *cell = [self.table cellForRowAtIndexPath:indexPath];
-//    CGFloat height = cell.frame.size.height;
-//    
-//    if (indexPath.row == 7)
-//        height = _cellDescriptionHeight;
-//    
-//    return height;
-//}
+- (void)textViewDidChange:(UITextView *)textView{
+    
+    [self.table beginUpdates];
+//    height = textView.contentSize.height;
+    [self.table endUpdates];
+}
 
 
 #pragma mark - Actions
@@ -327,12 +292,12 @@
     NSString* random_name = [[NSUUID UUID] UUIDString];
     
     NSString * query = [NSString stringWithFormat:@"UPDATE  product \
-                                                    SET     name            = \"%@\", \
-                                                            price_buy       = \"%@\", \
-                                                            price_sale      = \"%@\", \
-                                                            comment         = \"%@\", \
-                                                            user_id         = \"%d\", \
-                                                            collection_id   = \"%@\"  \
+                                                    SET     name          = \"%@\", \
+                                                            price_buy     = \"%@\", \
+                                                            price_sale    = \"%@\", \
+                                                            comment       = \"%@\", \
+                                                            user_id       = \"%d\", \
+                                                            collection_id = \"%@\"  \
                                                     WHERE   id = %d;", self.item.name, self.item.price1, self.item.price2, self.item.description, self.item.userID, self.item.category, self.item.ID];
     
     query = [query stringByAppendingFormat:@"DELETE \
