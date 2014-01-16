@@ -38,6 +38,10 @@
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellCode;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSave;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellImage;
+@property (weak, nonatomic) IBOutlet UIView *contentCellImage;
+//@property (weak, nonatomic) IBOutlet UITableViewSection *tableSection;
+
 
 - (IBAction)onSave:(id)sender;
 - (IBAction)onDelete:(id)sender;

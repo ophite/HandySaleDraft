@@ -70,6 +70,16 @@
     return @"setting_money_icon.png";
 }
 
+- (NSString *)SETTING_ADDATTRIBUTE_ICON {
+    
+    return @"setting_addattribute_icon.png";
+}
+
+- (NSString *)SETTING_DELETEATTRIBUTE_ICON {
+    
+    return @"setting_deleteattribute_icon.png";
+}
+
 - (NSString *)SETTING_WIFI_ICON {
     
     return @"setting_wifi_icon.png";
@@ -251,6 +261,19 @@
 }
 
 - (NSObject *)getObject:(NSMutableArray *)objects withPredicate:(NSPredicate *)predicate {
+    
+    NSArray *arr = [objects filteredArrayUsingPredicate:predicate];
+    NSObject *value;
+    
+    if ([arr count] > 0) {
+        
+        value = ((NSObject *)[arr objectAtIndex:0]);
+    }
+    
+    return value;
+}
+
+- (NSObject *)getObjectImmutableArray:(NSArray *)objects withPredicate:(NSPredicate *)predicate {
     
     NSArray *arr = [objects filteredArrayUsingPredicate:predicate];
     NSObject *value;

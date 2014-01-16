@@ -16,6 +16,8 @@
 - (NSDictionary *)SETTING_MONEY_DICT;
 - (NSDictionary *)SETTING_LANGUAGES_DICT;
 
+- (NSString *)SETTING_ADDATTRIBUTE_ICON;
+- (NSString *)SETTING_DELETEATTRIBUTE_ICON;
 - (NSString *)SETTING_TEXTFIELD_FONT_COLOR;
 - (NSString *)SETTING_TEXTFIELD_BORDER_COLOR;
 - (NSString *)SETTING_CATEGORY_MODE;
@@ -57,7 +59,7 @@
 - (BOOL)isValidEmail:(NSString *)email;
 - (NSObject *)getObject:(NSMutableArray *)objects withID:(int)id;
 - (NSObject *)getObject:(NSMutableArray *)objects withPredicate:(NSPredicate *)predicate;
-
+- (NSObject *)getObjectImmutableArray:(NSArray *)objects withPredicate:(NSPredicate *)predicate;
 
 + (POSHelper *)getInstance;
 - (id)getUIViewController:(NSString *)storyboardName;

@@ -994,6 +994,8 @@
                         <outlet property="buttonCategory" destination="cFm-FF-90Q" id="c6u-12-jM4"/>
                         <outlet property="buttonSave" destination="J3f-ln-MSH" id="eEN-8J-aY8"/>
                         <outlet property="cellCode" destination="AJP-MT-b74" id="0OK-yy-Owm"/>
+                        <outlet property="cellImage" destination="wJN-db-ftU" id="gRx-Fk-j3N"/>
+                        <outlet property="contentCellImage" destination="8FL-8x-NKI" id="ahr-vF-UsI"/>
                         <outlet property="labelCode" destination="fX1-lm-NRw" id="hiM-8z-Aff"/>
                         <outlet property="labelDescription" destination="dcs-g8-qc9" id="WX3-rG-wPL"/>
                         <outlet property="labelPrice1" destination="cch-CY-KYH" id="Mz1-XM-t1r"/>
@@ -1732,8 +1734,8 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="BeC-x6-6J5"/>
-        <segue reference="Jqe-ZV-lAM"/>
-        <segue reference="PME-Hl-ihj"/>
         <segue reference="4Gh-bX-aFU"/>
+        <segue reference="PME-Hl-ihj"/>
+        <segue reference="Jqe-ZV-lAM"/>
     </inferredMetricsTieBreakers>
 </document>

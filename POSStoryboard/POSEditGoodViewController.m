@@ -31,10 +31,13 @@ const int CELL_DESCRIPTION_INDEX = 7;
 @synthesize labelDescription = _labelDescription;
 @synthesize textViewDescription = _textViewDescription;
 @synthesize buttonCategory = _buttonCategory;
+
 @synthesize scrollView = _scrollView;
 @synthesize table = _table;
 @synthesize cellCode = _cellCode;
-
+@synthesize cellImage = _cellImage;
+@synthesize contentCellImage = _contentCellImage;
+//@synthesize tableSection = _tableSection;
 
 #pragma mark - ViewController
  
@@ -90,7 +93,19 @@ const int CELL_DESCRIPTION_INDEX = 7;
     self.scrollView.backgroundColor = [UIColor lightGrayColor];
     [self.scrollView setMinimumZoomScale:1.0];
     [self.scrollView setMaximumZoomScale:2.0];
+    
     // images
+    self.table.userInteractionEnabled = YES;
+    self.scrollView.userInteractionEnabled = YES;
+    self.cellImage.userInteractionEnabled = YES;
+    self.contentCellImage.userInteractionEnabled = YES;
+
+    // image touch event
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget: self
+                                                                                    action: @selector(onSelectImage:)];
+    [tapRecognizer setNumberOfTouchesRequired:1];
+    [self.scrollView addGestureRecognizer:tapRecognizer];
+
     for(int i = 0; i<self.item.gallery.count; i++) {
         
         UIImageView* localImageView = [[UIImageView alloc] initWithImage:[self.item.gallery objectAtIndex:i]];
@@ -99,9 +114,13 @@ const int CELL_DESCRIPTION_INDEX = 7;
         localImageView.backgroundColor = self.cellCode.backgroundColor;
         localImageView.contentMode = UIViewContentModeScaleAspectFit;
         localImageView.clipsToBounds = YES;
+        localImageView.userInteractionEnabled = YES;
+        localImageView.tag = i + 100;
+        [self createAddBttonToImage:localImageView];
+        [self createDeleteBttonToImage:localImageView];
         [self.scrollView addSubview:localImageView];
     }
-  
+
 	// Do any additional setup after loading the view.
 }
 
@@ -231,6 +250,48 @@ const int CELL_DESCRIPTION_INDEX = 7;
                              completion: nil];
         }
     }
+}
+
+
+#pragma mark - Image buttons
+
+- (void)createAddBttonToImage:(UIImageView *)imageView {
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *image = [UIImage imageNamed:helperInstance.SETTING_ADDATTRIBUTE_ICON];
+    [button setImage:image forState:UIControlStateNormal];
+    [button addTarget: self
+               action: @selector(onAddImage:)
+     forControlEvents: UIControlEventTouchUpInside];
+    button.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+    button.hidden = YES;
+    [imageView addSubview:button];
+}
+
+- (void)createDeleteBttonToImage:(UIImageView *)imageView {
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *image = [UIImage imageNamed:helperInstance.SETTING_DELETEATTRIBUTE_ICON];
+    [button setImage:image forState:UIControlStateNormal];
+    button.frame = CGRectMake(40.0, 0.0, 40.0, 40.0);
+    [button addTarget: self
+               action: @selector(onDeleteImage:)
+     forControlEvents: UIControlEventTouchUpInside];
+    button.hidden = YES;
+    [imageView addSubview:button];
+}
+
+
+- (void)onShowImageButtons:(id)sender {
+    
+    int page = self.scrollView.contentOffset.x/self.scrollView.frame.size.width;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tag = %d", page + 100];
+    NSObject *object = [helperInstance getObjectImmutableArray:self.scrollView.subviews withPredicate:predicate];
+    UIImageView *imageView = (UIImageView *)object;
+    UIButton *buttonAdd = (UIButton *)[imageView.subviews objectAtIndex:0];
+    buttonAdd.hidden = !buttonAdd.hidden;
+    UIButton *buttonDelete = (UIButton *)[imageView.subviews objectAtIndex:1];
+    buttonDelete.hidden = !buttonDelete.hidden;
 }
 
 
@@ -382,7 +443,7 @@ const int CELL_DESCRIPTION_INDEX = 7;
 }
 
 
-- (IBAction)onSetImage:(id)sender {
+- (IBAction)onAddImage:(id)sender {
     
     UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: @"Select source"
                                                         message: @"Please select image source"
