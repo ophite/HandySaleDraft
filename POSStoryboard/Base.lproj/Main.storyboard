@@ -1001,14 +1001,14 @@
                         <outlet property="contentCellImage" destination="8FL-8x-NKI" id="ahr-vF-UsI"/>
                         <outlet property="labelCode" destination="fX1-lm-NRw" id="hiM-8z-Aff"/>
                         <outlet property="labelDescription" destination="dcs-g8-qc9" id="WX3-rG-wPL"/>
-                        <outlet property="labelPrice1" destination="cch-CY-KYH" id="Mz1-XM-t1r"/>
-                        <outlet property="labelPrice2" destination="uD3-VA-BpI" id="sZl-uE-0UD"/>
+                        <outlet property="labelPrice_buy" destination="cch-CY-KYH" id="zI5-hs-Atc"/>
+                        <outlet property="labelPrice_sale" destination="uD3-VA-BpI" id="UTf-dF-o8m"/>
                         <outlet property="scrollView" destination="1rc-W3-F4v" id="LJO-w9-plJ"/>
                         <outlet property="table" destination="gI7-v9-ylA" id="pam-oX-qae"/>
                         <outlet property="textCode" destination="bTR-U7-flj" id="Msg-fN-Zns"/>
                         <outlet property="textName" destination="Oef-96-D3B" id="qYk-TP-vOc"/>
-                        <outlet property="textPrice1" destination="uY2-3q-Uok" id="XdW-fY-NQM"/>
-                        <outlet property="textPrice2" destination="hRo-FC-t4S" id="IvN-T4-jTK"/>
+                        <outlet property="textPrice_buy" destination="uY2-3q-Uok" id="zHM-5F-xYf"/>
+                        <outlet property="textPrice_sale" destination="hRo-FC-t4S" id="pPN-DH-DUb"/>
                         <outlet property="textViewDescription" destination="E9h-FJ-2Af" id="Fvt-WC-muD"/>
                     </connections>
                 </tableViewController>

@@ -44,7 +44,7 @@
     [super viewDidLoad];
     // init data
     [objectsHelperInstance.dataSet categoriesGet];
-    [objectsHelperInstance.dataSet allItemsGet];
+    [objectsHelperInstance.dataSet itemsGet];
     objectsHelperInstance.catsMode = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CATEGORY_MODE].boolValue;
 
     // load image

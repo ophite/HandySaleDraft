@@ -72,7 +72,7 @@
     [self.labelCode setText:self.item.codeItem];
     [self.labelAvailable setText:self.item.quantityAvailable];
     [self.labelDescription setText:self.item.description];
-    [self.labelPrice setText:self.item.price1];
+    [self.labelPrice setText:self.item.price_buy];
 
     // Do any additional setup after loading the view.
 }
@@ -141,7 +141,7 @@
         self.order.category  = self.item.category;
         self.order.name      = self.item.name;
         self.order.quantity  = self.item.quantityOrdered;
-        self.order.price     = self.item.price1;
+        self.order.price     = self.item.price_buy;
         self.order.codeItem  = self.item.codeItem;
         self.order.image     = self.item.image;
         self.order.item_ID   = self.item.ID;

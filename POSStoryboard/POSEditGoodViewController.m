@@ -24,10 +24,10 @@ const int CELL_DESCRIPTION_INDEX = 7;
 @synthesize textName = _textName;
 @synthesize labelCode = _labelCode;
 @synthesize textCode = _textCode;
-@synthesize labelPrice1 = _labelPrice1;
-@synthesize textPrice1 = _textPrice1;
-@synthesize labelPrice2 = _labelPrice2;
-@synthesize textPrice2 = _textPrice2;
+@synthesize labelPrice_buy = _labelPrice_buy;
+@synthesize textPrice_buy = _textPrice_buy;
+@synthesize labelPrice_sale = _labelPrice_sale;
+@synthesize textPrice_sale = _textPrice_sale;
 @synthesize labelDescription = _labelDescription;
 @synthesize textViewDescription = _textViewDescription;
 @synthesize buttonCategory = _buttonCategory;
@@ -37,7 +37,7 @@ const int CELL_DESCRIPTION_INDEX = 7;
 @synthesize cellCode = _cellCode;
 @synthesize cellImage = _cellImage;
 @synthesize contentCellImage = _contentCellImage;
-//@synthesize tableSection = _tableSection;
+
 
 #pragma mark - ViewController
  
@@ -60,8 +60,8 @@ const int CELL_DESCRIPTION_INDEX = 7;
     self.oldName = self.item.name;
     self.textName.text = self.item.name;
     self.textCode.text = self.item.codeItem;
-    self.textPrice1.text = self.item.price1;
-    self.textPrice2.text = self.item.price2;
+    self.textPrice_buy.text = self.item.price_buy;
+    self.textPrice_sale.text = self.item.price_sale;
     self.textViewDescription.text = self.item.description;
     
     // gui
@@ -70,18 +70,18 @@ const int CELL_DESCRIPTION_INDEX = 7;
     self.table.allowsSelection = NO;
     self.textName.delegate = self;
     self.textCode.delegate = self;
-    self.textPrice1.delegate = self;
-    self.textPrice2.delegate = self;
+    self.textPrice_buy.delegate = self;
+    self.textPrice_sale.delegate = self;
     self.textViewDescription.delegate = self;
     self.textViewDescription.allowsEditingTextAttributes = YES;
     // margins
     [helperInstance createLeftMarginForTextField:self.textName];
     [helperInstance createLeftMarginForTextField:self.textCode];
-    [helperInstance createLeftMarginForTextField:self.textPrice1];
-    [helperInstance createLeftMarginForTextField:self.textPrice2];
+    [helperInstance createLeftMarginForTextField:self.textPrice_buy];
+    [helperInstance createLeftMarginForTextField:self.textPrice_sale];
     [helperInstance createLeftMarginForLabel:self.labelCode];
-    [helperInstance createLeftMarginForLabel:self.labelPrice1];
-    [helperInstance createLeftMarginForLabel:self.labelPrice2];
+    [helperInstance createLeftMarginForLabel:self.labelPrice_buy];
+    [helperInstance createLeftMarginForLabel:self.labelPrice_sale];
     [helperInstance createLeftMarginForLabel:self.labelDescription];
     [helperInstance createLeftMarginForTextView:self.textViewDescription];
     //scroll
@@ -129,19 +129,6 @@ const int CELL_DESCRIPTION_INDEX = 7;
     
     [super viewWillAppear:animated];
     [self.buttonCategory setTitle:self.item.category forState:UIControlStateNormal];
-
-
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(categoryID = %d) AND (index = %d)", self.category.ID, 0];
-//    self.categoryAttribute1 = (POSCategoryAttribute *)[helperInstance getObject: objectsHelperInstance.dataSet.categoriesAttributes
-//                                                                  withPredicate: predicate];
-//    if (self.categoryAttribute1) {
-//        
-//        [self.labelCategory1 setText:self.categoryAttribute1.name];
-//    }
-//    else {
-//        
-//        [self.labelCategory1 setText:labelCategoryEmpty];
-//    }
 }
 
 
@@ -299,14 +286,19 @@ const int CELL_DESCRIPTION_INDEX = 7;
 
 - (void)onShowImageButtons:(id)sender {
     
-    int page = self.scrollView.contentOffset.x/self.scrollView.frame.size.width;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tag = %d", page + 100];
-    NSObject *object = [helperInstance getObjectImmutableArray:self.scrollView.subviews withPredicate:predicate];
-    UIImageView *imageView = (UIImageView *)object;
-    UIButton *buttonAdd = (UIButton *)[imageView.subviews objectAtIndex:0];
-    buttonAdd.hidden = !buttonAdd.hidden;
-    UIButton *buttonDelete = (UIButton *)[imageView.subviews objectAtIndex:1];
-    buttonDelete.hidden = !buttonDelete.hidden;
+//    int page = self.scrollView.contentOffset.x/self.scrollView.frame.size.width;
+    
+    for (int i =0; i<self.item.gallery.count; i++) {
+
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tag = %d", i + 100];
+        NSObject *object = [helperInstance getObjectImmutableArray:self.scrollView.subviews withPredicate:predicate];
+        UIImageView *imageView = (UIImageView *)object;
+        
+        UIButton *buttonAdd = (UIButton *)[imageView.subviews objectAtIndex:0];
+        buttonAdd.hidden = !buttonAdd.hidden;
+        UIButton *buttonDelete = (UIButton *)[imageView.subviews objectAtIndex:1];
+        buttonDelete.hidden = !buttonDelete.hidden;
+    }
 }
 
 
@@ -372,8 +364,8 @@ const int CELL_DESCRIPTION_INDEX = 7;
     //item.image      = imageView.image;
 //    self.item.category   = self.textCategory.text;
     self.item.codeItem   = self.textCode.text;
-    self.item.price1     = self.textPrice1.text;
-    self.item.price2     = self.textPrice2.text;
+    self.item.price_buy     = self.textPrice_buy.text;
+    self.item.price_sale     = self.textPrice_sale.text;
     self.item.description= self.textViewDescription.text;
     self.item.userID     = 1;
     
@@ -389,7 +381,7 @@ const int CELL_DESCRIPTION_INDEX = 7;
                                                             comment       = \"%@\", \
                                                             user_id       = \"%d\", \
                                                             collection_id = \"%@\"  \
-                                                    WHERE   id = %d;", self.item.name, self.item.price1, self.item.price2, self.item.description, self.item.userID, self.item.category, self.item.ID];
+                                                    WHERE   id = %d;", self.item.name, self.item.price_buy, self.item.price_sale, self.item.description, self.item.userID, self.item.category, self.item.ID];
     
     query = [query stringByAppendingFormat:@"DELETE \
                                              FROM   image \

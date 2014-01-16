@@ -10,6 +10,6 @@
 
 @implementation POSItem
 
-@synthesize name, codeItem, ID, catID, category, price1, price2, quantityAvailable, quantityOrdered, description, image, gallery, userID, asset;
+@synthesize name, codeItem, ID, catID, category, price_buy, price_sale, quantityAvailable, quantityOrdered, description, image, gallery, userID, asset;
 
 @end

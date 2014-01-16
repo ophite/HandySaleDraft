@@ -29,10 +29,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *textName;
 @property (weak, nonatomic) IBOutlet UILabel *labelCode;
 @property (weak, nonatomic) IBOutlet UITextField *textCode;
-@property (weak, nonatomic) IBOutlet UILabel *labelPrice1;
-@property (weak, nonatomic) IBOutlet UITextField *textPrice1;
-@property (weak, nonatomic) IBOutlet UILabel *labelPrice2;
-@property (weak, nonatomic) IBOutlet UITextField *textPrice2;
+@property (weak, nonatomic) IBOutlet UILabel *labelPrice_buy;
+@property (weak, nonatomic) IBOutlet UITextField *textPrice_buy;
+@property (weak, nonatomic) IBOutlet UILabel *labelPrice_sale;
+@property (weak, nonatomic) IBOutlet UITextField *textPrice_sale;
 @property (weak, nonatomic) IBOutlet UILabel *labelDescription;
 @property (weak, nonatomic) IBOutlet UITextView *textViewDescription;
 
@@ -40,7 +40,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonSave;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellImage;
 @property (weak, nonatomic) IBOutlet UIView *contentCellImage;
-//@property (weak, nonatomic) IBOutlet UITableViewSection *tableSection;
 
 
 - (IBAction)onSave:(id)sender;

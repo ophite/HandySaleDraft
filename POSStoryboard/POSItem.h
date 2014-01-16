@@ -9,31 +9,31 @@
 #import <Foundation/Foundation.h>
 
 @interface POSItem : NSObject
-{
-    int             ID;
-    NSString*       name;
-    int             catID;
-    NSString*       codeItem;
-    NSString*       category;
-    NSString*       price1;
-    NSString*       price2;
-    NSString*       quantityAvailable;
-    NSString*       quantityOrdered;
-    NSString*       description;
-    int             userID;
-    UIImage*        image;
-    NSString*       asset;
-    
-    NSMutableArray* gallery;
-}
+//{
+//    int             ID;
+//    NSString*       name;
+//    int             catID;
+//    NSString*       codeItem;
+//    NSString*       category;
+//    NSString*       price1;
+//    NSString*       price2;
+//    NSString*       quantityAvailable;
+//    NSString*       quantityOrdered;
+//    NSString*       description;
+//    int             userID;
+//    UIImage*        image;
+//    NSString*       asset;
+//    
+//    NSMutableArray* gallery;
+//}
 
 @property  int              ID;
 @property  NSString*        name;
 @property  NSString*        codeItem;
 @property  int              catID;
 @property  NSString*        category;
-@property  NSString*        price1;
-@property  NSString*        price2;
+@property  NSString*        price_buy;
+@property  NSString*        price_sale;
 @property  NSString*        quantityAvailable;
 @property  NSString*        quantityOrdered;
 @property  NSString*        description;

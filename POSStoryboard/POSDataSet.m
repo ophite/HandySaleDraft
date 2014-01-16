@@ -514,7 +514,7 @@
 
 #pragma mark - Items
 
-- (void)itemsGet:(NSString*)selectedCategoryName {
+- (void)itemsGetByCategory:(NSString*)selectedCategoryName {
     
     /*
      ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -608,7 +608,7 @@
     }
 }
 
-- (void)allItemsGet {
+- (void)itemsGet {
     
     if (self.allItems.count > 0)
         return;
@@ -622,26 +622,26 @@
     
     void(^blockGetItems)(id rows) = ^(id rows) {
         
-        POSItem* goodObject = [[POSItem alloc] init];
-        goodObject.gallery = [[NSMutableArray alloc] init];
-        goodObject.codeItem = @"001";
-        goodObject.quantityAvailable = @"10";
-        goodObject.quantityOrdered = @"0";
-        goodObject.ID = [dbWrapperInstance getCellInt:0];
-        goodObject.name = [dbWrapperInstance getCellText:1];
-        goodObject.price1 = [[NSString alloc] initWithFormat:@"%f", [dbWrapperInstance getCellFloat:2]];
-        goodObject.price2 = [[NSString alloc] initWithFormat:@"%f", [dbWrapperInstance getCellFloat:3]];
-        goodObject.description = [dbWrapperInstance getCellText:4];
-        goodObject.category =  [dbWrapperInstance getCellText:7];
-        goodObject.asset = [dbWrapperInstance getCellText:5];
-        goodObject.catID = goodObject.ID = [dbWrapperInstance getCellInt:6];
+        POSItem* object = [[POSItem alloc] init];
+        object.gallery = [[NSMutableArray alloc] init];
+        object.codeItem = @"001";
+        object.quantityAvailable = @"10";
+        object.quantityOrdered = @"0";
+        object.ID = [dbWrapperInstance getCellInt:0];
+        object.name = [dbWrapperInstance getCellText:1];
+        object.price_buy = [[NSString alloc] initWithFormat:@"%f", [dbWrapperInstance getCellFloat:2]];
+        object.price_sale = [[NSString alloc] initWithFormat:@"%f", [dbWrapperInstance getCellFloat:3]];
+        object.description = [dbWrapperInstance getCellText:4];
+        object.category =  [dbWrapperInstance getCellText:7];
+        object.asset = [dbWrapperInstance getCellText:5];
+        object.catID = object.ID = [dbWrapperInstance getCellInt:6];
         
-        [goodObject.gallery addObject:[UIImage imageNamed:@"car9.png"]];
-        [goodObject.gallery addObject:[UIImage imageNamed:@"car10.png"]];
-        [goodObject.gallery addObject:[UIImage imageNamed:@"car11.png"]];
-        [goodObject.gallery addObject:[UIImage imageNamed:@"car12.png"]];
+        [object.gallery addObject:[UIImage imageNamed:@"car9.png"]];
+        [object.gallery addObject:[UIImage imageNamed:@"car10.png"]];
+        [object.gallery addObject:[UIImage imageNamed:@"car11.png"]];
+        [object.gallery addObject:[UIImage imageNamed:@"car12.png"]];
         
-        [((NSMutableArray* )rows) addObject:goodObject];
+        [((NSMutableArray* )rows) addObject:object];
     };
     
     [dbWrapperInstance fetchRows: query

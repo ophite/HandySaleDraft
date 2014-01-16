@@ -47,7 +47,7 @@
     // init data
     self.catName = self.cat.name;
     [objectsHelperInstance.dataSet.items removeAllObjects];
-    [objectsHelperInstance.dataSet itemsGet:self.catName];
+    [objectsHelperInstance.dataSet itemsGetByCategory:self.catName];
     objectsHelperInstance.goodsMode = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_ITEM_MODE].boolValue;
 
     
