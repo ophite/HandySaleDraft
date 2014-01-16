@@ -15,7 +15,7 @@
 #import "POSHelper.h"
 
 
-@interface POSEditGoodViewController : UITableViewController<UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate>
+@interface POSEditGoodViewController : UITableViewController<UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate>
 
 
 @property POSItem *item;
@@ -23,6 +23,7 @@
 @property NSString *oldName;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UITableView *table;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonCategory;
 @property (weak, nonatomic) IBOutlet UITextField *textName;

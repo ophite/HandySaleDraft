@@ -29,9 +29,9 @@
 //    query = @"DROP TABLE IF EXISTS collection_attribute";
 //    [dbWrapperInstance tryExecQuery:query];
 //
-//    query = @"DROP TABLE IF EXISTS product";
-//    [dbWrapperInstance tryExecQuery:query];
-//    
+    query = @"DROP TABLE IF EXISTS product";
+    [dbWrapperInstance tryExecQuery:query];
+//
 //    query = @"DROP TABLE IF EXISTS document";
 //    [dbWrapperInstance tryExecQuery:query];
 //    
@@ -257,8 +257,8 @@
         query = [NSMutableString stringWithFormat:@"SELECT id FROM collection WHERE name= \"%@\" AND user_id = %d; ", @"Nissan", 1];
         int catID = [dbWrapperInstance execQueryResultInt:query andIndex:0];
 
-        query = [NSMutableString stringWithFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"X-Trail\", 1, %d, 1000.0, 2000.0, \"Crossover\"); ", catID];
-        [query appendFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Pathfinder\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
+        query = [NSMutableString stringWithFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"X-Trail\", 1, %d, 1000.0, 2000.0, \"Crossover Crossover Crossover Crossover Crossover Crossover Crossover Crossover Crossover Crossover Crossover 555555 99999 11111 Crossover 555555 99999 11111 Crossover 555555 99999 11111Crossover 555555 99999 11111Crossover 555555 99999 11111Crossover 555555 99999 11111Crossover 555555 99999 11111Crossover 555555 99999 11111\"); ", catID];
+        [query appendFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Pathfinder\", 1, %d, 1000, 2000, \"Crossover Crossover Crossover Crossover Crossover Crossover Crossover Crossover Crossover Crossover Crossover 555555 99999 11111 Crossover 555555 99999 11111 Crossover 555555 99999 11111Crossover 555555 99999 11111Crossover 555555 99999 11111Crossover 555555 99999 11111Crossover 555555 99999 11111Crossover 555555 99999 11111\"); ", catID];
         [query appendFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Qashqai\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
         [query appendFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Navara\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];
         [query appendFormat:@"INSERT INTO product (name, user_id, collection_id, price_buy, price_sale, comment) VALUES (\"Note\", 1, %d, 1000, 2000, \"Crossover\"); ", catID];

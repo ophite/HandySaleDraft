@@ -18,7 +18,8 @@
 
 @synthesize item = _item;
 @synthesize category = _category;
-@synthesize oldName = _oUITextViewldName;
+@synthesize oldName = _oldName;
+
 @synthesize textName = _textName;
 @synthesize labelCode = _labelCode;
 @synthesize textCode = _textCode;
@@ -30,6 +31,7 @@
 @synthesize textViewDescription = _textViewDescription;
 @synthesize buttonCategory = _buttonCategory;
 @synthesize scrollView = _scrollView;
+@synthesize table = _table;
 
 
 #pragma mark - ViewController
@@ -58,13 +60,14 @@
     self.textViewDescription.text = self.item.description;
     
     // gui
+    self.table.allowsSelection = NO;
     self.textName.delegate = self;
     self.textCode.delegate = self;
     self.textPrice1.delegate = self;
     self.textPrice2.delegate = self;
     self.textViewDescription.delegate = self;
     self.textViewDescription.allowsEditingTextAttributes = YES;
-
+    // margins
     [helperInstance createLeftMarginForTextField:self.textName];
     [helperInstance createLeftMarginForTextField:self.textCode];
     [helperInstance createLeftMarginForTextField:self.textPrice1];
@@ -84,6 +87,7 @@
     [self.scrollView setMinimumZoomScale:1.0];
     [self.scrollView setMaximumZoomScale:2.0];
 
+    // images
     for(int i = 0; i<self.item.gallery.count; i++) {
         
         UIImageView* localImageView = [[UIImageView alloc] initWithImage:[self.item.gallery objectAtIndex:i]];
@@ -93,6 +97,20 @@
         localImageView.clipsToBounds = YES;
         [self.scrollView addSubview:localImageView];
     }
+    
+//    UITableViewCell *cell = (UITableViewCell*)self.textViewDescription.superview.superview;
+//    
+//    if (cell.frame.size.height < self.textViewDescription.contentSize.height) {
+//        [self.tableView beginUpdates];
+//        CGRect frame = self.textViewDescription.frame;
+//        frame.size.height = self.textViewDescription.contentSize.height;
+//        self.textViewDescription.frame = frame;
+//        CGRect cellFrame = cell.frame;
+//        cellFrame.size.height = self.textViewDescription.frame.size.height;
+//        cell.frame = cellFrame;
+//        [self.tableView endUpdates];
+//    }
+
 
 	// Do any additional setup after loading the view.
 }
@@ -213,6 +231,53 @@
         }
     }
 }
+
+
+#pragma mark - Resizing textview and after tablecell
+//int _cellDescriptionHeight;
+
+- (void)textViewDidChange:(UITextView *)textView {
+    
+    UITableViewCell *cell = (UITableViewCell*)textView.superview.superview;
+    
+    if (cell.frame.size.height < textView.contentSize.height) {
+        [self.tableView beginUpdates];
+        CGRect frame = textView.frame;
+        frame.size.height = textView.contentSize.height;
+        textView.frame = frame;
+        CGRect cellFrame = cell.frame;
+        cellFrame.size.height = textView.frame.size.height;
+        cell.frame = cellFrame;
+        [self.tableView endUpdates];
+    }
+//    
+//    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellEditItemDescription"];
+//
+//    if (self.textViewDescription.contentSize.height > cell.frame.size.height ) {
+//        
+//        _cellDescriptionHeight = self.textViewDescription.contentSize.height ;
+//        
+//        [self.table beginUpdates];
+//        [self.table endUpdates];
+//        
+//        [self.textViewDescription setFrame:CGRectMake(0, 0, 300.0, self.textViewDescription.contentSize.height)];
+//    }
+}
+
+//
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    NSLog(@"%d", indexPath.row);
+//    NSLog(@"%d", indexPath.section);
+//    
+//    UITableViewCell *cell = [self.table cellForRowAtIndexPath:indexPath];
+//    CGFloat height = cell.frame.size.height;
+//    
+//    if (indexPath.row == 7)
+//        height = _cellDescriptionHeight;
+//    
+//    return height;
+//}
 
 
 #pragma mark - Actions
