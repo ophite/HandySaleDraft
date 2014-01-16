@@ -29,8 +29,8 @@
 //    query = @"DROP TABLE IF EXISTS collection_attribute";
 //    [dbWrapperInstance tryExecQuery:query];
 //
-    query = @"DROP TABLE IF EXISTS product";
-    [dbWrapperInstance tryExecQuery:query];
+//    query = @"DROP TABLE IF EXISTS product";
+//    [dbWrapperInstance tryExecQuery:query];
 //
 //    query = @"DROP TABLE IF EXISTS document";
 //    [dbWrapperInstance tryExecQuery:query];
@@ -229,6 +229,7 @@
     if ([dbWrapperInstance openDB] == NO)
         return;
 
+    // COLLECTION (CATEGORY)
     NSMutableString* query = [NSMutableString stringWithString:@"SELECT count(*) FROM collection"];
     int count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
 
@@ -249,6 +250,7 @@
         [dbWrapperInstance tryExecQuery:query];
     }
     
+    // PRODUCT (GOOD,ITEM)
     [query setString:@"SELECT count(*) FROM product"];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
@@ -271,9 +273,7 @@
         [dbWrapperInstance tryExecQuery:query];
     }
 
-//    query = @"SELECT count(*) FROM product";
-//    count = [dbWrapper execQueryResultInt:query p_index:0];
-    
+    // IMAGE
     [query setString:@"SELECT count(*) FROM image"];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
 
@@ -376,6 +376,7 @@
         [dataSet gallerySave:0 withLibrary:library];
     }
     
+    // SETTING
     [query setString:@"SELECT count(*) FROM setting"];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
@@ -426,6 +427,7 @@
         [dbWrapperInstance tryExecQuery:query];
     }
     
+    // ATTRIBUTE
     [query setString:@"SELECT count(*) FROM attribute"];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
@@ -441,7 +443,7 @@
         [dbWrapperInstance tryExecQuery:query];
     }
     
-    
+    // ATTRIBUTE VALUE
     [query setString:@"SELECT count(*) FROM attribute_value"];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
@@ -458,7 +460,7 @@
         [dbWrapperInstance tryExecQuery:query];
     }
     
-    
+    // COLLECTION ATTRIBUTE (CATEGORY ATTRIBUTE)
     [query setString:@"SELECT count(*) FROM collection_attribute"];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     

@@ -88,7 +88,8 @@ const int CELL_DESCRIPTION_INDEX = 7;
     self.scrollView.delegate = self;
     self.scrollView.backgroundColor = [UIColor whiteColor];
     [self.scrollView setScrollEnabled:YES];
-    self.scrollView.contentSize = CGSizeMake(self.item.gallery.count*self.scrollView.frame.size.width, self.scrollView.frame.size.height);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * self.item.gallery.count,
+                                             self.scrollView.frame.size.height);
     self.scrollView.pagingEnabled = YES;
     self.scrollView.backgroundColor = [UIColor lightGrayColor];
     [self.scrollView setMinimumZoomScale:1.0];
@@ -109,7 +110,10 @@ const int CELL_DESCRIPTION_INDEX = 7;
     for(int i = 0; i<self.item.gallery.count; i++) {
         
         UIImageView* localImageView = [[UIImageView alloc] initWithImage:[self.item.gallery objectAtIndex:i]];
-        localImageView.frame = CGRectMake(i*self.scrollView.frame.size.width, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height);
+        localImageView.frame = CGRectMake(i*self.scrollView.frame.size.width,
+                                          0,
+                                          self.scrollView.frame.size.width,
+                                          self.scrollView.frame.size.height);
 //        localImageView.backgroundColor = [UIColor whiteColor];
         localImageView.backgroundColor = self.cellCode.backgroundColor;
         localImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -189,10 +193,23 @@ const int CELL_DESCRIPTION_INDEX = 7;
     else {
         
         if ([alertView.title isEqual: @"Delete image"] && buttonIndex == 1) {
-            
+
             int page = self.scrollView.contentOffset.x/self.scrollView.frame.size.width;
             [self.item.gallery removeObjectAtIndex:page];
-            [self.navigationController popViewControllerAnimated:YES];
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * self.item.gallery.count,
+                                                     self.scrollView.frame.size.height);
+
+            for (int i =0; i<self.item.gallery.count; i++) {
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tag = %d", i + 100];
+                NSObject *object = [helperInstance getObjectImmutableArray:self.scrollView.subviews withPredicate:predicate];
+                UIImageView *imageView = (UIImageView *)object;
+                imageView.frame = CGRectMake(i*self.scrollView.frame.size.width,
+                                             0,
+                                             self.scrollView.frame.size.width,
+                                             self.scrollView.frame.size.height);
+            }
+
         }
         else if ([alertView.title isEqual: @"Delete"]) {
             
@@ -215,7 +232,7 @@ const int CELL_DESCRIPTION_INDEX = 7;
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }
-        else if ([alertView.title isEqual: @"Select source"] && buttonIndex == 0) {
+        else if ([alertView.title isEqual: @"Select image"] && buttonIndex == 0) {
             
             controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             [self presentViewController: controller
@@ -232,10 +249,14 @@ const int CELL_DESCRIPTION_INDEX = 7;
     
     UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     [self.item.gallery addObject:image];
-    self.scrollView.contentSize = CGSizeMake(self.item.gallery.count*helperInstance.ITEM_EDIT_WIDTH, helperInstance.ITEM_EDIT_HEIGHT);
+    self.scrollView.contentSize = CGSizeMake(helperInstance.ITEM_EDIT_WIDTH * self.item.gallery.count,
+                                             helperInstance.ITEM_EDIT_HEIGHT);
 
     UIImageView* localImageView = [[UIImageView alloc] initWithImage:image];
-    localImageView.frame = CGRectMake((self.item.gallery.count-1)*helperInstance.ITEM_EDIT_WIDTH, 0, helperInstance.ITEM_EDIT_WIDTH, helperInstance.ITEM_EDIT_HEIGHT);
+    localImageView.frame = CGRectMake((self.item.gallery.count-1)*helperInstance.ITEM_EDIT_WIDTH,
+                                      0,
+                                      helperInstance.ITEM_EDIT_WIDTH,
+                                      helperInstance.ITEM_EDIT_HEIGHT);
     localImageView.backgroundColor = [UIColor whiteColor];
     localImageView.contentMode = UIViewContentModeScaleAspectFit;
     localImageView.clipsToBounds = YES;
@@ -320,6 +341,7 @@ const int CELL_DESCRIPTION_INDEX = 7;
     return cellHeight;
 }
 
+
 - (void)textViewDidChange:(UITextView *)textView{
     
     [self.table beginUpdates];
@@ -332,76 +354,61 @@ const int CELL_DESCRIPTION_INDEX = 7;
 
 - (IBAction)onSave:(id)sender {
     
-    int n;
-    n = 0;
+    if(![dbWrapperInstance openDB])
+        return;
     
-    if([dbWrapperInstance openDB]) {
-        
-//        NSString * query = [NSString stringWithFormat:@"SELECT  id \
-//                                                        FROM    collection \
-//                                                        WHERE   name = \"%@\" AND user_id = %d", self.textCategory.text, 1];
-//        
-//        int cat_ID = [dbWrapperInstance execQueryResultInt:query andIndex:0];
-//        query = [NSString stringWithFormat:@"SELECT count(*) \
-//                                             FROM   product \
-//                                             WHERE  name = \"%@\" AND collection_id = %d AND user_id = %d", self.textName.text, cat_ID, 1];
-//        n = [dbWrapperInstance execQueryResultInt: query andIndex: 0];
-        [dbWrapperInstance closeDB];
-    }
+    NSString * query = [NSString stringWithFormat:@"SELECT count(*) \
+                                                    FROM   product \
+                                                    WHERE  name = \"%@\" AND collection_id = %d AND user_id = %d; ", self.textName.text, self.item.catID, 1];
+    int count = [dbWrapperInstance execQueryResultInt: query andIndex: 0];
+    [dbWrapperInstance closeDB];
     
+    // validate
+    if(count != 0 && ![self.textName.text isEqualToString:self.oldName]) {
     
-    if(n != 0 && ![self.textName.text isEqualToString:self.oldName]) {
-        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement"
                                                         message: @"The good already exists"
                                                        delegate: nil
                                               cancelButtonTitle: @"OK"
                                               otherButtonTitles: nil];
         [alert show];
+        return;
     }
     
-    self.item.name       = self.textName.text;
-    //item.image      = imageView.image;
-//    self.item.category   = self.textCategory.text;
-    self.item.codeItem   = self.textCode.text;
-    self.item.price_buy     = self.textPrice_buy.text;
-    self.item.price_sale     = self.textPrice_sale.text;
-    self.item.description= self.textViewDescription.text;
-    self.item.userID     = 1;
-    
-    if (![dbWrapperInstance openDB])
-        return;
-    
-    NSString* random_name = [[NSUUID UUID] UUIDString];
-    
-    NSString * query = [NSString stringWithFormat:@"UPDATE  product \
-                                                    SET     name          = \"%@\", \
-                                                            price_buy     = \"%@\", \
-                                                            price_sale    = \"%@\", \
-                                                            comment       = \"%@\", \
-                                                            user_id       = \"%d\", \
-                                                            collection_id = \"%@\"  \
-                                                    WHERE   id = %d;", self.item.name, self.item.price_buy, self.item.price_sale, self.item.description, self.item.userID, self.item.category, self.item.ID];
-    
-    query = [query stringByAppendingFormat:@"DELETE \
+    [objectsHelperInstance.dataSet itemUpdate:self.item
+                                     withName:self.textName.text
+                                     withCode:self.textCode.text
+                                 withPriceBuy:self.textPrice_buy.text
+                                withPriceSale:self.textPrice_sale.text
+                              withDescription:self.textViewDescription.text
+                                   withUserID:1
+                               withCategoryID:self.category.ID];
+
+    // TODO: хз что сдесь такого делается надо выяснить
+    // image
+    if([dbWrapperInstance openDB]) {
+
+        NSString* random_name = [[NSUUID UUID] UUIDString];
+        query = [NSString stringWithFormat:@"DELETE \
                                              FROM   image \
                                              WHERE  object_id = %d AND object_name = \"product\"; ", self.item.ID];
-    query = [query stringByAppendingFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) \
-                                             VALUES (\"%@\", \"%@\", %d, \"product\", 1);", random_name, random_name, self.item.ID];
-    
-    [dbWrapperInstance tryExecQuery:query];
-    [dbWrapperInstance closeDB];
-    
-    POSImage * image = [[POSImage alloc] initWithImage: self.item.image
-                                             withAsset: nil
-                                              withPath: random_name
-                                         withObject_id: self.item.ID
-                                       withObject_name: @"product"];
-    [objectsHelperInstance.dataSet.images addObject:image];
-    
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [objectsHelperInstance.dataSet gallerySave: (objectsHelperInstance.dataSet.images.count - 1)
-                                   withLibrary: library];
+        query = [query stringByAppendingFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) \
+                                                 VALUES (\"%@\", \"%@\", %d, \"product\", 1); ", random_name, random_name, self.item.ID];
+        
+        [dbWrapperInstance tryExecQuery:query];
+        [dbWrapperInstance closeDB];
+        
+        POSImage * image = [[POSImage alloc] initWithImage: self.item.image
+                                                 withAsset: nil
+                                                  withPath: random_name
+                                             withObject_id: self.item.ID
+                                           withObject_name: @"product"];
+        [objectsHelperInstance.dataSet.images addObject:image];
+        
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [objectsHelperInstance.dataSet gallerySave: (objectsHelperInstance.dataSet.images.count - 1)
+                                       withLibrary: library];
+    }
     
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -438,7 +445,7 @@ const int CELL_DESCRIPTION_INDEX = 7;
 
 - (IBAction)onAddImage:(id)sender {
     
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: @"Select source"
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: @"Select image"
                                                         message: @"Please select image source"
                                                        delegate: self
                                               cancelButtonTitle: @"Library"

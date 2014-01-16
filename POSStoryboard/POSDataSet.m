@@ -686,12 +686,52 @@
         [dbWrapperInstance closeDB];
         
         item.category = category.name;
+        item.catID = category.ID;
         result = YES;
     }
     
     return result;
 }
 
+- (BOOL)itemUpdate: (POSItem *)item
+          withName: (NSString *)name
+          withCode: (NSString *)code
+      withPriceBuy: (NSString *)price_buy
+     withPriceSale: (NSString *)price_sale
+   withDescription: (NSString *)description
+        withUserID: (int)userID
+    withCategoryID: (int)categoryID {
+    
+    BOOL result = NO;
+    
+    NSString * query = [NSString stringWithFormat:@"UPDATE  product \
+                                                    SET     name          = \"%@\", \
+                                                            price_buy     = \"%@\", \
+                                                            price_sale    = \"%@\", \
+                                                            comment       = \"%@\", \
+                                                            user_id       = %d, \
+                                                            collection_id = %d  \
+                                                    WHERE   id = %d;", name, price_buy, price_sale, description, userID, categoryID, item.ID];
+    
+     if ([dbWrapperInstance openDB]) {
+         
+         [dbWrapperInstance tryExecQuery:query];
+         [dbWrapperInstance closeDB];
+         
+         
+         item.name       = name;
+         //item.image      = imageView.image;
+         //item.category   = self.textCategory.text;
+         item.codeItem = code;
+         item.price_buy = price_buy;
+         item.price_sale = price_sale;
+         item.description = description;
+         item.userID = userID;
+         result = YES;
+     }
+    
+    return result;
+}
 
 #pragma mark - Order
 
