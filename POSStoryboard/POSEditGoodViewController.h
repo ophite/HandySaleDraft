@@ -36,8 +36,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelDescription;
 @property (weak, nonatomic) IBOutlet UITextView *textViewDescription;
 
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellCode;
+@property (weak, nonatomic) IBOutlet UIButton *buttonSave;
 
 - (IBAction)onSave:(id)sender;
+- (IBAction)onDelete:(id)sender;
+- (IBAction)onCancel:(id)sender;
 
 
 @end

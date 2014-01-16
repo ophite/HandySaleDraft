@@ -33,6 +33,7 @@ const int CELL_DESCRIPTION_INDEX = 7;
 @synthesize buttonCategory = _buttonCategory;
 @synthesize scrollView = _scrollView;
 @synthesize table = _table;
+@synthesize cellCode = _cellCode;
 
 
 #pragma mark - ViewController
@@ -61,6 +62,8 @@ const int CELL_DESCRIPTION_INDEX = 7;
     self.textViewDescription.text = self.item.description;
     
     // gui
+    [self initControlsLayers];
+
     self.table.allowsSelection = NO;
     self.textName.delegate = self;
     self.textCode.delegate = self;
@@ -92,7 +95,8 @@ const int CELL_DESCRIPTION_INDEX = 7;
         
         UIImageView* localImageView = [[UIImageView alloc] initWithImage:[self.item.gallery objectAtIndex:i]];
         localImageView.frame = CGRectMake(i*self.scrollView.frame.size.width, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height);
-        localImageView.backgroundColor = [UIColor whiteColor];
+//        localImageView.backgroundColor = [UIColor whiteColor];
+        localImageView.backgroundColor = self.cellCode.backgroundColor;
         localImageView.contentMode = UIViewContentModeScaleAspectFit;
         localImageView.clipsToBounds = YES;
         [self.scrollView addSubview:localImageView];
@@ -140,6 +144,17 @@ const int CELL_DESCRIPTION_INDEX = 7;
     
     [super viewWillAppear:animated];
 //    self.textCategory.text = self.item.category;
+}
+
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    
+    if ([identifier isEqualToString:@"goToFakeSetCategory"]) {
+        
+        return NO;
+    }
+    
+    return YES;
 }
 
 
@@ -324,22 +339,10 @@ const int CELL_DESCRIPTION_INDEX = 7;
 }
 
 
-//- (IBAction)onCancel:(id)sender {
-//    
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
-
-
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+- (IBAction)onCancel:(id)sender {
     
-    if ([identifier isEqualToString:@"goToFakeSetCategory"]) {
-        
-        return NO;
-    }
-    
-    return YES;
+    [self.navigationController popViewControllerAnimated:YES];
 }
-
 
 
 - (IBAction)onSetCategory:(id)sender {
@@ -367,7 +370,7 @@ const int CELL_DESCRIPTION_INDEX = 7;
 }
 
 
-- (IBAction)onDeleteItem:(id)sender {
+- (IBAction)onDelete:(id)sender {
     
     NSString* question = [NSString stringWithFormat:@"Delete the %@ good?", self.textName.text];
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Delete"
@@ -467,6 +470,16 @@ const int CELL_DESCRIPTION_INDEX = 7;
  return YES;
  }
  */
+
+#pragma mark - Methods
+
+- (void)initControlsLayers {
+
+    // button save shadow
+    [helperInstance setButtonShadow:self.buttonSave withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
+    [helperInstance setButtonBackgroundColorBySetting:self.buttonSave];
+    [helperInstance setButtonFontColorBySetting:self.buttonSave];
+}
 
 
 @end
