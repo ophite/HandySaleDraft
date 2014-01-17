@@ -12,7 +12,7 @@
 #define helperInstance [POSHelper getInstance]
 
 @interface POSHelper : NSObject
-
+    
 - (NSDictionary *)SETTING_MONEY_DICT;
 - (NSDictionary *)SETTING_LANGUAGES_DICT;
 

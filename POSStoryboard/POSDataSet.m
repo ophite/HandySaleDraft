@@ -12,7 +12,10 @@
 @implementation POSDataSet
 
 
+@synthesize ASYNC_IMAGES_COUNT = _ASYNC_IMAGES_COUNT;
+
 @synthesize images = _images;
+@synthesize galleries = _galleries;
 @synthesize settings = _settings;
 @synthesize orderArray = _orderArray;
 
@@ -31,6 +34,7 @@
     self = [super init];
     
     self.images = [[NSMutableArray alloc] init];
+    self.galleries = [[NSMutableArray alloc]init];
     self.settings = [[NSMutableArray alloc] init];
     self.orderArray = [[NSMutableArray alloc] init];
 
@@ -636,11 +640,6 @@
         object.asset = [dbWrapperInstance getCellText:5];
         object.catID = object.ID = [dbWrapperInstance getCellInt:6];
         
-        [object.gallery addObject:[UIImage imageNamed:@"car9.png"]];
-        [object.gallery addObject:[UIImage imageNamed:@"car10.png"]];
-        [object.gallery addObject:[UIImage imageNamed:@"car11.png"]];
-        [object.gallery addObject:[UIImage imageNamed:@"car12.png"]];
-        
         [((NSMutableArray* )rows) addObject:object];
     };
     
@@ -649,7 +648,8 @@
                          andRows: self.allItems];
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-
+    
+    // item image
     for (int i = 0; i < [self.allItems count]; i++) {
         
         POSItem* item= [self.allItems objectAtIndex:i];
@@ -657,20 +657,71 @@
         if (item.asset != Nil && ![item.asset isEqualToString:@""]) {
             
             NSURL* assetUrl = [[NSURL alloc] initWithString:item.asset];
-            [library assetForURL: assetUrl resultBlock:^(ALAsset *asset) {
+            [library assetForURL: assetUrl
+                     resultBlock: ^(ALAsset *asset) {
                 
-                 item.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
-             }
-             failureBlock: ^(NSError* error) {
-                 
-                 NSLog(@"%@", error.description);
-             }];
+                         item.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+                     }
+                    failureBlock: ^(NSError* error) {
+                        
+                         NSLog(@"%@", error.description);
+                    }];
+        }
+    }
+    
+    // item gallery
+    query = @"SELECT        c.id, c.image_id, c.product_id, i.asset \
+              FROM          gallery c \
+              INNER JOIN    image i on i.id = c.image_id; ";
+    
+    void(^blockGetGallery)( id rows) = ^(id rows) {
+        
+        POSGallery *object = [[POSGallery alloc] init];
+        object.ID = [dbWrapperInstance getCellInt:0];
+        object.imageID = [dbWrapperInstance getCellInt:1];
+        object.productID = [dbWrapperInstance getCellInt:2];
+        object.asset = [dbWrapperInstance getCellText:3];
+        
+        [((NSMutableArray *)rows) addObject:object];
+    };
+    
+    [dbWrapperInstance fetchRows: query
+              andForeachCallback: blockGetGallery
+                         andRows: self.galleries];
+    [dbWrapperInstance closeDB];
+
+    for (int i = 0; i < [self.allItems count]; i++) {
+        
+        POSItem* item= [self.allItems objectAtIndex:i];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"productID = %d", item.ID];
+        NSArray *array = [self.galleries filteredArrayUsingPredicate:predicate];
+        
+        if (array.count == 0)
+            continue;
+          
+        for (int i = 0; i < array.count; i++) {
+            
+            POSGallery *gallery = (POSGallery *)[array objectAtIndex:i];
+            if (gallery.asset == Nil || [gallery.asset isEqualToString:@""])
+                continue;
+                
+            NSURL* assetUrl = [[NSURL alloc] initWithString:gallery.asset];
+            [library assetForURL: assetUrl
+                     resultBlock: ^(ALAsset *asset) {
+                
+                        gallery.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+                        [item.gallery addObject:gallery];
+                     }
+                    failureBlock: ^(NSError* error) {
+                        
+                        NSLog(@"%@", error.description);
+                    }];
         }
     }
     
     [dbWrapperInstance closeDB];
 }
-
 
 - (BOOL)itemUpdate:(POSItem *)item withCategory:(POSCategory *)category {
     
@@ -733,6 +784,7 @@
     return result;
 }
 
+
 #pragma mark - Order
 
 - (void)getOrderArray {
@@ -742,49 +794,108 @@
 
 #pragma mark - Images
 
-- (void)gallerySave:(int)index withLibrary:(ALAssetsLibrary*)library {
+- (POSImage *)imagesCreate: (UIImage *)image
+                  withName: (NSString *)name
+                  withPath: (NSString *)path
+              withObjectID: (int)object_id
+            withObjectName: (NSString *)object_name
+             withIsDefault: (BOOL)is_dafault {
     
-    if(index >= self.images.count)
-        return;
-
-    POSImage* posImage = [self.images objectAtIndex:index];
-
-    if (posImage.assetUrl != nil) {
+    POSImage *newImage;
+    NSString *query = [NSString stringWithFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) \
+                                                   VALUES (\"%@\", \"%@\", %d, \"%@\", %d); ", name, path, object_id, object_name, is_dafault];
+    
+    if ([dbWrapperInstance openDB]) {
         
-        [self gallerySave: index + 1
-              withLibrary: library];
+        int newID = [dbWrapperInstance tryCreateNewRow:query];
+        [dbWrapperInstance closeDB];
+        
+        newImage = [[POSImage alloc] initWithImage: image
+                                         withAsset: nil
+                                          withPath: path
+                                     withObject_id: object_id
+                                   withObject_name: object_name];
+        newImage.ID = newID;
+        [self.images addObject:image];
+    }
+    
+    return newImage;
+}
+
+- (POSGallery *)galeriesCreate:(UIImage *)image withImageID:(int)imageID withProductID:(int)productID withAsset:(NSString *)asset {
+    
+    POSGallery *newGallery = Nil;
+    NSString *query = [NSString stringWithFormat:@"INSERT INTO gallery (image_id, product_id) VALUES (%d, %d); ", imageID, productID];
+
+    if ([dbWrapperInstance openDB]) {
+        
+        int newID = [dbWrapperInstance tryCreateNewRow:query];
+        [dbWrapperInstance closeDB];
+        
+        newGallery = [[POSGallery alloc] init];
+        newGallery.imageID = imageID;
+        newGallery.image = image;
+        newGallery.productID = productID;
+        newGallery.asset = asset;
+        newGallery.ID = newID;
+        
+        [self.galleries addObject:newGallery];
+    }
+    
+    return newGallery;
+}
+
+
+- (void)imagesSaveWithAsyncCounter:(int)index withLibrary:(ALAssetsLibrary*)library{
+    
+    self.ASYNC_IMAGES_COUNT = 0;
+    [self imagesSave:index withLibrary:library];
+}
+
+- (void)imagesSave:(int)index withLibrary:(ALAssetsLibrary*)library{
+    
+    if(index >= self.images.count) {
         
         return;
     }
-
+    
+    POSImage* posImage = [self.images objectAtIndex:index];
+    
+    if (posImage.assetUrl != nil) {
+        
+        [self imagesSave:index + 1 withLibrary:library];
+        return;
+    }
+    
     [library saveImage: posImage.image
                toAlbum: @"POS"
    withCompletionBlock: ^(NSURL* url, NSError *error) {
-        
-        NSString* query = [[NSString alloc] init];
-
-        if (error != nil) {
-
-            [self gallerySave: index
-                  withLibrary: library];
-            return;
-        }
-        else {
-            
-            posImage.assetUrl = url;
-            
-            if ([dbWrapperInstance openDB]) {
-                
-                query = [NSString stringWithFormat:@"UPDATE image \
-                                                     SET    asset = \"%@\" \
-                                                     where  path = \"%@\"; ", url, posImage.path];
-                [dbWrapperInstance tryExecQuery:query];
-                [dbWrapperInstance closeDB];
-            }
-
-            [self gallerySave:index + 1 withLibrary:library];
-        }
-    }];
+       
+       NSString* query = [[NSString alloc] init];
+       
+       if (error != nil) {
+           
+           [self imagesSave:index withLibrary:library];
+           //            return;
+       }
+       else {
+           
+           posImage.assetUrl = url;
+           
+           if ([dbWrapperInstance openDB]) {
+               
+               query = [NSString stringWithFormat:@"UPDATE image \
+                                                    SET    asset = \"%@\" \
+                                                    where  path = \"%@\"; ", url, posImage.path];
+               [dbWrapperInstance tryExecQuery:query];
+               [dbWrapperInstance closeDB];
+           }
+           
+           [self imagesSave:index + 1 withLibrary:library];
+       }
+       
+       self.ASYNC_IMAGES_COUNT++;
+   }];
 }
 
 

@@ -216,8 +216,7 @@
 }
 
 
-
-#pragma mark - Other 
+#pragma mark - Other
 
 - (id)getDictionaryFirstValue:(NSDictionary *)dict {
     

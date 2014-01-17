@@ -290,7 +290,7 @@ NSString *labelCategoryEmpty = @"Select from list";
     [objectsHelperInstance.dataSet.images addObject:image];
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [objectsHelperInstance.dataSet gallerySave:(objectsHelperInstance.dataSet.images.count - 1) withLibrary:library];
+    [objectsHelperInstance.dataSet imagesSave:(objectsHelperInstance.dataSet.images.count - 1) withLibrary:library];
     
     [self.navigationController popViewControllerAnimated:YES];
 }

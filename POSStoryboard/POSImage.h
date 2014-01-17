@@ -9,14 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface POSImage : NSObject
-{
-    UIImage*         image;
-    NSURL*           assetUrl;
-    NSString*        path;
-    int              object_id;
-    NSString*        object_name;
-}
 
+@property int               ID;
 @property UIImage*          image;
 @property NSURL*            assetUrl;
 @property NSString*         path;

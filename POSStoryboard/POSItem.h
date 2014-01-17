@@ -9,23 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface POSItem : NSObject
-//{
-//    int             ID;
-//    NSString*       name;
-//    int             catID;
-//    NSString*       codeItem;
-//    NSString*       category;
-//    NSString*       price1;
-//    NSString*       price2;
-//    NSString*       quantityAvailable;
-//    NSString*       quantityOrdered;
-//    NSString*       description;
-//    int             userID;
-//    UIImage*        image;
-//    NSString*       asset;
-//    
-//    NSMutableArray* gallery;
-//}
+
 
 @property  int              ID;
 @property  NSString*        name;

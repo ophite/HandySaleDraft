@@ -15,11 +15,14 @@
 #import "POSAttribute.h"
 #import "POSAttributeValue.h"
 #import "POSCategoryAttribute.h"
+#import "POSGallery.h"
 
 @interface POSDataSet : NSObject
 
+@property int ASYNC_IMAGES_COUNT;
 
 @property NSMutableArray *images;
+@property NSMutableArray *galleries;
 @property NSMutableArray *settings;
 @property NSMutableArray *orderArray;
 
@@ -68,7 +71,15 @@
         withUserID: (int)userID
     withCategoryID: (int)categoryID;
 
-- (void)gallerySave:(int)index withLibrary:(ALAssetsLibrary *)library;
+- (POSGallery *)galeriesCreate:(UIImage *)image withImageID:(int)imageID withProductID:(int)productID withAsset:(NSString *)asset;
+- (void)imagesSave:(int)index withLibrary:(ALAssetsLibrary *)library;
+- (void)imagesSaveWithAsyncCounter:(int)index withLibrary:(ALAssetsLibrary*)library;
+- (POSImage *)imagesCreate: (UIImage *)image
+                  withName: (NSString *)name
+                  withPath: (NSString *)path
+              withObjectID: (int)object_id
+            withObjectName: (NSString *)object_name
+             withIsDefault: (BOOL)is_dafault;
 
 
 

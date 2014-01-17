@@ -20,8 +20,8 @@
 //    query = @"DROP TABLE IF EXISTS attribute";
 //    [dbWrapperInstance tryExecQuery:query];
 //
-//    query = @"DROP TABLE IF EXISTS image";
-//    [dbWrapperInstance tryExecQuery:query];
+    query = @"DROP TABLE IF EXISTS image";
+    [dbWrapperInstance tryExecQuery:query];
 //
 //    query = @"DROP TABLE IF EXISTS collection";
 //    [dbWrapperInstance tryExecQuery:query];
@@ -40,6 +40,9 @@
 //    
 //    query = @"DROP TABLE IF EXISTS setting";
 //    [dbWrapperInstance tryExecQuery:query];
+//    
+    query = @"DROP TABLE IF EXISTS gallery";
+    [dbWrapperInstance tryExecQuery:query];
     
     query =
     @"CREATE TABLE IF NOT EXISTS attribute ( \
@@ -217,6 +220,14 @@
         UNIQUE (name), \
         CHECK (is_deleted IN (0, 1)), \
         FOREIGN KEY(image_id) REFERENCES image (id) \
+    ); \
+    CREATE TABLE IF NOT EXISTS gallery ( \
+        id INTEGER NOT NULL, \
+        image_id INTEGER NOT NULL, \
+        product_id INTEGER NOT NULL, \
+        PRIMARY KEY (id), \
+        FOREIGN KEY(image_id) REFERENCES image (id), \
+        FOREIGN KEY(product_id) REFERENCES product (id) \
     );";
     
     [dbWrapperInstance tryExecQuery:query];
@@ -279,7 +290,7 @@
 
     if(count == 0) {
         
-        [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car01.png\", \"car01.png\", 1, \"collection\", 1); "];
+        query  = [NSMutableString stringWithString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car01.png\", \"car01.png\", 1, \"collection\", 1); "];
         [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car02.png\", \"car02.png\", 2, \"collection\", 1); "];
         [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car03.png\", \"car03.png\", 3, \"collection\", 1); "];
         [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car4.png\", \"car4.png\", 4, \"collection\", 1); "];
@@ -299,11 +310,11 @@
         [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car9.png\", \"car9.png\", 8, \"product\", 1); "];
         [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car10.png\", \"car10.png\", 9, \"product\", 1); "];
         [query appendString:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"car10.png\", \"car10.png\", 10, \"product\", 1); "];
-        [query appendFormat: @"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"%@\", \"%@\", 11, \"setting\", 1); ",
+        [query appendFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"%@\", \"%@\", 11, \"setting\", 1); ",
                                 helperInstance.SETTING_EMAIL_ICON, helperInstance.SETTING_EMAIL_ICON];
-        [query appendFormat: @"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"%@\", \"%@\", 11, \"setting\", 1); ",
+        [query appendFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"%@\", \"%@\", 11, \"setting\", 1); ",
                                 helperInstance.SETTING_LANGUAGE_ICON, helperInstance.SETTING_LANGUAGE_ICON];
-        [query appendFormat: @"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"%@\", \"%@\", 11, \"setting\", 1); ",
+        [query appendFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"%@\", \"%@\", 11, \"setting\", 1); ",
                                 helperInstance.SETTING_MONEY_ICON, helperInstance.SETTING_MONEY_ICON];
         
         [dbWrapperInstance tryExecQuery:query];
@@ -372,8 +383,32 @@
                                                     withObject_id: ++imageID
                                                   withObject_name: @"setting"]];
         
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [dataSet gallerySave:0 withLibrary:library];
+//        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//        [dataSet imagesSave:0 withLibrary:library];
+    }
+    
+    // GALLERY
+    [query setString:@"SELECT count(*) FROM gallery; "];
+    count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+    
+    if(count == 0) {
+        
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM product WHERE name= \"%@\"; ", @"Pathfinder"];
+        int product_1 = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", @"car5.png"];
+        int image_1 = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", @"car6.png"];
+        int image_2 = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", @"car7.png"];
+        int image_3 = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", @"car8.png"];
+        int image_4 = [dbWrapperInstance execQueryResultInt:query andIndex:0];
+        
+        query = [NSMutableString stringWithFormat:@"INSERT INTO gallery (image_id, product_id) VALUES (%d, %d); ", image_1, product_1];
+        [query appendFormat:@"INSERT INTO gallery (image_id, product_id) VALUES (%d, %d); ", image_2, product_1];
+        [query appendFormat:@"INSERT INTO gallery (image_id, product_id) VALUES (%d, %d); ", image_3, product_1];
+        [query appendFormat:@"INSERT INTO gallery (image_id, product_id) VALUES (%d, %d); ", image_4, product_1];
+        [dbWrapperInstance tryExecQuery:query];
     }
     
     // SETTING
@@ -480,7 +515,6 @@
         
         [dbWrapperInstance tryExecQuery:query];
     }
-
     
     [dbWrapperInstance closeDB];
 }

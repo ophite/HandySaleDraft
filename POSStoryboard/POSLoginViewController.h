@@ -20,7 +20,9 @@
     BOOL __rememberChecked;
 
 }
+@property (weak, nonatomic) IBOutlet UIProgressView *progress;
 
+@property (weak, nonatomic) IBOutlet UIView *viewWithControls;
 @property (weak, nonatomic) IBOutlet UIView *viewForColorExample;
 @property (weak, nonatomic) IBOutlet UIButton *buttonLogin;
 @property (weak, nonatomic) IBOutlet UIButton *buttonRememberMe;

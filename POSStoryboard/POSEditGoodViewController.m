@@ -38,6 +38,7 @@ const int CELL_DESCRIPTION_INDEX = 7;
 @synthesize cellImage = _cellImage;
 @synthesize contentCellImage = _contentCellImage;
 
+NSMutableArray *_galleryTmp;
 
 #pragma mark - ViewController
  
@@ -63,6 +64,7 @@ const int CELL_DESCRIPTION_INDEX = 7;
     self.textPrice_buy.text = self.item.price_buy;
     self.textPrice_sale.text = self.item.price_sale;
     self.textViewDescription.text = self.item.description;
+    _galleryTmp = [NSMutableArray arrayWithArray:self.item.gallery];
     
     // gui
     [self initControlsLayers];
@@ -88,8 +90,6 @@ const int CELL_DESCRIPTION_INDEX = 7;
     self.scrollView.delegate = self;
     self.scrollView.backgroundColor = [UIColor whiteColor];
     [self.scrollView setScrollEnabled:YES];
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * self.item.gallery.count,
-                                             self.scrollView.frame.size.height);
     self.scrollView.pagingEnabled = YES;
     self.scrollView.backgroundColor = [UIColor lightGrayColor];
     [self.scrollView setMinimumZoomScale:1.0];
@@ -106,25 +106,8 @@ const int CELL_DESCRIPTION_INDEX = 7;
                                                                                     action: @selector(onShowImageButtons:)];
     [tapRecognizer setNumberOfTouchesRequired:1];
     [self.scrollView addGestureRecognizer:tapRecognizer];
-
-    for(int i = 0; i<self.item.gallery.count; i++) {
-        
-        UIImageView* localImageView = [[UIImageView alloc] initWithImage:[self.item.gallery objectAtIndex:i]];
-        localImageView.frame = CGRectMake(i*self.scrollView.frame.size.width,
-                                          0,
-                                          self.scrollView.frame.size.width,
-                                          self.scrollView.frame.size.height);
-//        localImageView.backgroundColor = [UIColor whiteColor];
-        localImageView.backgroundColor = self.cellCode.backgroundColor;
-        localImageView.contentMode = UIViewContentModeScaleAspectFit;
-        localImageView.clipsToBounds = YES;
-        localImageView.userInteractionEnabled = YES;
-        localImageView.tag = i + 100;
-        [self createAddBttonToImage:localImageView];
-        [self createDeleteBttonToImage:localImageView];
-        [self.scrollView addSubview:localImageView];
-    }
-
+    [self createImageGallery];
+    
 	// Do any additional setup after loading the view.
 }
 
@@ -194,22 +177,23 @@ const int CELL_DESCRIPTION_INDEX = 7;
         
         if ([alertView.title isEqual: @"Delete image"] && buttonIndex == 1) {
 
-            int page = self.scrollView.contentOffset.x/self.scrollView.frame.size.width;
-            [self.item.gallery removeObjectAtIndex:page];
-            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * self.item.gallery.count,
-                                                     self.scrollView.frame.size.height);
-
-            for (int i =0; i<self.item.gallery.count; i++) {
+            if (_galleryTmp.count > 0) {
                 
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tag = %d", i + 100];
-                NSObject *object = [helperInstance getObjectImmutableArray:self.scrollView.subviews withPredicate:predicate];
-                UIImageView *imageView = (UIImageView *)object;
-                imageView.frame = CGRectMake(i*self.scrollView.frame.size.width,
-                                             0,
-                                             self.scrollView.frame.size.width,
-                                             self.scrollView.frame.size.height);
-            }
+                // remember buttons mode
+                for(UIView *subview in [self.scrollView subviews]) {
+                    
+                    if(subview.tag >= 100) {
+                        
+                        UIButton *buttonAdd = (UIButton *)[subview.subviews objectAtIndex:0];
+                        _isButtonsShowing = buttonAdd.hidden;
+                        break;
+                    }
+                }
 
+                [self deleteImageGallery];
+                [self createImageGallery];
+                [self onShowImageButtons:NULL];
+            }
         }
         else if ([alertView.title isEqual: @"Delete"]) {
             
@@ -234,10 +218,16 @@ const int CELL_DESCRIPTION_INDEX = 7;
         }
         else if ([alertView.title isEqual: @"Select image"] && buttonIndex == 0) {
             
+            [self deleteScrollAddImageButton];
+            void(^blockCompleteLoadImage)() = ^(void) {
+                
+//                controller
+            };
+            
             controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             [self presentViewController: controller
                                animated: YES
-                             completion: nil];
+                             completion: blockCompleteLoadImage];
         }
     }
 }
@@ -245,24 +235,33 @@ const int CELL_DESCRIPTION_INDEX = 7;
 
 #pragma mark - UIImagePickerControllerDelegate
 
+//NSMutableArray *_addedGallery;
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    [self.item.gallery addObject:image];
-    self.scrollView.contentSize = CGSizeMake(helperInstance.ITEM_EDIT_WIDTH * self.item.gallery.count,
-                                             helperInstance.ITEM_EDIT_HEIGHT);
+//    [self.item.gallery addObject:image];
+    
+//    POSImage *newImage = [[POSImage alloc] initWithImage: self.item.image
+//                                               withAsset: nil
+//                                                withPath: random_name
+//                                           withObject_id: self.item.ID
+//                                         withObject_name: @"product"];
+//    [_addedImages addObject:newImage];
+    
+    POSGallery *newGallery = [[POSGallery alloc] init];
+    newGallery.productID = self.item.ID;
+    newGallery.image = image;
+    newGallery.ID = -1;
+    newGallery.asset = nil;
+    newGallery.imageID = -1;
+    
+    [_galleryTmp addObject:newGallery];
+    
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * _galleryTmp.count,
+                                             self.scrollView.frame.size.height);
+    [self addImageToScrollView:image withIndex:_galleryTmp.count - 1];
 
-    UIImageView* localImageView = [[UIImageView alloc] initWithImage:image];
-    localImageView.frame = CGRectMake((self.item.gallery.count-1)*helperInstance.ITEM_EDIT_WIDTH,
-                                      0,
-                                      helperInstance.ITEM_EDIT_WIDTH,
-                                      helperInstance.ITEM_EDIT_HEIGHT);
-    localImageView.backgroundColor = [UIColor whiteColor];
-    localImageView.contentMode = UIViewContentModeScaleAspectFit;
-    localImageView.clipsToBounds = YES;
-    
-    [self.scrollView addSubview:localImageView];
-    
     // Code here to work with media
     [self dismissViewControllerAnimated: YES
                              completion: nil];
@@ -278,6 +277,49 @@ const int CELL_DESCRIPTION_INDEX = 7;
 
 #pragma mark - Image buttons
 
+- (void)deleteImageGallery {
+    
+    int page = self.scrollView.contentOffset.x/self.scrollView.frame.size.width;
+    [_galleryTmp removeObjectAtIndex:page];
+    
+    for(UIView *subview in [self.scrollView subviews]) {
+        
+        if(subview.tag >= 100)
+            [subview removeFromSuperview];
+    }
+}
+
+
+- (void)createImageGallery {
+    
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * _galleryTmp.count,
+                                             self.scrollView.frame.size.height);
+    
+    for(int i = 0; i<_galleryTmp.count; i++) {
+        
+        POSGallery *gallery = (POSGallery *)[_galleryTmp objectAtIndex:i];
+        [self addImageToScrollView:gallery.image withIndex:i];
+    }
+}
+
+- (void)addImageToScrollView:(UIImage *)image withIndex:(int)index {
+    
+    UIImageView* localImageView = [[UIImageView alloc] initWithImage:image];
+    localImageView.frame = CGRectMake(index*self.scrollView.frame.size.width,
+                                      0,
+                                      self.scrollView.frame.size.width,
+                                      self.scrollView.frame.size.height);
+    //        localImageView.backgroundColor = [UIColor whiteColor];
+    localImageView.backgroundColor = self.cellCode.backgroundColor;
+    localImageView.contentMode = UIViewContentModeScaleAspectFit;
+    localImageView.clipsToBounds = YES;
+    localImageView.userInteractionEnabled = YES;
+    localImageView.tag = index + 100;
+    [self createAddBttonToImage:localImageView];
+    [self createDeleteBttonToImage:localImageView];
+    [self.scrollView addSubview:localImageView];
+}
+
 - (void)createAddBttonToImage:(UIImageView *)imageView {
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -287,9 +329,10 @@ const int CELL_DESCRIPTION_INDEX = 7;
                action: @selector(onAddImage:)
      forControlEvents: UIControlEventTouchUpInside];
     button.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
-    button.hidden = YES;
+    button.hidden = _isButtonsShowing;
     [imageView addSubview:button];
 }
+
 
 - (void)createDeleteBttonToImage:(UIImageView *)imageView {
     
@@ -300,25 +343,68 @@ const int CELL_DESCRIPTION_INDEX = 7;
     [button addTarget: self
                action: @selector(onDeleteImage:)
      forControlEvents: UIControlEventTouchUpInside];
-    button.hidden = YES;
+    button.hidden = _isButtonsShowing;
     [imageView addSubview:button];
 }
 
+bool _isButtonsShowing = YES;
 
 - (void)onShowImageButtons:(id)sender {
     
-//    int page = self.scrollView.contentOffset.x/self.scrollView.frame.size.width;
+    _isButtonsShowing = _galleryTmp.count == 0? YES:NO;
     
-    for (int i =0; i<self.item.gallery.count; i++) {
-
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tag = %d", i + 100];
-        NSObject *object = [helperInstance getObjectImmutableArray:self.scrollView.subviews withPredicate:predicate];
-        UIImageView *imageView = (UIImageView *)object;
+    if (_galleryTmp.count > 0) {
         
-        UIButton *buttonAdd = (UIButton *)[imageView.subviews objectAtIndex:0];
-        buttonAdd.hidden = !buttonAdd.hidden;
-        UIButton *buttonDelete = (UIButton *)[imageView.subviews objectAtIndex:1];
-        buttonDelete.hidden = !buttonDelete.hidden;
+        for (int i =0; i<_galleryTmp.count; i++) {
+
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tag = %d", i + 100];
+            NSObject *object = [helperInstance getObjectImmutableArray:self.scrollView.subviews withPredicate:predicate];
+            UIImageView *imageView = (UIImageView *)object;
+            
+            UIButton *buttonAdd = (UIButton *)[imageView.subviews objectAtIndex:0];
+            buttonAdd.hidden = (!buttonAdd.hidden || _isButtonsShowing);
+            UIButton *buttonDelete = (UIButton *)[imageView.subviews objectAtIndex:1];
+            buttonDelete.hidden = (!buttonDelete.hidden || _isButtonsShowing);
+        }
+    }
+    else {
+        
+        bool isAlreadtAddedButton = NO;
+        for (UIView *subview in self.scrollView.subviews) {
+            
+            if (subview.tag == 99) {
+                
+                isAlreadtAddedButton = YES;
+                break;
+            }
+        }
+        
+        if (!isAlreadtAddedButton) {
+            
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * 1,
+                                                     self.scrollView.frame.size.height);
+            
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            UIImage *image = [UIImage imageNamed:helperInstance.SETTING_ADDATTRIBUTE_ICON];
+            [button setImage:image forState:UIControlStateNormal];
+            button.frame = CGRectMake(40.0, 0.0, 40.0, 40.0);
+            [button addTarget: self
+                       action: @selector(onAddImage:)
+             forControlEvents: UIControlEventTouchUpInside];
+            button.hidden = NO;
+            button.tag = 99;
+            [self.scrollView addSubview:button];
+        }
+    }
+}
+
+
+- (void)deleteScrollAddImageButton {
+    
+    for (UIView *subview in self.scrollView.subviews) {
+        
+        if (subview.tag == 99)
+            [subview removeFromSuperview];
     }
 }
 
@@ -384,31 +470,69 @@ const int CELL_DESCRIPTION_INDEX = 7;
                                    withUserID:1
                                withCategoryID:self.category.ID];
 
-    // TODO: хз что сдесь такого делается надо выяснить
     // image
-    if([dbWrapperInstance openDB]) {
+    // deleted
+    if (self.item.gallery.count > 0) {
 
-        NSString* random_name = [[NSUUID UUID] UUIDString];
-        query = [NSString stringWithFormat:@"DELETE \
-                                             FROM   image \
-                                             WHERE  object_id = %d AND object_name = \"product\"; ", self.item.ID];
-        query = [query stringByAppendingFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) \
-                                                 VALUES (\"%@\", \"%@\", %d, \"product\", 1); ", random_name, random_name, self.item.ID];
+        NSMutableString *query = [[NSMutableString alloc] init];
+        NSMutableArray *galleryForDelete = [[NSMutableArray alloc]init];
         
-        [dbWrapperInstance tryExecQuery:query];
-        [dbWrapperInstance closeDB];
+        if([dbWrapperInstance openDB]) {
         
-        POSImage * image = [[POSImage alloc] initWithImage: self.item.image
-                                                 withAsset: nil
-                                                  withPath: random_name
-                                             withObject_id: self.item.ID
-                                           withObject_name: @"product"];
-        [objectsHelperInstance.dataSet.images addObject:image];
-        
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [objectsHelperInstance.dataSet gallerySave: (objectsHelperInstance.dataSet.images.count - 1)
-                                       withLibrary: library];
+            for (int i =0; i<self.item.gallery.count; i++) {
+                
+                POSGallery *gallery = [self.item.gallery objectAtIndex:i];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID = %d", gallery.ID];
+                NSArray *filteredArray = [_galleryTmp filteredArrayUsingPredicate:predicate];
+                
+                if (filteredArray.count == 0)
+                    [galleryForDelete addObject:gallery];
+            }
+            
+            for (int i = 0; i < galleryForDelete.count; i++) {
+                
+                POSGallery *gallery = (POSGallery *)[galleryForDelete objectAtIndex:i];
+                [query appendFormat:@"DELETE    \
+                                      FROM      gallery \
+                                      WHERE     id = %d; ", gallery.ID];
+                [self.item.gallery removeObject:gallery];
+            }
+
+            [dbWrapperInstance tryExecQuery:query];
+            [dbWrapperInstance closeDB];
+        }
     }
+    // added
+    if (_galleryTmp.count > 0) {
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID = %d", -1];
+        NSArray *addedImages = [_galleryTmp filteredArrayUsingPredicate:predicate];
+        
+        if (addedImages.count > 0) {
+            
+            for (POSGallery *newGallery in addedImages) {
+                
+                NSString* random_name = [[NSUUID UUID] UUIDString];
+                POSImage *newImage = [objectsHelperInstance.dataSet imagesCreate: newGallery.image
+                                                                        withName: random_name
+                                                                        withPath: random_name
+                                                                    withObjectID: self.item.ID
+                                                                  withObjectName: @"product"
+                                                                   withIsDefault: 1];
+                
+                POSGallery *createdGallery =[objectsHelperInstance.dataSet galeriesCreate: newGallery.image
+                                                                              withImageID: newImage.ID
+                                                                            withProductID: newGallery.productID
+                                                                                withAsset: newGallery.asset];
+                [self.item.gallery addObject:createdGallery];
+            }
+        }
+    }
+    
+    // reload assets
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [objectsHelperInstance.dataSet imagesSave: (objectsHelperInstance.dataSet.images.count - 1)
+                                  withLibrary: library];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
