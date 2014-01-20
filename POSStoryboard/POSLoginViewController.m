@@ -48,14 +48,7 @@
     [test initDBStructure];
     [test initDBData:objectsHelperInstance.dataSet];
     [objectsHelperInstance.dataSet settingsGet];
-    
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [objectsHelperInstance.dataSet imagesSaveWithAsyncCounter:0 withLibrary:library];
-    
-    self.viewWithControls.hidden = YES;
-    self.progress.progress = 0.0;
-    [self performSelectorOnMainThread:@selector(makeMyProgressBarMoving) withObject:nil waitUntilDone:NO];
-    
+
     // gui
     [self loadControlsLayers];
     [self initControlsLayers];
@@ -70,45 +63,21 @@
     // login password - remember
     __rememberChecked = [[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME] boolValue];
     [self setRememberMeImage];
+
+    [self resourcesLoad];
 	// Do any additional setup after loading the view.
 }
 
 
-- (void)makeMyProgressBarMoving {
-    
-    if (objectsHelperInstance.dataSet.ASYNC_IMAGES_COUNT < objectsHelperInstance.dataSet.images.count) {
-        
-        NSNumber *maxValue = [NSNumber numberWithInt:objectsHelperInstance.dataSet.images.count];
-        NSNumber *numberStep = [NSNumber numberWithInt:objectsHelperInstance.dataSet.ASYNC_IMAGES_COUNT];
-        
-        self.progress.progress = numberStep.floatValue /maxValue.floatValue;
-        [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(makeMyProgressBarMoving) userInfo:nil repeats:NO];
-    }
-    else{
-        
-        if (__rememberChecked) {
-
-            self.textEmail.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_LOGIN];
-            self.textPassword.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_PASS];
-            [self.buttonLogin sendActionsForControlEvents:UIControlEventTouchUpInside];
-        }
-        else {
-            
-            self.progress.hidden = YES;
-            self.viewWithControls.hidden = NO;
-        }
-    }
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    
-    [super viewDidAppear:animated];
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    
+//    [super viewWillAppear:animated];
+//}
+//
+//- (void)viewDidAppear:(BOOL)animated {
+//    
+//    [super viewDidAppear:animated];
+//}
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -299,6 +268,56 @@
     [helperInstance loadButtonFontColorSetting:self.buttonLogin.tintColor];
     // textField text color
     [helperInstance loadTextFieldFontColorSetting:self.textEmail.textColor];
+}
+
+
+#pragma mark - Methods
+
+- (void)resourcesLoad {
+    
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    
+    if (__rememberChecked) {
+        
+        [objectsHelperInstance.dataSet imagesSaveWithAsyncCounter:0 withLibrary:library];
+        self.viewWithControls.hidden = YES;
+        self.progress.hidden = NO;
+        self.progress.progress = 0.0;
+        [self performSelectorOnMainThread: @selector(progressActivate)
+                               withObject: nil
+                            waitUntilDone: NO];
+    }
+    else {
+        
+        [objectsHelperInstance.dataSet imagesSave:0 withLibrary:library];
+        self.viewWithControls.hidden = NO;
+        self.progress.hidden = YES;
+    }
+}
+
+
+- (void)progressActivate {
+    
+    if (objectsHelperInstance.dataSet.ASYNC_IMAGES_COUNT < objectsHelperInstance.dataSet.images.count) {
+        
+        NSNumber *maxValue = [NSNumber numberWithInt:objectsHelperInstance.dataSet.images.count];
+        NSNumber *numberStep = [NSNumber numberWithInt:objectsHelperInstance.dataSet.ASYNC_IMAGES_COUNT];
+        
+        self.progress.progress = numberStep.floatValue /maxValue.floatValue;
+        [NSTimer scheduledTimerWithTimeInterval: 0.01
+                                         target: self
+                                       selector: @selector(progressActivate)
+                                       userInfo: nil
+                                        repeats: NO];
+    }
+    else{
+        
+        self.viewWithControls.hidden = NO;
+        self.progress.hidden = YES;
+        self.textEmail.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_LOGIN];
+        self.textPassword.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_PASS];
+        [self.buttonLogin sendActionsForControlEvents:UIControlEventTouchUpInside];
+    }
 }
 
 
