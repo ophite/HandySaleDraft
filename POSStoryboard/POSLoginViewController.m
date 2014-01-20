@@ -52,50 +52,9 @@
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     [objectsHelperInstance.dataSet imagesSaveWithAsyncCounter:0 withLibrary:library];
     
-//    // load image
-//    [library enumerateGroupsWithTypes: ALAssetsGroupAlbum
-//                           usingBlock: ^(ALAssetsGroup *group, BOOL *stop) {
-//                               
-//                               // Срабатывает дважды, можно будет добавить проверку что только один раз было
-//                               
-//                               NSLog(@"number %d", [group numberOfAssets]);
-//                               
-////                               if (__rememberChecked) {
-////                                   
-////                                   self.textEmail.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_LOGIN];
-////                                   self.textPassword.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_PASS];
-////                                   [self.buttonLogin sendActionsForControlEvents:UIControlEventTouchUpInside];
-////                               }
-//                           }
-//                         failureBlock: ^(NSError *error) {
-//                             
-//                             NSLog(@"Failure load images");
-//                         }];
-    
-
-//
-//    [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos
-//                      usingBlock:^(ALAssetsGroup *group, BOOL *stop)
-//     {
-//         [group enumerateAssetsUsingBlock:^(ALAsset *asset, NSUInteger index, BOOL *stop)
-//          {
-//              NSLog(@"index %d", index);
-//          }];
-//     }
-//                    failureBlock:^(NSError *error) { NSLog(@"Boom!!!");}
-//     ];
-
-    
     self.viewWithControls.hidden = YES;
     self.progress.progress = 0.0;
     [self performSelectorOnMainThread:@selector(makeMyProgressBarMoving) withObject:nil waitUntilDone:NO];
-//    if (__rememberChecked) {
-//        
-//        self.textEmail.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_LOGIN];
-//        self.textPassword.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_PASS];
-//        [self.buttonLogin sendActionsForControlEvents:UIControlEventTouchUpInside];
-//    }
-    
     
     // gui
     [self loadControlsLayers];
@@ -117,12 +76,11 @@
 
 - (void)makeMyProgressBarMoving {
     
-    NSNumber *maxValue = [NSNumber numberWithInt:objectsHelperInstance.dataSet.images.count];
-    NSNumber *actualValue = [NSNumber numberWithFloat:self.progress.progress];
-    
     if (objectsHelperInstance.dataSet.ASYNC_IMAGES_COUNT < objectsHelperInstance.dataSet.images.count) {
         
+        NSNumber *maxValue = [NSNumber numberWithInt:objectsHelperInstance.dataSet.images.count];
         NSNumber *numberStep = [NSNumber numberWithInt:objectsHelperInstance.dataSet.ASYNC_IMAGES_COUNT];
+        
         self.progress.progress = numberStep.floatValue /maxValue.floatValue;
         [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(makeMyProgressBarMoving) userInfo:nil repeats:NO];
     }
@@ -140,7 +98,6 @@
             self.viewWithControls.hidden = NO;
         }
     }
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
