@@ -65,6 +65,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 - (void)didMoveToParentViewController:(UIViewController *)parent {
     
     if (![parent isEqual:self.parentViewController]) {

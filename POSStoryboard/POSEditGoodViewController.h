@@ -41,6 +41,8 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellImage;
 @property (weak, nonatomic) IBOutlet UIView *contentCellImage;
 
+- (void)loadCategory:(POSCategory *)category;
+
 
 - (IBAction)onSave:(id)sender;
 - (IBAction)onDelete:(id)sender;

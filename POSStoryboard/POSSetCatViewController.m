@@ -82,17 +82,18 @@
 
 
 #pragma mark - Actions
- 
+
 - (IBAction)onSelect:(id)sender {
     
     NSInteger row = [self.picker selectedRowInComponent:0];
     POSCategory *newCategory = [objectsHelperInstance.dataSet.categories objectAtIndex:row];
     
-    if (self.category.ID != newCategory.ID) {
+    if (newCategory != nil && self.category.ID != newCategory.ID) {
         
-        [objectsHelperInstance.dataSet itemUpdate:self.item withCategory:newCategory];
+        POSEditGoodViewController *controller = (POSEditGoodViewController *)[self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count - 2];
+        [controller loadCategory:newCategory];
     }
-    
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 

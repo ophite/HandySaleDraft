@@ -18,8 +18,8 @@
 
 @synthesize picker = _picker;
 @synthesize category = _category;
-@synthesize attributeIndex = _attributeIndex;
 @synthesize oldAttribute = _oldAttribute;
+@synthesize attributeIndex = _attributeIndex;
 @synthesize categoryAttribute = _categoryAttribute;
 
 

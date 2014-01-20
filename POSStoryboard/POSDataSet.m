@@ -722,27 +722,27 @@
     
     [dbWrapperInstance closeDB];
 }
-
-- (BOOL)itemUpdate:(POSItem *)item withCategory:(POSCategory *)category {
-    
-    BOOL result = NO;
-    
-    NSString *query = [NSString stringWithFormat:@"update product \
-                                                   set    collection_id = %d \
-                                                   where  id = %d; ", category.ID, item.ID];
-    
-    if ([dbWrapperInstance openDB]) {
-        
-        [dbWrapperInstance tryExecQuery:query];
-        [dbWrapperInstance closeDB];
-        
-        item.category = category.name;
-        item.catID = category.ID;
-        result = YES;
-    }
-    
-    return result;
-}
+//
+//- (BOOL)itemUpdate:(POSItem *)item withCategory:(POSCategory *)category {
+//    
+//    BOOL result = NO;
+//    
+//    NSString *query = [NSString stringWithFormat:@"update product \
+//                                                   set    collection_id = %d \
+//                                                   where  id = %d; ", category.ID, item.ID];
+//    
+//    if ([dbWrapperInstance openDB]) {
+//        
+//        [dbWrapperInstance tryExecQuery:query];
+//        [dbWrapperInstance closeDB];
+//        
+//        item.category = category.name;
+//        item.catID = category.ID;
+//        result = YES;
+//    }
+//    
+//    return result;
+//}
 
 - (BOOL)itemUpdate: (POSItem *)item
           withName: (NSString *)name

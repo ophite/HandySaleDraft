@@ -61,7 +61,7 @@
 
 - (void)itemsGet;
 - (void)itemsGetByCategory:(NSString *)selectedCategoryName;
-- (BOOL)itemUpdate:(POSItem *)item withCategory:(POSCategory *)category;
+//- (BOOL)itemUpdate:(POSItem *)item withCategory:(POSCategory *)category;
 - (BOOL)itemUpdate: (POSItem *)item
           withName: (NSString *)name
           withCode: (NSString *)code

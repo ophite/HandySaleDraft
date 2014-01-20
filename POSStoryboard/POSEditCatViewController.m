@@ -33,9 +33,13 @@
 @synthesize imageView = _imageView;
 @synthesize viewButtons = _viewButtons;
 
+
+// vars
 NSString *labelCategoryEmpty = @"Select from list";
 
+
 #pragma mark - ViewController
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
@@ -163,6 +167,30 @@ NSString *labelCategoryEmpty = @"Select from list";
 }
 
 
+// In a story board-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([[segue identifier] isEqualToString:@"goToAttribute1"]) {
+        
+        POSSelectAttributeViewController *controller = (POSSelectAttributeViewController *)[segue destinationViewController];
+        controller.category = self.category;
+        controller.attributeIndex = 0;
+        controller.categoryAttribute = self.categoryAttribute1;
+    }
+    else if ([[segue identifier] isEqualToString:@"goToAttribute2"]) {
+        
+        POSSelectAttributeViewController *controller = (POSSelectAttributeViewController *)[segue destinationViewController];
+        controller.category = self.category;
+        controller.attributeIndex = 1;
+        controller.categoryAttribute = self.categoryAttribute2;
+    }
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+
+
+#pragma mark - Alert
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     UIImagePickerController* controller = [[UIImagePickerController alloc] init];
@@ -207,27 +235,6 @@ NSString *labelCategoryEmpty = @"Select from list";
 }
 
 
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    POSSelectAttributeViewController *controller = (POSSelectAttributeViewController *)[segue destinationViewController];
-    controller.category = self.category;
-    
-    if ([[segue identifier] isEqualToString:@"goToAttribute1"]) {
-
-        controller.attributeIndex = 0;
-        controller.categoryAttribute = self.categoryAttribute1;
-    }
-    else if ([[segue identifier] isEqualToString:@"goToAttribute2"]) {
-        
-        controller.attributeIndex = 1;
-        controller.categoryAttribute = self.categoryAttribute2;
-    }
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
-
 #pragma mark - Methods
 
 - (void)initControlsLayers {
@@ -252,7 +259,7 @@ NSString *labelCategoryEmpty = @"Select from list";
     //TODO: user_id зашита константа пока что
     NSString * query = [NSString stringWithFormat:@"SELECT  count(*) \
                                                     FROM    collection \
-                                                    WHERE   name = \"%@\" AND user_id = \"%d\"; AND ID != %d", self.category.name, 1, self.category.ID];
+                                                    WHERE   name = \"%@\" AND user_id = \"%d\" AND ID != %d; ", self.category.name, 1, self.category.ID];
     
     int count = [dbWrapperInstance execQueryResultInt: query andIndex: 0];
     

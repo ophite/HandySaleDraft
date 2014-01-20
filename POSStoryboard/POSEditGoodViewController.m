@@ -15,7 +15,6 @@
 
 @implementation POSEditGoodViewController
 
-const int CELL_DESCRIPTION_INDEX = 7;
 
 @synthesize item = _item;
 @synthesize category = _category;
@@ -38,7 +37,14 @@ const int CELL_DESCRIPTION_INDEX = 7;
 @synthesize cellImage = _cellImage;
 @synthesize contentCellImage = _contentCellImage;
 
-NSMutableArray *_galleryTmp;
+
+//vars
+const int CELL_DESCRIPTION_INDEX = 7;
+const int SCROLLVIEW_BUTTON_TAG = 99;
+bool _isImageButtonsHidden = YES;
+NSMutableArray *_galleryLocal;
+POSCategory *_newCategory;
+
 
 #pragma mark - ViewController
  
@@ -64,11 +70,12 @@ NSMutableArray *_galleryTmp;
     self.textPrice_buy.text = self.item.price_buy;
     self.textPrice_sale.text = self.item.price_sale;
     self.textViewDescription.text = self.item.description;
-    _galleryTmp = [NSMutableArray arrayWithArray:self.item.gallery];
+    _galleryLocal = [NSMutableArray arrayWithArray:self.item.gallery];
     _isImageButtonsHidden = YES;
     
     // gui
     [self initControlsLayers];
+    [self loadCategory:self.category];
 
     self.table.allowsSelection = NO;
     self.textName.delegate = self;
@@ -104,19 +111,12 @@ NSMutableArray *_galleryTmp;
 
     // image touch event
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget: self
-                                                                                    action: @selector(onShowImageButtons:)];
+                                                                                    action: @selector(imageShowButtons:)];
     [tapRecognizer setNumberOfTouchesRequired:1];
     [self.scrollView addGestureRecognizer:tapRecognizer];
-    [self createImageGallery];
+    [self galleryCreateImage];
     
 	// Do any additional setup after loading the view.
-}
-
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    [self.buttonCategory setTitle:self.item.category forState:UIControlStateNormal];
 }
 
 
@@ -165,6 +165,19 @@ NSMutableArray *_galleryTmp;
 }
 
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    POSSetCatViewController *controller = (POSSetCatViewController *)[segue destinationViewController];
+    controller.item = self.item;
+    controller.category = self.category;
+    
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+
+
+#pragma mark - Alert
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     UIImagePickerController* controller = [[UIImagePickerController alloc] init];
@@ -178,7 +191,7 @@ NSMutableArray *_galleryTmp;
         
         if ([alertView.title isEqual: @"Delete image"] && buttonIndex == 1) {
 
-            if (_galleryTmp.count > 0) {
+            if (_galleryLocal.count > 0) {
                 
                 // remember buttons mode
                 for(UIView *subview in [self.scrollView subviews]) {
@@ -191,9 +204,9 @@ NSMutableArray *_galleryTmp;
                     }
                 }
 
-                [self deleteImageGallery];
-                [self createImageGallery];
-                [self onShowImageButtons:NULL];
+                [self galleryDeleteImage];
+                [self galleryCreateImage];
+                [self imageShowButtons:NULL];
             }
         }
         else if ([alertView.title isEqual: @"Delete"]) {
@@ -207,8 +220,8 @@ NSMutableArray *_galleryTmp;
             else if ([dbWrapperInstance openDB]) {
                 
                 NSString * query = [NSString stringWithFormat:@"DELETE  \
-                                    FROM    product \
-                                    WHERE   name = \"%@\" AND user_id = %d", self.item.name, 1];
+                                                                FROM    product \
+                                                                WHERE   name = \"%@\" AND user_id = %d", self.item.name, 1];
                 
                 [dbWrapperInstance tryExecQuery:query];
                 [dbWrapperInstance closeDB];
@@ -219,7 +232,7 @@ NSMutableArray *_galleryTmp;
         }
         else if ([alertView.title isEqual: @"Select image"] && buttonIndex == 0) {
             
-            [self deleteScrollAddImageButton];
+            [self scrollViewDeleteButton];
             void(^blockCompleteLoadImage)() = ^(void) {
                 
 //                controller
@@ -236,24 +249,21 @@ NSMutableArray *_galleryTmp;
 
 #pragma mark - UIImagePickerControllerDelegate
 
-//NSMutableArray *_addedGallery;
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    
     POSGallery *newGallery = [[POSGallery alloc] init];
-    newGallery.image = image;
+    newGallery.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     newGallery.asset = nil;
     newGallery.ID = -1;
     newGallery.imageID = -1;
     newGallery.productID = self.item.ID;
     
-    [_galleryTmp addObject:newGallery];
+    _isImageButtonsHidden = NO;
+    [_galleryLocal addObject:newGallery];
     
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * _galleryTmp.count,
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * _galleryLocal.count,
                                              self.scrollView.frame.size.height);
-    [self addImageToScrollView:image withIndex:_galleryTmp.count - 1];
+    [self scrollViewAddImage:newGallery.image withIndex:_galleryLocal.count - 1];
 
     // Code here to work with media
     [self dismissViewControllerAnimated: YES
@@ -270,10 +280,10 @@ NSMutableArray *_galleryTmp;
 
 #pragma mark - Image buttons
 
-- (void)deleteImageGallery {
+- (void)galleryDeleteImage {
     
     int page = self.scrollView.contentOffset.x/self.scrollView.frame.size.width;
-    [_galleryTmp removeObjectAtIndex:page];
+    [_galleryLocal removeObjectAtIndex:page];
     
     for(UIView *subview in [self.scrollView subviews]) {
         
@@ -283,21 +293,21 @@ NSMutableArray *_galleryTmp;
 }
 
 
-- (void)createImageGallery {
+- (void)galleryCreateImage {
     
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * _galleryTmp.count,
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * _galleryLocal.count,
                                              self.scrollView.frame.size.height);
     
-    for(int i = 0; i<_galleryTmp.count; i++) {
+    for(int i = 0; i<_galleryLocal.count; i++) {
         
-        POSGallery *gallery = (POSGallery *)[_galleryTmp objectAtIndex:i];
-        [self addImageToScrollView:gallery.image withIndex:i];
+        POSGallery *gallery = (POSGallery *)[_galleryLocal objectAtIndex:i];
+        [self scrollViewAddImage:gallery.image withIndex:i];
     }
 }
 
-- (void)addImageToScrollView:(UIImage *)image withIndex:(int)index {
+
+- (void)scrollViewAddImage:(UIImage *)image withIndex:(int)index {
     
-    _isImageButtonsHidden = NO;
     UIImageView* localImageView = [[UIImageView alloc] initWithImage:image];
     localImageView.frame = CGRectMake(index*self.scrollView.frame.size.width,
                                       0,
@@ -309,12 +319,23 @@ NSMutableArray *_galleryTmp;
     localImageView.clipsToBounds = YES;
     localImageView.userInteractionEnabled = YES;
     localImageView.tag = index + 100;
-    [self createAddBttonToImage:localImageView];
-    [self createDeleteBttonToImage:localImageView];
+    [self imageAddCreateButton:localImageView];
+    [self imageAddDeleteButton:localImageView];
     [self.scrollView addSubview:localImageView];
 }
 
-- (void)createAddBttonToImage:(UIImageView *)imageView {
+
+- (void)scrollViewDeleteButton {
+    
+    for (UIView *subview in self.scrollView.subviews) {
+        
+        if (subview.tag == SCROLLVIEW_BUTTON_TAG)
+            [subview removeFromSuperview];
+    }
+}
+
+
+- (void)imageAddCreateButton:(UIImageView *)imageView {
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *image = [UIImage imageNamed:helperInstance.SETTING_ADDATTRIBUTE_ICON];
@@ -328,7 +349,7 @@ NSMutableArray *_galleryTmp;
 }
 
 
-- (void)createDeleteBttonToImage:(UIImageView *)imageView {
+- (void)imageAddDeleteButton:(UIImageView *)imageView {
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *image = [UIImage imageNamed:helperInstance.SETTING_DELETEATTRIBUTE_ICON];
@@ -342,15 +363,13 @@ NSMutableArray *_galleryTmp;
 }
 
 
-bool _isImageButtonsHidden = YES;
-
-- (void)onShowImageButtons:(id)sender {
+- (void)imageShowButtons:(id)sender {
     
-    _isImageButtonsHidden = _galleryTmp.count == 0? YES:NO;
+    _isImageButtonsHidden = _galleryLocal.count == 0? YES:NO;
     
-    if (_galleryTmp.count > 0) {
+    if (_galleryLocal.count > 0) {
         
-        for (int i =0; i<_galleryTmp.count; i++) {
+        for (int i =0; i<_galleryLocal.count; i++) {
 
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tag = %d", i + 100];
             NSObject *object = [helperInstance getObjectImmutableArray:self.scrollView.subviews withPredicate:predicate];
@@ -364,17 +383,17 @@ bool _isImageButtonsHidden = YES;
     }
     else {
         
-        bool isAlreadtAddedButton = NO;
+        bool isAlreadyAddedButton = NO;
         for (UIView *subview in self.scrollView.subviews) {
             
-            if (subview.tag == 99) {
+            if (subview.tag == SCROLLVIEW_BUTTON_TAG) {
                 
-                isAlreadtAddedButton = YES;
+                isAlreadyAddedButton = YES;
                 break;
             }
         }
         
-        if (!isAlreadtAddedButton) {
+        if (!isAlreadyAddedButton) {
             
             self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * 1,
                                                      self.scrollView.frame.size.height);
@@ -387,19 +406,9 @@ bool _isImageButtonsHidden = YES;
                        action: @selector(onAddImage:)
              forControlEvents: UIControlEventTouchUpInside];
             button.hidden = NO;
-            button.tag = 99;
+            button.tag = SCROLLVIEW_BUTTON_TAG;
             [self.scrollView addSubview:button];
         }
-    }
-}
-
-
-- (void)deleteScrollAddImageButton {
-    
-    for (UIView *subview in self.scrollView.subviews) {
-        
-        if (subview.tag == 99)
-            [subview removeFromSuperview];
     }
 }
 
@@ -435,6 +444,7 @@ bool _isImageButtonsHidden = YES;
 
 - (IBAction)onSave:(id)sender {
     
+    // validate
     if(![dbWrapperInstance openDB])
         return;
     
@@ -444,7 +454,6 @@ bool _isImageButtonsHidden = YES;
     int count = [dbWrapperInstance execQueryResultInt: query andIndex: 0];
     [dbWrapperInstance closeDB];
     
-    // validate
     if(count != 0 && ![self.textName.text isEqualToString:self.oldName]) {
     
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Announcement"
@@ -454,6 +463,12 @@ bool _isImageButtonsHidden = YES;
                                               otherButtonTitles: nil];
         [alert show];
         return;
+    }
+    
+    if (_newCategory != nil && _newCategory.ID != self.category.ID) {
+        
+        self.category = _newCategory;
+        self.item.category = self.category.name;
     }
     
     [objectsHelperInstance.dataSet itemUpdate:self.item
@@ -478,7 +493,7 @@ bool _isImageButtonsHidden = YES;
                 
                 POSGallery *gallery = [self.item.gallery objectAtIndex:i];
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID = %d", gallery.ID];
-                NSArray *filteredArray = [_galleryTmp filteredArrayUsingPredicate:predicate];
+                NSArray *filteredArray = [_galleryLocal filteredArrayUsingPredicate:predicate];
                 
                 if (filteredArray.count == 0)
                     [galleryForDelete addObject:gallery];
@@ -498,10 +513,10 @@ bool _isImageButtonsHidden = YES;
         }
     }
     // added
-    if (_galleryTmp.count > 0) {
+    if (_galleryLocal.count > 0) {
         
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID = %d", -1];
-        NSArray *addedImages = [_galleryTmp filteredArrayUsingPredicate:predicate];
+        NSArray *addedImages = [_galleryLocal filteredArrayUsingPredicate:predicate];
         
         if (addedImages.count > 0) {
             
@@ -536,17 +551,6 @@ bool _isImageButtonsHidden = YES;
 - (IBAction)onCancel:(id)sender {
     
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    POSSetCatViewController *controller = (POSSetCatViewController *)[segue destinationViewController];
-    controller.item = self.item;
-    controller.category = self.category;
-    
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
 
 
@@ -584,73 +588,6 @@ bool _isImageButtonsHidden = YES;
 }
 
 
-#pragma mark - Table view data source
-/*
- - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
- {
- #warning Potentially incomplete method implementation.
- // Return the number of sections.
- return 1;
- }
- 
- 
- - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
- {
- #warning Incomplete method implementation.
- // Return the number of rows in the section.
- return 1;
- }
- 
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
- {
- static NSString *CellIdentifier = @"Cell";
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
- 
- // Configure the cell...
- 
- return cell;
- }
- */
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
 #pragma mark - Methods
 
 - (void)initControlsLayers {
@@ -660,6 +597,15 @@ bool _isImageButtonsHidden = YES;
     [helperInstance setButtonBackgroundColorBySetting:self.buttonSave];
     [helperInstance setButtonFontColorBySetting:self.buttonSave];
 }
-
+        
+        
+- (void)loadCategory:(POSCategory *)category {
+    
+    [self.buttonCategory setTitle:category.name forState:UIControlStateNormal];
+    // save new category
+    if (self.category.ID != category.ID)
+        _newCategory = category;
+}
+        
 
 @end
