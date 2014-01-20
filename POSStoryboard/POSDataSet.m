@@ -622,7 +622,7 @@
     
     NSString* query = [NSString stringWithFormat: @"SELECT  p.id, p.name, p.price_buy, p.price_sale, p.comment, i.asset, c.id, c.name \
                                                     FROM    product p, image i, collection c \
-                                                    WHERE   i.object_id = p.id AND i.object_name = \"product\" AND i.is_default = 1 and c.id = p.collection_id"];
+                                                    WHERE   i.object_id = p.id AND i.object_name = \"product\" AND i.is_default = 1 and c.id = p.collection_id; "];
     
     void(^blockGetItems)(id rows) = ^(id rows) {
         
@@ -636,9 +636,9 @@
         object.price_buy = [[NSString alloc] initWithFormat:@"%f", [dbWrapperInstance getCellFloat:2]];
         object.price_sale = [[NSString alloc] initWithFormat:@"%f", [dbWrapperInstance getCellFloat:3]];
         object.description = [dbWrapperInstance getCellText:4];
-        object.category =  [dbWrapperInstance getCellText:7];
         object.asset = [dbWrapperInstance getCellText:5];
-        object.catID = object.ID = [dbWrapperInstance getCellInt:6];
+        object.catID = [dbWrapperInstance getCellInt:6];
+        object.category =  [dbWrapperInstance getCellText:7];
         
         [((NSMutableArray* )rows) addObject:object];
     };
@@ -816,7 +816,9 @@
                                      withObject_id: object_id
                                    withObject_name: object_name];
         newImage.ID = newID;
-        [self.images addObject:image];
+        newImage.assetUrl = nil;
+        
+        [self.images addObject:newImage];
     }
     
     return newImage;

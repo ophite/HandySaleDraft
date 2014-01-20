@@ -65,6 +65,7 @@ NSMutableArray *_galleryTmp;
     self.textPrice_sale.text = self.item.price_sale;
     self.textViewDescription.text = self.item.description;
     _galleryTmp = [NSMutableArray arrayWithArray:self.item.gallery];
+    _isImageButtonsHidden = YES;
     
     // gui
     [self initControlsLayers];
@@ -185,7 +186,7 @@ NSMutableArray *_galleryTmp;
                     if(subview.tag >= 100) {
                         
                         UIButton *buttonAdd = (UIButton *)[subview.subviews objectAtIndex:0];
-                        _isButtonsShowing = buttonAdd.hidden;
+                        _isImageButtonsHidden = buttonAdd.hidden;
                         break;
                     }
                 }
@@ -240,21 +241,13 @@ NSMutableArray *_galleryTmp;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-//    [self.item.gallery addObject:image];
-    
-//    POSImage *newImage = [[POSImage alloc] initWithImage: self.item.image
-//                                               withAsset: nil
-//                                                withPath: random_name
-//                                           withObject_id: self.item.ID
-//                                         withObject_name: @"product"];
-//    [_addedImages addObject:newImage];
     
     POSGallery *newGallery = [[POSGallery alloc] init];
-    newGallery.productID = self.item.ID;
     newGallery.image = image;
-    newGallery.ID = -1;
     newGallery.asset = nil;
+    newGallery.ID = -1;
     newGallery.imageID = -1;
+    newGallery.productID = self.item.ID;
     
     [_galleryTmp addObject:newGallery];
     
@@ -304,6 +297,7 @@ NSMutableArray *_galleryTmp;
 
 - (void)addImageToScrollView:(UIImage *)image withIndex:(int)index {
     
+    _isImageButtonsHidden = NO;
     UIImageView* localImageView = [[UIImageView alloc] initWithImage:image];
     localImageView.frame = CGRectMake(index*self.scrollView.frame.size.width,
                                       0,
@@ -329,7 +323,7 @@ NSMutableArray *_galleryTmp;
                action: @selector(onAddImage:)
      forControlEvents: UIControlEventTouchUpInside];
     button.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
-    button.hidden = _isButtonsShowing;
+    button.hidden = _isImageButtonsHidden;
     [imageView addSubview:button];
 }
 
@@ -343,15 +337,16 @@ NSMutableArray *_galleryTmp;
     [button addTarget: self
                action: @selector(onDeleteImage:)
      forControlEvents: UIControlEventTouchUpInside];
-    button.hidden = _isButtonsShowing;
+    button.hidden = _isImageButtonsHidden;
     [imageView addSubview:button];
 }
 
-bool _isButtonsShowing = YES;
+
+bool _isImageButtonsHidden = YES;
 
 - (void)onShowImageButtons:(id)sender {
     
-    _isButtonsShowing = _galleryTmp.count == 0? YES:NO;
+    _isImageButtonsHidden = _galleryTmp.count == 0? YES:NO;
     
     if (_galleryTmp.count > 0) {
         
@@ -362,9 +357,9 @@ bool _isButtonsShowing = YES;
             UIImageView *imageView = (UIImageView *)object;
             
             UIButton *buttonAdd = (UIButton *)[imageView.subviews objectAtIndex:0];
-            buttonAdd.hidden = (!buttonAdd.hidden || _isButtonsShowing);
+            buttonAdd.hidden = (!buttonAdd.hidden || _isImageButtonsHidden);
             UIButton *buttonDelete = (UIButton *)[imageView.subviews objectAtIndex:1];
-            buttonDelete.hidden = (!buttonDelete.hidden || _isButtonsShowing);
+            buttonDelete.hidden = (!buttonDelete.hidden || _isImageButtonsHidden);
         }
     }
     else {
@@ -518,7 +513,7 @@ bool _isButtonsShowing = YES;
                                                                         withPath: random_name
                                                                     withObjectID: self.item.ID
                                                                   withObjectName: @"product"
-                                                                   withIsDefault: 1];
+                                                                   withIsDefault: 0];
                 
                 POSGallery *createdGallery =[objectsHelperInstance.dataSet galeriesCreate: newGallery.image
                                                                               withImageID: newImage.ID

@@ -20,8 +20,8 @@
 //    query = @"DROP TABLE IF EXISTS attribute";
 //    [dbWrapperInstance tryExecQuery:query];
 //
-    query = @"DROP TABLE IF EXISTS image";
-    [dbWrapperInstance tryExecQuery:query];
+//    query = @"DROP TABLE IF EXISTS image";
+//    [dbWrapperInstance tryExecQuery:query];
 //
 //    query = @"DROP TABLE IF EXISTS collection";
 //    [dbWrapperInstance tryExecQuery:query];
@@ -41,8 +41,8 @@
 //    query = @"DROP TABLE IF EXISTS setting";
 //    [dbWrapperInstance tryExecQuery:query];
 //    
-    query = @"DROP TABLE IF EXISTS gallery";
-    [dbWrapperInstance tryExecQuery:query];
+//    query = @"DROP TABLE IF EXISTS gallery";
+//    [dbWrapperInstance tryExecQuery:query];
     
     query =
     @"CREATE TABLE IF NOT EXISTS attribute ( \

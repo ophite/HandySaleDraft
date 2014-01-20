@@ -152,6 +152,7 @@
         POSEditGoodViewController *controller = [helperInstance getUIViewController: @"POSEditGoodViewController"];
         controller.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
         controller.title = controller.item.name;
+        controller.category = self.cat;
         objectsHelperInstance.currentItemsIndex = index;
         [self.navigationController pushViewController: controller
                                              animated: YES];
