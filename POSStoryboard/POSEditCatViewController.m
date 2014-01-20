@@ -35,8 +35,12 @@
 
 
 // vars
-NSString *labelCategoryEmpty = @"Select from list";
-
+NSString *CATEGORY_EMPTY = @"Select from list";
+POSAttribute *_newAttribute1;
+POSAttribute *_newAttribute2;
+bool _isAttribute1Dirty = NO;
+bool _isAttribute2Dirty = NO;
+int _isImageDirty = 0;
 
 #pragma mark - ViewController
 
@@ -64,9 +68,12 @@ NSString *labelCategoryEmpty = @"Select from list";
     self.oldName = self.category.name;
     self.imageView.image = self.category.image;
     self.textName.text = self.category.name;
+    _isImageDirty = 0;
     
     // gui
     [self initControlsLayers];
+    [self attributeLoad:0];
+    [self attributeLoad:1];
     
     // scrolling
     self.scrollView.delegate = self;
@@ -103,34 +110,6 @@ NSString *labelCategoryEmpty = @"Select from list";
 }
 
 
-- (void)viewWillAppear:(BOOL)animated {
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(categoryID = %d) AND (index = %d)", self.category.ID, 0];
-    self.categoryAttribute1 = (POSCategoryAttribute *)[helperInstance getObject: objectsHelperInstance.dataSet.categoriesAttributes
-                                                                  withPredicate: predicate];
-    if (self.categoryAttribute1) {
-        
-        [self.labelCategory1 setText:self.categoryAttribute1.name];
-    }
-    else {
-        
-        [self.labelCategory1 setText:labelCategoryEmpty];
-    }
-
-    predicate = [NSPredicate predicateWithFormat:@"(categoryID = %d) AND (index = %d)", self.category.ID, 1];
-    self.categoryAttribute2 = (POSCategoryAttribute *)[helperInstance getObject: objectsHelperInstance.dataSet.categoriesAttributes
-                                                                  withPredicate: predicate];
-    if (self.categoryAttribute2) {
-        
-        [self.labelCategory2 setText:self.categoryAttribute2.name];
-    }
-    else {
-        
-        [self.labelCategory2 setText:labelCategoryEmpty];
-    }
-}
-
-
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
@@ -149,21 +128,6 @@ NSString *labelCategoryEmpty = @"Select from list";
     [textField resignFirstResponder];
     
     return YES;
-}
-
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    
-    // Code here to work with media
-    self.imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    
-    [self dismissViewControllerAnimated: YES
-                             completion: nil];
 }
 
 
@@ -186,6 +150,25 @@ NSString *labelCategoryEmpty = @"Select from list";
     }
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+}
+
+
+#pragma mark - ImagePicker
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    // Code here to work with media
+    _isImageDirty++;
+    self.imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    
+    _isImageDirty--;
+    [self dismissViewControllerAnimated: YES
+                             completion: nil];
 }
 
 
@@ -246,6 +229,104 @@ NSString *labelCategoryEmpty = @"Select from list";
 }
 
 
+#pragma mark - Attributes
+
+- (void)attributeUpdate:(POSAttribute *)attribute withIndex:(int)index {
+    
+    switch (index) {
+        case 0: {
+            
+            _isAttribute1Dirty = YES;
+            _newAttribute1 = attribute;
+            [self.labelCategory1 setText:(_newAttribute1 ?_newAttribute1.name :CATEGORY_EMPTY)];
+            break;
+        }
+        case 1 : {
+            
+            _isAttribute2Dirty = YES;
+            _newAttribute2 = attribute;
+            [self.labelCategory2 setText:(_newAttribute2 ?_newAttribute2.name :CATEGORY_EMPTY)];
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
+
+- (void)attributeLoad:(int)index {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(categoryID = %d) AND (index = %d)", self.category.ID, index];
+    
+    switch (index) {
+        case 0: {
+            _isAttribute1Dirty = NO;
+            self.categoryAttribute1 = (POSCategoryAttribute *)[helperInstance getObject: objectsHelperInstance.dataSet.categoriesAttributes
+                                                                          withPredicate: predicate];
+            [self.labelCategory1 setText:(self.categoryAttribute1 ? self.categoryAttribute1.name : CATEGORY_EMPTY)];
+            break;
+        }
+        case 1 : {
+            _isAttribute2Dirty = NO;
+            self.categoryAttribute2 = (POSCategoryAttribute *)[helperInstance getObject: objectsHelperInstance.dataSet.categoriesAttributes
+                                                                          withPredicate: predicate];
+            [self.labelCategory2 setText:(self.categoryAttribute2 ? self.categoryAttribute2.name : CATEGORY_EMPTY)];
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
+
+- (void)attributeSave {
+    
+    if (_isAttribute1Dirty) {
+        
+        if (_newAttribute1 == nil && self.categoryAttribute1 != nil) {
+
+            [objectsHelperInstance.dataSet categoriesAttributesRemove:self.categoryAttribute1];
+        }
+        else {
+            
+            if (_newAttribute1 != nil && _newAttribute1.ID != self.categoryAttribute1.attributeID) {
+           
+                if (self.categoryAttribute1 != nil)
+                    [objectsHelperInstance.dataSet categoriesAttributesUpdate: self.categoryAttribute1
+                                                                withAttribute: _newAttribute1];
+                else
+                    [objectsHelperInstance.dataSet categoriesAttributesCreate: self.category
+                                                              withAttributeID: _newAttribute1
+                                                                    withIndex: 0];
+            }
+        }
+    }
+
+    if (_isAttribute2Dirty) {
+        
+        if (_newAttribute2 == nil && self.categoryAttribute2 != nil) {
+            
+            [objectsHelperInstance.dataSet categoriesAttributesRemove:self.categoryAttribute2];
+        }
+        else {
+                
+            if (_newAttribute2 != nil && _newAttribute2.ID != self.categoryAttribute2.attributeID) {
+                
+                if (self.categoryAttribute2 != nil)
+                    [objectsHelperInstance.dataSet categoriesAttributesUpdate: self.categoryAttribute2
+                                                                withAttribute: _newAttribute2];
+                else
+                    [objectsHelperInstance.dataSet categoriesAttributesCreate: self.category
+                                                              withAttributeID: _newAttribute2
+                                                                    withIndex: 1];
+            }
+        }
+    }
+}
+
+
 #pragma mark -  Actions
 
 - (IBAction)onSave:(id)sender {
@@ -253,6 +334,7 @@ NSString *labelCategoryEmpty = @"Select from list";
     self.category.name = self.textName.text;
     self.category.image = self.imageView.image;
     
+    // validate
     if (![dbWrapperInstance openDB])
         return;
     
@@ -273,31 +355,39 @@ NSString *labelCategoryEmpty = @"Select from list";
         [alert show];
     }
     
+    // category (name)
     NSString* random_name = [[NSUUID UUID] UUIDString];
     
     query = [NSString stringWithFormat:@"UPDATE collection \
                                          SET    name = \"%@\" \
                                          WHERE  id = %d; ", self.category.name, self.category.ID];
     
-    query = [query stringByAppendingFormat:@"DELETE \
-                                             FROM   image \
-                                             WHERE  object_id = %d AND object_name = \"collection\"; ", self.category.ID];
-    
-    query = [query stringByAppendingFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) \
-                                             VALUES (\"%@\", \"%@\", %d, \"collection\", 1);", random_name, random_name, self.category.ID];
+    // image
+    if (_isImageDirty > 0) {
+        
+        query = [query stringByAppendingFormat:@"DELETE \
+                                                 FROM   image \
+                                                 WHERE  object_id = %d AND object_name = \"collection\" AND is_default = 1; ", self.category.ID];
+        
+        query = [query stringByAppendingFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) \
+                                                 VALUES (\"%@\", \"%@\", %d, \"collection\", 1);", random_name, random_name, self.category.ID];
 
-    [dbWrapperInstance tryExecQuery:query];
-    [dbWrapperInstance closeDB];
+        [dbWrapperInstance tryExecQuery:query];
+        [dbWrapperInstance closeDB];
+        
+        POSImage * image = [[POSImage alloc] initWithImage: self.category.image
+                                                 withAsset: nil
+                                                  withPath: random_name
+                                             withObject_id: self.category.ID
+                                           withObject_name: @"collection"];
+        [objectsHelperInstance.dataSet.images addObject:image];
+        
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [objectsHelperInstance.dataSet imagesSave:(objectsHelperInstance.dataSet.images.count - 1) withLibrary:library];
+    }
     
-    POSImage * image = [[POSImage alloc] initWithImage: self.category.image
-                                             withAsset: nil
-                                              withPath: random_name
-                                         withObject_id: self.category.ID
-                                       withObject_name: @"collection"];
-    [objectsHelperInstance.dataSet.images addObject:image];
-    
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [objectsHelperInstance.dataSet imagesSave:(objectsHelperInstance.dataSet.images.count - 1) withLibrary:library];
+    // attribute
+    [self attributeSave];
     
     [self.navigationController popViewControllerAnimated:YES];
 }

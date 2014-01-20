@@ -114,33 +114,41 @@
 
     NSInteger row = [self.picker selectedRowInComponent:0];
     
-    if (row < objectsHelperInstance.dataSet.attributes.count) {
-        
-        POSAttribute *newAttribute = (POSAttribute *)[objectsHelperInstance.dataSet.attributes objectAtIndex:row];
-        
-        if (self.oldAttribute) {
-            
-            if (self.oldAttribute.ID != newAttribute.ID) {
-                
-                [objectsHelperInstance.dataSet categoriesAttributesUpdate: self.categoryAttribute
-                                                            withAttribute: newAttribute];
-            }
-        }
-        else {
-            
-            [objectsHelperInstance.dataSet categoriesAttributesCreate: self.category
-                                                      withAttributeID: newAttribute
-                                                            withIndex: self.attributeIndex];
-        }
-    }
-    else {
-        
-        if (self.oldAttribute) {
-            
-            [objectsHelperInstance.dataSet categoriesAttributesRemove:self.categoryAttribute];
-        }
-    }
+    POSEditCatViewController *controller = (POSEditCatViewController *)[helperInstance getParentViewController:self.navigationController];
+    POSAttribute *newAttribute = nil;
     
+    if (row < objectsHelperInstance.dataSet.attributes.count)
+        newAttribute = (POSAttribute *)[objectsHelperInstance.dataSet.attributes objectAtIndex:row];
+
+    [controller attributeUpdate:newAttribute withIndex:self.attributeIndex];
+    
+//    if (row < objectsHelperInstance.dataSet.attributes.count) {
+//        
+//        POSAttribute *newAttribute = (POSAttribute *)[objectsHelperInstance.dataSet.attributes objectAtIndex:row];
+//        
+//        if (self.oldAttribute) {
+//            
+//            if (self.oldAttribute.ID != newAttribute.ID) {
+//                
+//                [objectsHelperInstance.dataSet categoriesAttributesUpdate: self.categoryAttribute
+//                                                            withAttribute: newAttribute];
+//            }
+//        }
+//        else {
+//            
+//            [objectsHelperInstance.dataSet categoriesAttributesCreate: self.category
+//                                                      withAttributeID: newAttribute
+//                                                            withIndex: self.attributeIndex];
+//        }
+//    }
+//    else {
+//        
+//        if (self.oldAttribute) {
+//            
+//            [objectsHelperInstance.dataSet categoriesAttributesRemove:self.categoryAttribute];
+//        }
+//    }
+//    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

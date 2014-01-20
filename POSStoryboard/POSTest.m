@@ -26,8 +26,8 @@
 //    query = @"DROP TABLE IF EXISTS collection";
 //    [dbWrapperInstance tryExecQuery:query];
 //
-//    query = @"DROP TABLE IF EXISTS collection_attribute";
-//    [dbWrapperInstance tryExecQuery:query];
+    query = @"DROP TABLE IF EXISTS collection_attribute";
+    [dbWrapperInstance tryExecQuery:query];
 //
 //    query = @"DROP TABLE IF EXISTS product";
 //    [dbWrapperInstance tryExecQuery:query];

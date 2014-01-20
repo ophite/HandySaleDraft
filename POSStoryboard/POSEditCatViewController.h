@@ -35,6 +35,10 @@
 @property (weak, nonatomic) IBOutlet UIView *viewForColorExample;
 
 
+- (void)attributeLoad:(int)index;
+- (void)attributeUpdate:(POSAttribute *)attribute withIndex:(int)index;
+
+
 - (IBAction)onSave:(id)sender;
 - (IBAction)onCancel:(id)sender;
 - (IBAction)onDelete:(id)sender;
