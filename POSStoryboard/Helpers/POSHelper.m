@@ -288,6 +288,12 @@
 
 #pragma mark - GUI
 
+- (UIViewController *)getParentViewController:(UINavigationController *)navigationController {
+    
+    return (UIViewController *)[navigationController.viewControllers objectAtIndex:navigationController.viewControllers.count - 2];
+}
+
+
 - (id)getUIViewController:(NSString *)storyboardName {
 
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName: @"Main"

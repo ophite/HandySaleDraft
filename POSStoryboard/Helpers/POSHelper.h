@@ -62,6 +62,9 @@
 - (NSObject *)getObjectImmutableArray:(NSArray *)objects withPredicate:(NSPredicate *)predicate;
 
 + (POSHelper *)getInstance;
+
+- (UIViewController *)getParentViewController:(UINavigationController *)navigationController;
+
 - (id)getUIViewController:(NSString *)storyboardName;
 - (void)setButtonShadow:(UIButton *)button withCornerRadius:(int)cornerRadius;
 

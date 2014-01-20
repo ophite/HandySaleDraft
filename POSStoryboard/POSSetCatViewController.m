@@ -89,8 +89,8 @@
     POSCategory *newCategory = [objectsHelperInstance.dataSet.categories objectAtIndex:row];
     
     if (newCategory != nil && self.category.ID != newCategory.ID) {
-        
-        POSEditGoodViewController *controller = (POSEditGoodViewController *)[self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count - 2];
+
+        POSEditGoodViewController *controller = (POSEditGoodViewController *)[helperInstance getParentViewController:self.navigationController];
         [controller loadCategory:newCategory];
     }
 

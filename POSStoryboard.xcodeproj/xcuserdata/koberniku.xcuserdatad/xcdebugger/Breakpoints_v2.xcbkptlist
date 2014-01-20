@@ -1556,11 +1556,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "POSStoryboard/Helpers/POSHelper.m"
-            timestampString = "411668966.688293"
+            timestampString = "411924693.323538"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
+            startingLineNumber = "318"
+            endingLineNumber = "318"
             landmarkName = "-loadTextFieldBorderColorSetting:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1572,11 +1572,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "POSStoryboard/Helpers/POSHelper.m"
-            timestampString = "411668966.688293"
+            timestampString = "411924693.323538"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "329"
-            endingLineNumber = "329"
+            startingLineNumber = "335"
+            endingLineNumber = "335"
             landmarkName = "-loadTextFieldFontColorSetting:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2734,22 +2734,6 @@
             startingLineNumber = "604"
             endingLineNumber = "604"
             landmarkName = "-loadCategory:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "POSStoryboard/POSSetCatViewController.m"
-            timestampString = "411921074.947735"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "-onSelect:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
