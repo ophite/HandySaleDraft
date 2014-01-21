@@ -1,13 +1,13 @@
 //
-//  POSEditAttributeViewController.m
+//  POSAttributeEditViewController.m
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/26/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-#import "POSEditAttributeViewController.h"
+#import "POSAttributeEditViewController.h"
 
-@interface POSEditAttributeViewController ()
+@interface POSAttributeEditViewController ()
 
 @end
 
@@ -21,7 +21,7 @@ const int SECTION_ATTRIBUTE_LABEL_HEIGHT = 30;
 const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
 
 
-@implementation POSEditAttributeViewController
+@implementation POSAttributeEditViewController
 
 
 @synthesize tableViewAttributeValue = _tableViewAttributeValue;

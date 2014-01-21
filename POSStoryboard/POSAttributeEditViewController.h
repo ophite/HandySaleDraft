@@ -1,5 +1,5 @@
 //
-//  POSEditAttributeViewController.h
+//  POSAttributeEditViewController.h
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/26/13.
@@ -16,7 +16,7 @@
 #import "UIView+POSFindFirstResponder.h"
 #import "POSHelper.h"
 
-@interface POSEditAttributeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, POSKBKeyboardHandlerDelegate> {
+@interface POSAttributeEditViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, POSKBKeyboardHandlerDelegate> {
     
     POSKBKeyboardHandler *keyboard;
 @private

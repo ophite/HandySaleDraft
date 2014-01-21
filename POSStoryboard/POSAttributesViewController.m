@@ -59,7 +59,7 @@
     
     if ([[segue identifier] isEqualToString: @"onAddNewAttribute"]) {
 
-        POSEditAttributeViewController *dest = (POSEditAttributeViewController *)[segue destinationViewController];
+        POSAttributeEditViewController *dest = (POSAttributeEditViewController *)[segue destinationViewController];
         dest.attribute = [objectsHelperInstance.dataSet attributesCreate: @"new attribute"
                                                            withIs_active: NO];
         
@@ -130,7 +130,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:__currentCell];
     POSAttribute *attribute = [objectsHelperInstance.dataSet.attributes objectAtIndex:indexPath.row];
 
-    POSEditAttributeViewController *controller = [helperInstance getUIViewController:@"POSEditAttributeViewController"];
+    POSAttributeEditViewController *controller = [helperInstance getUIViewController:@"POSAttributeEditViewController"];
     controller.attribute = attribute;
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"attribute_ID = %d", controller.attribute.ID];

@@ -9,7 +9,7 @@
 #import "POSDataSet.h"
 #import "POSObjectsHelper.h"
 #import "POSAttributeCell.h"
-#import "POSEditAttributeViewController.h"
+#import "POSAttributeEditViewController.h"
 #import "POSHelper.h"
 #import "POSAttribute.h"
 

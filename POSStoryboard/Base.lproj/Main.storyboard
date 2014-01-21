@@ -1060,7 +1060,7 @@
         <!--Categories View Controller - Categories-->
         <scene sceneID="TvI-xD-Shc">
             <objects>
-                <viewController storyboardIdentifier="POSCatGridViewController" id="jk4-EB-Nhq" customClass="POSCategoriesViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSCategoriesViewController" id="jk4-EB-Nhq" customClass="POSCategoriesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IgP-Ce-m7u">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1573,10 +1573,10 @@
             </objects>
             <point key="canvasLocation" x="2100" y="-1315"/>
         </scene>
-        <!--Edit Attribute View Controller - Attribute-->
+        <!--Attribute Edit View Controller - Attribute-->
         <scene sceneID="u1E-OP-cFK">
             <objects>
-                <viewController storyboardIdentifier="POSEditAttributeViewController" id="M6L-RJ-Lrq" customClass="POSEditAttributeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSAttributeEditViewController" id="M6L-RJ-Lrq" customClass="POSAttributeEditViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="W60-rH-rq9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
