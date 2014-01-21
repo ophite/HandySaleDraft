@@ -1,5 +1,5 @@
 //
-//  POSNewGoodViewController.h
+//  POSItemNewViewController.h
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/16/13.
@@ -11,7 +11,7 @@
 #import "POSObjectsHelper.h"
 
 
-@interface POSNewGoodViewController : UIViewController <UITextFieldDelegate>
+@interface POSItemNewViewController : UIViewController <UITextFieldDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITextField *textName;

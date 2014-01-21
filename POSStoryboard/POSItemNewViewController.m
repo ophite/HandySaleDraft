@@ -1,19 +1,19 @@
 //
-//  POSNewGoodViewController.m
+//  POSItemNewViewController.m
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/16/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-#import "POSNewGoodViewController.h"
+#import "POSItemNewViewController.h"
 
 
-@interface POSNewGoodViewController ()
+@interface POSItemNewViewController ()
 
 @end
 
 
-@implementation POSNewGoodViewController
+@implementation POSItemNewViewController
 
 
 @synthesize textName = _textName;

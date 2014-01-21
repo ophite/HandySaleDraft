@@ -85,7 +85,7 @@
 		80206FE8185B7250002FFC35 /* POSGoodsGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FE7185B7250002FFC35 /* POSGoodsGridViewController.m */; };
 		80206FEB185F4C25002FFC35 /* POSCategoryEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FEA185F4C25002FFC35 /* POSCategoryEditViewController.m */; };
 		80206FEE185F4E1A002FFC35 /* POSEditGoodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FED185F4E1A002FFC35 /* POSEditGoodViewController.m */; };
-		80206FF1185F7476002FFC35 /* POSNewGoodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FF0185F7476002FFC35 /* POSNewGoodViewController.m */; };
+		80206FF1185F7476002FFC35 /* POSItemNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FF0185F7476002FFC35 /* POSItemNewViewController.m */; };
 		80206FF4186064B1002FFC35 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FF3186064B1002FFC35 /* NSData+Base64.m */; };
 		803238DD1869D46C00BB9DAE /* setting_email_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 803238DC1869D46C00BB9DAE /* setting_email_icon.png */; };
 		803238DF1869D53900BB9DAE /* setting_addattribute_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 803238DE1869D53900BB9DAE /* setting_addattribute_icon.png */; };
@@ -253,8 +253,8 @@
 		80206FEA185F4C25002FFC35 /* POSCategoryEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSCategoryEditViewController.m; sourceTree = "<group>"; };
 		80206FEC185F4E1A002FFC35 /* POSEditGoodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSEditGoodViewController.h; sourceTree = "<group>"; };
 		80206FED185F4E1A002FFC35 /* POSEditGoodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSEditGoodViewController.m; sourceTree = "<group>"; };
-		80206FEF185F7476002FFC35 /* POSNewGoodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSNewGoodViewController.h; sourceTree = "<group>"; };
-		80206FF0185F7476002FFC35 /* POSNewGoodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSNewGoodViewController.m; sourceTree = "<group>"; };
+		80206FEF185F7476002FFC35 /* POSItemNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSItemNewViewController.h; sourceTree = "<group>"; };
+		80206FF0185F7476002FFC35 /* POSItemNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSItemNewViewController.m; sourceTree = "<group>"; };
 		80206FF2186064B1002FFC35 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "CustomClasses/NSData+Base64.h"; sourceTree = "<group>"; };
 		80206FF3186064B1002FFC35 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Base64.m"; path = "CustomClasses/NSData+Base64.m"; sourceTree = "<group>"; };
 		803238DC1869D46C00BB9DAE /* setting_email_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_email_icon.png; sourceTree = "<group>"; };
@@ -635,8 +635,8 @@
 				807C43DB185B5A0E00CBAB88 /* POSItemViewController.m */,
 				8054C3ED1852233E00299E2F /* POSLoginViewController.h */,
 				8054C3EE1852233E00299E2F /* POSLoginViewController.m */,
-				80206FEF185F7476002FFC35 /* POSNewGoodViewController.h */,
-				80206FF0185F7476002FFC35 /* POSNewGoodViewController.m */,
+				80206FEF185F7476002FFC35 /* POSItemNewViewController.h */,
+				80206FF0185F7476002FFC35 /* POSItemNewViewController.m */,
 				8054C3F01852235000299E2F /* POSRegisterViewController.h */,
 				8054C3F11852235000299E2F /* POSRegisterViewController.m */,
 				8032391118772F5900BB9DAE /* POSRemindPasswordViewController.h */,
@@ -968,7 +968,7 @@
 				8004B6FF1850D30900681B11 /* AQGridViewData.m in Sources */,
 				8004B7021850D30900681B11 /* NSIndexSet+AQIndexesOutsideSet.m in Sources */,
 				80FFAD341869A34C0070D993 /* POSAttributesViewController.m in Sources */,
-				80206FF1185F7476002FFC35 /* POSNewGoodViewController.m in Sources */,
+				80206FF1185F7476002FFC35 /* POSItemNewViewController.m in Sources */,
 				8004B6FC1850D30900681B11 /* AQGridViewAnimatorItem.m in Sources */,
 				8004B7151850D33600681B11 /* POSOrder.m in Sources */,
 				803238EA1869FD5A00BB9DAE /* POSAttribute.m in Sources */,

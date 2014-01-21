@@ -586,10 +586,10 @@
             </objects>
             <point key="canvasLocation" x="2510" y="140"/>
         </scene>
-        <!--New Good View Controller - New item-->
+        <!--Item New View Controller - New item-->
         <scene sceneID="hKc-Sg-wXb">
             <objects>
-                <viewController storyboardIdentifier="POSNewGoodViewController" id="vik-aQ-IBd" customClass="POSNewGoodViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSItemNewViewController" id="vik-aQ-IBd" customClass="POSItemNewViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ori-sY-9Lm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
