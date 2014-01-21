@@ -206,7 +206,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPN-iP-7Ht" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4006" y="-1546"/>
+            <point key="canvasLocation" x="4002" y="-1689"/>
         </scene>
         <!--Basket Open View Controller - Open basket-->
         <scene sceneID="7R4-iN-cKD">
@@ -253,7 +253,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iax-xI-MET" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4495" y="-1546"/>
+            <point key="canvasLocation" x="4491" y="-1689"/>
         </scene>
         <!--Goods Grid View Controller - Items list-->
         <scene sceneID="pxd-72-Ji5">
@@ -627,7 +627,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EkN-Xy-Vpn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2908" y="314"/>
+            <point key="canvasLocation" x="3028" y="140"/>
         </scene>
         <!--Item View Controller - View item-->
         <scene sceneID="fKk-uO-DAY">
@@ -1055,7 +1055,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AQP-cU-5gZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3983" y="140"/>
+            <point key="canvasLocation" x="4002" y="140"/>
         </scene>
         <!--Categories View Controller - Categories-->
         <scene sceneID="TvI-xD-Shc">

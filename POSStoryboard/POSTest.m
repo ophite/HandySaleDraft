@@ -241,7 +241,7 @@
         return;
 
     // COLLECTION (CATEGORY)
-    NSMutableString* query = [NSMutableString stringWithString:@"SELECT count(*) FROM collection"];
+    NSMutableString* query = [NSMutableString stringWithString:@"SELECT count(*) FROM collection; "];
     int count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
 
     if(count == 0) {
@@ -261,8 +261,8 @@
         [dbWrapperInstance tryExecQuery:query];
     }
     
-    // PRODUCT (GOOD,ITEM)
-    [query setString:@"SELECT count(*) FROM product"];
+    // PRODUCT (ITEM)
+    [query setString:@"SELECT count(*) FROM product; "];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
     if(count == 0) {
@@ -285,7 +285,7 @@
     }
 
     // IMAGE
-    [query setString:@"SELECT count(*) FROM image"];
+    [query setString:@"SELECT count(*) FROM image; "];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
 
     if(count == 0) {
@@ -382,9 +382,6 @@
                                                          withPath: helperInstance.SETTING_REMEMBERME_UNCHECKED_ICON
                                                     withObject_id: ++imageID
                                                   withObject_name: @"setting"]];
-        
-//        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-//        [dataSet imagesSave:0 withLibrary:library];
     }
     
     // GALLERY
@@ -412,7 +409,7 @@
     }
     
     // SETTING
-    [query setString:@"SELECT count(*) FROM setting"];
+    [query setString:@"SELECT count(*) FROM setting; "];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
     if(count == 0) {
@@ -463,7 +460,7 @@
     }
     
     // ATTRIBUTE
-    [query setString:@"SELECT count(*) FROM attribute"];
+    [query setString:@"SELECT count(*) FROM attribute; "];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
     if(count == 0) {
@@ -479,7 +476,7 @@
     }
     
     // ATTRIBUTE VALUE
-    [query setString:@"SELECT count(*) FROM attribute_value"];
+    [query setString:@"SELECT count(*) FROM attribute_value; "];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
     if(count == 0) {
@@ -496,7 +493,7 @@
     }
     
     // COLLECTION ATTRIBUTE (CATEGORY ATTRIBUTE)
-    [query setString:@"SELECT count(*) FROM collection_attribute"];
+    [query setString:@"SELECT count(*) FROM collection_attribute; "];
     count = [dbWrapperInstance execQueryResultInt:query andIndex:0];
     
     if(count == 0) {
