@@ -1,19 +1,19 @@
 //
-//  POSNewCatViewController.m
+//  POSCategoryNewViewController.m
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/13/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-#import "POSNewCatViewController.h"
+#import "POSCategoryNewViewController.h"
 
 
-@interface POSNewCatViewController ()
+@interface POSCategoryNewViewController ()
 
 @end
 
 
-@implementation POSNewCatViewController
+@implementation POSCategoryNewViewController
 
 
 @synthesize textName = _textName;

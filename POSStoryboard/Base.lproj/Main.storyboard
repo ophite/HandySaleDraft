@@ -318,10 +318,10 @@
             </objects>
             <point key="canvasLocation" x="2510" y="-585"/>
         </scene>
-        <!--New Cat View Controller - New category-->
+        <!--Category New View Controller - New category-->
         <scene sceneID="YaH-wc-1SJ">
             <objects>
-                <viewController storyboardIdentifier="POSNewCatViewController" id="X6u-iw-6OP" customClass="POSNewCatViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSCategoryNewViewController" id="X6u-iw-6OP" customClass="POSCategoryNewViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="acb-nr-isr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

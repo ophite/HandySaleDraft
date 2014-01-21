@@ -1,5 +1,5 @@
 //
-//  POSNewCatViewController.h
+//  POSCategoryNewViewController.h
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/13/13.
@@ -12,7 +12,7 @@
 #import "POSObjectsHelper.h"
 
 
-@interface POSNewCatViewController : UIViewController <UITextFieldDelegate>
+@interface POSCategoryNewViewController : UIViewController <UITextFieldDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITextField *textName;

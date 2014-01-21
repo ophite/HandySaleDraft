@@ -120,7 +120,7 @@
 		807C43A9185A21E900CBAB88 /* zbar-samples.png in Resources */ = {isa = PBXBuildFile; fileRef = 807C43A5185A21E900CBAB88 /* zbar-samples.png */; };
 		807C43C3185A23F100CBAB88 /* POSGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43C2185A23F100CBAB88 /* POSGridViewCell.m */; };
 		807C43C6185B198800CBAB88 /* POSBasketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43C5185B198800CBAB88 /* POSBasketViewController.m */; };
-		807C43CC185B1B5B00CBAB88 /* POSNewCatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43CB185B1B5B00CBAB88 /* POSNewCatViewController.m */; };
+		807C43CC185B1B5B00CBAB88 /* POSCategoryNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43CB185B1B5B00CBAB88 /* POSCategoryNewViewController.m */; };
 		807C43D9185B281400CBAB88 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 807C43D1185B267B00CBAB88 /* libiconv.dylib */; };
 		807C43DC185B5A0E00CBAB88 /* POSItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43DB185B5A0E00CBAB88 /* POSItemViewController.m */; };
 		80A06F9A187AC45700D9880A /* POSKBKeyboardHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A06F99187AC45700D9880A /* POSKBKeyboardHandler.m */; };
@@ -327,8 +327,8 @@
 		807C43C2185A23F100CBAB88 /* POSGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSGridViewCell.m; path = Controls/POSGridViewCell.m; sourceTree = "<group>"; };
 		807C43C4185B198800CBAB88 /* POSBasketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSBasketViewController.h; sourceTree = "<group>"; };
 		807C43C5185B198800CBAB88 /* POSBasketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSBasketViewController.m; sourceTree = "<group>"; };
-		807C43CA185B1B5B00CBAB88 /* POSNewCatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSNewCatViewController.h; sourceTree = "<group>"; };
-		807C43CB185B1B5B00CBAB88 /* POSNewCatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSNewCatViewController.m; sourceTree = "<group>"; };
+		807C43CA185B1B5B00CBAB88 /* POSCategoryNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSCategoryNewViewController.h; sourceTree = "<group>"; };
+		807C43CB185B1B5B00CBAB88 /* POSCategoryNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSCategoryNewViewController.m; sourceTree = "<group>"; };
 		807C43CD185B265F00CBAB88 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		807C43CF185B266800CBAB88 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		807C43D1185B267B00CBAB88 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
@@ -613,6 +613,8 @@
 		8054C3E9185221D500299E2F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				803238F7186C6C2200BB9DAE /* POSAttributeEditViewController.h */,
+				803238F8186C6C2200BB9DAE /* POSAttributeEditViewController.m */,
 				80FFAD321869A34C0070D993 /* POSAttributesViewController.h */,
 				80FFAD331869A34C0070D993 /* POSAttributesViewController.m */,
 				80BEBBC1186087FB003228B1 /* POSBasketOpenViewController.h */,
@@ -621,10 +623,10 @@
 				807C43C5185B198800CBAB88 /* POSBasketViewController.m */,
 				807C439C185A1B2F00CBAB88 /* POSCategoriesViewController.h */,
 				807C439D185A1B2F00CBAB88 /* POSCategoriesViewController.m */,
-				803238F7186C6C2200BB9DAE /* POSAttributeEditViewController.h */,
-				803238F8186C6C2200BB9DAE /* POSAttributeEditViewController.m */,
 				80206FE9185F4C25002FFC35 /* POSCategoryEditViewController.h */,
 				80206FEA185F4C25002FFC35 /* POSCategoryEditViewController.m */,
+				807C43CA185B1B5B00CBAB88 /* POSCategoryNewViewController.h */,
+				807C43CB185B1B5B00CBAB88 /* POSCategoryNewViewController.m */,
 				80206FEC185F4E1A002FFC35 /* POSEditGoodViewController.h */,
 				80206FED185F4E1A002FFC35 /* POSEditGoodViewController.m */,
 				80206FE6185B7250002FFC35 /* POSGoodsGridViewController.h */,
@@ -633,8 +635,6 @@
 				807C43DB185B5A0E00CBAB88 /* POSItemViewController.m */,
 				8054C3ED1852233E00299E2F /* POSLoginViewController.h */,
 				8054C3EE1852233E00299E2F /* POSLoginViewController.m */,
-				807C43CA185B1B5B00CBAB88 /* POSNewCatViewController.h */,
-				807C43CB185B1B5B00CBAB88 /* POSNewCatViewController.m */,
 				80206FEF185F7476002FFC35 /* POSNewGoodViewController.h */,
 				80206FF0185F7476002FFC35 /* POSNewGoodViewController.m */,
 				8054C3F01852235000299E2F /* POSRegisterViewController.h */,
@@ -938,7 +938,7 @@
 				80BEBBC3186087FB003228B1 /* POSBasketOpenViewController.m in Sources */,
 				8032390C1872BF7600BB9DAE /* POSSettingsPickerViewController.m in Sources */,
 				8004B4671850B01500681B11 /* POSAppDelegate.m in Sources */,
-				807C43CC185B1B5B00CBAB88 /* POSNewCatViewController.m in Sources */,
+				807C43CC185B1B5B00CBAB88 /* POSCategoryNewViewController.m in Sources */,
 				80206FEB185F4C25002FFC35 /* POSCategoryEditViewController.m in Sources */,
 				807C43C6185B198800CBAB88 /* POSBasketViewController.m in Sources */,
 				8004B6FB1850D30900681B11 /* AQGridView.m in Sources */,
