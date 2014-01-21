@@ -1598,7 +1598,7 @@
                                 <color key="separatorColor" red="0.90196084976196289" green="0.90196084976196289" blue="0.90196084976196289" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="sectionIndexTrackingBackgroundColor" red="0.97647064924240112" green="0.97647064924240112" blue="0.97647064924240112" alpha="1" colorSpace="deviceRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditAttributeStaticCell" rowHeight="76" id="ylx-KW-4nd" customClass="POSEditAttributeStaticCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditAttributeStaticCell" rowHeight="76" id="ylx-KW-4nd" customClass="POSAttributeEditStaticCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="76"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ylx-KW-4nd" id="CQx-zs-0r2">
@@ -1654,7 +1654,7 @@
                                         <color key="backgroundColor" red="0.97647064920000004" green="0.97647064920000004" blue="0.97647064920000004" alpha="1" colorSpace="deviceRGB"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditAttributeDynamicCell" rowHeight="68" id="PbL-mP-In0" customClass="POSEditAttributeDynamicCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditAttributeDynamicCell" rowHeight="68" id="PbL-mP-In0" customClass="POSAttributeEditDynamicCell">
                                         <rect key="frame" x="0.0" y="128" width="320" height="68"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PbL-mP-In0" id="8zn-IP-J1R">
@@ -1744,8 +1744,8 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="BeC-x6-6J5"/>
-        <segue reference="Uwv-co-TKF"/>
         <segue reference="4Gh-bX-aFU"/>
+        <segue reference="Jqe-ZV-lAM"/>
         <segue reference="iAD-Nf-PUJ"/>
     </inferredMetricsTieBreakers>
 </document>

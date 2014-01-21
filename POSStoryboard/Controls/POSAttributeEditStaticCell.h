@@ -1,5 +1,5 @@
 //
-//  POSEditAttribiuteStaticCell.h
+//  POSAttributeEditStaticCell.h
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/26/13.
@@ -9,7 +9,7 @@
 #import "POSAttribute.h"
 #import "POSHelper.h"
 
-@interface POSEditAttributeStaticCell : UITableViewCell <UITextFieldDelegate>
+@interface POSAttributeEditStaticCell : UITableViewCell <UITextFieldDelegate>
 
 
 @property POSAttribute *attribute;

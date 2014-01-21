@@ -853,7 +853,7 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "POSStoryboard/Controls/POSEditAttributeStaticCell.m"
+            filePath = "POSStoryboard/Controls/POSAttributeEditStaticCell.m"
             timestampString = "411051197.586064"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"

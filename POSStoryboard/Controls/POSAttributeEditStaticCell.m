@@ -5,10 +5,10 @@
 //  Created by kobernik.u on 12/26/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-#import "POSEditAttributeStaticCell.h"
+#import "POSAttributeEditStaticCell.h"
 
 
-@implementation POSEditAttributeStaticCell
+@implementation POSAttributeEditStaticCell
 
 
 @synthesize textAttributeName = _textAttributeName;

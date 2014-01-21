@@ -93,9 +93,9 @@
 		803238E51869F79300BB9DAE /* POSAttributeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 803238E41869F79300BB9DAE /* POSAttributeCell.m */; };
 		803238E71869FB0100BB9DAE /* delete_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 803238E61869FB0100BB9DAE /* delete_icon.png */; };
 		803238EA1869FD5A00BB9DAE /* POSAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 803238E91869FD5A00BB9DAE /* POSAttribute.m */; };
-		803238F6186C6A0E00BB9DAE /* POSEditAttributeStaticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 803238F5186C6A0E00BB9DAE /* POSEditAttributeStaticCell.m */; };
+		803238F6186C6A0E00BB9DAE /* POSAttributeEditStaticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 803238F5186C6A0E00BB9DAE /* POSAttributeEditStaticCell.m */; };
 		803238F9186C6C2200BB9DAE /* POSAttributeEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 803238F8186C6C2200BB9DAE /* POSAttributeEditViewController.m */; };
-		803238FC186C767B00BB9DAE /* POSEditAttributeDynamicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 803238FB186C767B00BB9DAE /* POSEditAttributeDynamicCell.m */; };
+		803238FC186C767B00BB9DAE /* POSAttributeEditDynamicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 803238FB186C767B00BB9DAE /* POSAttributeEditDynamicCell.m */; };
 		803238FF186C7B5F00BB9DAE /* POSAttributeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 803238FE186C7B5F00BB9DAE /* POSAttributeValue.m */; };
 		803239011871BE4B00BB9DAE /* delete_white_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 803239001871BE4B00BB9DAE /* delete_white_icon.png */; };
 		803239031871E30A00BB9DAE /* setting_wifi_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 803239021871E30A00BB9DAE /* setting_wifi_icon.png */; };
@@ -266,12 +266,12 @@
 		803238E61869FB0100BB9DAE /* delete_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_icon.png; sourceTree = "<group>"; };
 		803238E81869FD5A00BB9DAE /* POSAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSAttribute.h; sourceTree = "<group>"; };
 		803238E91869FD5A00BB9DAE /* POSAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSAttribute.m; sourceTree = "<group>"; };
-		803238F4186C6A0E00BB9DAE /* POSEditAttributeStaticCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSEditAttributeStaticCell.h; path = Controls/POSEditAttributeStaticCell.h; sourceTree = "<group>"; };
-		803238F5186C6A0E00BB9DAE /* POSEditAttributeStaticCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSEditAttributeStaticCell.m; path = Controls/POSEditAttributeStaticCell.m; sourceTree = "<group>"; };
+		803238F4186C6A0E00BB9DAE /* POSAttributeEditStaticCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSAttributeEditStaticCell.h; path = Controls/POSAttributeEditStaticCell.h; sourceTree = "<group>"; };
+		803238F5186C6A0E00BB9DAE /* POSAttributeEditStaticCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSAttributeEditStaticCell.m; path = Controls/POSAttributeEditStaticCell.m; sourceTree = "<group>"; };
 		803238F7186C6C2200BB9DAE /* POSAttributeEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSAttributeEditViewController.h; sourceTree = "<group>"; };
 		803238F8186C6C2200BB9DAE /* POSAttributeEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSAttributeEditViewController.m; sourceTree = "<group>"; };
-		803238FA186C767B00BB9DAE /* POSEditAttributeDynamicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSEditAttributeDynamicCell.h; path = Controls/POSEditAttributeDynamicCell.h; sourceTree = "<group>"; };
-		803238FB186C767B00BB9DAE /* POSEditAttributeDynamicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSEditAttributeDynamicCell.m; path = Controls/POSEditAttributeDynamicCell.m; sourceTree = "<group>"; };
+		803238FA186C767B00BB9DAE /* POSAttributeEditDynamicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSAttributeEditDynamicCell.h; path = Controls/POSAttributeEditDynamicCell.h; sourceTree = "<group>"; };
+		803238FB186C767B00BB9DAE /* POSAttributeEditDynamicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSAttributeEditDynamicCell.m; path = Controls/POSAttributeEditDynamicCell.m; sourceTree = "<group>"; };
 		803238FD186C7B5F00BB9DAE /* POSAttributeValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSAttributeValue.h; sourceTree = "<group>"; };
 		803238FE186C7B5F00BB9DAE /* POSAttributeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSAttributeValue.m; sourceTree = "<group>"; };
 		803239001871BE4B00BB9DAE /* delete_white_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_white_icon.png; sourceTree = "<group>"; };
@@ -473,16 +473,16 @@
 		8004B6A01850C85200681B11 /* CustomClasses */ = {
 			isa = PBXGroup;
 			children = (
-				8004B6A31850C86300681B11 /* POSTest.h */,
-				8004B6A41850C86300681B11 /* POSTest.m */,
-				8004B6A51850C86300681B11 /* FXLabel.h */,
-				8004B6A61850C86300681B11 /* FXLabel.m */,
 				8004B6A71850C86300681B11 /* CustomPhotoAlbum.h */,
 				8004B6A81850C86300681B11 /* CustomPhotoAlbum.m */,
-				8004B6A91850C86300681B11 /* POSDataSet.h */,
-				8004B6AA1850C86300681B11 /* POSDataSet.m */,
+				8004B6A51850C86300681B11 /* FXLabel.h */,
+				8004B6A61850C86300681B11 /* FXLabel.m */,
 				80206FF2186064B1002FFC35 /* NSData+Base64.h */,
 				80206FF3186064B1002FFC35 /* NSData+Base64.m */,
+				8004B6A91850C86300681B11 /* POSDataSet.h */,
+				8004B6AA1850C86300681B11 /* POSDataSet.m */,
+				8004B6A31850C86300681B11 /* POSTest.h */,
+				8004B6A41850C86300681B11 /* POSTest.m */,
 			);
 			name = CustomClasses;
 			sourceTree = "<group>";
@@ -656,26 +656,26 @@
 		8054C3EA185221E400299E2F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8004B75E1850DACC00681B11 /* POSBasket.h */,
-				8004B75F1850DACC00681B11 /* POSBasket.m */,
-				8004B70B1850D33600681B11 /* POSCategory.h */,
-				8004B70C1850D33600681B11 /* POSCategory.m */,
-				8004B70D1850D33600681B11 /* POSItem.h */,
-				8004B70E1850D33600681B11 /* POSItem.m */,
-				8004B70F1850D33600681B11 /* POSOrder.h */,
-				8004B7101850D33600681B11 /* POSOrder.m */,
-				8004B7111850D33600681B11 /* POSImage.h */,
-				8004B7121850D33600681B11 /* POSImage.m */,
-				803238E01869D64100BB9DAE /* POSSetting.h */,
-				803238E11869D64100BB9DAE /* POSSetting.m */,
 				803238E81869FD5A00BB9DAE /* POSAttribute.h */,
 				803238E91869FD5A00BB9DAE /* POSAttribute.m */,
 				803238FD186C7B5F00BB9DAE /* POSAttributeValue.h */,
 				803238FE186C7B5F00BB9DAE /* POSAttributeValue.m */,
+				8004B75E1850DACC00681B11 /* POSBasket.h */,
+				8004B75F1850DACC00681B11 /* POSBasket.m */,
+				8004B70B1850D33600681B11 /* POSCategory.h */,
+				8004B70C1850D33600681B11 /* POSCategory.m */,
 				80DF202F18806335004E932C /* POSCategoryAttribute.h */,
 				80DF203018806335004E932C /* POSCategoryAttribute.m */,
 				801CBBC118884635005CBA62 /* POSGallery.h */,
 				801CBBC218884635005CBA62 /* POSGallery.m */,
+				8004B7111850D33600681B11 /* POSImage.h */,
+				8004B7121850D33600681B11 /* POSImage.m */,
+				8004B70D1850D33600681B11 /* POSItem.h */,
+				8004B70E1850D33600681B11 /* POSItem.m */,
+				8004B70F1850D33600681B11 /* POSOrder.h */,
+				8004B7101850D33600681B11 /* POSOrder.m */,
+				803238E01869D64100BB9DAE /* POSSetting.h */,
+				803238E11869D64100BB9DAE /* POSSetting.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -687,13 +687,13 @@
 				807C438E1859F56F00CBAB88 /* POSDBHelper.m */,
 				807C438F1859F56F00CBAB88 /* POSDBWrapper.h */,
 				807C43901859F56F00CBAB88 /* POSDBWrapper.m */,
-				807C4396185A16EC00CBAB88 /* POSObjectsHelper.h */,
-				807C4397185A16EC00CBAB88 /* POSObjectsHelper.m */,
 				80FFAD2C18689A230070D993 /* POSHelper.h */,
 				80FFAD2D18689A230070D993 /* POSHelper.m */,
 				80A06F98187AC45700D9880A /* POSKBKeyboardHandler.h */,
 				80A06F99187AC45700D9880A /* POSKBKeyboardHandler.m */,
 				80A06F9B187AC4E900D9880A /* POSKBKeyboardHandlerDelegate.h */,
+				807C4396185A16EC00CBAB88 /* POSObjectsHelper.h */,
+				807C4397185A16EC00CBAB88 /* POSObjectsHelper.m */,
 				80A06F9C187AD2E300D9880A /* UIView+POSFindFirstResponder.h */,
 				80A06F9D187AD2E300D9880A /* UIView+POSFindFirstResponder.m */,
 			);
@@ -758,14 +758,14 @@
 		807C43C0185A239600CBAB88 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				803238F4186C6A0E00BB9DAE /* POSEditAttributeStaticCell.h */,
-				803238F5186C6A0E00BB9DAE /* POSEditAttributeStaticCell.m */,
-				807C43C1185A23F100CBAB88 /* POSGridViewCell.h */,
-				807C43C2185A23F100CBAB88 /* POSGridViewCell.m */,
 				803238E31869F79300BB9DAE /* POSAttributeCell.h */,
 				803238E41869F79300BB9DAE /* POSAttributeCell.m */,
-				803238FA186C767B00BB9DAE /* POSEditAttributeDynamicCell.h */,
-				803238FB186C767B00BB9DAE /* POSEditAttributeDynamicCell.m */,
+				803238FA186C767B00BB9DAE /* POSAttributeEditDynamicCell.h */,
+				803238FB186C767B00BB9DAE /* POSAttributeEditDynamicCell.m */,
+				803238F4186C6A0E00BB9DAE /* POSAttributeEditStaticCell.h */,
+				803238F5186C6A0E00BB9DAE /* POSAttributeEditStaticCell.m */,
+				807C43C1185A23F100CBAB88 /* POSGridViewCell.h */,
+				807C43C2185A23F100CBAB88 /* POSGridViewCell.m */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -958,7 +958,7 @@
 				8004B7041850D30900681B11 /* UIColor+AQGridView.m in Sources */,
 				8004B6AD1850C86300681B11 /* FXLabel.m in Sources */,
 				8004B4631850B01500681B11 /* main.m in Sources */,
-				803238FC186C767B00BB9DAE /* POSEditAttributeDynamicCell.m in Sources */,
+				803238FC186C767B00BB9DAE /* POSAttributeEditDynamicCell.m in Sources */,
 				803238E21869D64100BB9DAE /* POSSetting.m in Sources */,
 				807C4398185A16EC00CBAB88 /* POSObjectsHelper.m in Sources */,
 				80206FF4186064B1002FFC35 /* NSData+Base64.m in Sources */,
@@ -978,7 +978,7 @@
 				803238E51869F79300BB9DAE /* POSAttributeCell.m in Sources */,
 				8004B6FD1850D30900681B11 /* AQGridViewCell.m in Sources */,
 				80FFAD2E18689A230070D993 /* POSHelper.m in Sources */,
-				803238F6186C6A0E00BB9DAE /* POSEditAttributeStaticCell.m in Sources */,
+				803238F6186C6A0E00BB9DAE /* POSAttributeEditStaticCell.m in Sources */,
 				8004B6AF1850C86300681B11 /* POSDataSet.m in Sources */,
 				80A06F9E187AD2E300D9880A /* UIView+POSFindFirstResponder.m in Sources */,
 				80BEBBC61861D9E4003228B1 /* POSSelectCategoryViewController.m in Sources */,

@@ -82,7 +82,7 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
         
         // attribute name
         UITableViewCell *cell = [self.tableViewAttributeValue cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:SECTION_ATTRIBUTE_NAME]];
-        POSEditAttributeStaticCell *staticCell = (POSEditAttributeStaticCell *)cell;
+        POSAttributeEditStaticCell *staticCell = (POSAttributeEditStaticCell *)cell;
         
         if (![self.attribute.name isEqualToString:staticCell.textAttributeName.text]) {
             
@@ -100,7 +100,7 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
                 
                 POSAttributeValue *attrValue = (POSAttributeValue *)[self.attributeValues objectAtIndex:i];
                 cell = [self.tableViewAttributeValue cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:SECTION_ATTRIBUTE_VALUE]];
-                UITextField *textAttrValue = (UITextField *)[cell.contentView viewWithTag:[POSEditAttributeDynamicCell TextAttributeTAG]];
+                UITextField *textAttrValue = (UITextField *)[cell.contentView viewWithTag:[POSAttributeEditDynamicCell TextAttributeTAG]];
 
                 if (![attrValue.name isEqualToString:textAttrValue.text]) {
 
@@ -184,7 +184,7 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
         // name attribute
         static NSString *CellStaticIdentifier = @"EditAttributeStaticCell";
         cell = [tableView dequeueReusableCellWithIdentifier: CellStaticIdentifier forIndexPath: indexPath];
-        POSEditAttributeStaticCell *staticCell = (POSEditAttributeStaticCell *)cell;
+        POSAttributeEditStaticCell *staticCell = (POSAttributeEditStaticCell *)cell;
         staticCell.attribute = self.attribute;
         
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, cell.bounds.size.height - 1, cell.bounds.size.width, 1)];
@@ -200,7 +200,7 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
         // attribute value
         static NSString *CellDynamicIdentifier = @"EditAttributeDynamicCell";
         cell = [tableView dequeueReusableCellWithIdentifier: CellDynamicIdentifier forIndexPath: indexPath];
-        POSEditAttributeDynamicCell *dynamicCell = (POSEditAttributeDynamicCell *)cell;
+        POSAttributeEditDynamicCell *dynamicCell = (POSAttributeEditDynamicCell *)cell;
         
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"attribute_ID = %d", self.attribute.ID];
         NSArray *arr = [objectsHelperInstance.dataSet.attributeValues filteredArrayUsingPredicate:predicate];
@@ -228,7 +228,7 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
     
     __deletedCell = [[[[sender superview] superview] superview] superview];
     
-    NSString* question = [NSString stringWithFormat:@"Delete the %@ attribute?", ((POSEditAttributeDynamicCell *)__deletedCell).textAttributeValue.text];
+    NSString* question = [NSString stringWithFormat:@"Delete the %@ attribute?", ((POSAttributeEditDynamicCell *)__deletedCell).textAttributeValue.text];
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Delete"
                                                     message: question
                                                    delegate: self
@@ -271,7 +271,7 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
         
         if([title isEqualToString:@"Yes"]) {
             // delete attribute
-            POSEditAttributeDynamicCell *cell = (POSEditAttributeDynamicCell *)__deletedCell;
+            POSAttributeEditDynamicCell *cell = (POSAttributeEditDynamicCell *)__deletedCell;
             NSIndexPath *indexPath = [self.tableViewAttributeValue indexPathForCell:cell];
             POSAttributeValue *attributeValue = [self.attributeValues objectAtIndex:indexPath.row];
             

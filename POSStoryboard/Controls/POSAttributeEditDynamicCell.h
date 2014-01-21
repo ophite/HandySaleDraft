@@ -1,5 +1,5 @@
 //
-//  POSEditAttributeDynamicCell.h
+//  POSAttributeEditDynamicCell.h
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/26/13.
@@ -10,7 +10,7 @@
 #import "POSHelper.h"
 
 
-@interface POSEditAttributeDynamicCell : UITableViewCell <UITextFieldDelegate>
+@interface POSAttributeEditDynamicCell : UITableViewCell <UITextFieldDelegate>
 
 
 @property POSAttributeValue *attrValue;

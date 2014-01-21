@@ -1,14 +1,14 @@
 //
-//  POSEditAttributeDynamicCell.m
+//  POSAttributeEditDynamicCell.m
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/26/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-#import "POSEditAttributeDynamicCell.h"
+#import "POSAttributeEditDynamicCell.h"
 
 
-@implementation POSEditAttributeDynamicCell
+@implementation POSAttributeEditDynamicCell
 
 
 @synthesize textAttributeValue = _textAttributeValue;
@@ -44,7 +44,7 @@
     self.textAttributeValue.leftViewMode = UITextFieldViewModeAlways;
     self.textAttributeValue.text = self.attrValue ? self.attrValue.name : @"";
     self.textAttributeValue.delegate = self;
-    self.textAttributeValue.tag = [POSEditAttributeDynamicCell TextAttributeTAG];
+    self.textAttributeValue.tag = [POSAttributeEditDynamicCell TextAttributeTAG];
     [helperInstance setTextFieldFontColorBySetting:self.textAttributeValue];
 
     // Configure the view for the selected state
