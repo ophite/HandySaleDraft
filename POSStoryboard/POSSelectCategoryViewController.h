@@ -1,5 +1,5 @@
 //
-//  POSSetCatViewController.h
+//  POSSelectCategoryViewController.h
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/18/13.
@@ -12,7 +12,7 @@
 #import "POSCategory.h"
 #import "POSEditGoodViewController.h"
 
-@interface POSSetCatViewController : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource>
+@interface POSSelectCategoryViewController : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource>
 
 
 @property POSItem *item;

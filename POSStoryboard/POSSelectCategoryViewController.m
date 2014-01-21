@@ -1,19 +1,19 @@
 //
-//  POSSetCatViewController.m
+//  POSSelectCategoryViewController.m
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/18/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-#import "POSSetCatViewController.h"
+#import "POSSelectCategoryViewController.h"
 
 
-@interface POSSetCatViewController ()
+@interface POSSelectCategoryViewController ()
 
 @end
 
 
-@implementation POSSetCatViewController
+@implementation POSSelectCategoryViewController
 
 
 @synthesize item = _item;

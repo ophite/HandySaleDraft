@@ -167,7 +167,7 @@ POSCategory *_newCategory;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    POSSetCatViewController *controller = (POSSetCatViewController *)[segue destinationViewController];
+    POSSelectCategoryViewController *controller = (POSSelectCategoryViewController *)[segue destinationViewController];
     controller.item = self.item;
     controller.category = self.category;
     

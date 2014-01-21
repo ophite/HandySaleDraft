@@ -1022,12 +1022,12 @@
             </objects>
             <point key="canvasLocation" x="3464" y="140"/>
         </scene>
-        <!--Set Cat View Controller - Select category-->
+        <!--Select Category View Controller - Select category-->
         <scene sceneID="AYW-a6-Ctv">
             <objects>
-                <viewController storyboardIdentifier="POSSetCatViewController" id="Bst-JA-gve" customClass="POSSetCatViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSSelectCategoryViewController" id="Bst-JA-gve" customClass="POSSelectCategoryViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8BN-fK-GKH">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="820"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t83-6b-fqe">
@@ -1048,6 +1048,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Select category" id="UyY-Sx-dU6"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="picker" destination="xjl-g1-KEy" id="xkL-NJ-CK6"/>
                     </connections>

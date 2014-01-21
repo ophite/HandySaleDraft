@@ -9,7 +9,7 @@
 
 #import "POSItem.h"
 #import "POSCategory.h"
-#import "POSSetCatViewController.h"
+#import "POSSelectCategoryViewController.h"
 #import "POSObjectsHelper.h"
 #import "POSDBWrapper.h"
 #import "POSHelper.h"
