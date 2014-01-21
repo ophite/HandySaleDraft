@@ -1,5 +1,5 @@
 //
-//  POSSettingsPickerViewController.h
+//  POSSelectSettingsViewController.h
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/31/13.
@@ -10,7 +10,7 @@
 #import "POSSetting.h"
 #import "POSObjectsHelper.h"
 
-@interface POSSettingsPickerViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface POSSelectSettingsViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 
 
 @property (nonatomic, retain) NSString *settingValue;

@@ -1,19 +1,19 @@
 //
-//  POSSettingsPickerViewController.m
+//  POSSelectSettingsViewController.m
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/31/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-#import "POSSettingsPickerViewController.h"
+#import "POSSelectSettingsViewController.h"
 
 
-@interface POSSettingsPickerViewController ()
+@interface POSSelectSettingsViewController ()
 
 @end
 
 
-@implementation POSSettingsPickerViewController
+@implementation POSSelectSettingsViewController
 
 
 @synthesize settingName = _settingName;

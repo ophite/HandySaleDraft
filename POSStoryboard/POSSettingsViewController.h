@@ -10,7 +10,7 @@
 #import "POSObjectsHelper.h"
 #import "POSHelper.h"
 #import "POSSetting.h"
-#import "POSSettingsPickerViewController.h"
+#import "POSSelectSettingsViewController.h"
 
 
 @interface POSSettingsViewController : UITableViewController <UITextFieldDelegate>

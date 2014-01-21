@@ -1461,10 +1461,10 @@
             </objects>
             <point key="canvasLocation" x="1535" y="-1689"/>
         </scene>
-        <!--Settings Picker View Controller-->
+        <!--Select Settings View Controller-->
         <scene sceneID="dFW-Rk-PUb">
             <objects>
-                <viewController id="kMv-r6-nqz" customClass="POSSettingsPickerViewController" sceneMemberID="viewController">
+                <viewController id="kMv-r6-nqz" customClass="POSSelectSettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BnQ-06-VjK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
