@@ -90,7 +90,7 @@
     
     if (newCategory != nil && self.category.ID != newCategory.ID) {
 
-        POSEditGoodViewController *controller = (POSEditGoodViewController *)[helperInstance getParentViewController:self.navigationController];
+        POSItemEditViewController *controller = (POSItemEditViewController *)[helperInstance getParentViewController:self.navigationController];
         [controller loadCategory:newCategory];
     }
 

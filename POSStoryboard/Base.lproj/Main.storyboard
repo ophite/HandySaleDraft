@@ -742,10 +742,10 @@
             </objects>
             <point key="canvasLocation" x="3464" y="-585"/>
         </scene>
-        <!--Edit Good View Controller - Edit item-->
+        <!--Item Edit View Controller - Edit item-->
         <scene sceneID="QvK-v4-uuN">
             <objects>
-                <tableViewController storyboardIdentifier="POSEditGoodViewController" id="nOG-KP-S1i" customClass="POSEditGoodViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="POSItemEditViewController" id="nOG-KP-S1i" customClass="POSItemEditViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="38" sectionHeaderHeight="22" sectionFooterHeight="22" id="gI7-v9-ylA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

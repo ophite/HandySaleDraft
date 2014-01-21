@@ -1,5 +1,5 @@
 //
-//  POSEditGoodViewController.h
+//  POSItemEditViewController.h
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/16/13.
@@ -15,7 +15,7 @@
 #import "POSHelper.h"
 
 
-@interface POSEditGoodViewController : UITableViewController<UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate>
+@interface POSItemEditViewController : UITableViewController<UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate>
 
 
 @property POSItem *item;

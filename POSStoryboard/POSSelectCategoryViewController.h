@@ -10,7 +10,7 @@
 #import "POSItem.h"
 #import "POSObjectsHelper.h"
 #import "POSCategory.h"
-#import "POSEditGoodViewController.h"
+#import "POSItemEditViewController.h"
 
 @interface POSSelectCategoryViewController : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource>
 

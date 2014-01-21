@@ -149,7 +149,7 @@
     }
     else {
         //Edit
-        POSEditGoodViewController *controller = [helperInstance getUIViewController: @"POSEditGoodViewController"];
+        POSItemEditViewController *controller = [helperInstance getUIViewController: @"POSItemEditViewController"];
         controller.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
         controller.title = controller.item.name;
         controller.category = self.cat;

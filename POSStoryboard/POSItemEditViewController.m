@@ -1,19 +1,19 @@
 //
-//  POSEditGoodViewController.m
+//  POSItemEditViewController.m
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/16/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-#import "POSEditGoodViewController.h"
+#import "POSItemEditViewController.h"
 
 
-@interface POSEditGoodViewController ()
+@interface POSItemEditViewController ()
 
 @end
 
 
-@implementation POSEditGoodViewController
+@implementation POSItemEditViewController
 
 
 @synthesize item = _item;
