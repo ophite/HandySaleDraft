@@ -1057,10 +1057,10 @@
             </objects>
             <point key="canvasLocation" x="3983" y="140"/>
         </scene>
-        <!--Cat Grid View Controller - Categories-->
+        <!--Categories View Controller - Categories-->
         <scene sceneID="TvI-xD-Shc">
             <objects>
-                <viewController storyboardIdentifier="POSCatGridViewController" id="jk4-EB-Nhq" customClass="POSCatGridViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSCatGridViewController" id="jk4-EB-Nhq" customClass="POSCategoriesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IgP-Ce-m7u">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1744,8 +1744,8 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="BeC-x6-6J5"/>
+        <segue reference="Uwv-co-TKF"/>
         <segue reference="4Gh-bX-aFU"/>
-        <segue reference="Jqe-ZV-lAM"/>
         <segue reference="iAD-Nf-PUJ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -1,5 +1,5 @@
 //
-//  POSCatGridViewController.h
+//  POSCategoriesViewController.h
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/12/13.
@@ -22,7 +22,7 @@
 /*
  *UIScrollViewDelegate может надо для viewForZoomingInScrollView
  */
-@interface POSCatGridViewController : UIViewController<UIAlertViewDelegate, AQGridViewDelegate, AQGridViewDataSource, ZBarReaderDelegate, UIScrollViewDelegate>
+@interface POSCategoriesViewController : UIViewController<UIAlertViewDelegate, AQGridViewDelegate, AQGridViewDataSource, ZBarReaderDelegate, UIScrollViewDelegate>
 
 
 @property NSString *catName;

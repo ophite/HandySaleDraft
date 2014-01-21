@@ -1,19 +1,19 @@
 //
-//  POSCatGridViewController.m
+//  POSCategoriesViewController.m
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/12/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-#import "POSCatGridViewController.h"
+#import "POSCategoriesViewController.h"
 
 
-@interface POSCatGridViewController ()
+@interface POSCategoriesViewController ()
 
 @end
 
 
-@implementation POSCatGridViewController
+@implementation POSCategoriesViewController
 
 @synthesize gridView = _gridView;
 @synthesize scrollView = _scrollView;
