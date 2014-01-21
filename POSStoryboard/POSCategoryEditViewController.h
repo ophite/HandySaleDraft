@@ -1,5 +1,5 @@
 //
-//  POSEditCatViewController.h
+//  POSCategoryEditViewController.h
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/16/13.
@@ -13,7 +13,7 @@
 #import "POSHelper.h"
 #import "POSSelectAttributeViewController.h"
 
-@interface POSEditCatViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate>
+@interface POSCategoryEditViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate>
 
 
 @property POSCategory *category;

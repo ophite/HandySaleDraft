@@ -9,7 +9,7 @@
 #import "POSAttribute.h"
 #import "POSObjectsHelper.h"
 #import "POSHelper.h"
-#import "POSEditCatViewController.h"
+#import "POSCategoryEditViewController.h"
 
 @interface POSSelectAttributeViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 

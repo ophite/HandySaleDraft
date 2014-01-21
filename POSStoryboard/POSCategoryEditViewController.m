@@ -1,19 +1,19 @@
 //
-//  POSEditCatViewController.m
+//  POSCategoryEditViewController.m
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/16/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-#import "POSEditCatViewController.h"
+#import "POSCategoryEditViewController.h"
 
 
-@interface POSEditCatViewController ()
+@interface POSCategoryEditViewController ()
 
 @end
 
 
-@implementation POSEditCatViewController
+@implementation POSCategoryEditViewController
 
 @synthesize category = _category;
 @synthesize categoryAttribute1 = _categoryAttribute1;

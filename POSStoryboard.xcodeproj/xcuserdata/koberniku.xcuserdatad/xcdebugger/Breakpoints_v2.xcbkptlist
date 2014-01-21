@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "156"
             endingLineNumber = "156"
-            landmarkName = "@implementation POSCatGridViewController"
+            landmarkName = "@implementation POSCategoriesViewController"
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
@@ -345,7 +345,7 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "POSStoryboard/POSEditCatViewController.m"
+            filePath = "POSStoryboard/POSCategoryEditViewController.m"
             timestampString = "411931801.667889"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -2759,7 +2759,7 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "POSStoryboard/POSEditCatViewController.m"
+            filePath = "POSStoryboard/POSCategoryEditViewController.m"
             timestampString = "411931801.667889"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -2775,7 +2775,7 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "POSStoryboard/POSEditCatViewController.m"
+            filePath = "POSStoryboard/POSCategoryEditViewController.m"
             timestampString = "411931801.667889"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"

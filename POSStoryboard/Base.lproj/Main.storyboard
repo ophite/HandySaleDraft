@@ -362,10 +362,10 @@
             </objects>
             <point key="canvasLocation" x="1535" y="140"/>
         </scene>
-        <!--Edit Cat View Controller - Edit category-->
+        <!--Category Edit View Controller - Edit category-->
         <scene sceneID="pkP-l4-Sn0">
             <objects>
-                <viewController storyboardIdentifier="POSEditCatViewController" id="V1w-TQ-FPD" customClass="POSEditCatViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSCategoryEditViewController" id="V1w-TQ-FPD" customClass="POSCategoryEditViewController" sceneMemberID="viewController">
                     <view key="view" userInteractionEnabled="NO" contentMode="scaleToFill" id="Hfo-RM-ji9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

@@ -114,7 +114,7 @@
 
     NSInteger row = [self.picker selectedRowInComponent:0];
     
-    POSEditCatViewController *controller = (POSEditCatViewController *)[helperInstance getParentViewController:self.navigationController];
+    POSCategoryEditViewController *controller = (POSCategoryEditViewController *)[helperInstance getParentViewController:self.navigationController];
     POSAttribute *newAttribute = nil;
     
     if (row < objectsHelperInstance.dataSet.attributes.count)

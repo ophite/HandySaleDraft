@@ -166,7 +166,7 @@
     }
     else {
         //Edit
-        POSEditCatViewController *controller = [helperInstance getUIViewController:@"POSEditCatViewController"];
+        POSCategoryEditViewController *controller = [helperInstance getUIViewController:@"POSCategoryEditViewController"];
         controller.category = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
         [self.navigationController pushViewController: controller
                                              animated: YES];
