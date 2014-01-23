@@ -13,7 +13,7 @@
 
 @interface POSHelper : NSObject
     
-- (NSDictionary *)SETTING_MONEY_DICT;
+- (NSDictionary *)SETTING_CURRENCY_DICT;
 - (NSDictionary *)SETTING_LANGUAGES_DICT;
 
 - (NSString *)SETTING_ADDATTRIBUTE_ICON;
@@ -30,12 +30,12 @@
 - (NSString *)SETTING_REMEMBERME_UNCHECKED_ICON;
 - (NSString *)SETTING_EMAIL_ICON;
 - (NSString *)SETTING_LANGUAGE_ICON;
-- (NSString *)SETTING_MONEY_ICON;
+- (NSString *)SETTING_CURRENCY_ICON;
 - (NSString *)SETTING_WIFI_ICON;
 - (NSString *)SETTING_VAT_ICON;
 - (NSString *)SETTING_EMAIL;
 - (NSString *)SETTING_LANGUAGE;
-- (NSString *)SETTING_MONEY;
+- (NSString *)SETTING_CURRENCY;
 - (NSString *)SETTING_WIFI;
 - (NSString *)SETTING_VAT;
 - (NSString *)SETTING_REMEMBERME;
@@ -54,6 +54,7 @@
 - (id)getDictionaryFirstValue:(NSDictionary *)dict;
 - (id)getDictionaryFirstKey:(NSDictionary *)dict;
 
+- (NSString *)convertFloatToStringWithFormat2SignIfNeed:(NSString *)value;
 - (NSString *)convertBoolToString:(BOOL)value;
 
 - (BOOL)isValidEmail:(NSString *)email;

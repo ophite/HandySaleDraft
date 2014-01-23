@@ -43,7 +43,7 @@
     // init data
     self.textEmail.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_EMAIL];
     [self.buttonLanguage setTitle:[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_LANGUAGE] forState:UIControlStateNormal];
-    [self.buttonMoney setTitle:[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_MONEY] forState:UIControlStateNormal];
+    [self.buttonMoney setTitle:[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CURRENCY] forState:UIControlStateNormal];
     [self.switchWIFI setOn:[[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_WIFI] boolValue]];
     [self.switchVAT setOn:[[POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_VAT] boolValue]];
     
@@ -107,7 +107,7 @@
     
     [self.buttonLanguage setTitle: [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_LANGUAGE]
                          forState: UIControlStateNormal];
-    [self.buttonMoney setTitle: [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_MONEY]
+    [self.buttonMoney setTitle: [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CURRENCY]
                       forState: UIControlStateNormal];
 }
 
@@ -126,9 +126,9 @@
     }
     else if ([[segue identifier] isEqualToString:@"goToMoney"]) {
         
-        controller.settingName = helperInstance.SETTING_MONEY;
+        controller.settingName = helperInstance.SETTING_CURRENCY;
         controller.settingValue = self.buttonMoney.titleLabel.text;
-        controller.pickerDict = [helperInstance SETTING_MONEY_DICT];
+        controller.pickerDict = [helperInstance SETTING_CURRENCY_DICT];
     }
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.

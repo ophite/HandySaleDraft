@@ -35,7 +35,7 @@
             nil];
 }
 
-- (NSDictionary *)SETTING_MONEY_DICT {
+- (NSDictionary *)SETTING_CURRENCY_DICT {
     
     return [[NSDictionary alloc] initWithObjectsAndKeys:
             @"$ USD", @"$",
@@ -65,7 +65,7 @@
     return @"setting_language_icon.png";
 }
 
-- (NSString *)SETTING_MONEY_ICON {
+- (NSString *)SETTING_CURRENCY_ICON {
     
     return @"setting_money_icon.png";
 }
@@ -100,9 +100,9 @@
     return @"language";
 }
 
-- (NSString *)SETTING_MONEY {
+- (NSString *)SETTING_CURRENCY {
     
-    return @"money";
+    return @"currency";
 }
 
 - (NSString *)SETTING_WIFI {
@@ -226,6 +226,14 @@
 - (id)getDictionaryFirstKey:(NSDictionary *)dict {
     
     return [[dict allKeys] objectAtIndex:0];
+}
+
+- (NSString *)convertFloatToStringWithFormat2SignIfNeed:(NSString *)value {
+
+    float floatValue = value.floatValue;
+    int intValue = value.intValue;
+
+    return (floatValue - intValue > 0) ? [NSString stringWithFormat:@"%.2f", floatValue] : [NSString stringWithFormat: @"%d", intValue];
 }
 
 - (NSString *)convertBoolToString:(BOOL)value {

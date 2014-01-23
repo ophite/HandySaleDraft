@@ -17,11 +17,13 @@
 
 
 @synthesize btnBarSendEmail = _btnBarSendEmail;
-@synthesize btnCancel = _btnCancel;
-@synthesize btnClear = _btnClear;
-@synthesize btnOpen = _btnOpen;
-@synthesize btnSave = _btnSave;
+@synthesize buttonList = _buttonList;
+@synthesize buttonPay = _buttonPay;
+
 @synthesize tableBasket = _tableBasket;
+
+@synthesize labelSum = _labelSum;
+@synthesize labelCurrency = _labelCurrency;
 
 @synthesize basket = _basket;
 @synthesize itemIndex = _itemIndex;
@@ -31,8 +33,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName: nibNameOrNil
-                           bundle: nibBundleOrNil];
+    self = [super initWithNibName: nibNameOrNil bundle: nibBundleOrNil];
     if (self) {
         
         // Custom initialization
@@ -46,8 +47,15 @@
     
     [super viewDidLoad];
     
-    self.tableBasket.dataSource = self;
+    // data
+    
+    // gui
     self.tableBasket.delegate = self;
+    self.tableBasket.dataSource = self;
+    self.tableBasket.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self initControlsLayers];
+    
 	// Do any additional setup after loading the view.
 }
 
@@ -71,6 +79,13 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [self.tableBasket reloadData];
+}
+
+
 #pragma mark - GridView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -79,130 +94,83 @@
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return [objectsHelperInstance.dataSet.orderArray count];
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"POSBasketEditDynamicCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    POSBasketEditDynamicCell *dynamicCell = (POSBasketEditDynamicCell *)cell;
+    dynamicCell.order = (POSOrder *)[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]];
+    dynamicCell.item = (POSItem *)[helperInstance getObject:objectsHelperInstance.dataSet.allItems withID:dynamicCell.order.item_ID];
+    dynamicCell.labelRowIndex.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
+    dynamicCell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    if(cell == nil) {
-
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
-                                      reuseIdentifier:CellIdentifier];
-    }
-    
-    NSString *good = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]] name];
-    NSString *quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]] quantity];
-    NSString *title = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]] category];
-    
-    title = [title stringByAppendingString:@"  "];
-    title = [title stringByAppendingString:good];
-    [[cell textLabel] setText:title];
-    cell.detailTextLabel.text = quan;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-    UIImage* image = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]] image];
-    cell.imageView.image = image;
-    
-    return cell;
-}
-
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    [self.tableBasket reloadData];
-}
-
-
-#pragma mark - Email
-
-- (void)mailComposeController:(MFMailComposeViewController*)controller
-          didFinishWithResult:(MFMailComposeResult)result
-                        error:(NSError*)error {
-    
-    [controller dismissViewControllerAnimated: YES
-                                   completion: nil];
-}
-
-
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    
-    NSString *name;
-    NSString *cat;
-    
-    int index = indexPath.row;
-    int n = [objectsHelperInstance.dataSet.allItems count];
-    
-    name = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:index] name];
-    cat = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:index] category];
-    
-    for(int i = 0; i<n; i++) {
-        
-        if  ([[[objectsHelperInstance.dataSet.allItems objectAtIndex:i] name] isEqualToString:name]&&
-             [[[objectsHelperInstance.dataSet.allItems objectAtIndex:i] category] isEqualToString:cat]){
-            
-            self.itemIndex = i;
-            break;
-        }
-    }
-    
-    POSItemViewController* viewItem = [POSItemViewController new];
-    viewItem.item = [objectsHelperInstance.dataSet.allItems objectAtIndex:self.itemIndex];
-    viewItem.title = viewItem.item.name;
-
-    NSString *quan;
-    quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row] quantity];
-    
-    viewItem.item.quantityOrdered = quan;
-    viewItem.currentQuantity = quan;
-    
-    [self.navigationController pushViewController: viewItem
-                                         animated: YES];
+    return dynamicCell;
 }
 
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *name;
-    NSString *cat;
+    POSOrder *order = (POSOrder *)[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row];
     
-    int index = indexPath.row;
-    int n = [objectsHelperInstance.dataSet.allItems count];
-    
-    name = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:index] name];
-    cat = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:index] category];
-    
-    for(int i = 0; i<n; i++) {
+    for(int i = 0; i<[objectsHelperInstance.dataSet.allItems count]; i++) {
         
-        if  ([[[objectsHelperInstance.dataSet.allItems objectAtIndex:i] name] isEqualToString:name]&&
-             [[[objectsHelperInstance.dataSet.allItems objectAtIndex:i] category] isEqualToString:cat]) {
+        POSItem *item = (POSItem *)[objectsHelperInstance.dataSet.allItems objectAtIndex:i];
+        
+        if  ([item.name isEqualToString:order.name] && [item.category isEqualToString:order.category]) {
             
             self.itemIndex = i;
             break;
         }
     }
     
-    
     POSItemViewController *controller = [helperInstance getUIViewController:@"POSItemViewController"];
     controller.item = [objectsHelperInstance.dataSet.allItems objectAtIndex:self.itemIndex];
     controller.title = controller.item.name;
+    controller.item.quantityOrdered = order.quantity;
+    controller.currentQuantity = order.quantity;
     
-    NSString *quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row] quantity];
-//    quan = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row] quantity];
-    controller.item.quantityOrdered = quan;
-    controller.currentQuantity = quan;
-    [self.navigationController pushViewController: controller
-                                         animated: YES];
+    [self.navigationController pushViewController: controller animated: YES];
 }
 
+
+#pragma mark - Email
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    
+    [controller dismissViewControllerAnimated: YES completion: nil];
+}
+
+
+
+#pragma mark - Alert
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if ([alertView.title isEqual: @"Delete"]) {
+        
+        NSString* title = [alertView buttonTitleAtIndex:buttonIndex];
+        
+        if([title isEqualToString:@"Yes"]) {
+            // delete attribute
+            POSBasketEditDynamicCell *cell = (POSBasketEditDynamicCell *)__deletedCell;
+            NSIndexPath *indexPath = [self.tableBasket indexPathForCell:cell];
+            POSOrder *order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row];
+            
+            [objectsHelperInstance.dataSet.orderArray removeObject:order];
+//            [objectsHelperInstance.dataSet attributeValuesRemove:attributeValue];
+            [self.tableBasket deleteRowsAtIndexPaths: @[indexPath]
+                                    withRowAnimation: UITableViewRowAnimationFade];
+        }
+    }
+    
+    __deletedCell = nil;
+}
 
 #pragma mark - Methods
 
@@ -223,12 +191,12 @@
         
         NSString * query = [NSString stringWithFormat:@"UPDATE  document \
                                                         SET     date = datetime('now'), paid_price = %f \
-                                                        WHERE   id = %d",totalPrice, objectsHelperInstance.currentBasketID];
+                                                        WHERE   id = %d; ",totalPrice, objectsHelperInstance.currentBasketID];
         [dbWrapperInstance tryExecQuery:query];
         
         query = [NSString stringWithFormat:@"DELETE \
                                              FROM   document_line \
-                                             WHERE  document_id = %d", objectsHelperInstance.currentBasketID];
+                                             WHERE  document_id = %d; ", objectsHelperInstance.currentBasketID];
         [dbWrapperInstance tryExecQuery:query];
         
         for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
@@ -238,19 +206,19 @@
             int quantity = [order.quantity intValue];
             
             query = [NSString stringWithFormat:@"INSERT INTO document_line (price, quantity, item_id, document_id) \
-                                                 VALUES (%f, %d, %d, %d)", price, quantity, order.item_ID, objectsHelperInstance.currentBasketID];
+                                                 VALUES (%f, %d, %d, %d); ", price, quantity, order.item_ID, objectsHelperInstance.currentBasketID];
             [dbWrapperInstance tryExecQuery:query];
         }
     }
     else {
         
         NSString * query = [NSString stringWithFormat:@"INSERT INTO document (date, paid_price, document_type_id, user_id) \
-                                                        VALUES (datetime('now'), %f, %d, %d)", totalPrice, 1, 1];
+                                                        VALUES (datetime('now'), %f, %d, %d); ", totalPrice, 1, 1];
         [dbWrapperInstance tryExecQuery:query];
         
         query = @"SELECT    id \
                   FROM      document \
-                  ORDER BY  id DESC limit 1";
+                  ORDER BY  id DESC limit 1; ";
         int doc_ID = [dbWrapperInstance execQueryResultInt:query andIndex:0];
         
         for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
@@ -260,7 +228,7 @@
             int quantity = [order.quantity intValue];
             
             query = [NSString stringWithFormat:@"INSERT INTO document_line (price, quantity, item_id, document_id) \
-                                                 VALUES (%f, %d, %d, %d)", price, quantity, order.item_ID, doc_ID];
+                                                 VALUES (%f, %d, %d, %d); ", price, quantity, order.item_ID, doc_ID];
             [dbWrapperInstance tryExecQuery:query];
         }
     }
@@ -269,7 +237,32 @@
 }
 
 
+- (void)initControlsLayers {
+    
+    [helperInstance setButtonShadow:self.buttonPay withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
+    [helperInstance setButtonBackgroundColorBySetting:self.buttonPay];
+    [helperInstance setButtonFontColorBySetting:self.buttonPay];
+    
+    [helperInstance setButtonShadow:self.buttonList withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
+    [helperInstance setButtonBackgroundColorBySetting:self.buttonList];
+}
+
+
 #pragma mark - Actions
+
+- (void)onDeleteButton:(id)sender {
+    
+    __deletedCell = [[[sender superview] superview] superview];
+    
+    NSString* question = @"Delete cell?";
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Delete"
+                                                    message: question
+                                                   delegate: self
+                                          cancelButtonTitle: @"No"
+                                          otherButtonTitles: @"Yes", nil];
+    [alert show];
+}
+
 
 - (IBAction)onSendEmail:(id)sender {
     
@@ -289,7 +282,7 @@
     for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
         
         NSData *imageData = [NSData dataWithData:UIImagePNGRepresentation([[objectsHelperInstance.dataSet.orderArray objectAtIndex:i] image])];
-        NSString *base64String = [imageData base64EncodedString];
+        NSString *base64String = [imageData  base64EncodedString];
         
         [messageBody appendFormat:@"<tr>"];
         [messageBody appendFormat:@"<td style=\"width:50px;display:block\">"];
@@ -312,20 +305,6 @@
 }
 
 
-- (IBAction)onCancel:(id)sender {
-    
-    [objectsHelperInstance.dataSet.orderArray removeAllObjects];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
-- (IBAction)onClear:(id)sender {
-    
-    [objectsHelperInstance.dataSet.orderArray removeAllObjects];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
 - (IBAction)onSave:(id)sender {
     
     [self saveToDB];
@@ -335,7 +314,16 @@
 }
 
 
-- (IBAction)onOpen:(id)sender {
+- (IBAction)onPay:(id)sender {
+    
+//    [self saveToDB];
+//    [objectsHelperInstance.dataSet.orderArray removeAllObjects];
+//    objectsHelperInstance.currentBasketID = 0;
+//    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+- (IBAction)onList:(id)sender {
     
 //    POSBasketOpenViewController* viewBasketList = [POSBasketOpenViewController new];
 //    viewBasketList.title = @"Basket DB";

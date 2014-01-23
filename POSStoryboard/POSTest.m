@@ -315,7 +315,7 @@
         [query appendFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"%@\", \"%@\", 11, \"setting\", 1); ",
                                 helperInstance.SETTING_LANGUAGE_ICON, helperInstance.SETTING_LANGUAGE_ICON];
         [query appendFormat:@"INSERT INTO image (name, path, object_id, object_name, is_default) VALUES (\"%@\", \"%@\", 11, \"setting\", 1); ",
-                                helperInstance.SETTING_MONEY_ICON, helperInstance.SETTING_MONEY_ICON];
+                                helperInstance.SETTING_CURRENCY_ICON, helperInstance.SETTING_CURRENCY_ICON];
         
         [dbWrapperInstance tryExecQuery:query];
        
@@ -353,9 +353,9 @@
                                                     withObject_id: ++imageID
                                                   withObject_name: @"setting"]];
         
-        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:helperInstance.SETTING_MONEY_ICON]
+        [dataSet.images addObject:[[POSImage alloc] initWithImage: [UIImage imageNamed:helperInstance.SETTING_CURRENCY_ICON]
                                                         withAsset: nil
-                                                         withPath: helperInstance.SETTING_MONEY_ICON
+                                                         withPath: helperInstance.SETTING_CURRENCY_ICON
                                                     withObject_id: ++imageID
                                                   withObject_name: @"setting"]];
         
@@ -418,7 +418,7 @@
         int image_email_id = [dbWrapperInstance execQueryResultInt:query andIndex:0];
         query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", helperInstance.SETTING_LANGUAGE_ICON];
         int image_language_id = [dbWrapperInstance execQueryResultInt:query andIndex:0];
-        query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", helperInstance.SETTING_MONEY_ICON];
+        query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", helperInstance.SETTING_CURRENCY_ICON];
         int image_money_id = [dbWrapperInstance execQueryResultInt:query andIndex:0];
         query = [NSMutableString stringWithFormat:@"SELECT id FROM image WHERE name= \"%@\"; ", helperInstance.SETTING_WIFI_ICON];
         int image_wifi_id = [dbWrapperInstance execQueryResultInt:query andIndex:0];
@@ -432,7 +432,7 @@
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
                                 helperInstance.SETTING_LANGUAGE, [helperInstance getDictionaryFirstValue:[helperInstance SETTING_LANGUAGES_DICT]], image_language_id];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
-                                helperInstance.SETTING_MONEY,[helperInstance getDictionaryFirstKey:[helperInstance SETTING_MONEY_DICT]], image_money_id];
+                                helperInstance.SETTING_CURRENCY,[helperInstance getDictionaryFirstKey:[helperInstance SETTING_CURRENCY_DICT]], image_money_id];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
                                 helperInstance.SETTING_WIFI, [helperInstance convertBoolToString:YES], image_wifi_id];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",

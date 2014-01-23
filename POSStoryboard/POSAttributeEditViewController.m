@@ -238,8 +238,8 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
 }
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     CGFloat rowHeight = 0;
     
     switch (indexPath.section) {

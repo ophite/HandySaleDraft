@@ -14,27 +14,38 @@
 #import "POSOrder.h"
 #import "POSItemViewController.h"
 #import "POSBasketOpenViewController.h"
+#import "POSBasketEditDynamicCell.h"
 #import "POSHelper.h"
 
 
-@interface POSBasketViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate>
+@interface POSBasketViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate> {
+
+@private
+    id __deletedCell;
+
+}
 
 
 @property int itemIndex;
 @property POSBasket *basket;
-@property (weak, nonatomic) IBOutlet UIButton *btnCancel;
-@property (weak, nonatomic) IBOutlet UIButton *btnClear;
-@property (weak, nonatomic) IBOutlet UIButton *btnSave;
-@property (weak, nonatomic) IBOutlet UIButton *btnOpen;
-@property (weak, nonatomic) IBOutlet UITableView *tableBasket;
+
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *btnBarSendEmail;
+@property (weak, nonatomic) IBOutlet UIButton *buttonPay;
+@property (weak, nonatomic) IBOutlet UIButton *buttonList;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableBasket;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelSum;
+@property (weak, nonatomic) IBOutlet UILabel *labelCurrency;
 
 
 - (IBAction)onSendEmail:(id)sender;
-- (IBAction)onCancel:(id)sender;
-- (IBAction)onClear:(id)sender;
-- (IBAction)onSave:(id)sender;
-- (IBAction)onOpen:(id)sender;
+//- (IBAction)onSave:(id)sender;
+- (IBAction)onPay:(id)sender;
+- (IBAction)onList:(id)sender;
+- (IBAction)onDeleteButton:(id)sender;
+
 - (void)saveToDB;
 
 

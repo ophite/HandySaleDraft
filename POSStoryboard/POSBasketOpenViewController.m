@@ -117,7 +117,7 @@
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     NSString * query = [NSString stringWithFormat:@"SELECT  item_id, quantity \
                                                     FROM    document_line \
-                                                    WHERE   document_id = %d", doc_ID];
+                                                    WHERE   document_id = %d; ", doc_ID];
     
     void (^blockGetOrder)(id rows) = ^(id rows) {
         
