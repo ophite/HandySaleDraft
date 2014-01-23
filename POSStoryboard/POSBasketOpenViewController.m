@@ -16,7 +16,6 @@
 @implementation POSBasketOpenViewController
 
 
-@synthesize basketArray = _basketArray;
 @synthesize btnSave = _btnSave;
 @synthesize btnCancel = _btnCancel;
 @synthesize tableBasket = _tableBasket;
@@ -39,9 +38,10 @@
     
     [super viewDidLoad];
     
-    self.basketArray = [[NSMutableArray alloc] init];
-    [self readBasketsList];
+    // init data
+    [objectsHelperInstance.dataSet basketsGet];
 
+    // gui
     self.tableBasket.dataSource = self;
     self.tableBasket.delegate = self;
 
@@ -69,7 +69,8 @@
 
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.basketArray count];
+
+    return objectsHelperInstance.dataSet.baskets.count;
 }
 
 
@@ -82,8 +83,8 @@
         cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleValue1
                                       reuseIdentifier: CellIdentifier];
     
-    NSString* name = [[self.basketArray objectAtIndex:[indexPath row]] name];
-    NSString* price = [[self.basketArray objectAtIndex:[indexPath row]] price];
+    NSString* name = [[objectsHelperInstance.dataSet.baskets objectAtIndex:[indexPath row]] name];
+    NSString* price = [[objectsHelperInstance.dataSet.baskets objectAtIndex:[indexPath row]] price];
     
     [[cell textLabel] setText:name];
     cell.detailTextLabel.text = price;
@@ -95,7 +96,7 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     
-    objectsHelperInstance.currentBasketID = [[self.basketArray objectAtIndex:[indexPath row]] ID];
+    objectsHelperInstance.currentBasketID = [[objectsHelperInstance.dataSet.baskets objectAtIndex:[indexPath row]] ID];
     [self readBasketData: objectsHelperInstance.currentBasketID];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -103,7 +104,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    objectsHelperInstance.currentBasketID = [[self.basketArray objectAtIndex:[indexPath row]] ID];
+    objectsHelperInstance.currentBasketID = [[objectsHelperInstance.dataSet.baskets objectAtIndex:[indexPath row]] ID];
     [self readBasketData: objectsHelperInstance.currentBasketID];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -152,10 +153,11 @@
                 
                 NSURL* assetUrl = [[NSURL alloc] initWithString:[[NSString alloc] initWithUTF8String:(const char *) asset]];
                 
-                [library assetForURL: assetUrl resultBlock:^(ALAsset *asset) {
+                [library assetForURL: assetUrl
+                         resultBlock: ^(ALAsset *asset) {
                     
-                    order.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
-                }
+                             order.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+                         }
                         failureBlock: ^(NSError* error) {
                             
                             NSLog(@"%@", error.description);
@@ -172,44 +174,12 @@
 }
 
 
-- (void)readBasketsList {
-    
-    if (![dbWrapperInstance openDB])
-        return;
-    
-    NSString * query = @"SELECT id, date, paid_price, user_id \
-                         FROM   document \
-                         WHERE  user_id = 1 \
-                         ORDER BY id DESC";
-    
-    void (^blockGetBasket)(id rows) = ^(id rows) {
-        
-        int user_ID = [dbWrapperInstance getCellInt:3];
-        if(user_ID == 1) {
-            
-            POSBasket* basketObject = [[POSBasket alloc] init];
-            basketObject.ID = [dbWrapperInstance getCellInt:0];
-            basketObject.tst = [dbWrapperInstance getCellText:1];
-            basketObject.name = [[NSString alloc] initWithFormat: @"No:%d %@", basketObject.ID, basketObject.tst];
-            basketObject.price = [dbWrapperInstance getCellText:2];
-            
-            [((NSMutableArray *)rows) addObject:basketObject];
-        }
-    };
-    
-    [dbWrapperInstance fetchRows: query
-              andForeachCallback: blockGetBasket
-                         andRows: self.basketArray];
-    [dbWrapperInstance closeDB];
-}
-
-
 #pragma mark - Actions
  
 - (IBAction)onSave:(id)sender {
     
     NSIndexPath *indexPath = [self.tableBasket indexPathForSelectedRow];
-    objectsHelperInstance.currentBasketID = [[self.basketArray objectAtIndex:[indexPath row]] ID];
+    objectsHelperInstance.currentBasketID = [[objectsHelperInstance.dataSet.baskets objectAtIndex:[indexPath row]] ID];
     [self readBasketData: objectsHelperInstance.currentBasketID ];
     [self.navigationController popViewControllerAnimated:YES];
 }

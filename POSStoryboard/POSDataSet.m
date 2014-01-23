@@ -36,6 +36,8 @@
     self.images = [[NSMutableArray alloc] init];
     self.galleries = [[NSMutableArray alloc]init];
     self.settings = [[NSMutableArray alloc] init];
+    
+    self.baskets = [[NSMutableArray alloc] init];
     self.orderArray = [[NSMutableArray alloc] init];
 
     self.items = [[NSMutableArray alloc] init];
@@ -782,6 +784,155 @@
      }
     
     return result;
+}
+
+
+#pragma mark - Basket
+
+- (POSBasket *)basketsCreate:(float)paid_price withDocumentTypeID:(int)documentTypeID withUserID:(int)userID {
+    
+    POSBasket *newBasket;
+    NSDate *dateNow = [NSDate date];
+    
+    NSString *query = [NSString stringWithFormat:@"INSERT INTO document (date, paid_price, document_type_id, user_id) \
+                                                   VALUES (%@, %f, %d, %d); ",dateNow, paid_price, documentTypeID, userID];
+ 
+    if ([dbWrapperInstance openDB]) {
+        
+        int newID = [dbWrapperInstance tryCreateNewRow:query];
+        [dbWrapperInstance closeDB];
+        
+        newBasket = [[POSBasket alloc] init];
+        newBasket.ID = newID;
+        newBasket.tst = [NSString stringWithFormat:@"%@", dateNow];
+        newBasket.price =[NSString stringWithFormat:@"%.2f", paid_price];
+        newBasket.name = [[NSString alloc] initWithFormat: @"No:%d %@", newBasket.ID, newBasket.tst];
+
+        [self.baskets addObject:newBasket];
+    }
+    
+    // add lines
+    if ([dbWrapperInstance openDB]) {
+
+        NSMutableString *queryMutable = [[NSMutableString alloc] init];
+        
+        for(int i = 0; i<[self.orderArray count]; i++) {
+            
+            POSOrder* order = [self.orderArray objectAtIndex:i];
+            float price = [order.price floatValue];
+            int quantity = [order.quantity intValue];
+            
+            [queryMutable appendFormat:@"INSERT INTO document_line (price, quantity, item_id, document_id) \
+                                         VALUES (%f, %d, %d, %d); ", price, quantity, order.item_ID, newBasket.ID];
+        }
+        
+        [dbWrapperInstance tryExecQuery:query];
+        [dbWrapperInstance closeDB];
+    }
+    
+    return newBasket;
+}
+
+- (void)basketsUpdate:(int)ID withPaidPrice:(float)paidPrice {
+    
+    if (![dbWrapperInstance openDB])
+        return;
+    
+    NSMutableString *query = [NSMutableString stringWithFormat:@"UPDATE  document \
+                                                                 SET     paid_price = %f \
+                                                                 WHERE   id = %d; ", paidPrice, ID];
+    [query appendFormat:@"DELETE \
+                          FROM   document_line \
+                          WHERE  document_id = %d; ", ID];
+    
+    for(int i = 0; i<[self.orderArray count]; i++) {
+        
+        POSOrder* order = [self.orderArray objectAtIndex:i];
+        float price = [order.price floatValue];
+        int quantity = [order.quantity intValue];
+        
+        [query appendFormat:@"INSERT INTO document_line (price, quantity, item_id, document_id) \
+                              VALUES (%f, %d, %d, %d); ", price, quantity, order.item_ID, ID];
+    }
+    
+    [dbWrapperInstance tryExecQuery:query];
+    [dbWrapperInstance closeDB];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID = %d", ID];
+    POSBasket *basket = [[self.baskets filteredArrayUsingPredicate:predicate] objectAtIndex:0];
+    basket.price = [NSString stringWithFormat:@"%.2f", paidPrice];
+}
+
+
+- (void)basketsGet:(int)basketID {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID = %d", basketID];
+    NSArray *array = [self.baskets filteredArrayUsingPredicate:predicate];
+    
+    if (array.count > 0)
+        return;
+    
+    if (![dbWrapperInstance openDB])
+        return;
+    
+    NSString * query = [NSString stringWithFormat:@"SELECT id, date, paid_price, user_id \
+                                                    FROM   document \
+                                                    WHERE  user_id = 1 and id = %d \
+                                                    ORDER BY id DESC; ", basketID];
+    
+    void (^blockGetBasket)(id rows) = ^(id rows) {
+        
+        int user_ID = [dbWrapperInstance getCellInt:3];
+        if(user_ID == 1) {
+            
+            POSBasket* basketObject = [[POSBasket alloc] init];
+            basketObject.ID = [dbWrapperInstance getCellInt:0];
+            basketObject.tst = [dbWrapperInstance getCellText:1];
+            basketObject.name = [[NSString alloc] initWithFormat: @"No:%d %@", basketObject.ID, basketObject.tst];
+            basketObject.price = [dbWrapperInstance getCellText:2];
+            
+            [((NSMutableArray *)rows) addObject:basketObject];
+        }
+    };
+    
+    [dbWrapperInstance fetchRows: query
+              andForeachCallback: blockGetBasket
+                         andRows: self.baskets];
+    [dbWrapperInstance closeDB];
+}
+
+- (void)basketsGet {
+    
+    if (self.baskets.count > 0)
+        return;
+    
+    if (![dbWrapperInstance openDB])
+        return;
+    
+    NSString * query = @"SELECT id, date, paid_price, user_id \
+    FROM   document \
+    WHERE  user_id = 1 \
+    ORDER BY id DESC; ";
+    
+    void (^blockGetBasket)(id rows) = ^(id rows) {
+        
+        int user_ID = [dbWrapperInstance getCellInt:3];
+        if(user_ID == 1) {
+            
+            POSBasket* basketObject = [[POSBasket alloc] init];
+            basketObject.ID = [dbWrapperInstance getCellInt:0];
+            basketObject.tst = [dbWrapperInstance getCellText:1];
+            basketObject.name = [[NSString alloc] initWithFormat: @"No:%d %@", basketObject.ID, basketObject.tst];
+            basketObject.price = [dbWrapperInstance getCellText:2];
+            
+            [((NSMutableArray *)rows) addObject:basketObject];
+        }
+    };
+    
+    [dbWrapperInstance fetchRows: query
+              andForeachCallback: blockGetBasket
+                         andRows: self.baskets];
+    [dbWrapperInstance closeDB];
 }
 
 

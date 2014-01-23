@@ -26,7 +26,6 @@
 @synthesize labelCurrency = _labelCurrency;
 
 @synthesize basket = _basket;
-@synthesize itemIndex = _itemIndex;
 
 
 #pragma mark - ViewController
@@ -48,6 +47,15 @@
     [super viewDidLoad];
     
     // data
+    self.labelCurrency.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CURRENCY];
+
+    float sum = 0.00;
+    for (POSOrder *order in objectsHelperInstance.dataSet.orderArray) {
+        
+        sum = sum + order.price.floatValue;
+    }
+    
+    self.labelSum.text = [helperInstance convertFloatToStringWithFormat2SignIfNeed:[NSString stringWithFormat:@"%.2f", sum]];
     
     // gui
     self.tableBasket.delegate = self;
@@ -86,6 +94,25 @@
 }
 
 
+// In a story board-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([[segue identifier] isEqualToString:@"goToPaymentForm"]) {
+
+        [self addBasket];
+        float totalPrice = self.labelSum.text.floatValue;
+        float paidAmount = ((POSBasket *)[helperInstance getObject: objectsHelperInstance.dataSet.baskets
+                                                            withID: objectsHelperInstance.currentBasketID]).price.floatValue;
+        
+        POSBasketPaymentViewController *controller = (POSBasketPaymentViewController *)[segue destinationViewController];
+        controller.paydAmount = paidAmount > 0 ? paidAmount : 0;
+        controller.unpaydAmount = totalPrice - paidAmount;
+    }
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+
+
 #pragma mark - GridView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -117,6 +144,7 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     POSOrder *order = (POSOrder *)[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row];
+    int index = 0;
     
     for(int i = 0; i<[objectsHelperInstance.dataSet.allItems count]; i++) {
         
@@ -124,13 +152,13 @@
         
         if  ([item.name isEqualToString:order.name] && [item.category isEqualToString:order.category]) {
             
-            self.itemIndex = i;
+            index = i;
             break;
         }
     }
     
     POSItemViewController *controller = [helperInstance getUIViewController:@"POSItemViewController"];
-    controller.item = [objectsHelperInstance.dataSet.allItems objectAtIndex:self.itemIndex];
+    controller.item = [objectsHelperInstance.dataSet.allItems objectAtIndex:index];
     controller.title = controller.item.name;
     controller.item.quantityOrdered = order.quantity;
     controller.currentQuantity = order.quantity;
@@ -145,7 +173,6 @@
     
     [controller dismissViewControllerAnimated: YES completion: nil];
 }
-
 
 
 #pragma mark - Alert
@@ -163,7 +190,6 @@
             POSOrder *order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row];
             
             [objectsHelperInstance.dataSet.orderArray removeObject:order];
-//            [objectsHelperInstance.dataSet attributeValuesRemove:attributeValue];
             [self.tableBasket deleteRowsAtIndexPaths: @[indexPath]
                                     withRowAnimation: UITableViewRowAnimationFade];
         }
@@ -174,66 +200,13 @@
 
 #pragma mark - Methods
 
-- (void)saveToDB {
+- (void)addBasket {
     
-    if (![dbWrapperInstance openDB])
-        return;
-    
-    float totalPrice = 0.;
-    
-    for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
+    if(objectsHelperInstance.currentBasketID == 0) {
         
-        POSOrder* order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
-        totalPrice += [order.price floatValue];
+        POSBasket *newBasket = [objectsHelperInstance.dataSet basketsCreate:0.00 withDocumentTypeID:1 withUserID:1];
+        objectsHelperInstance.currentBasketID = newBasket.ID;
     }
-    
-    if(objectsHelperInstance.currentBasketID) {
-        
-        NSString * query = [NSString stringWithFormat:@"UPDATE  document \
-                                                        SET     date = datetime('now'), paid_price = %f \
-                                                        WHERE   id = %d; ",totalPrice, objectsHelperInstance.currentBasketID];
-        [dbWrapperInstance tryExecQuery:query];
-        
-        query = [NSString stringWithFormat:@"DELETE \
-                                             FROM   document_line \
-                                             WHERE  document_id = %d; ", objectsHelperInstance.currentBasketID];
-        [dbWrapperInstance tryExecQuery:query];
-        
-        for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
-            
-            POSOrder* order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
-            float price = [order.price floatValue];
-            int quantity = [order.quantity intValue];
-            
-            query = [NSString stringWithFormat:@"INSERT INTO document_line (price, quantity, item_id, document_id) \
-                                                 VALUES (%f, %d, %d, %d); ", price, quantity, order.item_ID, objectsHelperInstance.currentBasketID];
-            [dbWrapperInstance tryExecQuery:query];
-        }
-    }
-    else {
-        
-        NSString * query = [NSString stringWithFormat:@"INSERT INTO document (date, paid_price, document_type_id, user_id) \
-                                                        VALUES (datetime('now'), %f, %d, %d); ", totalPrice, 1, 1];
-        [dbWrapperInstance tryExecQuery:query];
-        
-        query = @"SELECT    id \
-                  FROM      document \
-                  ORDER BY  id DESC limit 1; ";
-        int doc_ID = [dbWrapperInstance execQueryResultInt:query andIndex:0];
-        
-        for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
-            
-            POSOrder* order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
-            float price = [order.price floatValue];
-            int quantity = [order.quantity intValue];
-            
-            query = [NSString stringWithFormat:@"INSERT INTO document_line (price, quantity, item_id, document_id) \
-                                                 VALUES (%f, %d, %d, %d); ", price, quantity, order.item_ID, doc_ID];
-            [dbWrapperInstance tryExecQuery:query];
-        }
-    }
-    
-    [dbWrapperInstance closeDB];
 }
 
 
@@ -244,7 +217,6 @@
     [helperInstance setButtonFontColorBySetting:self.buttonPay];
     
     [helperInstance setButtonShadow:self.buttonList withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
-    [helperInstance setButtonBackgroundColorBySetting:self.buttonList];
 }
 
 
@@ -266,7 +238,7 @@
 
 - (IBAction)onSendEmail:(id)sender {
     
-    [self saveToDB];
+    [self addBasket];
     
     if(![MFMailComposeViewController canSendMail])
         return;
@@ -304,32 +276,21 @@
     [self presentViewController:mailCont animated:YES completion:nil];
 }
 
-
-- (IBAction)onSave:(id)sender {
-    
-    [self saveToDB];
-    [objectsHelperInstance.dataSet.orderArray removeAllObjects];
-    objectsHelperInstance.currentBasketID = 0;
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
-- (IBAction)onPay:(id)sender {
-    
-//    [self saveToDB];
-//    [objectsHelperInstance.dataSet.orderArray removeAllObjects];
-//    objectsHelperInstance.currentBasketID = 0;
-//    [self.navigationController popViewControllerAnimated:YES];
-}
+//
+//- (IBAction)onPay:(id)sender {
+//    
+////    [self saveToDB];
+////    [objectsHelperInstance.dataSet.orderArray removeAllObjects];
+////    objectsHelperInstance.currentBasketID = 0;
+////    [self.navigationController popViewControllerAnimated:YES];
+//}
 
 
 - (IBAction)onList:(id)sender {
     
-//    POSBasketOpenViewController* viewBasketList = [POSBasketOpenViewController new];
-//    viewBasketList.title = @"Basket DB";
-//    viewBasketList.basketArray = [[NSMutableArray alloc] init];
-//    [viewBasketList readBasketsList];
-//    [self.navigationController pushViewController:viewBasketList animated:YES];
+    POSBasketOpenViewController *controller = [helperInstance getUIViewController:@"POSBasketOpenViewController"];
+    controller.title = @"Basket DB";
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 

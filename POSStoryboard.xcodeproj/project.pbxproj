@@ -107,6 +107,7 @@
 		8032391A187731B300BB9DAE /* setting_rememberme_checked_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 80323918187731B300BB9DAE /* setting_rememberme_checked_icon.png */; };
 		8032391B187731B300BB9DAE /* setting_rememberme_unchecked_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 80323919187731B300BB9DAE /* setting_rememberme_unchecked_icon.png */; };
 		804D809F188ECA9100B00412 /* POSBasketEditDynamicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 804D809E188ECA9100B00412 /* POSBasketEditDynamicCell.m */; };
+		804D80A21891621F00B00412 /* POSBasketPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 804D80A11891621F00B00412 /* POSBasketPaymentViewController.m */; };
 		8054C3EF1852233E00299E2F /* POSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3EE1852233E00299E2F /* POSLoginViewController.m */; };
 		8054C3F21852235000299E2F /* POSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8054C3F11852235000299E2F /* POSRegisterViewController.m */; };
 		80741498187D98A400BD1188 /* image_not_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 80741497187D98A400BD1188 /* image_not_selected.png */; };
@@ -288,6 +289,8 @@
 		80323919187731B300BB9DAE /* setting_rememberme_unchecked_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_rememberme_unchecked_icon.png; sourceTree = "<group>"; };
 		804D809D188ECA9100B00412 /* POSBasketEditDynamicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSBasketEditDynamicCell.h; path = Controls/POSBasketEditDynamicCell.h; sourceTree = "<group>"; };
 		804D809E188ECA9100B00412 /* POSBasketEditDynamicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSBasketEditDynamicCell.m; path = Controls/POSBasketEditDynamicCell.m; sourceTree = "<group>"; };
+		804D80A01891621F00B00412 /* POSBasketPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSBasketPaymentViewController.h; sourceTree = "<group>"; };
+		804D80A11891621F00B00412 /* POSBasketPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSBasketPaymentViewController.m; sourceTree = "<group>"; };
 		8054C3ED1852233E00299E2F /* POSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSLoginViewController.h; sourceTree = "<group>"; };
 		8054C3EE1852233E00299E2F /* POSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSLoginViewController.m; sourceTree = "<group>"; };
 		8054C3F01852235000299E2F /* POSRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSRegisterViewController.h; sourceTree = "<group>"; };
@@ -652,6 +655,8 @@
 				8032390B1872BF7600BB9DAE /* POSSelectSettingsViewController.m */,
 				80FFAD351869A3930070D993 /* POSSettingsViewController.h */,
 				80FFAD361869A3930070D993 /* POSSettingsViewController.m */,
+				804D80A01891621F00B00412 /* POSBasketPaymentViewController.h */,
+				804D80A11891621F00B00412 /* POSBasketPaymentViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -968,6 +973,7 @@
 				803238E21869D64100BB9DAE /* POSSetting.m in Sources */,
 				807C4398185A16EC00CBAB88 /* POSObjectsHelper.m in Sources */,
 				80206FF4186064B1002FFC35 /* NSData+Base64.m in Sources */,
+				804D80A21891621F00B00412 /* POSBasketPaymentViewController.m in Sources */,
 				80FFAD371869A3930070D993 /* POSSettingsViewController.m in Sources */,
 				80DF203118806335004E932C /* POSCategoryAttribute.m in Sources */,
 				80A06F9A187AC45700D9880A /* POSKBKeyboardHandler.m in Sources */,

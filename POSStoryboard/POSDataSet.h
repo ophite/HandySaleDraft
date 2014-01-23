@@ -16,6 +16,9 @@
 #import "POSAttributeValue.h"
 #import "POSCategoryAttribute.h"
 #import "POSGallery.h"
+#import "POSBasket.h"
+#import "POSOrder.h"
+
 
 @interface POSDataSet : NSObject
 
@@ -24,6 +27,8 @@
 @property NSMutableArray *images;
 @property NSMutableArray *galleries;
 @property NSMutableArray *settings;
+
+@property NSMutableArray *baskets;
 @property NSMutableArray *orderArray;
 
 @property NSMutableArray *items;
@@ -81,7 +86,10 @@
             withObjectName: (NSString *)object_name
              withIsDefault: (BOOL)is_dafault;
 
-
+- (void)basketsGet;
+- (void)basketsGet:(int)basketID;
+- (POSBasket *)basketsCreate:(float)paid_price withDocumentTypeID:(int)documentTypeID withUserID:(int)userID;
+- (void)basketsUpdate:(int)ID withPaidPrice:(float)paidPrice;
 
 
 @end

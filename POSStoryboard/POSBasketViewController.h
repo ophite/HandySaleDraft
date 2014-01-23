@@ -16,6 +16,7 @@
 #import "POSBasketOpenViewController.h"
 #import "POSBasketEditDynamicCell.h"
 #import "POSHelper.h"
+#import "POSBasketPaymentViewController.h"
 
 
 @interface POSBasketViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate> {
@@ -26,7 +27,6 @@
 }
 
 
-@property int itemIndex;
 @property POSBasket *basket;
 
 
@@ -40,13 +40,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelCurrency;
 
 
-- (IBAction)onSendEmail:(id)sender;
-//- (IBAction)onSave:(id)sender;
-- (IBAction)onPay:(id)sender;
 - (IBAction)onList:(id)sender;
 - (IBAction)onDeleteButton:(id)sender;
-
-- (void)saveToDB;
+- (IBAction)onSendEmail:(id)sender;
 
 
 @end
