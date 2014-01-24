@@ -56,6 +56,7 @@
 
 - (NSString *)convertFloatToStringWithFormat2SignIfNeed:(NSString *)value;
 - (NSString *)convertBoolToString:(BOOL)value;
+- (NSString *)convertDateToSQLite:(NSDate *)date;
 
 - (BOOL)isValidEmail:(NSString *)email;
 - (NSObject *)getObject:(NSMutableArray *)objects withID:(int)id;

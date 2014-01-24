@@ -1,19 +1,19 @@
 //
-//  POSGoodsGridViewController.m
+//  POSItemsViewController.m
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/13/13.
 //  Copyright (c) 2013 kobernik.u. All rights reserved.
 //
-#import "POSGoodsGridViewController.h"
+#import "POSItemsViewController.h"
 
 
-@interface POSGoodsGridViewController ()
+@interface POSItemsViewController ()
 
 @end
 
 
-@implementation POSGoodsGridViewController
+@implementation POSItemsViewController
 
 
 @synthesize btnAdd = _btnAdd;
@@ -48,7 +48,7 @@
     self.catName = self.cat.name;
     [objectsHelperInstance.dataSet.items removeAllObjects];
     [objectsHelperInstance.dataSet itemsGetByCategory:self.catName];
-    objectsHelperInstance.goodsMode = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_ITEM_MODE].boolValue;
+    objectsHelperInstance.itemsMode = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_ITEM_MODE].boolValue;
 
     
     // gui
@@ -64,7 +64,7 @@
     [self.scrollView setMinimumZoomScale:1.0];
     [self.scrollView setMaximumZoomScale:2.0];
     
-    [self.btnChangeMode setTitle: (objectsHelperInstance.goodsMode? @"View mode" : @"Edit mode")
+    [self.btnChangeMode setTitle: (objectsHelperInstance.itemsMode? @"View mode" : @"Edit mode")
                         forState: UIControlStateNormal];
 
 	// Do any additional setup after loading the view.
@@ -81,10 +81,10 @@
 -(void) viewWillDisappear:(BOOL)animated {
     
     POSSetting *settingItemMode = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_ITEM_MODE];
-    if (![settingItemMode.value isEqualToString:[helperInstance convertBoolToString:objectsHelperInstance.goodsMode]]) {
+    if (![settingItemMode.value isEqualToString:[helperInstance convertBoolToString:objectsHelperInstance.itemsMode]]) {
         
         [objectsHelperInstance.dataSet settingsUpdate: settingItemMode
-                                            withValue: [helperInstance convertBoolToString:objectsHelperInstance.goodsMode]];
+                                            withValue: [helperInstance convertBoolToString:objectsHelperInstance.itemsMode]];
     }
 }
 
@@ -138,7 +138,7 @@
 
 - (void) gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index {
     
-    if(!objectsHelperInstance.goodsMode) {
+    if(!objectsHelperInstance.itemsMode) {
         //View
         POSItemViewController *controller = [helperInstance getUIViewController: @"POSItemViewController"];
         controller.item = [objectsHelperInstance.dataSet.items objectAtIndex:index];
@@ -173,8 +173,8 @@
 
 - (IBAction)onChangeMode:(id)sender {
     
-    objectsHelperInstance.goodsMode = !objectsHelperInstance.goodsMode;
-    [self.btnChangeMode setTitle: (objectsHelperInstance.goodsMode? @"View mode" : @"Edit mode")
+    objectsHelperInstance.itemsMode = !objectsHelperInstance.itemsMode;
+    [self.btnChangeMode setTitle: (objectsHelperInstance.itemsMode? @"View mode" : @"Edit mode")
                         forState: UIControlStateNormal];
 }
 

@@ -94,12 +94,12 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    
-    objectsHelperInstance.currentBasketID = [[objectsHelperInstance.dataSet.baskets objectAtIndex:[indexPath row]] ID];
-    [self readBasketData: objectsHelperInstance.currentBasketID];
-    [self.navigationController popViewControllerAnimated:YES];
-}
+//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+//    
+//    objectsHelperInstance.currentBasketID = [[objectsHelperInstance.dataSet.baskets objectAtIndex:[indexPath row]] ID];
+//    [self readBasketData: objectsHelperInstance.currentBasketID];
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -115,6 +115,7 @@
     if (![dbWrapperInstance openDB])
         return;
     
+    [objectsHelperInstance.dataSet.orderArray removeAllObjects];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     NSString * query = [NSString stringWithFormat:@"SELECT  item_id, quantity \
                                                     FROM    document_line \
@@ -136,9 +137,9 @@
     for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
         
         POSOrder *order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
-        query = [NSString stringWithFormat:@"SELECT     p.name, c.name, p.price_buy, i.asset \
-                                             FROM       product p, collection c, image i \
-                                             WHERE      p.id = %d AND c.id = p.collection_id AND i.object_id = p.id", order.item_ID];
+        query = [NSString stringWithFormat:@"SELECT p.name, c.name, p.price_buy, i.asset \
+                                             FROM   product p, collection c, image i \
+                                             WHERE  p.id = %d AND c.id = p.collection_id AND i.object_id = p.id", order.item_ID];
         
         
         void (^blockExtractOrderValues)() = ^() {
@@ -175,20 +176,20 @@
 
 
 #pragma mark - Actions
- 
-- (IBAction)onSave:(id)sender {
-    
-    NSIndexPath *indexPath = [self.tableBasket indexPathForSelectedRow];
-    objectsHelperInstance.currentBasketID = [[objectsHelperInstance.dataSet.baskets objectAtIndex:[indexPath row]] ID];
-    [self readBasketData: objectsHelperInstance.currentBasketID ];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
-- (IBAction)onCancel:(id)sender {
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
+// 
+//- (IBAction)onSave:(id)sender {
+//    
+//    NSIndexPath *indexPath = [self.tableBasket indexPathForSelectedRow];
+//    objectsHelperInstance.currentBasketID = [[objectsHelperInstance.dataSet.baskets objectAtIndex:[indexPath row]] ID];
+//    [self readBasketData: objectsHelperInstance.currentBasketID ];
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
+//
+//
+//- (IBAction)onCancel:(id)sender {
+//    
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 
 
 @end

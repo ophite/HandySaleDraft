@@ -14,7 +14,7 @@
 #import "POSCategory.h"
 #import "POSObjectsHelper.h"
 #import "POSDBWrapper.h"
-#import "POSGoodsGridViewController.h"
+#import "POSItemsViewController.h"
 #import "POSCategoryEditViewController.h"
 #import "POSHelper.h"
 #import "POSSetting.h"

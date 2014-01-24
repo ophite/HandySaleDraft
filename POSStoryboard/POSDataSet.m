@@ -764,7 +764,7 @@
                                                             comment       = \"%@\", \
                                                             user_id       = %d, \
                                                             collection_id = %d  \
-                                                    WHERE   id = %d;", name, price_buy, price_sale, description, userID, categoryID, item.ID];
+                                                    WHERE   id = %d; ", name, price_buy, price_sale, description, userID, categoryID, item.ID];
     
      if ([dbWrapperInstance openDB]) {
          
@@ -789,13 +789,24 @@
 
 #pragma mark - Basket
 
+// TODO: такой же метод в хелпере(т.к. перекрестная ссылка)
+- (NSString *)convertDateToSQLite:(NSDate *)date {
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateString=[dateFormat stringFromDate:[NSDate date]];
+    
+    return dateString;
+}
+
 - (POSBasket *)basketsCreate:(float)paid_price withDocumentTypeID:(int)documentTypeID withUserID:(int)userID {
     
-    POSBasket *newBasket;
-    NSDate *dateNow = [NSDate date];
+    [self basketsGet];
     
+    POSBasket *newBasket;
+    NSString *date = [self convertDateToSQLite:[NSDate date]];
     NSString *query = [NSString stringWithFormat:@"INSERT INTO document (date, paid_price, document_type_id, user_id) \
-                                                   VALUES (%@, %f, %d, %d); ",dateNow, paid_price, documentTypeID, userID];
+                                                   VALUES (\"%@\", %f, %d, %d); ",date, paid_price, documentTypeID, userID];
  
     if ([dbWrapperInstance openDB]) {
         
@@ -804,7 +815,7 @@
         
         newBasket = [[POSBasket alloc] init];
         newBasket.ID = newID;
-        newBasket.tst = [NSString stringWithFormat:@"%@", dateNow];
+        newBasket.tst = date;
         newBasket.price =[NSString stringWithFormat:@"%.2f", paid_price];
         newBasket.name = [[NSString alloc] initWithFormat: @"No:%d %@", newBasket.ID, newBasket.tst];
 

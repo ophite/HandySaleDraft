@@ -135,6 +135,8 @@
         return;
     }
     
+    objectsHelperInstance.currentBasketID = 0;
+    
     if([self.previousQuantity intValue] == 0 && [self.currentQuantity intValue] > 0) {
         
         self.order = [[POSOrder alloc] init];
@@ -165,16 +167,14 @@
                 
                 if([self.currentQuantity intValue] > 0) {
                     
-                    POSOrder* o;
-                    o = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
-                    o.quantity = self.currentQuantity;
+                    POSOrder* order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
+                    order.quantity = self.currentQuantity;
                 }
                 else
                     [objectsHelperInstance.dataSet.orderArray removeObjectAtIndex:i];
                 
                 break;
             }
-            
         }
     }
     

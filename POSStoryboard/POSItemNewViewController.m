@@ -65,8 +65,8 @@
     
     if ([dbWrapperInstance openDB]) {
         
-        int cat_ID = [[objectsHelperInstance.dataSet.categories objectAtIndex:objectsHelperInstance.currentCatIndex] ID];
-        NSString* catName = [[objectsHelperInstance.dataSet.categories objectAtIndex:objectsHelperInstance.currentCatIndex] name];
+        int cat_ID = [[objectsHelperInstance.dataSet.categories objectAtIndex:objectsHelperInstance.currentCategoryIndex] ID];
+        NSString* catName = [[objectsHelperInstance.dataSet.categories objectAtIndex:objectsHelperInstance.currentCategoryIndex] name];
         NSString * query = [NSString stringWithFormat:@"SELECT  count(*) \
                                                         FROM    product \
                                                         WHERE   name = \"%@\" AND collection_id = \"%d\" AND user_id = \"%d\"", self.textName.text, cat_ID, 1];

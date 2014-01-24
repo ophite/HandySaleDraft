@@ -327,7 +327,6 @@
                                         </state>
                                         <connections>
                                             <action selector="onList:" destination="m2k-tR-kAf" eventType="touchUpInside" id="pca-Sk-H8q"/>
-                                            <segue destination="yqw-Hq-fQc" kind="push" id="VQi-0V-G7Z"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -420,7 +419,7 @@
             </objects>
             <point key="canvasLocation" x="4543" y="-1346"/>
         </scene>
-        <!--Basket Open View Controller - Open basket-->
+        <!--Basket Open View Controller - Order list-->
         <scene sceneID="7R4-iN-cKD">
             <objects>
                 <viewController storyboardIdentifier="POSBasketOpenViewController" id="yqw-Hq-fQc" customClass="POSBasketOpenViewController" sceneMemberID="viewController">
@@ -428,38 +427,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qjn-Se-h0W">
-                                <rect key="frame" x="105" y="524" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Save">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onSave:" destination="yqw-Hq-fQc" eventType="touchUpInside" id="pBh-Fh-dxf"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Dab-iB-xWj">
-                                <rect key="frame" x="175" y="524" width="61" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onCancel:" destination="yqw-Hq-fQc" eventType="touchUpInside" id="FBc-LN-f63"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QrG-q9-SGX">
-                                <rect key="frame" x="1" y="65" width="320" height="452"/>
+                                <rect key="frame" x="1" y="65" width="320" height="503"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Open basket" id="lhU-3Y-9QA"/>
+                    <navigationItem key="navigationItem" title="Order list" id="lhU-3Y-9QA"/>
                     <connections>
-                        <outlet property="btnCancel" destination="Dab-iB-xWj" id="bEx-Yo-y0P"/>
-                        <outlet property="btnSave" destination="qjn-Se-h0W" id="opN-dy-Ove"/>
                         <outlet property="tableBasket" destination="QrG-q9-SGX" id="doA-4c-voU"/>
                     </connections>
                 </viewController>
@@ -467,10 +444,10 @@
             </objects>
             <point key="canvasLocation" x="4543" y="-2025"/>
         </scene>
-        <!--Goods Grid View Controller - Items list-->
+        <!--Items View Controller - Items list-->
         <scene sceneID="pxd-72-Ji5">
             <objects>
-                <viewController storyboardIdentifier="POSGoodsGridViewController" id="YGa-fU-0eh" customClass="POSGoodsGridViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POSItemsViewController" id="YGa-fU-0eh" customClass="POSItemsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xtx-NO-zKW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1955,9 +1932,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="BqE-aY-ofo"/>
+        <segue reference="iAD-Nf-PUJ"/>
         <segue reference="BeC-x6-6J5"/>
         <segue reference="4Gh-bX-aFU"/>
-        <segue reference="Jqe-ZV-lAM"/>
-        <segue reference="iAD-Nf-PUJ"/>
     </inferredMetricsTieBreakers>
 </document>

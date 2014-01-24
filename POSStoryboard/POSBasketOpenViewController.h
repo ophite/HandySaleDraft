@@ -23,8 +23,8 @@
 
 - (void)readBasketData:(int)doc_ID;
 
-- (IBAction)onSave:(id)sender;
-- (IBAction)onCancel:(id)sender;
+//- (IBAction)onSave:(id)sender;
+//- (IBAction)onCancel:(id)sender;
 
 
 @end

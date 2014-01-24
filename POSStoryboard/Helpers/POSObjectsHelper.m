@@ -12,9 +12,9 @@
 
 
 @synthesize dataSet = _dataSet;
-@synthesize catsMode = _catsMode;
-@synthesize goodsMode = _goodsMode;
-@synthesize currentCatIndex = _currentCatIndex;
+@synthesize categoriesMode = _categoriesMode;
+@synthesize itemsMode = _itemsMode;
+@synthesize currentCategoryIndex = _currentCategoryIndex;
 @synthesize currentItemsIndex = _currentItemsIndex;
 
 

@@ -1,5 +1,5 @@
 //
-//  POSGoodsGridViewController.h
+//  POSItemsViewController.h
 //  POSStoryboard
 //
 //  Created by kobernik.u on 12/13/13.
@@ -16,7 +16,7 @@
 #import "POSItemEditViewController.h"
 #import "POSHelper.h"
 
-@interface POSGoodsGridViewController : UIViewController <AQGridViewDelegate, AQGridViewDataSource>
+@interface POSItemsViewController : UIViewController <AQGridViewDelegate, AQGridViewDataSource>
 
 
 @property NSString *catName;

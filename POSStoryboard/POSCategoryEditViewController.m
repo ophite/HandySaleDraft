@@ -210,7 +210,7 @@ int _isImageDirty = 0;
                 [dbWrapperInstance tryExecQuery:query];
                 [dbWrapperInstance closeDB];
                 
-                [objectsHelperInstance.dataSet.categories removeObjectAtIndex:objectsHelperInstance.currentCatIndex];
+                [objectsHelperInstance.dataSet.categories removeObjectAtIndex:objectsHelperInstance.currentCategoryIndex];
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }

@@ -17,11 +17,11 @@
 
 //@property (strong, nonatomic) POSDataSet *dataSet;
 @property POSDataSet *dataSet;
-@property BOOL catsMode;
-@property BOOL goodsMode;
+@property BOOL categoriesMode;
+@property BOOL itemsMode;
 
 //Current position data
-@property int currentCatIndex;
+@property int currentCategoryIndex;
 @property int currentItemsIndex;
 @property int currentBasketID;
 

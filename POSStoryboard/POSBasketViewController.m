@@ -158,8 +158,8 @@
     }
     
     POSItemViewController *controller = [helperInstance getUIViewController:@"POSItemViewController"];
-    controller.item = [objectsHelperInstance.dataSet.allItems objectAtIndex:index];
     controller.title = controller.item.name;
+    controller.item = [objectsHelperInstance.dataSet.allItems objectAtIndex:index];
     controller.item.quantityOrdered = order.quantity;
     controller.currentQuantity = order.quantity;
     
@@ -197,6 +197,7 @@
     
     __deletedCell = nil;
 }
+
 
 #pragma mark - Methods
 
@@ -290,6 +291,7 @@
     
     POSBasketOpenViewController *controller = [helperInstance getUIViewController:@"POSBasketOpenViewController"];
     controller.title = @"Basket DB";
+    //TODO load all orders
     [self.navigationController pushViewController:controller animated:YES];
 }
 

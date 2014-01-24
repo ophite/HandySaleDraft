@@ -45,7 +45,7 @@
     // init data
     [objectsHelperInstance.dataSet categoriesGet];
     [objectsHelperInstance.dataSet itemsGet];
-    objectsHelperInstance.catsMode = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CATEGORY_MODE].boolValue;
+    objectsHelperInstance.categoriesMode = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CATEGORY_MODE].boolValue;
 
     // load image
     ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
@@ -72,7 +72,7 @@
     [self.scrollView setMinimumZoomScale:1.0];
     [self.scrollView setMaximumZoomScale:2.0];
     
-    [self.btnChangeMode setTitle: (objectsHelperInstance.catsMode ? @"View mode" : @"Edit mode")
+    [self.btnChangeMode setTitle: (objectsHelperInstance.categoriesMode ? @"View mode" : @"Edit mode")
                         forState: UIControlStateNormal];
 	// Do any additional setup after loading the view.
 }
@@ -145,10 +145,10 @@
         // back button was pressed.  We know this is true because self is no longer
         // in the navigation stack.
         POSSetting *settingCategoryMode = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CATEGORY_MODE];
-        if (![settingCategoryMode.value isEqualToString:[helperInstance convertBoolToString:objectsHelperInstance.catsMode]]) {
+        if (![settingCategoryMode.value isEqualToString:[helperInstance convertBoolToString:objectsHelperInstance.categoriesMode]]) {
             
             [objectsHelperInstance.dataSet settingsUpdate: settingCategoryMode
-                                                withValue: [helperInstance convertBoolToString:objectsHelperInstance.catsMode]];
+                                                withValue: [helperInstance convertBoolToString:objectsHelperInstance.categoriesMode]];
         }
     }
 }
@@ -156,9 +156,9 @@
 
 - (void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index {
 
-    if(!objectsHelperInstance.catsMode) {
+    if(!objectsHelperInstance.categoriesMode) {
         //View goods
-        POSGoodsGridViewController *controller = [helperInstance getUIViewController:@"POSGoodsGridViewController"];
+        POSItemsViewController *controller = [helperInstance getUIViewController:@"POSItemsViewController"];
         controller.cat = [objectsHelperInstance.dataSet.categories objectAtIndex:index];
         controller.title = controller.cat.name;
         [self.navigationController pushViewController: controller
@@ -257,7 +257,7 @@
     }
     else {
         
-        [objectsHelperInstance.dataSet.categories removeObjectAtIndex:objectsHelperInstance.currentCatIndex];
+        [objectsHelperInstance.dataSet.categories removeObjectAtIndex:objectsHelperInstance.currentCategoryIndex];
         [self.gridView reloadData];
         
         if ([dbWrapperInstance openDB])
@@ -307,8 +307,8 @@
 
 - (IBAction)onChangeMode:(id)sender {
     
-    objectsHelperInstance.catsMode = !objectsHelperInstance.catsMode;
-    [self.btnChangeMode setTitle: (objectsHelperInstance.catsMode ? @"View mode": @"Edit mode")
+    objectsHelperInstance.categoriesMode = !objectsHelperInstance.categoriesMode;
+    [self.btnChangeMode setTitle: (objectsHelperInstance.categoriesMode ? @"View mode": @"Edit mode")
                         forState: UIControlStateNormal];
 }
 

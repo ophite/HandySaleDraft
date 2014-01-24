@@ -241,6 +241,15 @@
     return value ? @"YES" : @"NO";
 }
 
+- (NSString *)convertDateToSQLite:(NSDate *)date {
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateString=[dateFormat stringFromDate:[NSDate date]];
+
+    return dateString;
+}
+
 - (BOOL)isValidEmail:(NSString *)email {
     
     BOOL stricterFilter = YES; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/

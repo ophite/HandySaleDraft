@@ -40,7 +40,7 @@
 //    
 //    query = @"DROP TABLE IF EXISTS setting";
 //    [dbWrapperInstance tryExecQuery:query];
-//    
+//
 //    query = @"DROP TABLE IF EXISTS gallery";
 //    [dbWrapperInstance tryExecQuery:query];
     

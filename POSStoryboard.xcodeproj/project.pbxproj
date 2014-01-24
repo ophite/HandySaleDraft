@@ -82,7 +82,7 @@
 		8004B7621850DDCA00681B11 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8004B7611850DDCA00681B11 /* libsqlite3.dylib */; };
 		801CBBC018881393005CBA62 /* setting_deleteattribute_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 801CBBBF18881393005CBA62 /* setting_deleteattribute_icon.png */; };
 		801CBBC318884635005CBA62 /* POSGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 801CBBC218884635005CBA62 /* POSGallery.m */; };
-		80206FE8185B7250002FFC35 /* POSGoodsGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FE7185B7250002FFC35 /* POSGoodsGridViewController.m */; };
+		80206FE8185B7250002FFC35 /* POSItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FE7185B7250002FFC35 /* POSItemsViewController.m */; };
 		80206FEB185F4C25002FFC35 /* POSCategoryEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FEA185F4C25002FFC35 /* POSCategoryEditViewController.m */; };
 		80206FEE185F4E1A002FFC35 /* POSItemEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FED185F4E1A002FFC35 /* POSItemEditViewController.m */; };
 		80206FF1185F7476002FFC35 /* POSItemNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80206FF0185F7476002FFC35 /* POSItemNewViewController.m */; };
@@ -249,8 +249,8 @@
 		801CBBBF18881393005CBA62 /* setting_deleteattribute_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_deleteattribute_icon.png; sourceTree = "<group>"; };
 		801CBBC118884635005CBA62 /* POSGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSGallery.h; sourceTree = "<group>"; };
 		801CBBC218884635005CBA62 /* POSGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSGallery.m; sourceTree = "<group>"; };
-		80206FE6185B7250002FFC35 /* POSGoodsGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSGoodsGridViewController.h; sourceTree = "<group>"; };
-		80206FE7185B7250002FFC35 /* POSGoodsGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSGoodsGridViewController.m; sourceTree = "<group>"; };
+		80206FE6185B7250002FFC35 /* POSItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSItemsViewController.h; sourceTree = "<group>"; };
+		80206FE7185B7250002FFC35 /* POSItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSItemsViewController.m; sourceTree = "<group>"; };
 		80206FE9185F4C25002FFC35 /* POSCategoryEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSCategoryEditViewController.h; sourceTree = "<group>"; };
 		80206FEA185F4C25002FFC35 /* POSCategoryEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSCategoryEditViewController.m; sourceTree = "<group>"; };
 		80206FEC185F4E1A002FFC35 /* POSItemEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSItemEditViewController.h; sourceTree = "<group>"; };
@@ -633,8 +633,8 @@
 				80206FEA185F4C25002FFC35 /* POSCategoryEditViewController.m */,
 				807C43CA185B1B5B00CBAB88 /* POSCategoryNewViewController.h */,
 				807C43CB185B1B5B00CBAB88 /* POSCategoryNewViewController.m */,
-				80206FE6185B7250002FFC35 /* POSGoodsGridViewController.h */,
-				80206FE7185B7250002FFC35 /* POSGoodsGridViewController.m */,
+				80206FE6185B7250002FFC35 /* POSItemsViewController.h */,
+				80206FE7185B7250002FFC35 /* POSItemsViewController.m */,
 				80206FEC185F4E1A002FFC35 /* POSItemEditViewController.h */,
 				80206FED185F4E1A002FFC35 /* POSItemEditViewController.m */,
 				80206FEF185F7476002FFC35 /* POSItemNewViewController.h */,
@@ -960,7 +960,7 @@
 				804D809F188ECA9100B00412 /* POSBasketEditDynamicCell.m in Sources */,
 				8004B6AE1850C86300681B11 /* CustomPhotoAlbum.m in Sources */,
 				803238F9186C6C2200BB9DAE /* POSAttributeEditViewController.m in Sources */,
-				80206FE8185B7250002FFC35 /* POSGoodsGridViewController.m in Sources */,
+				80206FE8185B7250002FFC35 /* POSItemsViewController.m in Sources */,
 				807C43C3185A23F100CBAB88 /* POSGridViewCell.m in Sources */,
 				807C43921859F56F00CBAB88 /* POSDBWrapper.m in Sources */,
 				8004B7601850DACC00681B11 /* POSBasket.m in Sources */,

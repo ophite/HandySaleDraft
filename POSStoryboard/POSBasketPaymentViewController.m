@@ -41,14 +41,17 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+
+    // init data
+    self.textFieldIUnpaidAmount.text = [NSString stringWithFormat:@"%.2f", self.unpaydAmount];
+    self.labelCurrency.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CURRENCY];
+    self.labelPaidAmount.text = [NSString stringWithFormat:@"%.2f", self.paydAmount];
     
     // gui
     [self initControlsLayers];
-    self.textFieldIUnpaidAmount.text = [NSString stringWithFormat:@"%.2f", self.unpaydAmount];
     
     if (self.paydAmount > 0) {
         
-        self.labelPaidAmount.text = [NSString stringWithFormat:@"%.2f", self.paydAmount];
         self.labelPaid.hidden = NO;
         self.labelCurrency.hidden = NO;
         self.labelPaidAmount.hidden = NO;
