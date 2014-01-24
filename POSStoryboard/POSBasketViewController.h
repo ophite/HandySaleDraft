@@ -10,6 +10,7 @@
 #import "NSData+Base64.h"
 
 #import "POSObjectsHelper.h"
+#import "POSSettingsGUIHelper.h"
 #import "POSBasket.h"
 #import "POSOrder.h"
 #import "POSItemViewController.h"

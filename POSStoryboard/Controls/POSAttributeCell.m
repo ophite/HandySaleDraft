@@ -36,9 +36,8 @@
     self.buttonName.layer.cornerRadius = 5;
     self.buttonName.clipsToBounds = YES;
     
-    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
-                                        withName: helperInstance.SETTING_TEXTFIELD_FONT_COLOR];
-    [helperInstance setButtonFontColor:self.buttonName withSetting:setting];
+    POSSetting *setting = (POSSetting *)[helperInstance getObject:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_TEXTFIELD_FONT_COLOR];
+    [settingsGUIHelperInstance setButtonFontColor:self.buttonName withSetting:setting];
 
     // Configure the view for the selected state
 }

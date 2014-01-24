@@ -276,6 +276,20 @@
     return value;
 }
 
+- (NSObject *)getObject:(NSMutableArray *)objects withName:(NSString *)name {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", name];
+    NSArray *arr = [objects filteredArrayUsingPredicate:predicate];
+    NSObject *value;
+    
+    if ([arr count] > 0) {
+        
+        value = ((NSObject *)[arr objectAtIndex:0]);
+    }
+    
+    return value;
+}
+
 - (NSObject *)getObject:(NSMutableArray *)objects withPredicate:(NSPredicate *)predicate {
     
     NSArray *arr = [objects filteredArrayUsingPredicate:predicate];
@@ -328,85 +342,6 @@
     button.layer.shadowOpacity = 0.5f;
     button.layer.masksToBounds = NO;
     button.layer.cornerRadius = cornerRadius;
-}
-
-
-- (void)loadTextFieldBorderColorSetting:(UIColor *)color {
-    
-    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
-                                        withName: helperInstance.SETTING_TEXTFIELD_BORDER_COLOR];
-    
-    [objectsHelperInstance.dataSet settingsUpdate: setting
-                                        withValue: [CIColor colorWithCGColor:color.CGColor].stringRepresentation];
-}
-
-- (void)setTextFieldBorderColorBySetting:(UITextField *)textField {
-    
-    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
-                                        withName: helperInstance.SETTING_TEXTFIELD_BORDER_COLOR];
-
-    textField.layer.borderWidth = 1.0;
-    textField.layer.borderColor = [UIColor colorWithCIColor:[CIColor colorWithString:setting.value]].CGColor;
-}
-
-- (void)loadTextFieldFontColorSetting:(UIColor *)color {
-    
-    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
-                                        withName: helperInstance.SETTING_TEXTFIELD_FONT_COLOR];
-    [objectsHelperInstance.dataSet settingsUpdate: setting
-                                        withValue: [CIColor colorWithCGColor:color.CGColor].stringRepresentation];
-}
-
-- (void)setTextFieldFontColorBySetting:(UITextField *)textField {
-    
-    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
-                                        withName: helperInstance.SETTING_TEXTFIELD_FONT_COLOR];
-    
-    UIColor *color = [UIColor colorWithCIColor:[CIColor colorWithString:setting.value]];
-    color = [UIColor colorWithCGColor:color.CGColor];
-    [textField setTextColor:color];
-}
-
-- (void)loadButtonBackgroundColorSetting:(UIColor *)color {
-    
-    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
-                                        withName: helperInstance.SETTING_BUTTON_BACKGROUND_COLOR];
-    
-    [objectsHelperInstance.dataSet settingsUpdate: setting
-                                        withValue: [CIColor colorWithCGColor:color.CGColor].stringRepresentation];
-}
-
-- (void)setButtonBackgroundColorBySetting:(UIButton *)button {
-    
-    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
-                                        withName: helperInstance.SETTING_BUTTON_BACKGROUND_COLOR];
-    
-    button.layer.backgroundColor = [UIColor colorWithCIColor:[CIColor colorWithString:setting.value]].CGColor;
-}
-
-- (void)loadButtonFontColorSetting:(UIColor *)color {
-    
-    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
-                                        withName: helperInstance.SETTING_BUTTON_FONT_COLOR];
-    [objectsHelperInstance.dataSet settingsUpdate: setting
-                                        withValue: [CIColor colorWithCGColor:color.CGColor].stringRepresentation];
-    
-}
-
-- (void)setButtonFontColorBySetting:(UIButton *)button {
-    
-    POSSetting *setting = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
-                                        withName: helperInstance.SETTING_BUTTON_FONT_COLOR];
-    
-    [self setButtonFontColor:button withSetting:setting];
-}
-
-- (void)setButtonFontColor:(UIButton *)button withSetting:(POSSetting *)setting {
-    
-    UIColor *color = [UIColor colorWithCIColor:[CIColor colorWithString:setting.value]];
-    color = [UIColor colorWithCGColor:color.CGColor];
-    [button setTintColor:color];
-    [button setTitleColor:color forState:UIControlStateNormal];
 }
 
 - (void)createLeftMarginForLabel:(UILabel *)label {

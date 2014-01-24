@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "POSTest.h"
 #import "POSObjectsHelper.h"
+#import "POSSettingsGUIHelper.h"
 #import "POSKBKeyboardHandler.h"
 #import "POSKBKeyboardHandlerDelegate.h"
 #import "UIView+POSFindFirstResponder.h"

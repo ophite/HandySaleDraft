@@ -40,7 +40,7 @@
     self.textAttributeName.text = self.attribute ? self.attribute.name : @"";
     self.textAttributeName.delegate = self;
 
-    [helperInstance setTextFieldFontColorBySetting:self.textAttributeName];
+    [settingsGUIHelperInstance setTextFieldFontColorBySetting:self.textAttributeName];
     // Configure the view for the selected state
 }
 

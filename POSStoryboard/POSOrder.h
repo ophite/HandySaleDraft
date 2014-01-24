@@ -15,7 +15,7 @@
     NSString*       price;
     NSString*       quantity;
     NSString*       codeItem;
-    int             item_ID;
+    int             itemID;
     UIImage*        image;
 }
 
@@ -25,6 +25,6 @@
 @property  NSString*        price;
 @property  NSString*        quantity;
 @property  UIImage*         image;
-@property  int              item_ID;
+@property  int              itemID;
 
 @end

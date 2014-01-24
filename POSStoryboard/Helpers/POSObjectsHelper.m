@@ -12,10 +12,10 @@
 
 
 @synthesize dataSet = _dataSet;
-@synthesize categoriesMode = _categoriesMode;
 @synthesize itemsMode = _itemsMode;
-@synthesize currentCategoryIndex = _currentCategoryIndex;
+@synthesize categoriesMode = _categoriesMode;
 @synthesize currentItemsIndex = _currentItemsIndex;
+@synthesize currentCategoryIndex = _currentCategoryIndex;
 
 
 + (POSObjectsHelper *)getInstance {
@@ -24,6 +24,7 @@
     static dispatch_once_t once;
     
     dispatch_once(&once, ^{
+        
         sharedInstance = [[POSObjectsHelper alloc] init];
         sharedInstance.dataSet = [[POSDataSet alloc] init];
     });

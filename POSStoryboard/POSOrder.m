@@ -10,6 +10,6 @@
 
 @implementation POSOrder
 
-@synthesize name, codeItem, category, price, quantity, image, item_ID;
+@synthesize name, codeItem, category, price, quantity, image, itemID;
 
 @end

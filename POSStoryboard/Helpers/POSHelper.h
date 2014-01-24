@@ -7,12 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "POSSetting.h"
-#import "POSObjectsHelper.h"
 #define helperInstance [POSHelper getInstance]
 
 @interface POSHelper : NSObject
-    
+
+// name helpers
 - (NSDictionary *)SETTING_CURRENCY_DICT;
 - (NSDictionary *)SETTING_LANGUAGES_DICT;
 
@@ -40,7 +39,7 @@
 - (NSString *)SETTING_VAT;
 - (NSString *)SETTING_REMEMBERME;
 
-
+// sizes
 - (CGFloat)ITEM_EDIT_WIDTH;
 - (CGFloat)ITEM_EDIT_HEIGHT;
 - (CGFloat)ITEM_VIEW_WIDTH;
@@ -51,6 +50,10 @@
 - (CGFloat)CATEGORY_LIST_HEIGHT;
 - (int)BUTTON_CORNER_RADIUS;
 
+// singleton
++ (POSHelper *)getInstance;
+
+// methods
 - (id)getDictionaryFirstValue:(NSDictionary *)dict;
 - (id)getDictionaryFirstKey:(NSDictionary *)dict;
 
@@ -60,29 +63,15 @@
 
 - (BOOL)isValidEmail:(NSString *)email;
 - (NSObject *)getObject:(NSMutableArray *)objects withID:(int)id;
+- (NSObject *)getObject:(NSMutableArray *)objects withName:(NSString *)name;
 - (NSObject *)getObject:(NSMutableArray *)objects withPredicate:(NSPredicate *)predicate;
 - (NSObject *)getObjectImmutableArray:(NSArray *)objects withPredicate:(NSPredicate *)predicate;
 
-+ (POSHelper *)getInstance;
-
+// gui
 - (UIViewController *)getParentViewController:(UINavigationController *)navigationController;
 
 - (id)getUIViewController:(NSString *)storyboardName;
 - (void)setButtonShadow:(UIButton *)button withCornerRadius:(int)cornerRadius;
-
-- (void)setTextFieldBorderColorBySetting:(UITextField *)textField;
-- (void)loadTextFieldBorderColorSetting:(UIColor *)color;
-
-- (void)setTextFieldFontColorBySetting:(UITextField *)textField;
-- (void)loadTextFieldFontColorSetting:(UIColor *)color;
-
-- (void)setButtonBackgroundColorBySetting:(UIButton *)button;
-- (void)loadButtonBackgroundColorSetting:(UIColor *)color;
-
-- (void)setButtonFontColorBySetting:(UIButton *)button;
-- (void)loadButtonFontColorSetting:(UIColor *)color;
-
-- (void)setButtonFontColor:(UIButton *)button withSetting:(POSSetting *)setting;
 
 - (void)createLeftMarginForLabel:(UILabel *)label withSize:(int)value;
 - (void)createLeftMarginForLabel:(UILabel *)label;

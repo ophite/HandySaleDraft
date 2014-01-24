@@ -90,8 +90,8 @@
 - (void)initControlsLayers {
     
     [helperInstance setButtonShadow:self.buttonPay withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
-    [helperInstance setButtonBackgroundColorBySetting:self.buttonPay];
-    [helperInstance setButtonFontColorBySetting:self.buttonPay];
+    [settingsGUIHelperInstance setButtonBackgroundColorBySetting:self.buttonPay];
+    [settingsGUIHelperInstance setButtonFontColorBySetting:self.buttonPay];
 }
 
 

@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "POSAttributeValue.h"
 #import "POSHelper.h"
+#import "POSSettingsGUIHelper.h"
 
 
 @interface POSAttributeEditDynamicCell : UITableViewCell <UITextFieldDelegate>

@@ -594,8 +594,8 @@ POSCategory *_newCategory;
 
     // button save shadow
     [helperInstance setButtonShadow:self.buttonSave withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
-    [helperInstance setButtonBackgroundColorBySetting:self.buttonSave];
-    [helperInstance setButtonFontColorBySetting:self.buttonSave];
+    [settingsGUIHelperInstance setButtonBackgroundColorBySetting:self.buttonSave];
+    [settingsGUIHelperInstance setButtonFontColorBySetting:self.buttonSave];
 }
         
         

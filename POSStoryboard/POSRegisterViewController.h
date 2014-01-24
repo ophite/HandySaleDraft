@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "POSDBHelper.h"
 #import "POSHelper.h"
+#import "POSSettingsGUIHelper.h"
 
 @interface POSRegisterViewController : UIViewController<UITextFieldDelegate, UIAlertViewDelegate>
 

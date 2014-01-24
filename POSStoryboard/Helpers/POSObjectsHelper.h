@@ -12,15 +12,16 @@
 #define objectsHelperInstance [POSObjectsHelper getInstance]
 
 
+
 @interface POSObjectsHelper : NSObject
 
 
 //@property (strong, nonatomic) POSDataSet *dataSet;
-@property POSDataSet *dataSet;
-@property BOOL categoriesMode;
 @property BOOL itemsMode;
+@property BOOL categoriesMode;
+@property POSDataSet *dataSet;
 
-//Current position data
+// Current position data
 @property int currentCategoryIndex;
 @property int currentItemsIndex;
 @property int currentBasketID;

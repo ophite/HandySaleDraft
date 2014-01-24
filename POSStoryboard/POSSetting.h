@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface POSSetting : NSObject
 
 
@@ -19,7 +20,6 @@
 
 
 + (NSString *)getSettingValue:(NSMutableArray *)settings withName:(NSString *)name;
-+ (POSSetting *)getSetting:(NSMutableArray *)settings withName:(NSString *)name;
 
 
 @end

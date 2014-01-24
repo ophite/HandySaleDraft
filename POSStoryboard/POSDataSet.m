@@ -16,8 +16,11 @@
 
 @synthesize images = _images;
 @synthesize galleries = _galleries;
+
 @synthesize settings = _settings;
-@synthesize orderArray = _orderArray;
+
+@synthesize orders = _orders;
+@synthesize baskets = _baskets;
 
 @synthesize items = _items;
 @synthesize allItems = _allItems;
@@ -38,7 +41,7 @@
     self.settings = [[NSMutableArray alloc] init];
     
     self.baskets = [[NSMutableArray alloc] init];
-    self.orderArray = [[NSMutableArray alloc] init];
+    self.orders = [[NSMutableArray alloc] init];
 
     self.items = [[NSMutableArray alloc] init];
     self.allItems = [[NSMutableArray alloc] init];
@@ -49,8 +52,6 @@
     self.categories = [[NSMutableArray alloc] init];
     self.categoriesAttributes = [[NSMutableArray alloc] init];
     
-    //currentBasketID = 0;
-       
     return self;
 }
 
@@ -724,27 +725,6 @@
     
     [dbWrapperInstance closeDB];
 }
-//
-//- (BOOL)itemUpdate:(POSItem *)item withCategory:(POSCategory *)category {
-//    
-//    BOOL result = NO;
-//    
-//    NSString *query = [NSString stringWithFormat:@"update product \
-//                                                   set    collection_id = %d \
-//                                                   where  id = %d; ", category.ID, item.ID];
-//    
-//    if ([dbWrapperInstance openDB]) {
-//        
-//        [dbWrapperInstance tryExecQuery:query];
-//        [dbWrapperInstance closeDB];
-//        
-//        item.category = category.name;
-//        item.catID = category.ID;
-//        result = YES;
-//    }
-//    
-//    return result;
-//}
 
 - (BOOL)itemUpdate: (POSItem *)item
           withName: (NSString *)name
@@ -789,22 +769,12 @@
 
 #pragma mark - Basket
 
-// TODO: такой же метод в хелпере(т.к. перекрестная ссылка)
-- (NSString *)convertDateToSQLite:(NSDate *)date {
-    
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *dateString=[dateFormat stringFromDate:[NSDate date]];
-    
-    return dateString;
-}
-
 - (POSBasket *)basketsCreate:(float)paid_price withDocumentTypeID:(int)documentTypeID withUserID:(int)userID {
     
     [self basketsGet];
     
     POSBasket *newBasket;
-    NSString *date = [self convertDateToSQLite:[NSDate date]];
+    NSString *date = [helperInstance convertDateToSQLite:[NSDate date]];
     NSString *query = [NSString stringWithFormat:@"INSERT INTO document (date, paid_price, document_type_id, user_id) \
                                                    VALUES (\"%@\", %f, %d, %d); ",date, paid_price, documentTypeID, userID];
  
@@ -827,14 +797,14 @@
 
         NSMutableString *queryMutable = [[NSMutableString alloc] init];
         
-        for(int i = 0; i<[self.orderArray count]; i++) {
+        for(int i = 0; i<[self.orders count]; i++) {
             
-            POSOrder* order = [self.orderArray objectAtIndex:i];
+            POSOrder* order = [self.orders objectAtIndex:i];
             float price = [order.price floatValue];
             int quantity = [order.quantity intValue];
             
             [queryMutable appendFormat:@"INSERT INTO document_line (price, quantity, item_id, document_id) \
-                                         VALUES (%f, %d, %d, %d); ", price, quantity, order.item_ID, newBasket.ID];
+                                         VALUES (%f, %d, %d, %d); ", price, quantity, order.itemID, newBasket.ID];
         }
         
         [dbWrapperInstance tryExecQuery:query];
@@ -856,14 +826,14 @@
                           FROM   document_line \
                           WHERE  document_id = %d; ", ID];
     
-    for(int i = 0; i<[self.orderArray count]; i++) {
+    for(int i = 0; i<[self.orders count]; i++) {
         
-        POSOrder* order = [self.orderArray objectAtIndex:i];
+        POSOrder* order = [self.orders objectAtIndex:i];
         float price = [order.price floatValue];
         int quantity = [order.quantity intValue];
         
         [query appendFormat:@"INSERT INTO document_line (price, quantity, item_id, document_id) \
-                              VALUES (%f, %d, %d, %d); ", price, quantity, order.item_ID, ID];
+                              VALUES (%f, %d, %d, %d); ", price, quantity, order.itemID, ID];
     }
     
     [dbWrapperInstance tryExecQuery:query];

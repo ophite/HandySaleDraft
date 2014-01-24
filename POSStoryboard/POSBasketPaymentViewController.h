@@ -9,6 +9,7 @@
 #import "POSHelper.h"
 #import "POSObjectsHelper.h"
 #import "POSOrder.h"
+#import "POSSettingsGUIHelper.h"
 
 @interface POSBasketPaymentViewController : UIViewController
 

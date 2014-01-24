@@ -291,8 +291,8 @@ const int SECTION_ATTRIBUTE_VALUE_HEIGHT = 68;
 - (void)initControlsLayers {
     
     [helperInstance setButtonShadow:self.buttonAddNewVariant withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
-    [helperInstance setButtonBackgroundColorBySetting:self.buttonAddNewVariant];
-    [helperInstance setButtonFontColorBySetting:self.buttonAddNewVariant];
+    [settingsGUIHelperInstance setButtonBackgroundColorBySetting:self.buttonAddNewVariant];
+    [settingsGUIHelperInstance setButtonFontColorBySetting:self.buttonAddNewVariant];
 }
 
 

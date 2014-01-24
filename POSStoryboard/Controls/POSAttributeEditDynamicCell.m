@@ -45,7 +45,7 @@
     self.textAttributeValue.text = self.attrValue ? self.attrValue.name : @"";
     self.textAttributeValue.delegate = self;
     self.textAttributeValue.tag = [POSAttributeEditDynamicCell TextAttributeTAG];
-    [helperInstance setTextFieldFontColorBySetting:self.textAttributeValue];
+    [settingsGUIHelperInstance setTextFieldFontColorBySetting:self.textAttributeValue];
 
     // Configure the view for the selected state
 }

@@ -127,6 +127,8 @@
 		807C43DC185B5A0E00CBAB88 /* POSItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C43DB185B5A0E00CBAB88 /* POSItemViewController.m */; };
 		80A06F9A187AC45700D9880A /* POSKBKeyboardHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A06F99187AC45700D9880A /* POSKBKeyboardHandler.m */; };
 		80A06F9E187AD2E300D9880A /* UIView+POSFindFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A06F9D187AD2E300D9880A /* UIView+POSFindFirstResponder.m */; };
+		80AB41881892935D00B11ECD /* POSObjectsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 80AB41871892935D00B11ECD /* POSObjectsManager.m */; };
+		80AB418B1892A5B000B11ECD /* POSSettingsGUIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 80AB418A1892A5B000B11ECD /* POSSettingsGUIHelper.m */; };
 		80BEBBC3186087FB003228B1 /* POSBasketOpenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80BEBBC2186087FB003228B1 /* POSBasketOpenViewController.m */; };
 		80BEBBC61861D9E4003228B1 /* POSSelectCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80BEBBC51861D9E4003228B1 /* POSSelectCategoryViewController.m */; };
 		80DF202E187DBC89004E932C /* POSSelectAttributeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DF202D187DBC89004E932C /* POSSelectAttributeViewController.m */; };
@@ -348,6 +350,10 @@
 		80A06F9B187AC4E900D9880A /* POSKBKeyboardHandlerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = POSKBKeyboardHandlerDelegate.h; path = Helpers/POSKBKeyboardHandlerDelegate.h; sourceTree = "<group>"; };
 		80A06F9C187AD2E300D9880A /* UIView+POSFindFirstResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+POSFindFirstResponder.h"; path = "Helpers/UIView+POSFindFirstResponder.h"; sourceTree = "<group>"; };
 		80A06F9D187AD2E300D9880A /* UIView+POSFindFirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+POSFindFirstResponder.m"; path = "Helpers/UIView+POSFindFirstResponder.m"; sourceTree = "<group>"; };
+		80AB41861892935D00B11ECD /* POSObjectsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSObjectsManager.h; path = Helpers/POSObjectsManager.h; sourceTree = "<group>"; };
+		80AB41871892935D00B11ECD /* POSObjectsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSObjectsManager.m; path = Helpers/POSObjectsManager.m; sourceTree = "<group>"; };
+		80AB41891892A5B000B11ECD /* POSSettingsGUIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSSettingsGUIHelper.h; path = Helpers/POSSettingsGUIHelper.h; sourceTree = "<group>"; };
+		80AB418A1892A5B000B11ECD /* POSSettingsGUIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSSettingsGUIHelper.m; path = Helpers/POSSettingsGUIHelper.m; sourceTree = "<group>"; };
 		80BEBBC1186087FB003228B1 /* POSBasketOpenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSBasketOpenViewController.h; sourceTree = "<group>"; };
 		80BEBBC2186087FB003228B1 /* POSBasketOpenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSBasketOpenViewController.m; sourceTree = "<group>"; };
 		80BEBBC41861D9E4003228B1 /* POSSelectCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSSelectCategoryViewController.h; sourceTree = "<group>"; };
@@ -684,6 +690,8 @@
 				8004B7101850D33600681B11 /* POSOrder.m */,
 				803238E01869D64100BB9DAE /* POSSetting.h */,
 				803238E11869D64100BB9DAE /* POSSetting.m */,
+				80AB41891892A5B000B11ECD /* POSSettingsGUIHelper.h */,
+				80AB418A1892A5B000B11ECD /* POSSettingsGUIHelper.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -704,6 +712,8 @@
 				807C4397185A16EC00CBAB88 /* POSObjectsHelper.m */,
 				80A06F9C187AD2E300D9880A /* UIView+POSFindFirstResponder.h */,
 				80A06F9D187AD2E300D9880A /* UIView+POSFindFirstResponder.m */,
+				80AB41861892935D00B11ECD /* POSObjectsManager.h */,
+				80AB41871892935D00B11ECD /* POSObjectsManager.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -943,6 +953,7 @@
 				8004B7131850D33600681B11 /* POSCategory.m in Sources */,
 				807C439E185A1B2F00CBAB88 /* POSCategoriesViewController.m in Sources */,
 				807C43DC185B5A0E00CBAB88 /* POSItemViewController.m in Sources */,
+				80AB418B1892A5B000B11ECD /* POSSettingsGUIHelper.m in Sources */,
 				801CBBC318884635005CBA62 /* POSGallery.m in Sources */,
 				8004B7161850D33600681B11 /* POSImage.m in Sources */,
 				80BEBBC3186087FB003228B1 /* POSBasketOpenViewController.m in Sources */,
@@ -986,6 +997,7 @@
 				803238EA1869FD5A00BB9DAE /* POSAttribute.m in Sources */,
 				8054C3F21852235000299E2F /* POSRegisterViewController.m in Sources */,
 				8004B7011850D30900681B11 /* AQGridViewUpdateItem.m in Sources */,
+				80AB41881892935D00B11ECD /* POSObjectsManager.m in Sources */,
 				8004B7001850D30900681B11 /* AQGridViewUpdateInfo.m in Sources */,
 				803238E51869F79300BB9DAE /* POSAttributeCell.m in Sources */,
 				8004B6FD1850D30900681B11 /* AQGridViewCell.m in Sources */,

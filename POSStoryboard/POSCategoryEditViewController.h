@@ -11,6 +11,7 @@
 #import "POSDBWrapper.h"
 #import "POSObjectsHelper.h"
 #import "POSHelper.h"
+#import "POSSettingsGUIHelper.h"
 #import "POSSelectAttributeViewController.h"
 
 @interface POSCategoryEditViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate>

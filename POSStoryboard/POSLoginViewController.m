@@ -212,13 +212,14 @@
 
 - (void)saveLoginPassIfRememberMe {
     
-    POSSetting *settingRememberMe = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME];
+    POSSetting *settingRememberMe = (POSSetting *)[helperInstance getObject:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME];
+
     if ([settingRememberMe.value boolValue] != __rememberChecked) {
         
         [objectsHelperInstance.dataSet settingsUpdate:settingRememberMe withValue:[helperInstance convertBoolToString:__rememberChecked]];
         
-        POSSetting *settingRememberMe_Login = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_LOGIN];
-        POSSetting *settingRememberMe_Pass = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_PASS];
+        POSSetting *settingRememberMe_Login = (POSSetting *)[helperInstance getObject:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_LOGIN];
+        POSSetting *settingRememberMe_Pass = (POSSetting *)[helperInstance getObject:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_REMEMBERME_PASS];
         
         if (__rememberChecked) {
             
@@ -253,21 +254,21 @@
 
 - (void)initControlsLayers {
     
-    [helperInstance setTextFieldBorderColorBySetting:self.textEmail];
-    [helperInstance setTextFieldBorderColorBySetting:self.textPassword];
-    [helperInstance setTextFieldFontColorBySetting:self.textPassword];
+    [settingsGUIHelperInstance setTextFieldBorderColorBySetting:self.textEmail];
+    [settingsGUIHelperInstance setTextFieldBorderColorBySetting:self.textPassword];
+    [settingsGUIHelperInstance setTextFieldFontColorBySetting:self.textPassword];
 }
 
 - (void)loadControlsLayers {
     
     // lines and text field border from first ViewController
-    [helperInstance loadTextFieldBorderColorSetting:self.viewForColorExample.backgroundColor];
+    [settingsGUIHelperInstance loadTextFieldBorderColorSetting:self.viewForColorExample.backgroundColor];
     // big yellow buttons
-    [helperInstance loadButtonBackgroundColorSetting:self.buttonLogin.backgroundColor];
+    [settingsGUIHelperInstance loadButtonBackgroundColorSetting:self.buttonLogin.backgroundColor];
     // big yellow buttons font color
-    [helperInstance loadButtonFontColorSetting:self.buttonLogin.tintColor];
+    [settingsGUIHelperInstance loadButtonFontColorSetting:self.buttonLogin.tintColor];
     // textField text color
-    [helperInstance loadTextFieldFontColorSetting:self.textEmail.textColor];
+    [settingsGUIHelperInstance loadTextFieldFontColorSetting:self.textEmail.textColor];
 }
 
 

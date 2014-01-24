@@ -80,7 +80,8 @@
 
 -(void) viewWillDisappear:(BOOL)animated {
     
-    POSSetting *settingItemMode = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_ITEM_MODE];
+    POSSetting *settingItemMode = (POSSetting *)[helperInstance getObject:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_ITEM_MODE];
+    
     if (![settingItemMode.value isEqualToString:[helperInstance convertBoolToString:objectsHelperInstance.itemsMode]]) {
         
         [objectsHelperInstance.dataSet settingsUpdate: settingItemMode

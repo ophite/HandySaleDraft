@@ -60,8 +60,8 @@
 
 - (void)initControlsLayers {
     
-    [helperInstance setTextFieldBorderColorBySetting:self.textEmail];
-    [helperInstance setTextFieldFontColorBySetting:self.textEmail];
+    [settingsGUIHelperInstance setTextFieldBorderColorBySetting:self.textEmail];
+    [settingsGUIHelperInstance setTextFieldFontColorBySetting:self.textEmail];
 }
 
 

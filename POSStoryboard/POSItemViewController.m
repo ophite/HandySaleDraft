@@ -140,38 +140,33 @@
     if([self.previousQuantity intValue] == 0 && [self.currentQuantity intValue] > 0) {
         
         self.order = [[POSOrder alloc] init];
-        
         self.order.category  = self.item.category;
         self.order.name      = self.item.name;
         self.order.quantity  = self.item.quantityOrdered;
         self.order.price     = self.item.price_buy;
         self.order.codeItem  = self.item.codeItem;
         self.order.image     = self.item.image;
-        self.order.item_ID   = self.item.ID;
+        self.order.itemID   = self.item.ID;
         
-        [objectsHelperInstance.dataSet.orderArray addObject:self.order];
-        [self.navigationController popViewControllerAnimated:YES];
-
-        return;
-    }
-    
-    if([objectsHelperInstance.dataSet.orderArray count] > 0) {
+        [objectsHelperInstance.dataSet.orders addObject:self.order];
+        
+    } else if([objectsHelperInstance.dataSet.orders count] > 0) {
         
         NSString *orderName;
 
-        for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
+        for(int i = 0; i<[objectsHelperInstance.dataSet.orders count]; i++) {
             
-            orderName = [[objectsHelperInstance.dataSet.orderArray objectAtIndex:i] name];
+            orderName = [[objectsHelperInstance.dataSet.orders objectAtIndex:i] name];
             
             if([orderName isEqualToString:self.item.name]) {
                 
                 if([self.currentQuantity intValue] > 0) {
                     
-                    POSOrder* order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
+                    POSOrder* order = [objectsHelperInstance.dataSet.orders objectAtIndex:i];
                     order.quantity = self.currentQuantity;
                 }
                 else
-                    [objectsHelperInstance.dataSet.orderArray removeObjectAtIndex:i];
+                    [objectsHelperInstance.dataSet.orders removeObjectAtIndex:i];
                 
                 break;
             }

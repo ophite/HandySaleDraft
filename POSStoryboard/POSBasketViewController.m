@@ -50,7 +50,7 @@
     self.labelCurrency.text = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CURRENCY];
 
     float sum = 0.00;
-    for (POSOrder *order in objectsHelperInstance.dataSet.orderArray) {
+    for (POSOrder *order in objectsHelperInstance.dataSet.orders) {
         
         sum = sum + order.price.floatValue;
     }
@@ -123,7 +123,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return [objectsHelperInstance.dataSet.orderArray count];
+    return [objectsHelperInstance.dataSet.orders count];
 }
 
 
@@ -132,8 +132,8 @@
     static NSString *CellIdentifier = @"POSBasketEditDynamicCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     POSBasketEditDynamicCell *dynamicCell = (POSBasketEditDynamicCell *)cell;
-    dynamicCell.order = (POSOrder *)[objectsHelperInstance.dataSet.orderArray objectAtIndex:[indexPath row]];
-    dynamicCell.item = (POSItem *)[helperInstance getObject:objectsHelperInstance.dataSet.allItems withID:dynamicCell.order.item_ID];
+    dynamicCell.order = (POSOrder *)[objectsHelperInstance.dataSet.orders objectAtIndex:[indexPath row]];
+    dynamicCell.item = (POSItem *)[helperInstance getObject:objectsHelperInstance.dataSet.allItems withID:dynamicCell.order.itemID];
     dynamicCell.labelRowIndex.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
     dynamicCell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -143,7 +143,7 @@
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    POSOrder *order = (POSOrder *)[objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row];
+    POSOrder *order = (POSOrder *)[objectsHelperInstance.dataSet.orders objectAtIndex:indexPath.row];
     int index = 0;
     
     for(int i = 0; i<[objectsHelperInstance.dataSet.allItems count]; i++) {
@@ -187,9 +187,9 @@
             // delete attribute
             POSBasketEditDynamicCell *cell = (POSBasketEditDynamicCell *)__deletedCell;
             NSIndexPath *indexPath = [self.tableBasket indexPathForCell:cell];
-            POSOrder *order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:indexPath.row];
+            POSOrder *order = [objectsHelperInstance.dataSet.orders objectAtIndex:indexPath.row];
             
-            [objectsHelperInstance.dataSet.orderArray removeObject:order];
+            [objectsHelperInstance.dataSet.orders removeObject:order];
             [self.tableBasket deleteRowsAtIndexPaths: @[indexPath]
                                     withRowAnimation: UITableViewRowAnimationFade];
         }
@@ -214,8 +214,8 @@
 - (void)initControlsLayers {
     
     [helperInstance setButtonShadow:self.buttonPay withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
-    [helperInstance setButtonBackgroundColorBySetting:self.buttonPay];
-    [helperInstance setButtonFontColorBySetting:self.buttonPay];
+    [settingsGUIHelperInstance setButtonBackgroundColorBySetting:self.buttonPay];
+    [settingsGUIHelperInstance setButtonFontColorBySetting:self.buttonPay];
     
     [helperInstance setButtonShadow:self.buttonList withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
 }
@@ -252,9 +252,9 @@
     NSMutableString *messageBody = [[NSMutableString alloc] initWithString:@"<html><body>"];
     [messageBody appendFormat:@"<table>"];
     
-    for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
+    for(int i = 0; i<[objectsHelperInstance.dataSet.orders count]; i++) {
         
-        NSData *imageData = [NSData dataWithData:UIImagePNGRepresentation([[objectsHelperInstance.dataSet.orderArray objectAtIndex:i] image])];
+        NSData *imageData = [NSData dataWithData:UIImagePNGRepresentation([[objectsHelperInstance.dataSet.orders objectAtIndex:i] image])];
         NSString *base64String = [imageData  base64EncodedString];
         
         [messageBody appendFormat:@"<tr>"];
@@ -262,10 +262,10 @@
         [messageBody appendFormat:@"<img height=\"48\" width=\"48\" src='data:image/png;base64,%@'>" , base64String];
         [messageBody appendFormat:@"</td>"];
         [messageBody appendFormat:@"<td>"];
-        [messageBody appendFormat:@"%@", [[objectsHelperInstance.dataSet.orderArray objectAtIndex:i] name]];
+        [messageBody appendFormat:@"%@", [[objectsHelperInstance.dataSet.orders objectAtIndex:i] name]];
         [messageBody appendFormat:@"</td>"];
         [messageBody appendFormat:@"<td>"];
-        [messageBody appendFormat:@"%@", [[objectsHelperInstance.dataSet.orderArray objectAtIndex:i] quantity]];
+        [messageBody appendFormat:@"%@", [[objectsHelperInstance.dataSet.orders objectAtIndex:i] quantity]];
         [messageBody appendFormat:@"</td>"];
         [messageBody appendFormat:@"</tr>"];
     }

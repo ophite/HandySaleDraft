@@ -222,10 +222,10 @@ int _isImageDirty = 0;
 
 - (void)initControlsLayers {
     
-    [helperInstance setTextFieldBorderColorBySetting: self.textName];
-    [helperInstance setButtonBackgroundColorBySetting:self.buttonSave];
-    [helperInstance setButtonFontColorBySetting:self.buttonSave];
-    [helperInstance setTextFieldFontColorBySetting:self.textName];
+    [settingsGUIHelperInstance setTextFieldBorderColorBySetting: self.textName];
+    [settingsGUIHelperInstance setButtonBackgroundColorBySetting:self.buttonSave];
+    [settingsGUIHelperInstance setButtonFontColorBySetting:self.buttonSave];
+    [settingsGUIHelperInstance setTextFieldFontColorBySetting:self.textName];
 }
 
 

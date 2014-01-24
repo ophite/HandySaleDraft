@@ -18,20 +18,6 @@
 @synthesize ID = _ID;
 
 
-+ (POSSetting *)getSetting:(NSMutableArray *)settings withName:(NSString *)name {
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", name];
-    NSArray *arr = [settings filteredArrayUsingPredicate:predicate];
-    POSSetting *value;
-    
-    if ([arr count] > 0) {
-        
-        value = ((POSSetting *)[arr objectAtIndex:0]);
-    }
-    
-    return value;
-}
-
 + (NSString *)getSettingValue:(NSMutableArray *)settings withName:(NSString *)name {
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", name];

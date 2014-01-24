@@ -136,12 +136,12 @@
 
 - (void)initControlsLayers {
     
-    [helperInstance setTextFieldBorderColorBySetting:self.textEmail];
-    [helperInstance setTextFieldFontColorBySetting:self.textEmail];
-    [helperInstance setTextFieldBorderColorBySetting:self.textPassword];
-    [helperInstance setTextFieldFontColorBySetting:self.textPassword];
-    [helperInstance setTextFieldBorderColorBySetting:self.textPassword2];
-    [helperInstance setTextFieldFontColorBySetting:self.textPassword2];
+    [settingsGUIHelperInstance setTextFieldBorderColorBySetting:self.textEmail];
+    [settingsGUIHelperInstance setTextFieldFontColorBySetting:self.textEmail];
+    [settingsGUIHelperInstance setTextFieldBorderColorBySetting:self.textPassword];
+    [settingsGUIHelperInstance setTextFieldFontColorBySetting:self.textPassword];
+    [settingsGUIHelperInstance setTextFieldBorderColorBySetting:self.textPassword2];
+    [settingsGUIHelperInstance setTextFieldFontColorBySetting:self.textPassword2];
 }
 
 

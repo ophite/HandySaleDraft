@@ -144,7 +144,8 @@
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
         // back button was pressed.  We know this is true because self is no longer
         // in the navigation stack.
-        POSSetting *settingCategoryMode = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CATEGORY_MODE];
+        POSSetting *settingCategoryMode = (POSSetting *)[helperInstance getObject:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CATEGORY_MODE];
+        
         if (![settingCategoryMode.value isEqualToString:[helperInstance convertBoolToString:objectsHelperInstance.categoriesMode]]) {
             
             [objectsHelperInstance.dataSet settingsUpdate: settingCategoryMode

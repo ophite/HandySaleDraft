@@ -103,9 +103,8 @@
 
     NSInteger row = [self.picker selectedRowInComponent:0];
     NSString *newValue = [[self.pickerDict allKeys] objectAtIndex:row];
-    
-    POSSetting *settingObject = [POSSetting getSetting: objectsHelperInstance.dataSet.settings
-                                              withName: self.settingName];
+    POSSetting *settingObject = (POSSetting *)[helperInstance getObject:objectsHelperInstance.dataSet.settings withName:self.settingName];
+
     if (settingObject) {
         
         if (![settingObject.value isEqualToString:newValue]) {

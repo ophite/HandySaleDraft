@@ -9,6 +9,7 @@
 #import "POSAttribute.h"
 #import "POSDBWrapper.h"
 #import "POSObjectsHelper.h"
+#import "POSSettingsGUIHelper.h"
 #import "POSAttributeEditStaticCell.h"
 #import "POSAttributeEditDynamicCell.h"
 #import "POSKBKeyboardHandlerDelegate.h"

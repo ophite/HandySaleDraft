@@ -77,21 +77,22 @@
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
         // back button was pressed.  We know this is true because self is no longer
         // in the navigation stack.
-        POSSetting *settingEmail = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_EMAIL];
+        POSSetting *settingEmail = (POSSetting *)[helperInstance getObject:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_EMAIL];
+
         if (![settingEmail.value isEqualToString:self.textEmail.text]) {
             
             [objectsHelperInstance.dataSet settingsUpdate: settingEmail
                                                 withValue: self.textEmail.text];
         }
         
-        POSSetting *settingWIFI = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_WIFI];
+        POSSetting *settingWIFI = (POSSetting *)[helperInstance getObject:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_WIFI];
         if ([settingWIFI.value boolValue] != self.switchWIFI.isOn) {
             
             [objectsHelperInstance.dataSet settingsUpdate: settingWIFI
                                                 withValue: [helperInstance convertBoolToString:self.switchWIFI.isOn]];
         }
         
-        POSSetting *settingVAT = [POSSetting getSetting:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_VAT];
+        POSSetting *settingVAT = (POSSetting *)[helperInstance getObject:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_VAT];
         if ([settingVAT.value  boolValue] != self.switchVAT.isOn) {
             
             [objectsHelperInstance.dataSet settingsUpdate: settingVAT

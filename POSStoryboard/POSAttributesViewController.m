@@ -183,8 +183,8 @@
     
     // button save shadow
     [helperInstance setButtonShadow:self.buttonAddNewAttribute withCornerRadius:helperInstance.BUTTON_CORNER_RADIUS];
-    [helperInstance setButtonBackgroundColorBySetting:self.buttonAddNewAttribute];
-    [helperInstance setButtonFontColorBySetting:self.buttonAddNewAttribute];
+    [settingsGUIHelperInstance setButtonBackgroundColorBySetting:self.buttonAddNewAttribute];
+    [settingsGUIHelperInstance setButtonFontColorBySetting:self.buttonAddNewAttribute];
 }
 
 

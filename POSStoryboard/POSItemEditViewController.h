@@ -13,6 +13,7 @@
 #import "POSObjectsHelper.h"
 #import "POSDBWrapper.h"
 #import "POSHelper.h"
+#import "POSSettingsGUIHelper.h"
 
 
 @interface POSItemEditViewController : UITableViewController<UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate>

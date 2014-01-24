@@ -7,6 +7,7 @@
 //
 #import <UIKit/UIKit.h>
 #import "POSHelper.h"
+#import "POSSettingsGUIHelper.h"
 #import "POSObjectsHelper.h"
 #import "POSDBWrapper.h"
 #import "POSDataSet.h"

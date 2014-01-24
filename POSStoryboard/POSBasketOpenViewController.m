@@ -115,7 +115,7 @@
     if (![dbWrapperInstance openDB])
         return;
     
-    [objectsHelperInstance.dataSet.orderArray removeAllObjects];
+    [objectsHelperInstance.dataSet.orders removeAllObjects];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     NSString * query = [NSString stringWithFormat:@"SELECT  item_id, quantity \
                                                     FROM    document_line \
@@ -124,22 +124,22 @@
     void (^blockGetOrder)(id rows) = ^(id rows) {
         
         POSOrder* order = [[POSOrder alloc] init];
-        order.item_ID = [dbWrapperInstance getCellInt:0];
+        order.itemID = [dbWrapperInstance getCellInt:0];
         order.quantity = [[NSString alloc] initWithFormat:@"%d", [dbWrapperInstance getCellInt:1]];
         [((NSMutableArray *)rows) addObject:order];
     };
     
     [dbWrapperInstance fetchRows: query
               andForeachCallback: blockGetOrder
-                         andRows: objectsHelperInstance.dataSet.orderArray];
+                         andRows: objectsHelperInstance.dataSet.orders];
     
     
-    for(int i = 0; i<[objectsHelperInstance.dataSet.orderArray count]; i++) {
+    for(int i = 0; i<[objectsHelperInstance.dataSet.orders count]; i++) {
         
-        POSOrder *order = [objectsHelperInstance.dataSet.orderArray objectAtIndex:i];
+        POSOrder *order = [objectsHelperInstance.dataSet.orders objectAtIndex:i];
         query = [NSString stringWithFormat:@"SELECT p.name, c.name, p.price_buy, i.asset \
                                              FROM   product p, collection c, image i \
-                                             WHERE  p.id = %d AND c.id = p.collection_id AND i.object_id = p.id", order.item_ID];
+                                             WHERE  p.id = %d AND c.id = p.collection_id AND i.object_id = p.id", order.itemID];
         
         
         void (^blockExtractOrderValues)() = ^() {
