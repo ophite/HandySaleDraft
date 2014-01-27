@@ -250,6 +250,24 @@
     return dateString;
 }
 
+- (NSDate *)convertStringToDateTo:(NSString *)dateStr {
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *date = [dateFormat dateFromString:dateStr];
+    
+    return date;
+}
+
+- (NSString *)convertDateToStringShort:(NSDate *)date {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    
+    return dateString;
+}
+
 - (BOOL)isValidEmail:(NSString *)email {
     
     BOOL stricterFilter = YES; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/

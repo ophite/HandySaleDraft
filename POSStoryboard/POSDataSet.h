@@ -100,7 +100,7 @@
 // baskets
 - (void)basketsGet;
 - (void)basketsGet:(int)basketID;
-- (POSBasket *)basketsCreate:(float)paid_price withDocumentTypeID:(int)documentTypeID withUserID:(int)userID;
+- (POSBasket *)basketsCreate:(float)paid_price  withClient:(NSString *)client withDocumentTypeID:(int)documentTypeID withUserID:(int)userID;
 - (void)basketsUpdate:(int)ID withPaidPrice:(float)paidPrice;
 
 

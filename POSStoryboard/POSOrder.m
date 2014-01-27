@@ -10,6 +10,13 @@
 
 @implementation POSOrder
 
-@synthesize name, codeItem, category, price, quantity, image, itemID;
+@synthesize client = _client;
+@synthesize name = _name;
+@synthesize codeItem = _codeItem;
+@synthesize category = _category;
+@synthesize price = _price;
+@synthesize quantity = _quantity;
+@synthesize image = _image;
+@synthesize itemID = _itemID;
 
 @end

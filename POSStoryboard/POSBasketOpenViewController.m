@@ -16,8 +16,6 @@
 @implementation POSBasketOpenViewController
 
 
-@synthesize btnSave = _btnSave;
-@synthesize btnCancel = _btnCancel;
 @synthesize tableBasket = _tableBasket;
 
 
@@ -25,8 +23,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-    self = [super initWithNibName: nibNameOrNil
-                           bundle: nibBundleOrNil];
+    self = [super initWithNibName: nibNameOrNil bundle: nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -34,13 +31,42 @@
 }
 
 
+NSMutableArray *_objectArray;
+NSString *_filterName;
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     
     // init data
     [objectsHelperInstance.dataSet basketsGet];
+    _objectArray = [[NSMutableArray alloc] init];
+    
+//    [self.tableBasket setSeparatorInset:UIEdgeInsetsMake(10, 0, 10, 0)];
 
+    if (1 == 1) {
+        
+        _filterName = @"client";
+        for (POSBasket *basket in objectsHelperInstance.dataSet.baskets) {
+            
+            if ([_objectArray indexOfObject:basket.client] == NSNotFound) {
+                
+                [_objectArray addObject:basket.client];
+            }
+        }
+    }
+    else {
+        
+        _filterName = @"tst";
+        for (POSBasket *basket in objectsHelperInstance.dataSet.baskets) {
+            
+            if ([_objectArray indexOfObject:basket.tst] == NSNotFound) {
+                
+                [_objectArray addObject:basket.tst];
+            }
+        }
+    }
+    
     // gui
     self.tableBasket.dataSource = self;
     self.tableBasket.delegate = self;
@@ -70,36 +96,50 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return objectsHelperInstance.dataSet.baskets.count;
+    return _objectArray.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString* CellIdentifier = @"Cell";
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"POSOrderEditCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    NSString *title = (NSString *)[_objectArray objectAtIndex:indexPath.row];
     
-    if(cell == nil)
-        cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleValue1
-                                      reuseIdentifier: CellIdentifier];
+//    NSString *strf = [NSString stringWithFormat:@"%@ = %@", _filterName, title];
+//    NSLog(strf);
+//    NSString *strf2 = [NSString stringWithFormat:@"client = %@", title];
+//    NSLog(strf2);
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ = %@" argumentArray: @[_filterName, title]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"client = %@", title];
+    NSArray *array = [objectsHelperInstance.dataSet.baskets filteredArrayUsingPredicate:predicate];
+    NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithArray:array];
     
-    NSString* name = [[objectsHelperInstance.dataSet.baskets objectAtIndex:[indexPath row]] name];
-    NSString* price = [[objectsHelperInstance.dataSet.baskets objectAtIndex:[indexPath row]] price];
+    POSOrderEditCell *orderEditCell = (POSOrderEditCell *)cell;
+    orderEditCell.labelTitle.text = title;
+    orderEditCell.objectsArray = mutableArray;
     
-    [[cell textLabel] setText:name];
-    cell.detailTextLabel.text = price;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-    return cell;
+    return orderEditCell;
 }
 
 
-//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-//    
-//    objectsHelperInstance.currentBasketID = [[objectsHelperInstance.dataSet.baskets objectAtIndex:[indexPath row]] ID];
-//    [self readBasketData: objectsHelperInstance.currentBasketID];
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    NSString *title = (NSString *)[_objectArray objectAtIndex:indexPath.row];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"client = %@", title];
+    NSArray *array = [objectsHelperInstance.dataSet.baskets filteredArrayUsingPredicate:predicate];
+    CGFloat rowHeight = self.tableBasket.rowHeight * (array.count > 0 ? array.count : 1);
+    
+    return rowHeight;
+}
+
+
+- (void)textViewDidChange:(UITextView *)textView{
+    
+    [self.tableBasket beginUpdates];
+    //    height = textView.contentSize.height;
+    [self.tableBasket endUpdates];
+}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

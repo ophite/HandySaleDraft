@@ -147,6 +147,8 @@
         self.order.codeItem  = self.item.codeItem;
         self.order.image     = self.item.image;
         self.order.itemID   = self.item.ID;
+        // TODO: в будущем сделать ввод клиента
+        self.order.client = self.item.category;
         
         [objectsHelperInstance.dataSet.orders addObject:self.order];
         

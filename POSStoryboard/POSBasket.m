@@ -10,6 +10,10 @@
 
 @implementation POSBasket
 
-@synthesize name, ID, tst, price;
+@synthesize name = _name;
+@synthesize ID = _ID;
+@synthesize tst = _tst;
+@synthesize price = _price;
+@synthesize client = _client;
 
 @end

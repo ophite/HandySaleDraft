@@ -11,13 +11,12 @@
 #import "POSDBWrapper.h"
 #import "POSOrder.h"
 #import "POSBasket.h"
+#import "POSOrderEditCell.h"
 
 
 @interface POSBasketOpenViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
 
-@property (weak, nonatomic) IBOutlet UIButton *btnSave;
-@property (weak, nonatomic) IBOutlet UIButton *btnCancel;
 @property (weak, nonatomic) IBOutlet UITableView *tableBasket;
 
 

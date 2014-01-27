@@ -205,7 +205,8 @@
     
     if(objectsHelperInstance.currentBasketID == 0) {
         
-        POSBasket *newBasket = [objectsHelperInstance.dataSet basketsCreate:0.00 withDocumentTypeID:1 withUserID:1];
+        // TODO: выяснить с клиентом
+        POSBasket *newBasket = [objectsHelperInstance.dataSet basketsCreate:0.00 withClient:@"empty client2" withDocumentTypeID:1 withUserID:1];
         objectsHelperInstance.currentBasketID = newBasket.ID;
     }
 }
@@ -289,7 +290,7 @@
 
 - (IBAction)onList:(id)sender {
     
-    POSBasketOpenViewController *controller = [helperInstance getUIViewController:@"POSBasketOpenViewController"];
+    POSBasketsViewController *controller = [helperInstance getUIViewController:@"POSBasketsViewController"];
     controller.title = @"Basket DB";
     //TODO load all orders
     [self.navigationController pushViewController:controller animated:YES];

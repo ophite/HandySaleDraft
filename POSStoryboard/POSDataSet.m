@@ -769,14 +769,14 @@
 
 #pragma mark - Basket
 
-- (POSBasket *)basketsCreate:(float)paid_price withDocumentTypeID:(int)documentTypeID withUserID:(int)userID {
+- (POSBasket *)basketsCreate:(float)paid_price withClient:(NSString *)client withDocumentTypeID:(int)documentTypeID withUserID:(int)userID {
     
     [self basketsGet];
     
     POSBasket *newBasket;
     NSString *date = [helperInstance convertDateToSQLite:[NSDate date]];
-    NSString *query = [NSString stringWithFormat:@"INSERT INTO document (date, paid_price, document_type_id, user_id) \
-                                                   VALUES (\"%@\", %f, %d, %d); ",date, paid_price, documentTypeID, userID];
+    NSString *query = [NSString stringWithFormat:@"INSERT INTO document (date, paid_price, document_type_id, user_id, client) \
+                                                   VALUES (\"%@\", %f, %d, %d, \"%@\"); ",date, paid_price, documentTypeID, userID, client];
  
     if ([dbWrapperInstance openDB]) {
         
@@ -788,6 +788,7 @@
         newBasket.tst = date;
         newBasket.price =[NSString stringWithFormat:@"%.2f", paid_price];
         newBasket.name = [[NSString alloc] initWithFormat: @"No:%d %@", newBasket.ID, newBasket.tst];
+        newBasket.client = client;
 
         [self.baskets addObject:newBasket];
     }
@@ -856,7 +857,7 @@
     if (![dbWrapperInstance openDB])
         return;
     
-    NSString * query = [NSString stringWithFormat:@"SELECT id, date, paid_price, user_id \
+    NSString * query = [NSString stringWithFormat:@"SELECT id, date, paid_price, user_id, client \
                                                     FROM   document \
                                                     WHERE  user_id = 1 and id = %d \
                                                     ORDER BY id DESC; ", basketID];
@@ -871,6 +872,7 @@
             basketObject.tst = [dbWrapperInstance getCellText:1];
             basketObject.name = [[NSString alloc] initWithFormat: @"No:%d %@", basketObject.ID, basketObject.tst];
             basketObject.price = [dbWrapperInstance getCellText:2];
+            basketObject.client = [dbWrapperInstance getCellText:4];
             
             [((NSMutableArray *)rows) addObject:basketObject];
         }
@@ -890,10 +892,10 @@
     if (![dbWrapperInstance openDB])
         return;
     
-    NSString * query = @"SELECT id, date, paid_price, user_id \
-    FROM   document \
-    WHERE  user_id = 1 \
-    ORDER BY id DESC; ";
+    NSString * query = @"SELECT id, date, paid_price, user_id, client \
+                         FROM   document \
+                         WHERE  user_id = 1 \
+                         ORDER BY id DESC; ";
     
     void (^blockGetBasket)(id rows) = ^(id rows) {
         
@@ -905,6 +907,7 @@
             basketObject.tst = [dbWrapperInstance getCellText:1];
             basketObject.name = [[NSString alloc] initWithFormat: @"No:%d %@", basketObject.ID, basketObject.tst];
             basketObject.price = [dbWrapperInstance getCellText:2];
+            basketObject.client = [dbWrapperInstance getCellText:4];
             
             [((NSMutableArray *)rows) addObject:basketObject];
         }

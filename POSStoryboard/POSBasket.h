@@ -10,17 +10,10 @@
 
 @interface POSBasket : NSObject
 
-{
-    NSString*       name;
-    int             ID;
-    NSString*       tst;
-    NSString*       price;
-    
-}
-
-@property  NSString*        name;
-@property  NSString*        tst;
-@property  NSString*        price;
-@property  int              ID;
+@property NSString *client;
+@property NSString *name;
+@property NSString *tst;
+@property NSString *price;
+@property int ID;
 
 @end

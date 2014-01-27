@@ -97,6 +97,11 @@
 }
 
 
+- (CGSize)portraitGridCellSizeForGridView:(AQGridView *)aGridView {
+    
+    return ( CGSizeMake(160.0, 160.0) );
+}
+
 
 #pragma mark - GridView
  
@@ -128,12 +133,6 @@
     [cell.captionLabel setText:self.item.name];
     
     return cell;
-}
-
-
-- (CGSize)portraitGridCellSizeForGridView:(AQGridView *)aGridView {
-    
-    return ( CGSizeMake(160.0, 160.0) );
 }
 
 
