@@ -162,10 +162,6 @@ NSString *_filterName;
             orderEditCell.labelTitle.text = title;
             orderEditCell.objectsArray = mutableArray;
             
-//            return orderEditCell;
-            
-            // Configure the cell...
-            
             break;
         }
         default:
@@ -191,12 +187,22 @@ NSString *_filterName;
     
     switch (indexPath.section) {
             
+        case CELL_FIRST_MODE: {
+        
+            cellHeight = 45;
+            break;
+        }
+        case CELL_SECOND_HEADER: {
+            
+            cellHeight = 25;
+            break;
+        }
         case CELL_THIRD_DETAIL: {
             
             NSString *title = (NSString *)[_objectArray objectAtIndex:indexPath.row];
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"client = %@", title];
             NSArray *array = [objectsHelperInstance.dataSet.baskets filteredArrayUsingPredicate:predicate];
-            cellHeight = 122 - cellHeight + cellHeight * (array.count > 0 ? array.count : 1);
+            cellHeight = 111 - cellHeight + cellHeight * (array.count > 0 ? array.count : 1);
             break;
         }
         default:

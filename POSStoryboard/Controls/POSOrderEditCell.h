@@ -17,6 +17,8 @@
 @property NSMutableArray *objectsArray;
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 @property (weak, nonatomic) IBOutlet UITableView *tableDetail;
+@property (weak, nonatomic) IBOutlet UIView *viewFirstGrey;
+@property (weak, nonatomic) IBOutlet UIView *viewSecondWhite;
 
 
 @end

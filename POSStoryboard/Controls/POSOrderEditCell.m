@@ -14,6 +14,8 @@
 @synthesize objectsArray = _objectsArray;
 @synthesize labelTitle = _labelTitle;
 @synthesize tableDetail = _tableDetail;
+@synthesize viewFirstGrey = _viewFirstGrey;
+@synthesize viewSecondWhite = _viewSecondWhite;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -33,9 +35,23 @@
     [super setSelected:selected animated:animated];
     self.tableDetail.delegate = self;
     self.tableDetail.dataSource = self;
+    self.tableDetail.scrollEnabled = NO;
+    
+    CGFloat heightDiff = 0;
+    
     CGRect frame = self.tableDetail.frame;
     frame.size.height = frame.size.height * (self.objectsArray.count > 0 ? self.objectsArray.count : 1);
+    heightDiff = frame.size.height - self.tableDetail.frame.size.height;
     self.tableDetail.frame = frame;
+    
+    frame = self.viewFirstGrey.frame;
+    frame.size.height = frame.size.height + heightDiff;
+    self.viewFirstGrey.frame = frame;
+
+    frame = self.viewSecondWhite.frame;
+    frame.size.height = frame.size.height + heightDiff;
+    self.viewSecondWhite.frame = frame;
+    
     // Configure the view for the selected state
 }
 
