@@ -15,7 +15,6 @@
 
 
 @synthesize tableBasket = _tableBasket;
-@synthesize segment = _segment;
 
 
 #pragma mark - Const
@@ -28,10 +27,6 @@ const int CELL_THIRD_DETAIL = 2;
 const int CELL_FIRST_MODE_HEIGHT = 45;
 const int CELL_SECOND_HEADER_HEIGTH = 25;
 const int CELL_THIRD_DETAIL_HEIGHT = 111;
-// segment index
-const int SEGMENT_MODE_CLIENT = 0;
-const int SEGMENT_MODE_DATE = 1;
-
 
 #pragma mark - ViewController
 
@@ -45,34 +40,16 @@ const int SEGMENT_MODE_DATE = 1;
 }
 
 
-
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
     // init data
     [objectsHelperInstance.dataSet basketsGet];
     _objectArray = [[NSMutableArray alloc] init];
-
-    objectsHelperInstance.currentBasketsMode = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_BASKETS_MODE].boolValue;
-    [self.segment setSelectedSegmentIndex: (objectsHelperInstance.currentBasketsMode == YES? SEGMENT_MODE_CLIENT :SEGMENT_MODE_DATE)];
-
-    
-    if (self.segment.selectedSegmentIndex == SEGMENT_MODE_CLIENT) {
-        
-        for (POSBasket *basket in objectsHelperInstance.dataSet.baskets) {
-            
-            if ([_objectArray indexOfObject:basket.client] == NSNotFound)
-                [_objectArray addObject:basket.client];
-        }
-    }
-    else {
-        
-        for (POSBasket *basket in objectsHelperInstance.dataSet.baskets) {
-            
-            if ([_objectArray indexOfObject:basket.tst] == NSNotFound)
-                [_objectArray addObject:basket.tst];
-        }
-    }
+    _basketsMode = [objectsHelperInstance.dataSet settingsGet:helperInstance.SETTING_BASKETS_MODE];
+    objectsHelperInstance.currentBasketsMode = _basketsMode.value.intValue;
+    [self calcTitleObjects];
     
     // gui
     self.tableBasket.dataSource = self;
@@ -97,6 +74,22 @@ const int SEGMENT_MODE_DATE = 1;
 //}
 
 
+-(void) viewWillDisappear:(BOOL)animated {
+    
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        // back button was pressed.  We know this is true because self is no longer
+        // in the navigation stack.
+        
+        if (_basketsMode.value.intValue != objectsHelperInstance.currentBasketsMode) {
+            
+            [objectsHelperInstance.dataSet settingsUpdate:_basketsMode withValue: [NSString stringWithFormat:@"%d", objectsHelperInstance.currentBasketsMode]];
+        }
+    }
+    [super viewWillDisappear:animated];
+}
+
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -104,6 +97,7 @@ const int SEGMENT_MODE_DATE = 1;
     // Return the number of sections.
     return 3;
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -141,27 +135,32 @@ const int SEGMENT_MODE_DATE = 1;
             
         case CELL_FIRST_MODE: {
             
-            static NSString *CellIdentifier = @"BasketsCell_First_Mode";
+            static NSString *CellIdentifier = @"POSOrderFirstCell_Mode";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+//            POSOrderFirstCell_Mode *orderFirstCell = (POSOrderFirstCell_Mode *)cell;
+            
             break;
         }
         case CELL_SECOND_HEADER: {
             
-            static NSString *CellIdentifier = @"BasketsCell_Second_Header";
+            static NSString *CellIdentifier = @"POSOrderSecondCell_Header";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+//            POSOrderSecondCell_Header *orderSecondCell = (POSOrderSecondCell_Header *)cell;
+            
             break;
         }
         case CELL_THIRD_DETAIL: {
             
             static NSString *CellIdentifier = @"POSOrderThirdCell_Detail";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-            NSString *title = (NSString *)[_objectArray objectAtIndex:indexPath.row];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"client = %@", title];
+            NSString *titleValue = (NSString *)[_objectArray objectAtIndex:indexPath.row];
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:(objectsHelperInstance.currentBasketsMode == BASKETS_MODE_CLIENT ? @"client = %@" : @"tst = %@"), titleValue];
             NSArray *array = [objectsHelperInstance.dataSet.baskets filteredArrayUsingPredicate:predicate];
             NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithArray:array];
             
             POSOrderThirdCell_Detail *orderEditCell = (POSOrderThirdCell_Detail *)cell;
-            orderEditCell.titleValue = title;
+            orderEditCell.titleValue = titleValue;
             orderEditCell.objectsArray = mutableArray;
             
             break;
@@ -200,8 +199,8 @@ const int SEGMENT_MODE_DATE = 1;
         }
         case CELL_THIRD_DETAIL: {
             
-            NSString *title = (NSString *)[_objectArray objectAtIndex:indexPath.row];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"client = %@", title];
+            NSString *titleValue = (NSString *)[_objectArray objectAtIndex:indexPath.row];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:(objectsHelperInstance.currentBasketsMode == BASKETS_MODE_CLIENT ? @"client = %@" : @"tst = %@"), titleValue];
             NSArray *array = [objectsHelperInstance.dataSet.baskets filteredArrayUsingPredicate:predicate];
             cellHeight = CELL_THIRD_DETAIL_HEIGHT - cellHeight + cellHeight * (array.count > 0 ? array.count : 1);
             break;
@@ -272,10 +271,31 @@ const int SEGMENT_MODE_DATE = 1;
 
  */
 
+
 #pragma mark - Methods
 
-- (IBAction)onSegmentValueChanged:(id)sender {
+- (void)calcTitleObjects {
+    
+    [_objectArray removeAllObjects];
+    
+    if (objectsHelperInstance.currentBasketsMode == BASKETS_MODE_CLIENT) {
+        
+        for (POSBasket *basket in objectsHelperInstance.dataSet.baskets) {
+            
+            if ([_objectArray indexOfObject:basket.client] == NSNotFound)
+                [_objectArray addObject:basket.client];
+        }
+    }
+    else {
+        
+        for (POSBasket *basket in objectsHelperInstance.dataSet.baskets) {
+            
+            if ([_objectArray indexOfObject:basket.tst] == NSNotFound)
+                [_objectArray addObject:basket.tst];
+        }
+    }
 }
+
 
 - (void)readBasketData:(int)doc_ID {
     
@@ -343,6 +363,20 @@ const int SEGMENT_MODE_DATE = 1;
 
 
 #pragma mark - Actions
+
+- (IBAction)onSegmentValueChanged:(id)sender {
+    
+    UISegmentedControl *segment = (UISegmentedControl *)sender;
+    objectsHelperInstance.currentBasketsMode = segment.selectedSegmentIndex;
+    
+    [self calcTitleObjects];
+
+    [self.tableBasket beginUpdates];
+    [self.tableBasket endUpdates];
+
+    [self.view reloadInputViews];
+}
+
 
 //- (IBAction)onSave:(id)sender {
 //

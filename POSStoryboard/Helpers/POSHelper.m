@@ -9,6 +9,8 @@
 
 @implementation POSHelper
 
+#pragma enums
+
 #pragma mark - Singleton
 
 + (POSHelper *)getInstance {

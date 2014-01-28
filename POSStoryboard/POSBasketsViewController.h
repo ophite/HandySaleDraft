@@ -11,6 +11,8 @@
 #import "POSOrder.h"
 #import "POSBasket.h"
 #import "POSSetting.h"
+#import "POSOrderFirstCell_Mode.h"
+#import "POSOrderSecondCell_Header.h"
 #import "POSOrderThirdCell_Detail.h"
 
 
@@ -19,11 +21,11 @@
 @private
     NSMutableArray *_objectArray;
     NSString *_filterName;
+    POSSetting *_basketsMode;
 }
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableBasket;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
 
 
 - (void)readBasketData:(int)doc_ID;

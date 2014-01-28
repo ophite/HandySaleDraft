@@ -428,7 +428,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="BasketsCell_First_Mode" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BasketsCell_First_Mode" rowHeight="45" id="7PO-vC-oNl">
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="BasketsCell_First_Mode" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="POSOrderFirstCell_Mode" rowHeight="45" id="7PO-vC-oNl" customClass="POSOrderFirstCell_Mode">
                                 <rect key="frame" x="0.0" y="22" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7PO-vC-oNl" id="zGS-HN-arg">
@@ -442,12 +442,18 @@
                                                 <segment title="By clients"/>
                                                 <segment title="By dates"/>
                                             </segments>
+                                            <connections>
+                                                <action selector="onSegmentValueChanged:" destination="2dr-iH-iQy" eventType="valueChanged" id="fPI-Eh-tTP"/>
+                                            </connections>
                                         </segmentedControl>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.92549026012420654" green="0.92549026012420654" blue="0.92549026012420654" alpha="1" colorSpace="deviceRGB"/>
+                                <connections>
+                                    <outlet property="segment" destination="8ME-E4-wSh" id="5XA-Q6-Lib"/>
+                                </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="BasketsCell_Second_Header" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BasketsCell_Second_Header" rowHeight="25" id="ez0-Hy-6EC">
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="POSOrderSecondCell_Header" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="POSOrderSecondCell_Header" rowHeight="25" id="ez0-Hy-6EC" customClass="POSOrderSecondCell_Header">
                                 <rect key="frame" x="0.0" y="67" width="320" height="25"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ez0-Hy-6EC" id="ycu-vd-uHi">
@@ -458,8 +464,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fn5-s0-x6P">
-                                                    <rect key="frame" x="34" y="5" width="83" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fn5-s0-x6P">
+                                                    <rect key="frame" x="63" y="5" width="40" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -485,6 +491,11 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="labelDate" destination="4xR-DG-Zsq" id="QL7-cJ-RZb"/>
+                                    <outlet property="labelOrderNumber" destination="Fn5-s0-x6P" id="GkU-f7-efp"/>
+                                    <outlet property="labelSum" destination="SuH-0W-nm2" id="yM1-dZ-8ot"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" restorationIdentifier="POSOrderThirdCell_Detail" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="POSOrderThirdCell_Detail" rowHeight="111" id="Tph-CM-tIq" customClass="POSOrderThirdCell_Detail">
                                 <rect key="frame" x="0.0" y="92" width="320" height="111"/>

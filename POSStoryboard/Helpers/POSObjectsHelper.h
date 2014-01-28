@@ -21,7 +21,7 @@
 @property POSDataSet *dataSet;
 
 // Current position data
-@property BOOL currentBasketsMode;
+@property int currentBasketsMode;
 @property int currentCategoryIndex;
 @property int currentItemsIndex;
 @property int currentBasketID;

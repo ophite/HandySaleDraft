@@ -11,6 +11,13 @@
 
 @interface POSHelper : NSObject
 
+
+typedef NS_ENUM(NSInteger, BasketModeInt) {
+    
+    BASKETS_MODE_CLIENT = 0,
+    BASKETS_MODE_DATE = 1
+};
+
 // name helpers
 - (NSDictionary *)SETTING_CURRENCY_DICT;
 - (NSDictionary *)SETTING_LANGUAGES_DICT;

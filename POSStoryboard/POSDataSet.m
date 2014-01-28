@@ -215,6 +215,20 @@
 //    [dbWrapperInstance closeDB];
 //}
 
+- (POSSetting *)settingsGet:(NSString *)name {
+
+    POSSetting *setting;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", name];
+    NSArray *arr = [self.settings filteredArrayUsingPredicate:predicate];
+    
+    if ([arr count] > 0) {
+        
+        setting = (POSSetting *)[arr objectAtIndex:0];
+    }
+    
+    return setting;
+}
+
 - (BOOL)settingsUpdate:(POSSetting *)setting withName:(NSString *)name withValue:(NSString *)value withType:(NSString *)type withImage_id:(int)image_id {
 
     BOOL result = NO;

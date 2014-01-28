@@ -58,6 +58,7 @@
 
 // settings
 - (void)settingsGet;
+- (POSSetting *)settingsGet:(NSString *)name;
 - (BOOL)settingsUpdate:(POSSetting *)setting withValue:(NSString *)value;
 - (BOOL)settingsUpdate: (POSSetting *)setting
               withName: (NSString *)name

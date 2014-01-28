@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "POSObjectsHelper.h"
+#import "POSSetting.h"
+
 
 @interface POSOrderFirstCell_Mode : UITableViewCell
+
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
+
 
 @end

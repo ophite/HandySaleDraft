@@ -80,18 +80,19 @@
     
     static NSString *CellIdentifier = @"POSOrderDetailEditCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    NSString *currency = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CURRENCY];
     POSBasket *basket = (POSBasket *)[self.objectsArray objectAtIndex:indexPath.row];
     POSOrderDetailEditCell *dynamicCell = (POSOrderDetailEditCell *)cell;
+    dynamicCell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    // 1
+    dynamicCell.labelOrder.text = objectsHelperInstance.currentBasketsMode == BASKETS_MODE_CLIENT? [NSString stringWithFormat:@"№%d", basket.ID] : basket.client; //TODO: сделать поле номер заказа
+    // 2
     NSDate *date = [helperInstance convertStringToDateTo:basket.tst];
     NSString *dateStr = [helperInstance convertDateToStringShort:date];
-    dynamicCell.labelDate.text = dateStr;
-    
-    dynamicCell.labelOrder.text = [NSString stringWithFormat:@"№%d", basket.ID]; //TODO: сделать поле номер заказа
+    dynamicCell.labelDate.text = objectsHelperInstance.currentBasketsMode == BASKETS_MODE_CLIENT? dateStr : [NSString stringWithFormat:@"№%d", basket.ID];
+    // 3
+    NSString *currency = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_CURRENCY];
     dynamicCell.labelSum.text = [NSString stringWithFormat:@"%@ %@", basket.price, currency];
-    dynamicCell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return dynamicCell;
 }
