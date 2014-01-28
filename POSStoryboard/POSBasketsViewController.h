@@ -11,7 +11,7 @@
 #import "POSOrder.h"
 #import "POSBasket.h"
 #import "POSSetting.h"
-#import "POSOrderEditCell.h"
+#import "POSOrderThirdCell_Detail.h"
 
 
 @interface POSBasketsViewController : UITableViewController<UITableViewDelegate, UITableViewDataSource> {

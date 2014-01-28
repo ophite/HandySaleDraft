@@ -153,14 +153,14 @@ const int SEGMENT_MODE_DATE = 1;
         }
         case CELL_THIRD_DETAIL: {
             
-            static NSString *CellIdentifier = @"POSOrderEditCell";
+            static NSString *CellIdentifier = @"POSOrderThirdCell_Detail";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
             NSString *title = (NSString *)[_objectArray objectAtIndex:indexPath.row];
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"client = %@", title];
             NSArray *array = [objectsHelperInstance.dataSet.baskets filteredArrayUsingPredicate:predicate];
             NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithArray:array];
             
-            POSOrderEditCell *orderEditCell = (POSOrderEditCell *)cell;
+            POSOrderThirdCell_Detail *orderEditCell = (POSOrderThirdCell_Detail *)cell;
             orderEditCell.titleValue = title;
             orderEditCell.objectsArray = mutableArray;
             

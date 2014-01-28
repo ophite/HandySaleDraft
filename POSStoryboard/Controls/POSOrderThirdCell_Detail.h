@@ -1,5 +1,5 @@
 //
-//  POSOrderEditCell.h
+//  POSOrderThirdCell_Detail.h
 //  POSStoryboard
 //
 //  Created by kobernik.u on 1/24/14.
@@ -12,7 +12,7 @@
 #import "POSSetting.h"
 #import "POSObjectsHelper.h"
 
-@interface POSOrderEditCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate>
+@interface POSOrderThirdCell_Detail : UITableViewCell<UITableViewDataSource, UITableViewDelegate>
 
 @property NSString *titleValue;
 @property NSMutableArray *objectsArray;

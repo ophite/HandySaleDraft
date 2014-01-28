@@ -1,14 +1,14 @@
 //
-//  POSOrderEditCell.m
+//  POSOrderThirdCell_Detail.m
 //  POSStoryboard
 //
 //  Created by kobernik.u on 1/24/14.
 //  Copyright (c) 2014 kobernik.u. All rights reserved.
 //
 
-#import "POSOrderEditCell.h"
+#import "POSOrderThirdCell_Detail.h"
  
-@implementation POSOrderEditCell
+@implementation POSOrderThirdCell_Detail
 
 
 @synthesize objectsArray = _objectsArray;

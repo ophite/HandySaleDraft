@@ -14,7 +14,6 @@
 #import "POSBasket.h"
 #import "POSOrder.h"
 #import "POSItemViewController.h"
-#import "POSBasketOpenViewController.h"
 #import "POSBasketsViewController.h"
 #import "POSBasketEditDynamicCell.h"
 #import "POSHelper.h"

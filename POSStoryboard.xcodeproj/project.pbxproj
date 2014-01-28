@@ -129,10 +129,11 @@
 		80A06F9E187AD2E300D9880A /* UIView+POSFindFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A06F9D187AD2E300D9880A /* UIView+POSFindFirstResponder.m */; };
 		80AB41881892935D00B11ECD /* POSObjectsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 80AB41871892935D00B11ECD /* POSObjectsManager.m */; };
 		80AB418B1892A5B000B11ECD /* POSSettingsGUIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 80AB418A1892A5B000B11ECD /* POSSettingsGUIHelper.m */; };
-		80AB418E1892C44A00B11ECD /* POSOrderEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 80AB418D1892C44A00B11ECD /* POSOrderEditCell.m */; };
+		80AB418E1892C44A00B11ECD /* POSOrderThirdCell_Detail.m in Sources */ = {isa = PBXBuildFile; fileRef = 80AB418D1892C44A00B11ECD /* POSOrderThirdCell_Detail.m */; };
 		80AB41911892C59800B11ECD /* POSOrderDetailEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 80AB41901892C59800B11ECD /* POSOrderDetailEditCell.m */; };
 		80AB41941896ACF600B11ECD /* POSBasketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80AB41931896ACF600B11ECD /* POSBasketsViewController.m */; };
-		80BEBBC3186087FB003228B1 /* POSBasketOpenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80BEBBC2186087FB003228B1 /* POSBasketOpenViewController.m */; };
+		80AB419A1897B3D100B11ECD /* POSOrderFirstCell_Mode.m in Sources */ = {isa = PBXBuildFile; fileRef = 80AB41991897B3D100B11ECD /* POSOrderFirstCell_Mode.m */; };
+		80AB419D1897B41C00B11ECD /* POSOrderSecondCell_Header.m in Sources */ = {isa = PBXBuildFile; fileRef = 80AB419C1897B41C00B11ECD /* POSOrderSecondCell_Header.m */; };
 		80BEBBC61861D9E4003228B1 /* POSSelectCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80BEBBC51861D9E4003228B1 /* POSSelectCategoryViewController.m */; };
 		80DF202E187DBC89004E932C /* POSSelectAttributeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DF202D187DBC89004E932C /* POSSelectAttributeViewController.m */; };
 		80DF203118806335004E932C /* POSCategoryAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DF203018806335004E932C /* POSCategoryAttribute.m */; };
@@ -357,14 +358,16 @@
 		80AB41871892935D00B11ECD /* POSObjectsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSObjectsManager.m; path = Helpers/POSObjectsManager.m; sourceTree = "<group>"; };
 		80AB41891892A5B000B11ECD /* POSSettingsGUIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSSettingsGUIHelper.h; path = Helpers/POSSettingsGUIHelper.h; sourceTree = "<group>"; };
 		80AB418A1892A5B000B11ECD /* POSSettingsGUIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSSettingsGUIHelper.m; path = Helpers/POSSettingsGUIHelper.m; sourceTree = "<group>"; };
-		80AB418C1892C44A00B11ECD /* POSOrderEditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSOrderEditCell.h; path = Controls/POSOrderEditCell.h; sourceTree = "<group>"; };
-		80AB418D1892C44A00B11ECD /* POSOrderEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSOrderEditCell.m; path = Controls/POSOrderEditCell.m; sourceTree = "<group>"; };
+		80AB418C1892C44A00B11ECD /* POSOrderThirdCell_Detail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSOrderThirdCell_Detail.h; path = Controls/POSOrderThirdCell_Detail.h; sourceTree = "<group>"; };
+		80AB418D1892C44A00B11ECD /* POSOrderThirdCell_Detail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSOrderThirdCell_Detail.m; path = Controls/POSOrderThirdCell_Detail.m; sourceTree = "<group>"; };
 		80AB418F1892C59800B11ECD /* POSOrderDetailEditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSOrderDetailEditCell.h; path = Controls/POSOrderDetailEditCell.h; sourceTree = "<group>"; };
 		80AB41901892C59800B11ECD /* POSOrderDetailEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSOrderDetailEditCell.m; path = Controls/POSOrderDetailEditCell.m; sourceTree = "<group>"; };
 		80AB41921896ACF600B11ECD /* POSBasketsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSBasketsViewController.h; sourceTree = "<group>"; };
 		80AB41931896ACF600B11ECD /* POSBasketsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSBasketsViewController.m; sourceTree = "<group>"; };
-		80BEBBC1186087FB003228B1 /* POSBasketOpenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSBasketOpenViewController.h; sourceTree = "<group>"; };
-		80BEBBC2186087FB003228B1 /* POSBasketOpenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSBasketOpenViewController.m; sourceTree = "<group>"; };
+		80AB41981897B3D100B11ECD /* POSOrderFirstCell_Mode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSOrderFirstCell_Mode.h; path = Controls/POSOrderFirstCell_Mode.h; sourceTree = "<group>"; };
+		80AB41991897B3D100B11ECD /* POSOrderFirstCell_Mode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSOrderFirstCell_Mode.m; path = Controls/POSOrderFirstCell_Mode.m; sourceTree = "<group>"; };
+		80AB419B1897B41C00B11ECD /* POSOrderSecondCell_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POSOrderSecondCell_Header.h; path = Controls/POSOrderSecondCell_Header.h; sourceTree = "<group>"; };
+		80AB419C1897B41C00B11ECD /* POSOrderSecondCell_Header.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POSOrderSecondCell_Header.m; path = Controls/POSOrderSecondCell_Header.m; sourceTree = "<group>"; };
 		80BEBBC41861D9E4003228B1 /* POSSelectCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSSelectCategoryViewController.h; sourceTree = "<group>"; };
 		80BEBBC51861D9E4003228B1 /* POSSelectCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSSelectCategoryViewController.m; sourceTree = "<group>"; };
 		80DF202C187DBC89004E932C /* POSSelectAttributeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSSelectAttributeViewController.h; sourceTree = "<group>"; };
@@ -638,8 +641,6 @@
 				803238F8186C6C2200BB9DAE /* POSAttributeEditViewController.m */,
 				80FFAD321869A34C0070D993 /* POSAttributesViewController.h */,
 				80FFAD331869A34C0070D993 /* POSAttributesViewController.m */,
-				80BEBBC1186087FB003228B1 /* POSBasketOpenViewController.h */,
-				80BEBBC2186087FB003228B1 /* POSBasketOpenViewController.m */,
 				804D80A01891621F00B00412 /* POSBasketPaymentViewController.h */,
 				804D80A11891621F00B00412 /* POSBasketPaymentViewController.m */,
 				80AB41921896ACF600B11ECD /* POSBasketsViewController.h */,
@@ -799,8 +800,12 @@
 				807C43C2185A23F100CBAB88 /* POSGridViewCell.m */,
 				80AB418F1892C59800B11ECD /* POSOrderDetailEditCell.h */,
 				80AB41901892C59800B11ECD /* POSOrderDetailEditCell.m */,
-				80AB418C1892C44A00B11ECD /* POSOrderEditCell.h */,
-				80AB418D1892C44A00B11ECD /* POSOrderEditCell.m */,
+				80AB41981897B3D100B11ECD /* POSOrderFirstCell_Mode.h */,
+				80AB41991897B3D100B11ECD /* POSOrderFirstCell_Mode.m */,
+				80AB419B1897B41C00B11ECD /* POSOrderSecondCell_Header.h */,
+				80AB419C1897B41C00B11ECD /* POSOrderSecondCell_Header.m */,
+				80AB418C1892C44A00B11ECD /* POSOrderThirdCell_Detail.h */,
+				80AB418D1892C44A00B11ECD /* POSOrderThirdCell_Detail.m */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -971,7 +976,6 @@
 				80AB418B1892A5B000B11ECD /* POSSettingsGUIHelper.m in Sources */,
 				801CBBC318884635005CBA62 /* POSGallery.m in Sources */,
 				8004B7161850D33600681B11 /* POSImage.m in Sources */,
-				80BEBBC3186087FB003228B1 /* POSBasketOpenViewController.m in Sources */,
 				8032390C1872BF7600BB9DAE /* POSSelectSettingsViewController.m in Sources */,
 				8004B4671850B01500681B11 /* POSAppDelegate.m in Sources */,
 				807C43CC185B1B5B00CBAB88 /* POSCategoryNewViewController.m in Sources */,
@@ -996,6 +1000,7 @@
 				80AB41911892C59800B11ECD /* POSOrderDetailEditCell.m in Sources */,
 				8004B7041850D30900681B11 /* UIColor+AQGridView.m in Sources */,
 				8004B6AD1850C86300681B11 /* FXLabel.m in Sources */,
+				80AB419A1897B3D100B11ECD /* POSOrderFirstCell_Mode.m in Sources */,
 				8004B4631850B01500681B11 /* main.m in Sources */,
 				803238FC186C767B00BB9DAE /* POSAttributeEditDynamicCell.m in Sources */,
 				803238E21869D64100BB9DAE /* POSSetting.m in Sources */,
@@ -1017,7 +1022,8 @@
 				80AB41881892935D00B11ECD /* POSObjectsManager.m in Sources */,
 				8004B7001850D30900681B11 /* AQGridViewUpdateInfo.m in Sources */,
 				803238E51869F79300BB9DAE /* POSAttributeCell.m in Sources */,
-				80AB418E1892C44A00B11ECD /* POSOrderEditCell.m in Sources */,
+				80AB418E1892C44A00B11ECD /* POSOrderThirdCell_Detail.m in Sources */,
+				80AB419D1897B41C00B11ECD /* POSOrderSecondCell_Header.m in Sources */,
 				8004B6FD1850D30900681B11 /* AQGridViewCell.m in Sources */,
 				80FFAD2E18689A230070D993 /* POSHelper.m in Sources */,
 				803238F6186C6A0E00BB9DAE /* POSAttributeEditStaticCell.m in Sources */,
