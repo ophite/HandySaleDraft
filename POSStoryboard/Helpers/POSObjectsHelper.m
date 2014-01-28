@@ -14,9 +14,10 @@
 @synthesize dataSet = _dataSet;
 @synthesize itemsMode = _itemsMode;
 @synthesize categoriesMode = _categoriesMode;
+@synthesize currentBasketID = _currentBasketID;
 @synthesize currentItemsIndex = _currentItemsIndex;
+@synthesize currentBasketsMode = _currentBasketsMode;
 @synthesize currentCategoryIndex = _currentCategoryIndex;
-
 
 + (POSObjectsHelper *)getInstance {
     

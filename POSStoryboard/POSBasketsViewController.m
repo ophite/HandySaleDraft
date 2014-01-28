@@ -5,24 +5,33 @@
 //  Created by kobernik.u on 1/27/14.
 //  Copyright (c) 2014 kobernik.u. All rights reserved.
 //
-
 #import "POSBasketsViewController.h"
 
 @interface POSBasketsViewController ()
-
 @end
+
 
 @implementation POSBasketsViewController
 
 
 @synthesize tableBasket = _tableBasket;
+@synthesize segment = _segment;
 
+
+#pragma mark - Const
+
+// cell index
 const int CELL_FIRST_MODE = 0;
 const int CELL_SECOND_HEADER = 1;
 const int CELL_THIRD_DETAIL = 2;
+// cell height
+const int CELL_FIRST_MODE_HEIGHT = 45;
+const int CELL_SECOND_HEADER_HEIGTH = 25;
+const int CELL_THIRD_DETAIL_HEIGHT = 111;
+// segment index
+const int SEGMENT_MODE_CLIENT = 0;
+const int SEGMENT_MODE_DATE = 1;
 
-NSMutableArray *_objectArray;
-NSString *_filterName;
 
 #pragma mark - ViewController
 
@@ -35,35 +44,33 @@ NSString *_filterName;
     return self;
 }
 
+
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     // init data
     [objectsHelperInstance.dataSet basketsGet];
     _objectArray = [[NSMutableArray alloc] init];
+
+    objectsHelperInstance.currentBasketsMode = [POSSetting getSettingValue:objectsHelperInstance.dataSet.settings withName:helperInstance.SETTING_BASKETS_MODE].boolValue;
+    [self.segment setSelectedSegmentIndex: (objectsHelperInstance.currentBasketsMode == YES? SEGMENT_MODE_CLIENT :SEGMENT_MODE_DATE)];
+
     
-    //    [self.tableBasket setSeparatorInset:UIEdgeInsetsMake(10, 0, 10, 0)];
-    
-    if (1 == 1) {
+    if (self.segment.selectedSegmentIndex == SEGMENT_MODE_CLIENT) {
         
-        _filterName = @"client";
         for (POSBasket *basket in objectsHelperInstance.dataSet.baskets) {
             
-            if ([_objectArray indexOfObject:basket.client] == NSNotFound) {
-                
+            if ([_objectArray indexOfObject:basket.client] == NSNotFound)
                 [_objectArray addObject:basket.client];
-            }
         }
     }
     else {
         
-        _filterName = @"tst";
         for (POSBasket *basket in objectsHelperInstance.dataSet.baskets) {
             
-            if ([_objectArray indexOfObject:basket.tst] == NSNotFound) {
-                
+            if ([_objectArray indexOfObject:basket.tst] == NSNotFound)
                 [_objectArray addObject:basket.tst];
-            }
         }
     }
     
@@ -88,6 +95,7 @@ NSString *_filterName;
 //    
 //    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 //}
+
 
 #pragma mark - Table view data source
 
@@ -148,18 +156,12 @@ NSString *_filterName;
             static NSString *CellIdentifier = @"POSOrderEditCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
             NSString *title = (NSString *)[_objectArray objectAtIndex:indexPath.row];
-            
-            //    NSString *strf = [NSString stringWithFormat:@"%@ = %@", _filterName, title];
-            //    NSLog(strf);
-            //    NSString *strf2 = [NSString stringWithFormat:@"client = %@", title];
-            //    NSLog(strf2);
-            //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ = %@" argumentArray: @[_filterName, title]];
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"client = %@", title];
             NSArray *array = [objectsHelperInstance.dataSet.baskets filteredArrayUsingPredicate:predicate];
             NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithArray:array];
             
             POSOrderEditCell *orderEditCell = (POSOrderEditCell *)cell;
-            orderEditCell.labelTitle.text = title;
+            orderEditCell.titleValue = title;
             orderEditCell.objectsArray = mutableArray;
             
             break;
@@ -168,17 +170,16 @@ NSString *_filterName;
             break;
     }
     
-    // Configure the cell...
-    
     return cell;
 }
 
-- (void)textViewDidChange:(UITextView *)textView{
-    
-    [self.tableBasket beginUpdates];
-    //    height = textView.contentSize.height;
-    [self.tableBasket endUpdates];
-}
+
+//- (void)textViewDidChange:(UITextView *)textView{
+//    
+//    [self.tableBasket beginUpdates];
+//    //    height = textView.contentSize.height;
+//    [self.tableBasket endUpdates];
+//}
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -189,12 +190,12 @@ NSString *_filterName;
             
         case CELL_FIRST_MODE: {
         
-            cellHeight = 45;
+            cellHeight = CELL_FIRST_MODE_HEIGHT;
             break;
         }
         case CELL_SECOND_HEADER: {
             
-            cellHeight = 25;
+            cellHeight = CELL_SECOND_HEADER_HEIGTH;
             break;
         }
         case CELL_THIRD_DETAIL: {
@@ -202,7 +203,7 @@ NSString *_filterName;
             NSString *title = (NSString *)[_objectArray objectAtIndex:indexPath.row];
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"client = %@", title];
             NSArray *array = [objectsHelperInstance.dataSet.baskets filteredArrayUsingPredicate:predicate];
-            cellHeight = 111 - cellHeight + cellHeight * (array.count > 0 ? array.count : 1);
+            cellHeight = CELL_THIRD_DETAIL_HEIGHT - cellHeight + cellHeight * (array.count > 0 ? array.count : 1);
             break;
         }
         default:
@@ -273,6 +274,9 @@ NSString *_filterName;
 
 #pragma mark - Methods
 
+- (IBAction)onSegmentValueChanged:(id)sender {
+}
+
 - (void)readBasketData:(int)doc_ID {
     
     if (![dbWrapperInstance openDB])
@@ -281,8 +285,8 @@ NSString *_filterName;
     [objectsHelperInstance.dataSet.orders removeAllObjects];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     NSString * query = [NSString stringWithFormat:@"SELECT  item_id, quantity \
-                        FROM    document_line \
-                        WHERE   document_id = %d; ", doc_ID];
+                                                    FROM    document_line \
+                                                    WHERE   document_id = %d; ", doc_ID];
     
     void (^blockGetOrder)(id rows) = ^(id rows) {
         
@@ -301,8 +305,8 @@ NSString *_filterName;
         
         POSOrder *order = [objectsHelperInstance.dataSet.orders objectAtIndex:i];
         query = [NSString stringWithFormat:@"SELECT p.name, c.name, p.price_buy, i.asset \
-                 FROM   product p, collection c, image i \
-                 WHERE  p.id = %d AND c.id = p.collection_id AND i.object_id = p.id", order.itemID];
+                                             FROM   product p, collection c, image i \
+                                             WHERE  p.id = %d AND c.id = p.collection_id AND i.object_id = p.id", order.itemID];
         
         
         void (^blockExtractOrderValues)() = ^() {
@@ -339,7 +343,7 @@ NSString *_filterName;
 
 
 #pragma mark - Actions
-//
+
 //- (IBAction)onSave:(id)sender {
 //
 //    NSIndexPath *indexPath = [self.tableBasket indexPathForSelectedRow];

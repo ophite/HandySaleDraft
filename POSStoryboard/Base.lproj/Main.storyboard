@@ -436,7 +436,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="8ME-E4-wSh">
-                                            <rect key="frame" x="16" y="8" width="293" height="29"/>
+                                            <rect key="frame" x="14" y="9" width="293" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="By clients"/>

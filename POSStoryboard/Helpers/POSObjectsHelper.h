@@ -12,7 +12,6 @@
 #define objectsHelperInstance [POSObjectsHelper getInstance]
 
 
-
 @interface POSObjectsHelper : NSObject
 
 
@@ -22,6 +21,7 @@
 @property POSDataSet *dataSet;
 
 // Current position data
+@property BOOL currentBasketsMode;
 @property int currentCategoryIndex;
 @property int currentItemsIndex;
 @property int currentBasketID;

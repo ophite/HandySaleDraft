@@ -38,6 +38,7 @@
 - (NSString *)SETTING_WIFI;
 - (NSString *)SETTING_VAT;
 - (NSString *)SETTING_REMEMBERME;
+- (NSString *)SETTING_BASKETS_MODE;
 
 // sizes
 - (CGFloat)ITEM_EDIT_WIDTH;

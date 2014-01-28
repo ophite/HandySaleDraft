@@ -160,6 +160,11 @@
     return @"category_item";
 }
 
+- (NSString *)SETTING_BASKETS_MODE {
+    
+    return @"client_date";
+}
+
 #pragma mark - Sizes
 
 - (CGFloat)ITEM_EDIT_WIDTH {

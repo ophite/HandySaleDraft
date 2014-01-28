@@ -37,9 +37,9 @@
 //    
 //    query = @"DROP TABLE IF EXISTS document_line";
 //    [dbWrapperInstance tryExecQuery:query];
-//    
-//    query = @"DROP TABLE IF EXISTS setting";
-//    [dbWrapperInstance tryExecQuery:query];
+    
+    query = @"DROP TABLE IF EXISTS setting";
+    [dbWrapperInstance tryExecQuery:query];
 //
 //    query = @"DROP TABLE IF EXISTS gallery";
 //    [dbWrapperInstance tryExecQuery:query];
@@ -451,6 +451,8 @@
                                 helperInstance.SETTING_CATEGORY_MODE, @"NO", -1];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
                                 helperInstance.SETTING_ITEM_MODE, @"NO", -1];
+        [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"BOOL\", 0, %d); ",
+                                helperInstance.SETTING_BASKETS_MODE, @"NO", -1];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",
                                 helperInstance.SETTING_TEXTFIELD_BORDER_COLOR, @"", -1];
         [query appendFormat:@"INSERT INTO setting (name, value, type, is_deleted, image_id) VALUES (\"%@\", \"%@\", \"STRING\", 0, %d); ",

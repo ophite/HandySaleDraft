@@ -12,6 +12,7 @@
 
 
 @synthesize objectsArray = _objectsArray;
+@synthesize titleValue = _titleValue;
 @synthesize labelTitle = _labelTitle;
 @synthesize tableDetail = _tableDetail;
 @synthesize viewFirstGrey = _viewFirstGrey;
@@ -33,6 +34,11 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     
     [super setSelected:selected animated:animated];
+    
+    // init data
+    self.labelTitle.text = self.titleValue;
+
+    // gui
     self.tableDetail.delegate = self;
     self.tableDetail.dataSource = self;
     self.tableDetail.scrollEnabled = NO;

@@ -14,6 +14,7 @@
 
 @interface POSOrderEditCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate>
 
+@property NSString *titleValue;
 @property NSMutableArray *objectsArray;
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 @property (weak, nonatomic) IBOutlet UITableView *tableDetail;
